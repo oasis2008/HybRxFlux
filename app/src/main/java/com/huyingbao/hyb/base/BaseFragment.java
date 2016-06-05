@@ -3,6 +3,7 @@ package com.huyingbao.hyb.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import com.huyingbao.hyb.inject.component.FragmentComponent;
 import com.huyingbao.hyb.inject.module.FragmentModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
-import com.trello.rxlifecycle.components.support.RxFragment;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment extends RxFragment {
+public abstract class BaseFragment extends Fragment {
     @Inject
     protected HybActionCreator hybActionCreator;
     @Inject
