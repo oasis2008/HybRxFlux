@@ -95,12 +95,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
         adapter = new ShopListAdapter();
         adapter.setOnShopClickCallBack(this);
         recyclerView.setAdapter(adapter);
-    }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
         getNearbyShopList();
     }
 

@@ -3,14 +3,19 @@ package com.huyingbao.hyb.ui.shop;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
+import com.huyingbao.hyb.adapter.ProductListAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
+import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ProdcutStore;
 
@@ -19,9 +24,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ProductListFrg extends BaseFragment implements RxViewDispatch {
+import butterknife.Bind;
 
+public class ProductListFrg extends BaseFragment implements RxViewDispatch, ProductListAdapter.OnProductClicked {
+
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
     private Shop mShop;
+
+    private ProductListAdapter adapter;
 
     @Inject
     ProdcutStore prodcutStore;
@@ -44,7 +55,7 @@ public class ProductListFrg extends BaseFragment implements RxViewDispatch {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_news_detail;
+        return R.layout.f_product_list;
     }
 
     @Override
@@ -53,12 +64,25 @@ public class ProductListFrg extends BaseFragment implements RxViewDispatch {
             mShop = (Shop) getArguments().getSerializable(Keys.SHOP);
             getHybActionCreator().getProductByShop(mShop.getShopId(), 0);
         }
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new ProductListAdapter();
+        adapter.setOnProductClickCallBack(this);
+        recyclerView.setAdapter(adapter);
     }
 
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
-
+        switch (change.getStoreId()) {
+            case ProdcutStore.STORE_ID:
+                switch (change.getRxAction().getType()) {
+                    case Actions.GET_PRODUCT_BY_SHOP:
+                        adapter.setProductList(prodcutStore.getProductList());
+                        break;
+                }
+                break;
+        }
     }
 
     @Override
@@ -85,6 +109,11 @@ public class ProductListFrg extends BaseFragment implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {
-        return null;
+        return Arrays.asList(prodcutStore);
+    }
+
+    @Override
+    public void onClicked(Product product) {
+
     }
 }
