@@ -96,7 +96,6 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
                     case Actions.REGISTER_USER:
 //                        this.finish();
                         HybUser user = (HybUser) change.getRxAction().getData().get(Keys.USER);
-
                         break;
                 }
                 break;
@@ -148,7 +147,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {
-        return null;
+        return Arrays.asList(usersStore);
     }
 
     @OnClick({R.id.email_register_button})

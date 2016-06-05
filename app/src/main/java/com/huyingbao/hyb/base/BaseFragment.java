@@ -63,13 +63,20 @@ public abstract class BaseFragment extends Fragment {
                 }
             }
         }
-
         //绑定view
         ButterKnife.bind(this, view);
         //绑定view之后运行
         super.onViewCreated(view, savedInstanceState);
         //view创建之后的操作
         afterCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (this instanceof RxViewDispatch) {
+            rxFlux.getDispatcher().unsubscribeRxView((RxViewDispatch) this);
+        }
     }
 
     private void initInjector() {

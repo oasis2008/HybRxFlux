@@ -28,7 +28,6 @@ import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
-import com.huyingbao.hyb.ui.home.HomeFrg;
 import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 
 import java.util.List;
@@ -312,13 +311,13 @@ public class MainAty extends BaseActivity
      */
     @Override
     public void onRxViewRegistered() {
-        Fragment fragment = mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
-        if (fragment instanceof HomeFrg) {
-            getRxFlux().getDispatcher().subscribeRxFragment((RxViewDispatch) fragment);
-        }
-        if (fragment instanceof ShopListBearbyFrg) {
-            getRxFlux().getDispatcher().subscribeRxFragment((RxViewDispatch) fragment);
-        }
+//        Fragment fragment = mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
+//        if (fragment instanceof HomeFrg) {
+//            getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
+//        }
+//        if (fragment instanceof ShopListBearbyFrg) {
+//            getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
+//        }
     }
 
     /**
@@ -326,14 +325,14 @@ public class MainAty extends BaseActivity
      */
     @Override
     public void onRxViewUnRegistered() {
-        for (Fragment fragment : mFragments) {
-            if (fragment instanceof HomeFrg) {
-                getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
-            }
-            if (fragment instanceof ShopListBearbyFrg) {
-                getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
-            }
-        }
+//        for (Fragment fragment : mFragments) {
+//            if (fragment instanceof HomeFrg) {
+//                getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
+//            }
+//            if (fragment instanceof ShopListBearbyFrg) {
+//                getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
+//            }
+//        }
     }
 
     /**

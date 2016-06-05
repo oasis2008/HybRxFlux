@@ -3,9 +3,11 @@ package com.huyingbao.hyb.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hardsoftstudio.rxflux.RxFlux;
+import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.component.ActivityComponent;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
@@ -54,6 +56,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         afterCreate(savedInstanceState);
     }
 
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        if (fragment instanceof RxViewDispatch) {
+            RxViewDispatch viewDispatch = (RxViewDispatch) fragment;
+            viewDispatch.onRxViewRegistered();
+            rxFlux.getDispatcher().subscribeRxView(viewDispatch);
+        }
+    }
 
     /**
      * 注入Injector
