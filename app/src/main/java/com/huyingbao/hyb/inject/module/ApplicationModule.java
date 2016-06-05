@@ -3,7 +3,9 @@ package com.huyingbao.hyb.inject.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
+import com.huyingbao.hyb.stores.ProdcutStore;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 
 import javax.inject.Singleton;
@@ -37,4 +39,12 @@ public class ApplicationModule {
     public LocalStorageUtils provideLocalStorageUtils() {
         return LocalStorageUtils.getInstance(mApplication.getApplicationContext());
     }
+
+    @Provides
+    @Singleton
+    public ProdcutStore provideLocalProdcutStore(RxFlux rxFlux) {
+        return new ProdcutStore(rxFlux.getDispatcher());
+    }
+
+
 }

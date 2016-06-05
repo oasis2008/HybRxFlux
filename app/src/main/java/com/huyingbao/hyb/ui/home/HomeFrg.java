@@ -57,6 +57,11 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
     }
 
     @Override
+    protected void initInjector() {
+        mFragmentComponent.inject(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.f_home;
     }

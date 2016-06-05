@@ -79,9 +79,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    private void initInjector() {
-        mFragmentComponent.inject(this);
-    }
+    protected abstract void initInjector();
 
     /**
      * @return

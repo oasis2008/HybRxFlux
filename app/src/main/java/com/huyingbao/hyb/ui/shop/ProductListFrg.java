@@ -12,12 +12,19 @@ import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.model.Shop;
+import com.huyingbao.hyb.stores.ProdcutStore;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class ProductListFrg extends BaseFragment implements RxViewDispatch{
+import javax.inject.Inject;
+
+public class ProductListFrg extends BaseFragment implements RxViewDispatch {
 
     private Shop mShop;
+
+    @Inject
+    ProdcutStore prodcutStore;
 
     /**
      * Use this factory method to create a new instance of
@@ -31,6 +38,11 @@ public class ProductListFrg extends BaseFragment implements RxViewDispatch{
     }
 
     @Override
+    protected void initInjector() {
+        mFragmentComponent.inject(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_news_detail;
     }
@@ -39,7 +51,7 @@ public class ProductListFrg extends BaseFragment implements RxViewDispatch{
     protected void afterCreate(Bundle savedInstanceState) {
         if (getArguments().containsKey(Keys.SHOP)) {
             mShop = (Shop) getArguments().getSerializable(Keys.SHOP);
-            getHybActionCreator().getProductByShop(mShop.getShopId(),0);
+            getHybActionCreator().getProductByShop(mShop.getShopId(), 0);
         }
     }
 
@@ -67,7 +79,7 @@ public class ProductListFrg extends BaseFragment implements RxViewDispatch{
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        return null;
+        return Arrays.asList(prodcutStore);
     }
 
     @Nullable

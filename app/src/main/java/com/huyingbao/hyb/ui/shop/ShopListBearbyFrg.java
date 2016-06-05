@@ -72,6 +72,11 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     }
 
     @Override
+    protected void initInjector() {
+        mFragmentComponent.inject(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.f_home;
     }
