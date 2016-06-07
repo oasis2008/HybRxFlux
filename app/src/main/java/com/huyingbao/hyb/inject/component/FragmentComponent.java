@@ -6,6 +6,7 @@ import android.content.Context;
 import com.huyingbao.hyb.inject.module.FragmentModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerFragment;
+import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.home.HomeFrg;
 import com.huyingbao.hyb.ui.shop.ProductListFrg;
@@ -23,6 +24,8 @@ public interface FragmentComponent {
     Context getActivityContext();
 
     Activity getActivity();
+
+    UsersStore getUsersStore();
 
     void inject(HomeFrg homeFrg);
 

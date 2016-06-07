@@ -31,6 +31,7 @@ import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -355,8 +356,8 @@ public class MainAty extends BaseActivity
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-//        return Arrays.asList(usersStore);
-        return null;
+        return Arrays.asList(usersStore);
+//        return null;
     }
 
     /**
