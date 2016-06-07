@@ -52,12 +52,17 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
     @Override
     public void onRxAction(RxAction action) {
         switch (action.getType()) {
-            case Actions.REGISTER_USER:
-                mUser = action.get(Keys.USER);
-                break;
+
             case Actions.LOGIN:
                 //保存登录状态
                 HybApp.getInstance().getLocalSorageUtils().setLogin(true);
+                mUser = action.get(Keys.USER);
+                break;
+            case Actions.LOGOUT:
+                HybApp.getInstance().getLocalSorageUtils().setLogin(action.get(Keys.STATUS_LOGOUT));
+                mUser = null;
+                break;
+            case Actions.REGISTER_USER:
                 mUser = action.get(Keys.USER);
                 break;
             case Actions.A_GET_LOCATION:

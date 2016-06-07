@@ -26,9 +26,11 @@ import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
+import com.huyingbao.hyb.ui.login.LoginAty;
 import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 
 import java.util.Arrays;
@@ -307,6 +309,18 @@ public class MainAty extends BaseActivity
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
+        switch (change.getStoreId()) {
+            case UsersStore.STORE_ID:
+                switch (change.getRxAction().getType()) {
+                    case Actions.LOGOUT:
+                        startActivity(LoginAty.class);
+                        finish();
+                        break;
+
+                }
+                break;
+
+        }
     }
 
     @Override
