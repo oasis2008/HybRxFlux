@@ -47,6 +47,11 @@ public class ShopDetailAty extends BaseActivity implements RxViewDispatch {
     private Shop mShop;
 
     @Override
+    public void initInjector() {
+        mActivityComponent.inject(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.a_shop_detail;
     }

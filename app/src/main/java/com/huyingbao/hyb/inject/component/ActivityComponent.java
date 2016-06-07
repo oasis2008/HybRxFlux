@@ -3,10 +3,12 @@ package com.huyingbao.hyb.inject.component;
 import android.app.Activity;
 import android.content.Context;
 
+import com.huyingbao.hyb.MainAty;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.inject.module.ActivityModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerActivity;
+import com.huyingbao.hyb.stores.UsersStore;
 
 import dagger.Component;
 
@@ -31,6 +33,10 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
+    UsersStore getUsersStore();
+
     void inject(BaseActivity baseActivity);
+
+    void inject(MainAty MainAty);
 
 }

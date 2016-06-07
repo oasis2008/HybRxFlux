@@ -56,6 +56,11 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     private double mLongitude;
 
     @Override
+    public void initInjector() {
+        mActivityComponent.inject(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.a_register_shop;
     }

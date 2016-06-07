@@ -70,9 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 注入Injector
      */
-    public void initInjector() {
-        mActivityComponent.inject(this);
-    }
+    public abstract void initInjector();
 
     /**
      * 设置view

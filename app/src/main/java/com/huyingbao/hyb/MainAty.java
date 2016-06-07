@@ -27,10 +27,13 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.base.BaseActivity;
+import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -63,6 +66,14 @@ public class MainAty extends BaseActivity
     private Fragment[] mFragments;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private FragmentManager mFragmentManager;
+
+    @Inject
+    UsersStore usersStore;
+
+    @Override
+    public void initInjector() {
+        mActivityComponent.inject(this);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -344,6 +355,7 @@ public class MainAty extends BaseActivity
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
+//        return Arrays.asList(usersStore);
         return null;
     }
 
