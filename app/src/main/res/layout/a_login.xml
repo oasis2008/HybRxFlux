@@ -47,12 +47,12 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
-                    android:id="@+id/email_sign_in_button"
+                    android:id="@+id/btn_sign_in"
                     style="@style/BaseButtonStyle"
                     android:text="@string/action_sign_in" />
 
                 <Button
-                    android:id="@+id/email_register_button"
+                    android:id="@+id/btn_register"
                     style="@style/BaseButtonStyle"
                     android:text="@string/title_activity_register_aty" />
 

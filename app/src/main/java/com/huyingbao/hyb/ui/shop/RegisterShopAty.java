@@ -40,7 +40,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     @Bind(R.id.shop)
     AutoCompleteTextView shop;
     Spinner spinner;
-    @Bind(R.id.email_register_button)
+    @Bind(R.id.btn_register)
     Button emailRegisterButton;
     @Bind(R.id.email_login_form)
     LinearLayout emailLoginForm;
@@ -72,7 +72,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
         HybApp.getInstance().startLocation();
     }
 
-    @OnClick(R.id.email_register_button)
+    @OnClick(R.id.btn_register)
     public void onClick() {
         shop.setError(null);
         String shopName = shop.getText().toString();

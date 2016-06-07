@@ -43,7 +43,7 @@
                     android:spinnerMode="dialog" />
 
                 <Button
-                    android:id="@+id/email_register_button"
+                    android:id="@+id/btn_register"
                     style="@style/BaseButtonStyle"
                     android:text="@string/title_activity_register_aty" />
             </LinearLayout>

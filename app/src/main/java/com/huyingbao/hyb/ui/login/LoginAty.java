@@ -2,8 +2,6 @@ package com.huyingbao.hyb.ui.login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,6 +32,7 @@ import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.HttpCode;
+import com.huyingbao.hyb.utils.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,15 +45,16 @@ import retrofit2.adapter.rxjava.HttpException;
  * 登录
  */
 public class LoginAty extends BaseActivity implements RxViewDispatch {
+
     @Bind(R.id.login_progress)
     ProgressBar mProgressView;
     @Bind(R.id.email)
     AutoCompleteTextView mEmailView;
     @Bind(R.id.password)
     EditText mPasswordView;
-    @Bind(R.id.email_sign_in_button)
+    @Bind(R.id.btn_sign_in)
     Button emailSignInButton;
-    @Bind(R.id.email_register_button)
+    @Bind(R.id.btn_register)
     Button emailRegisterButton;
     @Bind(R.id.email_login_form)
     LinearLayout emailLoginForm;
@@ -62,6 +62,8 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     ScrollView mLoginFormView;
     @Bind(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     private UsersStore usersStore;
 
@@ -72,7 +74,6 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
@@ -88,7 +89,8 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
         });
     }
 
-    private void attemptLogin() {
+    @OnClick(R.id.btn_sign_in)
+    public void attemptLogin() {
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
@@ -98,7 +100,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
         boolean cancel = false;
         View focusView = null;
 
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password) && !StringUtils.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -108,7 +110,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isPhoneValid(phone)) {
+        } else if (!StringUtils.isPhoneValid(phone)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -125,55 +127,9 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
         }
     }
 
-    private boolean isPhoneValid(String email) {
-        // TODO 验证手机
-        return email.length() == 11;
-    }
-
-    private boolean isPasswordValid(String password) {
-        // TODO 验证密码
-        return password.length() > 4;
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
-
-
-    @OnClick({R.id.email_sign_in_button, R.id.email_register_button})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.email_sign_in_button:
-                attemptLogin();
-                break;
-            case R.id.email_register_button:
-                startActivity(RegisterAty.class);
-                break;
-        }
+    @OnClick(R.id.btn_register)
+    public void toRegister() {
+        startActivity(RegisterAty.class);
     }
 
     @Override
@@ -240,5 +196,26 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
         return Arrays.asList(usersStore);
     }
 
+    private void showProgress(final boolean show) {
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
+
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
+    }
 }
 
