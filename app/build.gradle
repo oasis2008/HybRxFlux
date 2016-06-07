@@ -87,6 +87,9 @@ dependencies {
     //Logger
     compile 'com.github.orhanobut:logger:1.12'
 
+    //Apache Commons IO
+    compile 'commons-io:commons-io:2.5'
+
 //    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
 //    compile "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"
 
