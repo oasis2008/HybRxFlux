@@ -34,8 +34,6 @@ import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -68,8 +66,7 @@ public class MainAty extends BaseActivity
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private FragmentManager mFragmentManager;
 
-    @Inject
-    UsersStore usersStore;
+    private UsersStore usersStore;
 
     @Override
     public void initInjector() {
@@ -356,8 +353,8 @@ public class MainAty extends BaseActivity
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
+        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(usersStore);
-//        return null;
     }
 
     /**

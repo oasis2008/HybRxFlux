@@ -29,6 +29,7 @@ import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.HttpCode;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -88,10 +89,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     protected void afterCreate(Bundle savedInstanceState) {
         //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
         //调用getRxStoreListToRegister,注册rxstore,只能手动注册
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
-        usersStore.register();
-        shopStore = ShopStore.get(getRxFlux().getDispatcher());
-        shopStore.register();
+
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -175,7 +173,9 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        return null;
+        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+        shopStore = ShopStore.get(getRxFlux().getDispatcher());
+        return Arrays.asList(usersStore, shopStore);
     }
 
     @Nullable

@@ -32,7 +32,7 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
      */
     private BDLocation bdLocation;
 
-    public UsersStore(Dispatcher dispatcher) {
+    private UsersStore(Dispatcher dispatcher) {
         super(dispatcher);
     }
 

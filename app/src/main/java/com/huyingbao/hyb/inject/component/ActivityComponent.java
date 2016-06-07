@@ -8,7 +8,6 @@ import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.inject.module.ActivityModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerActivity;
-import com.huyingbao.hyb.stores.UsersStore;
 
 import dagger.Component;
 
@@ -32,8 +31,6 @@ public interface ActivityComponent {
     Context getApplicationContext();
 
     Activity getActivity();
-
-    UsersStore getUsersStore();
 
     void inject(BaseActivity baseActivity);
 
