@@ -196,7 +196,7 @@ public class MainAty extends BaseActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            getHybActionCreator().logout();
         }
         //点击之后关闭左侧导航
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.a_main_dlMain);

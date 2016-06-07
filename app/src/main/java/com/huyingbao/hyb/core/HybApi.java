@@ -40,6 +40,14 @@ public interface HybApi {
     Observable<HybUser> login(@Body HybUser user);
 
     /**
+     * 用户退出
+     *
+     * @return
+     */
+    @GET("/auth/logout")
+    Observable<Boolean> logout();
+
+    /**
      * 根据uuid获取个人信息
      *
      * @param uuid

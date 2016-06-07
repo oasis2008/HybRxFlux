@@ -11,6 +11,8 @@ public interface Keys {
     String SHOP = "shop";
     String SHOP_LIST = "shop_list";
 
+    String STATUS_LOGOUT="status_logout";
+
 
     String LONGITUDE = "longitude";
     String LATITUDE = "latitude";

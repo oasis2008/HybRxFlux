@@ -10,6 +10,7 @@ public interface Actions {
      * action type api操作用来确定具体是哪个操作
      */
     String LOGIN = "login";
+    String LOGOUT = "logout";
     String REGISTER_USER = "register_user";
     String REGISTER_SHOP = "register_shop";
     String GET_NEARBY_SHOP = "get_nearby_shop";
@@ -21,6 +22,8 @@ public interface Actions {
     String A_TO_SHOP_INFO = "a_to_shop_info";
 
     void login(HybUser user);
+
+    void logout();
 
     void registerUser(HybUser user);
 

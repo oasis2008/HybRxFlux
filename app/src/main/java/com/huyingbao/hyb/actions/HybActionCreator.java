@@ -62,6 +62,20 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 }, throwable -> postError(action, throwable)));
     }
 
+    @Override
+    public void logout() {
+        final RxAction action = newRxAction(LOGOUT);
+        if (hasRxAction(action)) return;
+        addRxAction(action, getApi()
+                .logout()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(status -> {
+                    action.getData().put(Keys.STATUS_LOGOUT, status);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
 
     @Override
     public void registerUser(HybUser user) {
@@ -131,6 +145,9 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         switch (action.getType()) {
             case LOGIN:
                 login((HybUser) action.getData().get(Keys.USER));
+                return true;
+            case LOGOUT:
+                logout();
                 return true;
             case REGISTER_USER:
                 registerUser((HybUser) action.getData().get(Keys.USER));
