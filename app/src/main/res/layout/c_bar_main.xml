@@ -7,14 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.huyingbao.hyb.MainAty">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <include layout="@layout/include_tool_bar" />
-
-    </android.support.design.widget.AppBarLayout>
+    <include layout="@layout/include_tool_bar" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"

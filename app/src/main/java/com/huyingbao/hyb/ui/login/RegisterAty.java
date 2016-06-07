@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -39,6 +41,8 @@ import retrofit2.adapter.rxjava.HttpException;
 
 public class RegisterAty extends BaseActivity implements RxViewDispatch {
 
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     @Bind(R.id.login_progress)
     ProgressBar mProgressView;
     @Bind(R.id.email)
@@ -63,6 +67,15 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
+        //设置toobar
+        setSupportActionBar(toolbar);
+        //设置标题
+        toolbar.setTitle(getTitle());
+        //设置返回按钮
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
