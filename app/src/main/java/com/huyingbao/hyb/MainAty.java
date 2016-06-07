@@ -248,10 +248,6 @@ public class MainAty extends BaseActivity
         mViewPager.setCurrentItem(position, false);
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -334,13 +330,6 @@ public class MainAty extends BaseActivity
      */
     @Override
     public void onRxViewRegistered() {
-//        Fragment fragment = mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
-//        if (fragment instanceof HomeFrg) {
-//            getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
-//        }
-//        if (fragment instanceof ShopListBearbyFrg) {
-//            getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
-//        }
     }
 
     /**
@@ -348,14 +337,6 @@ public class MainAty extends BaseActivity
      */
     @Override
     public void onRxViewUnRegistered() {
-//        for (Fragment fragment : mFragments) {
-//            if (fragment instanceof HomeFrg) {
-//                getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
-//            }
-//            if (fragment instanceof ShopListBearbyFrg) {
-//                getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) fragment);
-//            }
-//        }
     }
 
     /**
