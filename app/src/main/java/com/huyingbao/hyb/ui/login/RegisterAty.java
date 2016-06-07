@@ -31,6 +31,7 @@ import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.stores.UsersStore;
+import com.huyingbao.hyb.ui.shop.RegisterShopAty;
 import com.huyingbao.hyb.utils.HttpCode;
 import com.huyingbao.hyb.utils.StringUtils;
 
@@ -63,6 +64,8 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     Button btnRegisterShop;
 
     private UsersStore usersStore;
+
+    private boolean flagToShop = false;
 
     @Override
     protected int getLayoutId() {
@@ -100,11 +103,16 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
                 switch (change.getRxAction().getType()) {
                     case Actions.REGISTER_USER:
                         HybUser user = usersStore.getUser();
+                        user.setPassword(mPasswordView.getText().toString());
                         getHybActionCreator().login(user);
                         break;
                     case Actions.LOGIN:
                         showProgress(false);
-                        startActivity(MainAty.class);
+                        if (flagToShop) {
+                            startActivity(RegisterShopAty.class);
+                        } else {
+                            startActivity(MainAty.class);
+                        }
                         finish();
                         break;
                 }
@@ -161,6 +169,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
         return Arrays.asList(usersStore);
     }
 
+
     @OnClick(R.id.btn_register)
     public void registerUser() {
         mEmailView.setError(null);
@@ -197,6 +206,13 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
             user.setPassword(password);
             getHybActionCreator().registerUser(user);
         }
+    }
+
+
+    @OnClick(R.id.btn_register_shop)
+    public void toRegisterShop() {
+        registerUser();
+        flagToShop = true;
     }
 
     private void showProgress(final boolean show) {
