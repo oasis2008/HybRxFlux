@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.huyingbao.hyb.actions.Keys;
+
 import java.util.UUID;
 
 /**
@@ -111,6 +113,47 @@ public class LocalStorageUtils {
     public void setLogin(boolean loginState) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(LOGIN, loginState);
+        editor.commit();
+    }
+
+
+    /**
+     * 获取当前登录的用户信息
+     *
+     * @return
+     */
+    public String getUser() {
+        return mSharedPreferences.getString(Keys.USER, null);
+    }
+
+    /**
+     * 保存当前登录的用户信息
+     *
+     * @param user
+     */
+    public void setUser(String user) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(Keys.USER, user);
+        editor.commit();
+    }
+
+    /**
+     * 获取当前登录的用户所在的店铺信息
+     *
+     * @return
+     */
+    public String getShop() {
+        return mSharedPreferences.getString(Keys.SHOP, null);
+    }
+
+    /**
+     * 保存当前登录的用户所在的店铺信息
+     *
+     * @param Shop
+     */
+    public void setShop(String Shop) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(Keys.SHOP, Shop);
         editor.commit();
     }
 

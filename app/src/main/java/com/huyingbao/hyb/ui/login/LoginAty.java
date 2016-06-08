@@ -25,6 +25,7 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.MainAty;
+import com.huyingbao.hyb.MainShopAty;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseActivity;
@@ -142,7 +143,11 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                 switch (change.getRxAction().getType()) {
                     case Actions.LOGIN:
                         showProgress(false);
-                        startActivity(MainAty.class);
+                        if (usersStore.getUser().getType() == 0) {
+                            startActivity(MainShopAty.class);
+                        } else {
+                            startActivity(MainAty.class);
+                        }
                         finish();
                         break;
                 }

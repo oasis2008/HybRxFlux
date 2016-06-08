@@ -5,9 +5,13 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.huyingbao.hyb.base.BaseActivity;
+import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.ui.login.LoginAty;
-import com.huyingbao.hyb.ui.shop.RegisterShopAty;
+import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
+
+import org.json.JSONException;
 
 import butterknife.Bind;
 
@@ -21,7 +25,22 @@ public class LoadingAty extends BaseActivity {
             } else if (!mLocalStorageUtils.isLogin()) {
                 startActivity(LoginAty.class);
             } else {
-                startActivity(RegisterShopAty.class);
+                try {
+                    HybUser user = GsonHelper.fromJson(mLocalStorageUtils.getUser(), new TypeToken<HybUser>() {
+                    }.getType());
+                    if (user == null) {
+                        startActivity(LoginAty.class);
+                        return;
+                    }
+                    if (user.getType() == 0) {
+                        startActivity(MainAty.class);
+                        return;
+                    }
+                    startActivity(MainShopAty.class);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
             finish();
         }

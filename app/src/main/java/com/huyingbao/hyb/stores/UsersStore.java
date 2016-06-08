@@ -9,6 +9,7 @@ import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 
 /**
  * Created by marcel on 09/10/15.
@@ -54,12 +55,14 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
         switch (action.getType()) {
             case Actions.LOGIN:
                 //保存登录状态
-                HybApp.getInstance().getLocalSorageUtils().setLogin(true);
                 mUser = action.get(Keys.USER);
+                HybApp.getInstance().getLocalSorageUtils().setLogin(true);
+                HybApp.getInstance().getLocalSorageUtils().setUser(GsonHelper.toJson(mUser));
                 break;
             case Actions.LOGOUT:
-                HybApp.getInstance().getLocalSorageUtils().setLogin(false);
                 mUser = null;
+                HybApp.getInstance().getLocalSorageUtils().setLogin(false);
+                HybApp.getInstance().getLocalSorageUtils().setUser(null);
                 break;
             case Actions.REGISTER_USER:
                 mUser = action.get(Keys.USER);

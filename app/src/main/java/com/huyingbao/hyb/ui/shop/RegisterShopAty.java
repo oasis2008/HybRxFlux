@@ -21,6 +21,7 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
+import com.huyingbao.hyb.MainShopAty;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseActivity;
@@ -125,7 +126,9 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
             case ShopStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.REGISTER_SHOP:
-                        Toast.makeText(mContext, "你点击的是:" + shopStore.getShop(), Toast.LENGTH_SHORT).show();
+                        showProgress(false);
+                        startActivity(MainShopAty.class);
+                        finish();
                         break;
                 }
                 break;
