@@ -1,7 +1,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_coordinator"
     style="@style/BaseCoordinatorStyle"
     tools:context=".ui.shop.RegisterShopAty">
 
@@ -12,24 +11,24 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ScrollView
-            android:id="@+id/login_form"
+            android:id="@+id/sv_shop_form"
             style="@style/BaseScrollviewStyle">
 
             <LinearLayout
-                android:id="@+id/email_login_form"
+                android:id="@+id/ll_shop_form"
                 style="@style/BaseLinearlayoutContantStyle">
 
                 <android.support.design.widget.TextInputLayout style="@style/BaseTextinputStyle">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/shop"
-                        style="@style/BaseAutocompleteStyle"
+                    <EditText
+                        android:id="@+id/et_shop_name"
+                        style="@style/BaseEditStyle"
                         android:hint="@string/shop" />
 
                 </android.support.design.widget.TextInputLayout>
 
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/sp_shop_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -38,7 +37,7 @@
                     android:spinnerMode="dialog" />
 
                 <Button
-                    android:id="@+id/btn_register"
+                    android:id="@+id/btn_register_shop"
                     style="@style/BaseButtonStyle"
                     android:text="@string/title_activity_register_aty" />
             </LinearLayout>

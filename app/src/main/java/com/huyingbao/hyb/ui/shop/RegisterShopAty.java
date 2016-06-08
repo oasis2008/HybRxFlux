@@ -3,16 +3,11 @@ package com.huyingbao.hyb.ui.shop;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Spinner;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hardsoftstudio.rxflux.action.RxError;
@@ -36,20 +31,11 @@ import butterknife.OnItemSelected;
 
 public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
-    @Bind(R.id.shop)
-    AutoCompleteTextView shop;
-    @Bind(R.id.btn_register)
-    Button emailRegisterButton;
-    @Bind(R.id.email_login_form)
-    LinearLayout emailLoginForm;
-    @Bind(R.id.login_form)
-    ScrollView loginForm;
-    @Bind(R.id.root_coordinator)
-    CoordinatorLayout rootCoordinator;
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.spinner)
-    Spinner spinner;
+    @Bind(R.id.et_shop_name)
+    EditText etShopName;
 
     private int mShopTyep = 0;
     private ShopStore shopStore;
@@ -88,10 +74,10 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
         HybApp.getInstance().startLocation();
     }
 
-    @OnClick(R.id.btn_register)
+    @OnClick(R.id.btn_register_shop)
     public void onClick() {
-        shop.setError(null);
-        String shopName = shop.getText().toString();
+        etShopName.setError(null);
+        String shopName = etShopName.getText().toString();
         Shop shop = new Shop();
         shop.setShopName(shopName);
         shop.setLongitude(mLatitude);
@@ -101,7 +87,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
     }
 
-    @OnItemSelected(R.id.spinner)
+    @OnItemSelected(R.id.sp_shop_type)
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         mShopTyep = pos;
         String[] languages = getResources().getStringArray(R.array.shop_type);
@@ -159,5 +145,4 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     public List<RxStore> getRxStoreListToUnRegister() {
         return null;
     }
-
 }
