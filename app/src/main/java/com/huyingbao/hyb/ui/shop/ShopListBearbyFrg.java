@@ -9,7 +9,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -52,8 +51,6 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
 
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.progress_loading)
-    ProgressBar progressLoading;
     @Bind(R.id.root)
     RelativeLayout root;
     @Bind(R.id.root_coordinator)
@@ -97,12 +94,10 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
         getNearbyShopList();
     }
 
-    @OnClick({R.id.recycler_view, R.id.progress_loading, R.id.root, R.id.root_coordinator})
+    @OnClick({R.id.recycler_view,  R.id.root, R.id.root_coordinator})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.recycler_view:
-                break;
-            case R.id.progress_loading:
                 break;
             case R.id.root:
                 break;
@@ -181,16 +176,6 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
         return null;
     }
 
-    /**
-     * 是否显示进度条
-     *
-     * @param show
-     */
-    private void setLoadingFrame(boolean show) {
-        if (progressLoading != null) {
-            progressLoading.setVisibility(show ? View.VISIBLE : View.GONE);
-        }
-    }
 
     /**
      * 获取附近的店铺

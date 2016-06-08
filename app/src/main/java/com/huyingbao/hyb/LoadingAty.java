@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.ui.login.LoginAty;
+import com.huyingbao.hyb.ui.shop.RegisterShopAty;
 
 import butterknife.Bind;
 
@@ -20,7 +21,7 @@ public class LoadingAty extends BaseActivity {
             } else if (!mLocalStorageUtils.isLogin()) {
                 startActivity(LoginAty.class);
             } else {
-                startActivity(MainAty.class);
+                startActivity(RegisterShopAty.class);
             }
             finish();
         }

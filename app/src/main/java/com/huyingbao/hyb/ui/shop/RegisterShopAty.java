@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -35,11 +36,8 @@ import butterknife.OnItemSelected;
 
 public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
-    @Bind(R.id.login_progress)
-    ProgressBar loginProgress;
     @Bind(R.id.shop)
     AutoCompleteTextView shop;
-    Spinner spinner;
     @Bind(R.id.btn_register)
     Button emailRegisterButton;
     @Bind(R.id.email_login_form)
@@ -48,6 +46,10 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     ScrollView loginForm;
     @Bind(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.spinner)
+    Spinner spinner;
 
     private int mShopTyep = 0;
     private ShopStore shopStore;
@@ -67,6 +69,15 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
+        //设置toobar
+        setSupportActionBar(toolbar);
+        //设置标题
+        toolbar.setTitle(getTitle());
+        //设置返回按钮
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
     }
 
@@ -149,14 +160,4 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
         return null;
     }
 
-    /**
-     * 是否显示进度条
-     *
-     * @param show
-     */
-    private void setLoadingFrame(boolean show) {
-        if (loginProgress != null) {
-            loginProgress.setVisibility(show ? View.VISIBLE : View.GONE);
-        }
-    }
 }

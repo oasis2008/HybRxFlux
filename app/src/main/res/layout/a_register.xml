@@ -11,12 +11,6 @@
         style="@style/BaseLinearlayoutStyle"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- Login progress -->
-        <ProgressBar
-            android:id="@+id/login_progress"
-            style="@style/BaseProgressbarStyle"
-            tools:visibility="visible" />
-
         <ScrollView
             android:id="@+id/login_form"
             style="@style/BaseScrollviewStyle">

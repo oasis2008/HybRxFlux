@@ -16,7 +16,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,8 +45,6 @@ import retrofit2.adapter.rxjava.HttpException;
  */
 public class LoginAty extends BaseActivity implements RxViewDispatch {
 
-    @Bind(R.id.login_progress)
-    ProgressBar mProgressView;
     @Bind(R.id.email)
     AutoCompleteTextView mEmailView;
     @Bind(R.id.password)
@@ -135,6 +132,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @OnClick(R.id.btn_register)
     public void toRegister() {
         startActivity(RegisterAty.class);
+        finish();
     }
 
     @Override
@@ -212,15 +210,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                 mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             }
         });
-
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-        mProgressView.animate().setDuration(shortAnimTime).alpha(
-                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        });
+        setLoadingFrame(show);
     }
 }
 

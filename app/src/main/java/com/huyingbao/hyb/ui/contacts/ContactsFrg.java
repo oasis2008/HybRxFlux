@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.hardsoftstudio.rxflux.action.RxError;
@@ -34,8 +33,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     private static final String ARG_SECTION_NUMBER = "section_number";
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.progress_loading)
-    ProgressBar progressLoading;
     @Bind(R.id.root)
     RelativeLayout root;
     @Bind(R.id.root_coordinator)
@@ -80,12 +77,10 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     }
 
 
-    @OnClick({R.id.recycler_view, R.id.progress_loading, R.id.root, R.id.root_coordinator})
+    @OnClick({R.id.recycler_view,  R.id.root, R.id.root_coordinator})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.recycler_view:
-                break;
-            case R.id.progress_loading:
                 break;
             case R.id.root:
                 break;
@@ -134,16 +129,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
         return null;
     }
 
-    /**
-     * 是否显示进度条
-     *
-     * @param show
-     */
-    private void setLoadingFrame(boolean show) {
-        if (progressLoading != null) {
-            progressLoading.setVisibility(show ? View.VISIBLE : View.GONE);
-        }
-    }
 
     private void refresh() {
     }

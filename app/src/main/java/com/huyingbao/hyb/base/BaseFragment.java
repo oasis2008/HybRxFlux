@@ -1,5 +1,6 @@
 package com.huyingbao.hyb.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
@@ -18,6 +20,7 @@ import com.huyingbao.hyb.inject.component.FragmentComponent;
 import com.huyingbao.hyb.inject.module.FragmentModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
+import com.huyingbao.hyb.utils.ViewUtils;
 
 import java.util.List;
 
@@ -37,6 +40,7 @@ public abstract class BaseFragment extends Fragment {
     protected LocalStorageUtils mLocalStorageUtils;
     protected FragmentComponent mFragmentComponent;
     private View mRootView;
+    private ProgressBar loadingProgress;
 
     @Nullable
     @Override
@@ -114,5 +118,17 @@ public abstract class BaseFragment extends Fragment {
         return hybActionCreator;
     }
 
+
+    /**
+     * 是否显示进度条
+     *
+     * @param show
+     */
+    public void setLoadingFrame(boolean show) {
+        if (loadingProgress == null) {
+            loadingProgress = ViewUtils.createProgressBar((Activity) mContext, null);
+        }
+        loadingProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
 
 }

@@ -1,10 +1,12 @@
 package com.huyingbao.hyb.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
@@ -15,6 +17,7 @@ import com.huyingbao.hyb.inject.component.DaggerActivityComponent;
 import com.huyingbao.hyb.inject.module.ActivityModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
+import com.huyingbao.hyb.utils.ViewUtils;
 
 import javax.inject.Inject;
 
@@ -24,6 +27,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2016/5/10.
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    private static View loadingProgress;
     @Inject
     protected HybActionCreator hybActionCreator;
     @Inject
@@ -105,5 +109,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         return hybActionCreator;
     }
 
+
+    /**
+     * 是否显示进度条
+     *
+     * @param show
+     */
+    public void setLoadingFrame(boolean show) {
+        if (loadingProgress == null) {
+            loadingProgress = ViewUtils.createProgressBar((Activity) mContext, null);
+        }
+        loadingProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
 
 }

@@ -9,11 +9,6 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:padding="20dp" />
-
-    <ProgressBar
-        android:id="@+id/progress_loading"
-        style="@style/BaseProgressbarStyle"
-        tools:visibility="visible" />
 </RelativeLayout>
 
 
