@@ -32,7 +32,7 @@
 
                     <EditText
                         android:id="@+id/password"
-                        style="@style/BaseEditStyle"
+                        style="@style/BaseEditStyle.PasswordStyle"
                         android:hint="@string/prompt_password"
                         android:imeActionId="@+id/login"
                         android:imeActionLabel="@string/action_sign_in_short"

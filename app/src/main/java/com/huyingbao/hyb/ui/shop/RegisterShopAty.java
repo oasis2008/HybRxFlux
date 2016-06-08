@@ -31,7 +31,6 @@ import butterknife.OnItemSelected;
 
 public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
-
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.et_shop_name)
@@ -107,6 +106,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.A_GET_LOCATION:
+                        setLoadingFrame(false);
                         mLatitude = usersStore.getBDLocation().getLatitude();
                         mLongitude = usersStore.getBDLocation().getLongitude();
                         break;
