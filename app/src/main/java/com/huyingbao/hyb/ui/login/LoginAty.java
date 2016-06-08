@@ -198,7 +198,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {
-        return Arrays.asList(usersStore);
+        return null;
     }
 
     private void showProgress(final boolean show) {
