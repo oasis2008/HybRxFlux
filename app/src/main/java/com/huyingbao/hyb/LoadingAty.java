@@ -40,7 +40,6 @@ public class LoadingAty extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
             finish();
         }
