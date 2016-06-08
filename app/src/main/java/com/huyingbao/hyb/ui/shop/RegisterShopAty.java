@@ -1,13 +1,19 @@
 package com.huyingbao.hyb.ui.shop;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.hardsoftstudio.rxflux.action.RxError;
@@ -21,6 +27,7 @@ import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
+import com.huyingbao.hyb.utils.HttpCode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +35,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
+import retrofit2.adapter.rxjava.HttpException;
 
 public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
@@ -35,6 +43,10 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     Toolbar toolbar;
     @Bind(R.id.et_shop_name)
     EditText etShopName;
+    @Bind(R.id.root_coordinator)
+    CoordinatorLayout rootCoordinator;
+    @Bind(R.id.sv_form)
+    ScrollView svForm;
 
     private int mShopTyep = 0;
     private ShopStore shopStore;
@@ -77,6 +89,20 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     public void onClick() {
         etShopName.setError(null);
         String shopName = etShopName.getText().toString();
+        if (TextUtils.isEmpty(shopName)) {
+            etShopName.setError(getString(R.string.error_field_required));
+            etShopName.requestFocus();
+            return;
+        }
+        if (mLatitude == 0 || mLongitude == 0) {
+            Snackbar.make(rootCoordinator, "请开启定位!", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("重试", v -> {
+                        setLoadingFrame(true);
+                        HybApp.getInstance().startLocation();
+                    })
+                    .show();
+            return;
+        }
         Shop shop = new Shop();
         shop.setShopName(shopName);
         shop.setLongitude(mLatitude);
@@ -119,7 +145,22 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     public void onRxError(@NonNull RxError error) {
-
+        showProgress(false);
+        Throwable throwable = error.getThrowable();
+        if (throwable != null && throwable instanceof HttpException) {
+            int httpCode = ((HttpException) throwable).code();
+            if (httpCode == 432) {
+                Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
+                        .show();
+                return;
+            }
+            Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
+                    .setAction("重试", v -> getHybActionCreator().retry(error.getAction()))
+                    .show();
+        } else {
+            Snackbar.make(rootCoordinator, "未知错误", Snackbar.LENGTH_INDEFINITE)
+                    .show();
+        }
     }
 
     @Override
@@ -145,4 +186,20 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     public List<RxStore> getRxStoreListToUnRegister() {
         return null;
     }
+
+
+    private void showProgress(final boolean show) {
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        svForm.setVisibility(show ? View.GONE : View.VISIBLE);
+        svForm.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                svForm.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
+
+        setLoadingFrame(show);
+    }
+
 }

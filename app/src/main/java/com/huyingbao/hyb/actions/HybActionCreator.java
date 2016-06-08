@@ -152,6 +152,9 @@ public class HybActionCreator extends RxActionCreator implements Actions {
             case REGISTER_USER:
                 registerUser((HybUser) action.getData().get(Keys.USER));
                 return true;
+            case REGISTER_SHOP:
+                registerShop((Shop) action.getData().get(Keys.SHOP));
+                return true;
             case GET_NEARBY_SHOP:
                 getNearbyShopList(
                         (double) action.getData().get(Keys.LONGITUDE),

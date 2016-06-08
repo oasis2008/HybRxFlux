@@ -1,6 +1,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_coordinator"
     style="@style/BaseCoordinatorStyle"
     tools:context=".ui.shop.RegisterShopAty">
 
@@ -11,7 +12,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ScrollView
-            android:id="@+id/sv_shop_form"
+            android:id="@+id/sv_form"
             style="@style/BaseScrollviewStyle">
 
             <LinearLayout
