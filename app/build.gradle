@@ -15,10 +15,10 @@ android {
             storeFile file('debug.keystore')
         }
         release {
-            storeFile file('release.keystore')
-            storePassword 'hyzcrsz85870855'
-            keyAlias 'huanyuzhicheng'
-            keyPassword 'hyzcrsz85870855'
+            storeFile file('hyb.jks')
+            storePassword '7y6hb3rd%6'
+            keyAlias 'huyingbao'
+            keyPassword 'mn34Hn35*h'
         }
     }
 
