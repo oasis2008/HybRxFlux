@@ -21,4 +21,5 @@ public interface Keys {
     String SHOP_ID = "shopId";
     String PRODUCT_LIST = "product_list";
     String PRODUCT_STATUS = "productStatus";
+    String CHANNEL_ID = "channel_id";
 }

@@ -96,6 +96,16 @@ public class LocalStorageUtils {
     }
 
 
+    public void setChannelId(String channelId) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(Keys.CHANNEL_ID, channelId);
+        editor.commit();
+    }
+
+    public String getChannelId() {
+        return mSharedPreferences.getString(Keys.CHANNEL_ID, null);
+    }
+
     /**
      * 判断是否登录
      *

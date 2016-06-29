@@ -3,6 +3,7 @@ package com.huyingbao.hyb.push;
 import android.content.Context;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
+import com.huyingbao.hyb.HybApp;
 
 import java.util.List;
 
@@ -11,7 +12,10 @@ import java.util.List;
  */
 public class HybPushReceiver extends PushMessageReceiver {
     @Override
-    public void onBind(Context context, int i, String s, String s1, String s2, String s3) {
+    public void onBind(Context context, int errorCode, String appid, String userId, String channelId, String requestId) {
+        if (errorCode == 0) {
+            HybApp.getInstance().getLocalSorageUtils().setChannelId(channelId);
+        }
 
     }
 

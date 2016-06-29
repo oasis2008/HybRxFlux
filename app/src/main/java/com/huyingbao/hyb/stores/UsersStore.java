@@ -60,7 +60,7 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
                 HybApp.getInstance().getLocalSorageUtils().setLogin(true);
                 //保存当前登录用户信息
                 HybApp.getInstance().getLocalSorageUtils().setUser(GsonHelper.toJson(mUser));
-                //开启百度推送
+                //开启登录成功之后也要开启百度推送
                 BaiduPushBase.start(HybApp.getInstance());
                 break;
             case Actions.LOGOUT:
