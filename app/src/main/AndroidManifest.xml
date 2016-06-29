@@ -85,15 +85,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.huyingbao.hyb.MainAty" />
         </activity>
+
+
         <!-- 百度地图定位服务 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
+
+
         <!-- 百度推送push service start -->
         <!-- 用于接收系统消息以保证PushService正常运行 -->
         <!-- 此处Receiver名字修改为当前包名路径 -->
-        <receiver android:name=".receiver.HybPushReceiver">
+        <meta-data
+            android:name="baidu_push_api_key"
+            android:value="3LBl1NYTW4o5Ilol0smZijVA" />
+        <receiver android:name=".push.HybPushReceiver">
             <intent-filter>
                 <!-- 接收push消息 -->
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />

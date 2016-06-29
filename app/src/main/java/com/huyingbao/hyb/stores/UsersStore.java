@@ -9,6 +9,7 @@ import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.push.BaiduPushBase;
 import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 
 /**
@@ -54,15 +55,20 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
     public void onRxAction(RxAction action) {
         switch (action.getType()) {
             case Actions.LOGIN:
-                //保存登录状态
                 mUser = action.get(Keys.USER);
+                //保存登录状态
                 HybApp.getInstance().getLocalSorageUtils().setLogin(true);
+                //保存当前登录用户信息
                 HybApp.getInstance().getLocalSorageUtils().setUser(GsonHelper.toJson(mUser));
+                //开启百度推送
+                BaiduPushBase.start(HybApp.getInstance());
                 break;
             case Actions.LOGOUT:
                 mUser = null;
                 HybApp.getInstance().getLocalSorageUtils().setLogin(false);
                 HybApp.getInstance().getLocalSorageUtils().setUser(null);
+                //停止百度推送
+                BaiduPushBase.stop(HybApp.getInstance());
                 break;
             case Actions.REGISTER_USER:
                 mUser = action.get(Keys.USER);

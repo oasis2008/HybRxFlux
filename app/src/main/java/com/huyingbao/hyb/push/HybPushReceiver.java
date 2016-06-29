@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.receiver;
+package com.huyingbao.hyb.push;
 
 import android.content.Context;
 

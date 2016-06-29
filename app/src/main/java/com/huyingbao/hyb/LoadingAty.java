@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.push.BaiduPushBase;
 import com.huyingbao.hyb.ui.login.LoginAty;
 import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 
@@ -22,26 +23,34 @@ public class LoadingAty extends BaseActivity {
         public void run() {
             if (mLocalStorageUtils.isFirstTime()) {
                 startActivity(LoginAty.class);
-            } else if (!mLocalStorageUtils.isLogin()) {
-                startActivity(LoginAty.class);
-            } else {
-                try {
-                    HybUser user = GsonHelper.fromJson(mLocalStorageUtils.getUser(), new TypeToken<HybUser>() {
-                    }.getType());
-                    if (user == null) {
-                        startActivity(LoginAty.class);
-                        return;
-                    }
-                    if (user.getType() == 0) {
-                        startActivity(MainAty.class);
-                        return;
-                    }
-                    startActivity(MainShopAty.class);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                finish();
+                return;
             }
-            finish();
+            if (!mLocalStorageUtils.isLogin()) {
+                startActivity(LoginAty.class);
+                finish();
+                return;
+            }
+            try {
+                HybUser user = GsonHelper.fromJson(mLocalStorageUtils.getUser(), new TypeToken<HybUser>() {
+                }.getType());
+                if (user == null) {
+                    startActivity(LoginAty.class);
+                    finish();
+                    return;
+                }
+                //开启百度推送
+                BaiduPushBase.start(HybApp.getInstance());
+                if (user.getType() == 0) {
+                    startActivity(MainAty.class);
+                    return;
+                }
+                startActivity(MainShopAty.class);
+                finish();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
     };
     @Bind(R.id.fullscreen_content)
