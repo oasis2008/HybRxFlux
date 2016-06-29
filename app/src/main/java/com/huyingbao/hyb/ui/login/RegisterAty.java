@@ -168,7 +168,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {
-        return Arrays.asList(usersStore);
+        return null;
     }
 
 
