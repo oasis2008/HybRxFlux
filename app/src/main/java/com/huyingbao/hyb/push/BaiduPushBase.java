@@ -18,9 +18,9 @@ public class BaiduPushBase {
     public final static String SERVICE_ACTION = "com.baidu.android.pushservice.action.PUSH_SERVICE";
 
     public static void start(Context context) {
-        if (PushManager.isPushEnabled(context)) {
-            return;
-        }
+//        if (PushManager.isPushEnabled(context)) {
+//            return;
+//        }
         PushManager.startWork(context, PushConstants.LOGIN_TYPE_API_KEY, DevUtils.getMetaValue(context, "baidu_push_api_key"));
     }
 

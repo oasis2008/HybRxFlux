@@ -8,6 +8,7 @@ import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.Shop;
+import com.huyingbao.hyb.utils.LocalStorageUtils;
 
 import javax.inject.Inject;
 
@@ -21,6 +22,8 @@ import rx.schedulers.Schedulers;
 public class HybActionCreator extends RxActionCreator implements Actions {
     @Inject
     HybApi hybApi;
+    @Inject
+    LocalStorageUtils mLocalStorageUtils;
 
     /**
      * If you want to give more things to the constructor like API or Preferences or any other
@@ -39,6 +42,8 @@ public class HybActionCreator extends RxActionCreator implements Actions {
 
     @Override
     public void login(HybUser user) {
+        user.setChannelId(mLocalStorageUtils.getChannelId());
+        user.setChannelType(3);
         //创建RxAction,传入键值对参数
         final RxAction action = newRxAction(LOGIN, Keys.USER, user);
         if (hasRxAction(action)) return;
