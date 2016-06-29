@@ -126,6 +126,8 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
             HybUser user = new HybUser();
             user.setPhone(phone);
             user.setPassword(password);
+//            user.setChannelId();
+            user.setChannelType(3);
             getHybActionCreator().login(user);
         }
     }

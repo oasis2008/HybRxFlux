@@ -23,16 +23,14 @@ public class HybApp extends Application {
     HybActionCreator hybActionCreator;
     @Inject
     RxFlux rxFlux;
+    @Inject
+    LocalStorageUtils mLocalStorageUtils;
     /**
      * 定位配置类
      */
     private static LocationClientOption mLocationClientOption;
     private static BDLocationListener mBDLocationListener;
     private LocationClient mLocationClient;
-    /**
-     * 本地配出存贮类
-     */
-    private LocalStorageUtils mLocalStorageUtils;
 
     private static HybApp intantce;
 
@@ -108,13 +106,7 @@ public class HybApp extends Application {
         mLocationClient.start();
     }
 
-    /**
-     * 获取本地存贮管理类对象
-     *
-     * @return
-     */
     public LocalStorageUtils getLocalSorageUtils() {
-        mLocalStorageUtils = LocalStorageUtils.getInstance(getInstance());
         return mLocalStorageUtils;
     }
 

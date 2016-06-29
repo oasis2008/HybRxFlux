@@ -15,6 +15,8 @@ public class HybUser {
      * type : 1
      * uuid : a89499bd-18aa-4282-9c41-467776937400
      * voip : 8009549900000090
+     * channelId:3452345234
+     * channelType:3
      * headImg : null
      * sex : 0
      * address : null
@@ -31,6 +33,8 @@ public class HybUser {
     private int type;
     private String uuid;
     private String voip;
+    private String channelId;
+    private int channelType;
     private String headImg;
     private int sex;
     private String address;
@@ -101,6 +105,23 @@ public class HybUser {
     public void setVoip(String voip) {
         this.voip = voip;
     }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
+    }
+
+    public int getChannelType() {
+        return channelType;
+    }
+
+    public void setChannelType(int channelType) {
+        this.channelType = channelType;
+    }
+
 
     public String getHeadImg() {
         return headImg;
