@@ -312,10 +312,8 @@ public class MainAty extends BaseActivity
                         startActivity(LoginAty.class);
                         finish();
                         break;
-
                 }
                 break;
-
         }
     }
 

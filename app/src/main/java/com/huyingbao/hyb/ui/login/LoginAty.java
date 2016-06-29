@@ -143,12 +143,12 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                 switch (change.getRxAction().getType()) {
                     case Actions.LOGIN:
                         showProgress(false);
+                        finish();
                         if (usersStore.getUser().getType() == 0) {
                             startActivity(MainShopAty.class);
                         } else {
                             startActivity(MainAty.class);
                         }
-                        finish();
                         break;
                 }
                 break;
@@ -157,6 +157,9 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     public void onRxError(@NonNull RxError error) {
+        if(this.isFinishing()){
+            return;
+        }
         showProgress(false);
         Throwable throwable = error.getThrowable();
         if (throwable != null) {
