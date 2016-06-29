@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class HybApiModule {
-    private static final String BASE_URL = BuildConfig.DEBUG ? "http://52.79.131.9:1337" : "http://52.79.131.9:1337";
+    private static final String BASE_URL = BuildConfig.DEBUG ? "http://52.79.131.9:1337" : "http://api.huyingbao.cc";
 
     /**
      * 创建一个HybApi的实现类单例对象
