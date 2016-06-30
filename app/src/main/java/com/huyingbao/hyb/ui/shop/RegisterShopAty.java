@@ -142,7 +142,6 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
                 }
                 break;
-
         }
     }
 
