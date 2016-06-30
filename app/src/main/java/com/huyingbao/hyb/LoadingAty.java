@@ -5,14 +5,9 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
 import com.huyingbao.hyb.base.BaseActivity;
-import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.push.BaiduPushBase;
 import com.huyingbao.hyb.ui.login.LoginAty;
-import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
-
-import org.json.JSONException;
 
 import butterknife.Bind;
 
@@ -21,24 +16,13 @@ public class LoadingAty extends BaseActivity {
     private final Handler mHideHandler = new Handler();
     private final Runnable mHandleActionRunnable = new Runnable() {
         public void run() {
-            if (mLocalStorageUtils.isFirstTime()||!mLocalStorageUtils.isLogin()) {
+            if (mLocalStorageUtils.isFirstTime()||!mLocalStorageUtils.isLogin()||HybApp.getUser() == null) {
                 finish();
                 startActivity(LoginAty.class);
                 return;
             }
-            try {
-                HybUser user = GsonHelper.fromJson(mLocalStorageUtils.getUser(), new TypeToken<HybUser>() {
-                }.getType());
-                if (user == null) {
-                    finish();
-                    startActivity(LoginAty.class);
-                    return;
-                }
-                finish();
-                startActivity(MainAty.class);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            finish();
+            startActivity(MainAty.class);
 
         }
     };

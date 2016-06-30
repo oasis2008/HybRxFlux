@@ -6,6 +6,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.google.gson.reflect.TypeToken;
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.huyingbao.hyb.actions.Actions;
@@ -14,7 +15,11 @@ import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.inject.component.DaggerApplicationComponent;
 import com.huyingbao.hyb.inject.module.ApplicationModule;
+import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
+import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
+
+import org.json.JSONException;
 
 import javax.inject.Inject;
 
@@ -33,6 +38,7 @@ public class HybApp extends Application {
     private LocationClient mLocationClient;
 
     private static HybApp intantce;
+    private static HybUser mUser;
 
     public static HybApp getInstance() {
         if (intantce == null) {
@@ -116,5 +122,18 @@ public class HybApp extends Application {
 
     public HybActionCreator getHybActionCreator() {
         return hybActionCreator;
+    }
+
+    public static HybUser getUser() {
+        if (mUser != null) {
+            return mUser;
+        }
+        try {
+            mUser = GsonHelper.fromJson(intantce.getLocalSorageUtils().getUser(), new TypeToken<HybUser>() {
+            }.getType());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return mUser;
     }
 }

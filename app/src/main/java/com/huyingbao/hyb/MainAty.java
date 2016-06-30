@@ -120,7 +120,7 @@ public class MainAty extends BaseActivity
         TextView nHeaderTvPhone = (TextView) headerView.findViewById(R.id.n_header_tvPhone);
         LinearLayout nHeaderLlUserInfo = (LinearLayout) headerView.findViewById(R.id.n_header_llUserInfo);
 
-        nHeaderTvUserName.setText("用户");
+        nHeaderTvUserName.setText(HybApp.getUser().getUserName());
         nHeaderLlUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
