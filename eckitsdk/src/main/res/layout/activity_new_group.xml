@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+   Copyright (c) 2013 The CCP project authors. All Rights Reserved.
+ 
+   Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
+   that can be found in the LICENSE file in the root of the web site.
+ 
+    				http://www.yuntongxun.com
+ 
+   An additional intellectual property rights grant can be found
+   in the file PATENTS.  All contributing project authors may
+   be found in the AUTHORS file in the root of the source tree.
+ -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/CCPScroll"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        style="@style/CCPBody" >
+
+        <com.yuntongxun.kitsdk.ui.chatting.view.CCPClearEditText
+            android:id="@+id/group_name"
+            style="@style/CCPLineEditText"
+            android:hint="@string/str_group_name_hint"
+            android:singleLine="true" >
+            <requestFocus />
+        </com.yuntongxun.kitsdk.ui.chatting.view.CCPClearEditText>
+
+        <com.yuntongxun.kitsdk.ui.chatting.view.CCPClearEditText
+            android:id="@+id/group_notice"
+            style="@style/CCPLineEditText"
+            android:layout_marginTop="@dimen/NormalPadding"
+            android:hint="@string/str_group_notice_hint"
+            android:inputType="textMultiLine"
+            android:maxLines="3" />
+        
+        <Spinner
+            android:id="@+id/str_group_permission_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:layout_marginTop="@dimen/NormalPadding"
+            android:visibility="gone"
+            android:prompt="@string/str_group_permission_spinner" />
+
+        <Button
+            android:id="@+id/str_group_permission_spinner2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/NormalPadding"
+            android:text="@string/str_group_permission_spinner"
+            android:textSize="@dimen/TitleTextSize"
+            android:visibility="gone" />
+        
+        <Button
+            android:id="@+id/create"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/NormalButtonHeight"
+            android:layout_marginTop="@dimen/NormalPadding"
+            style="@style/CCPBigGreenButton"
+            android:text="@string/app_button_create" />
+    </LinearLayout>
+
+</ScrollView>

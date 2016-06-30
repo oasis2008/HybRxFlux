@@ -1,2 +1,2 @@
-include ':app', ':rxflux'
+include ':app', ':rxflux', ':eckitsdk'
 rootProject.name = 'Huyingbao'

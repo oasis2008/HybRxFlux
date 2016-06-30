@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/call_head"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/LargestPadding">
+        
+        <TextView
+            android:id="@+id/layout_call_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未知联系人"
+            android:textColor="@color/white"
+            android:textSize="@dimen/BiggestTextSize"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/layout_call_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/BigTextSize" />
+
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:id="@+id/layout_centre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/layout_call_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/call_head_portrait" />
+            
+			<TextView
+	            android:id="@+id/layout_call_msg"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:lines="2"
+	            android:gravity="center_horizontal"
+	            android:textColor="@color/white"
+	            android:textSize="@dimen/BasicTextSize"
+	            android:visibility="visible"
+	            android:layout_marginTop="@dimen/NormalPadding"/>
+			
+			<Chronometer
+	            android:id="@+id/chronometer"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/white"
+	            android:textSize="@dimen/BasicTextSize"
+	            android:textStyle="bold"
+	            android:visibility="gone"
+	            android:layout_marginTop="@dimen/NormalPadding" />
+        </LinearLayout>
+        <!--
+        <include
+            android:id="@+id/layout_dial_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            layout="@layout/ec_voip_dialerpad"/>
+              -->
+    </FrameLayout>
+</LinearLayout>

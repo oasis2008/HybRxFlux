@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/voip_bg" >
+    
+	<FrameLayout
+        android:id="@+id/Video_layout_before"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="visible" >
+
+        <RelativeLayout
+            android:id="@+id/localvideo_view_before"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/camera_switch_before"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="@dimen/NormalPadding"
+            android:layout_marginTop="@dimen/LargerPadding"
+            android:background="@drawable/camera_switch"/>
+
+		<LinearLayout
+	        android:id="@+id/info_ll"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:layout_marginTop="@dimen/LargestPadding"
+	        android:gravity="center_horizontal">
+	        		
+			<TextView
+		        android:id="@+id/tv_name"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="未知"
+		        android:textColor="@android:color/white"
+		        android:textSize="@dimen/BiggestTextSize"
+		        android:layout_marginTop="@dimen/LargestPadding" />
+				
+			<TextView
+		        android:id="@+id/tv_phone"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:gravity="center_vertical"
+		        android:text="未知"
+		        android:textColor="@android:color/white"
+		        android:textSize="@dimen/BigTextSize"
+		        android:layout_marginBottom="@dimen/LargestPadding" />
+	        
+			<ImageView
+		        android:id="@+id/video_icon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="@dimen/LargestPadding"
+		        android:background="@drawable/call_head_portrait" />
+	
+			
+			<TextView
+		        android:id="@+id/notice_tips"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/ec_voip_call_connect"
+		        android:textColor="@android:color/white"
+		        android:textSize="@dimen/BasicTextSize"
+		        android:layout_marginTop="@dimen/NormalPadding" />
+	        
+		</LinearLayout>
+		
+		<ImageButton
+             android:id="@+id/hand_up_before"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="bottom|center"
+             android:layout_marginBottom="@dimen/NormalPadding"
+             android:background="@drawable/hook_selector" />
+    </FrameLayout>
+    
+	    
+	<FrameLayout
+        android:id="@+id/Video_layout_late"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" >
+
+        <SurfaceView
+            android:id="@+id/video_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center" >
+        </SurfaceView>
+
+        <RelativeLayout
+            android:id="@+id/localvideo_view_late"
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:layout_gravity="top|right"
+            android:layout_marginBottom="6.0dip"
+            android:layout_marginLeft="6.0dip"
+            android:padding="2.0dip" >
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/camera_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="@dimen/NormalPadding"
+            android:layout_marginTop="@dimen/LargerPadding"
+            android:background="@drawable/camera_switch" />
+
+        
+		<LinearLayout
+	        android:id="@+id/video_botton_ly_late"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="bottom"
+	        android:gravity="center_horizontal"
+	        android:orientation="vertical" >
+			
+			<Chronometer
+			    android:id="@+id/chronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15.0sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/NormalPadding" />
+			
+		    		
+			<LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="bottom|center"
+		        android:orientation="horizontal"
+		        android:layout_marginBottom="@dimen/NormalPadding" >
+		        
+				<ImageButton
+	                android:id="@+id/mute"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:background="@drawable/mute_selector" />
+					        
+				<ImageButton
+	                android:id="@+id/hand_up_late"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:background="@drawable/hook_selector"
+	                android:layout_marginLeft="@dimen/LargestPadding"
+	                android:layout_marginRight="@dimen/LargestPadding" />
+									        
+				<ImageButton
+	                android:id="@+id/video_switch"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:background="@drawable/switch_vedio_selector" />
+			</LinearLayout>
+
+		</LinearLayout>
+
+    </FrameLayout>
+    
+
+</RelativeLayout>
