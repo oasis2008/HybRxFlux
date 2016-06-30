@@ -14,7 +14,7 @@
             <com.huyingbao.hyb.widget.KeywordsFlow
                 android:id="@+id/kf_tag"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
+                android:layout_height="366dp"
                 android:layout_gravity="top"
                 android:background="#fff8f8f8" />
 
