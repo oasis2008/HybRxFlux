@@ -7,25 +7,24 @@
 
     <include layout="@layout/include_tool_bar" />
 
-    <ScrollView style="@style/ScrollviewStyle">
+    <LinearLayout
+        style="@style/LinearStyle"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout style="@style/LinearContantStyle">
+        <com.huyingbao.hyb.widget.KeywordsFlow
+            android:id="@+id/kf_tag"
+            android:layout_width="fill_parent"
+            android:layout_height="311dp"
+            android:layout_gravity="top"
+            android:background="#fff8f8f8" />
 
-            <com.huyingbao.hyb.widget.KeywordsFlow
-                android:id="@+id/kf_tag"
-                android:layout_width="fill_parent"
-                android:layout_height="366dp"
-                android:layout_gravity="top"
-                android:background="#fff8f8f8" />
+        <Button
+            android:id="@+id/bt_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="呼应" />
 
-            <Button
-                android:id="@+id/bt_send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:text="呼应" />
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
