@@ -78,7 +78,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
         refresh();
     }
 
-    @OnClick({R.id.recycler_view,  R.id.root, R.id.root_coordinator})
+    @OnClick({R.id.recycler_view, R.id.root, R.id.root_coordinator})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.recycler_view:
