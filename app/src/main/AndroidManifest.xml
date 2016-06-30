@@ -22,7 +22,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 开机自启 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- 操作设置-->
+    <!-- 操作设置 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -47,7 +47,7 @@
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
-        <!--百度推送key-->
+        <!-- 百度推送key -->
         <meta-data
             android:name="baidu_push_api_key"
             android:value="3LBl1NYTW4o5Ilol0smZijVA" />
@@ -81,7 +81,6 @@
             android:name=".ui.shop.ShopDetailAty"
             android:label="@string/title_activity_shop_details"
             android:parentActivityName=".MainAty" />
-
         <activity
             android:name=".ui.setting.SettingAty"
             android:label="@string/title_activity_setting_aty"
@@ -91,22 +90,21 @@
                 android:value="com.huyingbao.hyb.MainAty" />
         </activity>
 
-
         <!-- 百度地图定位服务 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
 
-
         <!-- 百度推送push service start -->
         <!-- 用于接收系统消息以保证PushService正常运行 -->
         <!-- 此处Receiver名字修改为当前包名路径 -->
         <receiver android:name=".push.HybPushReceiver">
             <intent-filter>
+
                 <!-- 接收push消息 -->
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
-                <!-- 接收bind、setTags等method的返回结果-->
+                <!-- 接收bind、setTags等method的返回结果 -->
                 <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
                 <!-- 接收通知点击事件，和通知自定义内容 -->
                 <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
@@ -127,7 +125,7 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-        <!-- Push服务接收客户端发送的各种请求-->
+        <!-- Push服务接收客户端发送的各种请求 -->
         <receiver
             android:name="com.baidu.android.pushservice.RegistrationReceiver"
             android:process=":bdservice_v1">
@@ -137,9 +135,11 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
@@ -153,6 +153,7 @@
             android:name="com.baidu.android.pushservice.CommandService"
             android:exported="true" />
         <!-- 百度推送push结束 -->
+        <activity android:name=".ui.user.UserInfoAty"></activity>
     </application>
 
 </manifest>
