@@ -24,7 +24,7 @@
         <item name="android:windowBackground">@null</item>
     </style>
 
-    <style name="BaseAutocompleteStyle">
+    <style name="AutocompleteStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:inputType">textEmailAddress</item>
@@ -32,19 +32,19 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="BaseCoordinatorStyle">
+    <style name="CoordinatorStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">#e0e0e0</item>
     </style>
 
-    <style name="BaseCardViewStyle">
+    <style name="CardViewStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">10dp</item>
     </style>
 
-    <style name="BaseProgressbarStyle">
+    <style name="ProgressbarStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
@@ -53,30 +53,30 @@
         <item name="android:visibility">gone</item>
     </style>
 
-    <style name="BaseTextinputStyle">
+    <style name="TextinputStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="BaseRecyclerViewStyle">
+    <style name="RecyclerViewStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:clipToPadding">false</item>
         <item name="android:padding">20dp</item>
     </style>
 
-    <style name="BaseScrollviewStyle">
+    <style name="ScrollviewStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="BaseCollapsingToolBarLayoutStyle">
+    <style name="CollapsingToolBarLayoutStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
-    <style name="BaseToolbarFrameLayoutStyle">
+    <style name="ToolbarFrameLayoutStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:fitsSystemWindows">true</item>
@@ -170,11 +170,6 @@
     </style>
 
 
-
-
-
-
-
     <style name="TextTitleStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -209,9 +204,6 @@
     </style>
 
 
-
-
-
     <style name="ViewShopTopBgStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -243,10 +235,6 @@
         <item name="android:layout_gravity">center_vertical|start</item>
         <item name="android:layout_margin">@dimen/fab_margin</item>
     </style>
-
-
-
-
 
 
 </resources>

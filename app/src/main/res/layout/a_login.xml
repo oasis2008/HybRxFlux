@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_coordinator"
-    style="@style/BaseCoordinatorStyle"
+    style="@style/CoordinatorStyle"
     tools:context=".ui.login.LoginAty">
 
     <include layout="@layout/include_tool_bar" />
@@ -13,22 +13,22 @@
 
         <ScrollView
             android:id="@+id/login_form"
-            style="@style/BaseScrollviewStyle">
+            style="@style/ScrollviewStyle">
 
             <LinearLayout
                 android:id="@+id/email_login_form"
                 style="@style/LinearContantStyle">
 
-                <android.support.design.widget.TextInputLayout style="@style/BaseTextinputStyle">
+                <android.support.design.widget.TextInputLayout style="@style/TextinputStyle">
 
                     <AutoCompleteTextView
                         android:id="@+id/email"
-                        style="@style/BaseAutocompleteStyle"
+                        style="@style/AutocompleteStyle"
                         android:hint="@string/prompt_email" />
 
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout style="@style/BaseTextinputStyle">
+                <android.support.design.widget.TextInputLayout style="@style/TextinputStyle">
 
                     <EditText
                         android:id="@+id/password"

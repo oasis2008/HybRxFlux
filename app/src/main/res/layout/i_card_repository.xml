@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     card_view:cardCornerRadius="5dp"
     card_view:contentPadding="15dp"
-    style="@style/BaseCardViewStyle">
+    style="@style/CardViewStyle">
 
     <LinearLayout style="@style/LinearCardStyle">
 

@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_coordinator"
-    style="@style/BaseCoordinatorStyle"
+    style="@style/CoordinatorStyle"
     tools:context=".ui.home.HomeFrg">
 
 
@@ -19,7 +19,7 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
-                style="@style/BaseRecyclerViewStyle" />
+                style="@style/RecyclerViewStyle" />
 
 
         </RelativeLayout>
