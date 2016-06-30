@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,6 +33,7 @@ import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.login.LoginAty;
 import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 import com.huyingbao.hyb.ui.user.UserInfoAty;
+import com.huyingbao.hyb.ui.user.UserSendMessageAty;
 
 import java.util.Arrays;
 import java.util.List;
@@ -231,8 +231,7 @@ public class MainAty extends BaseActivity
             case R.id.tabs:
                 break;
             case R.id.fab:
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(UserSendMessageAty.class);
                 break;
             case R.id.a_main_nvMain:
                 break;

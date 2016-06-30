@@ -9,18 +9,18 @@ import com.huyingbao.hyb.base.BaseActivity;
 
 import butterknife.Bind;
 
-public class UserInfoAty extends BaseActivity {
+public class UserSendMessageAty extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
     @Override
     public void initInjector() {
-        mActivityComponent.inject(this);
+
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.a_user_info;
+        return R.layout.a_user_send_message;
     }
 
     @Override

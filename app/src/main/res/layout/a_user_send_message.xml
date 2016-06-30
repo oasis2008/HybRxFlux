@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CoordinatorStyle"
+    tools:context="com.huyingbao.hyb.ui.user.UserSendMessageAty">
+
+    <include layout="@layout/include_tool_bar" />
+
+    <ScrollView style="@style/ScrollviewStyle">
+
+        <LinearLayout style="@style/LinearContantStyle">
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

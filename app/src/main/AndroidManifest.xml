@@ -90,6 +90,15 @@
                 android:value="com.huyingbao.hyb.MainAty" />
         </activity>
 
+        <activity
+            android:name=".ui.user.UserInfoAty"
+            android:label="@string/title_activity_user_info"
+            android:parentActivityName=".MainAty" />
+        <activity
+            android:name=".ui.user.UserSendMessageAty"
+            android:label="@string/title_activity_send_message"
+            android:parentActivityName=".MainAty" />
+
         <!-- 百度地图定位服务 -->
         <service
             android:name="com.baidu.location.f"
@@ -153,7 +162,7 @@
             android:name="com.baidu.android.pushservice.CommandService"
             android:exported="true" />
         <!-- 百度推送push结束 -->
-        <activity android:name=".ui.user.UserInfoAty"></activity>
+
     </application>
 
 </manifest>
