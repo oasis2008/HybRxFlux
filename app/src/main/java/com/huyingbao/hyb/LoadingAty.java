@@ -21,30 +21,21 @@ public class LoadingAty extends BaseActivity {
     private final Handler mHideHandler = new Handler();
     private final Runnable mHandleActionRunnable = new Runnable() {
         public void run() {
-            if (mLocalStorageUtils.isFirstTime()) {
-                startActivity(LoginAty.class);
+            if (mLocalStorageUtils.isFirstTime()||!mLocalStorageUtils.isLogin()) {
                 finish();
-                return;
-            }
-            if (!mLocalStorageUtils.isLogin()) {
                 startActivity(LoginAty.class);
-                finish();
                 return;
             }
             try {
                 HybUser user = GsonHelper.fromJson(mLocalStorageUtils.getUser(), new TypeToken<HybUser>() {
                 }.getType());
                 if (user == null) {
-                    startActivity(LoginAty.class);
                     finish();
+                    startActivity(LoginAty.class);
                     return;
                 }
-                if (user.getType() == 0) {
-                    startActivity(MainAty.class);
-                    return;
-                }
-                startActivity(MainShopAty.class);
                 finish();
+                startActivity(MainAty.class);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
