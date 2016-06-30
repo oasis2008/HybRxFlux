@@ -8,7 +8,7 @@
     <include layout="@layout/include_tool_bar" />
 
     <LinearLayout
-        style="@style/BaseLinearlayoutStyle"
+        style="@style/LinearStyle"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ScrollView
@@ -17,7 +17,7 @@
 
             <LinearLayout
                 android:id="@+id/email_login_form"
-                style="@style/BaseLinearlayoutContantStyle">
+                style="@style/LinearContantStyle">
 
                 <android.support.design.widget.TextInputLayout style="@style/BaseTextinputStyle">
 
@@ -32,7 +32,7 @@
 
                     <EditText
                         android:id="@+id/password"
-                        style="@style/BaseEditStyle.PasswordStyle"
+                        style="@style/EditPasswordStyle"
                         android:hint="@string/prompt_password"
                         android:imeActionId="@+id/login"
                         android:imeActionLabel="@string/action_sign_in_short"
@@ -42,12 +42,12 @@
 
                 <Button
                     android:id="@+id/btn_register"
-                    style="@style/BaseButtonStyle"
+                    style="@style/ButtonStyle"
                     android:text="@string/title_activity_register_aty" />
 
                 <Button
                     android:id="@+id/btn_register_shop"
-                    style="@style/BaseButtonStyle"
+                    style="@style/ButtonStyle"
                     android:text="@string/title_activity_register_shop" />
             </LinearLayout>
         </ScrollView>
