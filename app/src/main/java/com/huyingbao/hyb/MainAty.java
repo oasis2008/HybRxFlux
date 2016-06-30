@@ -33,6 +33,7 @@ import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.login.LoginAty;
 import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
+import com.huyingbao.hyb.ui.user.UserInfoAty;
 
 import java.util.Arrays;
 import java.util.List;
@@ -129,7 +130,7 @@ public class MainAty extends BaseActivity
         nHeaderLlUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  TODO
+                startActivity(UserInfoAty.class);
             }
         });
     }

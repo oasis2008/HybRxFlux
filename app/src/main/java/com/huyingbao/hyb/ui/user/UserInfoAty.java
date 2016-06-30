@@ -1,13 +1,30 @@
 package com.huyingbao.hyb.ui.user;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class UserInfoAty extends AppCompatActivity {
+import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.base.BaseActivity;
+
+public class UserInfoAty extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_user_info);
+    }
+
+    @Override
+    public void initInjector() {
+        mActivityComponent.inject(this);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.a_user_info;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+
     }
 }
