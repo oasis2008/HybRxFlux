@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
@@ -121,6 +122,10 @@ public class MainAty extends BaseActivity
         LinearLayout nHeaderLlUserInfo = (LinearLayout) headerView.findViewById(R.id.n_header_llUserInfo);
 
         nHeaderTvUserName.setText(HybApp.getUser().getUserName());
+        nHeaderTvPhone.setText(HybApp.getUser().getPhone());
+        Glide.with(HybApp.getInstance()).load(HybApp.getUser().getHeadImg())
+                .centerCrop().placeholder(R.drawable.ic_menu_camera).crossFade()
+                .into(nHeaderIvUserHeadImg);
         nHeaderLlUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
