@@ -125,7 +125,7 @@ public class MainAty extends BaseActivity
         nHeaderTvUserName.setText(HybApp.getUser().getUserName());
         nHeaderTvPhone.setText(HybApp.getUser().getPhone());
         Glide.with(HybApp.getInstance()).load(HybApp.getUser().getHeadImg())
-                .centerCrop().placeholder(R.drawable.ic_menu_camera).crossFade()
+                .centerCrop().placeholder(R.mipmap.ic_launcher).crossFade()
                 .into(nHeaderIvUserHeadImg);
         nHeaderLlUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
