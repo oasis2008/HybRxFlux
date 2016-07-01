@@ -14,23 +14,22 @@
         <LinearLayout style="@style/LinearContantStyle">
 
             <ImageView
+                android:id="@+id/iv_head"
                 style="@style/ImageHeadStyle"
                 android:layout_gravity="center_horizontal"
-                android:="@+id/iv_head"
                 tools:src="@mipmap/ic_launcher" />
 
             <LinearLayout style="@style/LinearContantHorizontalStyle">
 
                 <TextView
                     style="@style/TextInfoTitleStyle"
-                    android:text="名字" />
+                    android:text="@string/user_name" />
 
                 <EditText
                     android:id="@+id/et_user_name"
                     style="@style/EditInfoStyle"
-                    tools:text="名字" />
+                    tools:text="@string/user_name" />
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 

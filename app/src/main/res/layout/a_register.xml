@@ -25,7 +25,7 @@
                     <AutoCompleteTextView
                         android:id="@+id/email"
                         style="@style/AutocompleteStyle"
-                        android:hint="@string/prompt_email" />
+                        android:hint="@string/user_phone" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -34,9 +34,9 @@
                     <EditText
                         android:id="@+id/password"
                         style="@style/EditPasswordStyle"
-                        android:hint="@string/prompt_password"
+                        android:hint="@string/user_password"
                         android:imeActionId="@+id/login"
-                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeActionLabel="@string/action_sign_in"
                         android:imeOptions="actionUnspecified" />
 
                 </android.support.design.widget.TextInputLayout>

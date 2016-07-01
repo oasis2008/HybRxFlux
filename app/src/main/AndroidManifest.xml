@@ -65,7 +65,7 @@
         </activity>
         <activity
             android:name=".ui.login.LoginAty"
-            android:label="@string/section_format" />
+            android:label="@string/action_sign_in" />
         <activity
             android:name=".ui.login.RegisterAty"
             android:label="@string/title_activity_register_aty"

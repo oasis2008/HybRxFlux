@@ -25,7 +25,7 @@
                     <EditText
                         android:id="@+id/et_shop_name"
                         style="@style/EditStyle"
-                        android:hint="@string/shop" />
+                        android:hint="@string/shop_name" />
 
                 </android.support.design.widget.TextInputLayout>
 

@@ -12,11 +12,11 @@
         android:id="@+id/n_header_tvUserName"
         style="@style/TextTitleStyle"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/prompt_email" />
+        android:text="@string/user_phone" />
 
     <TextView
         android:id="@+id/n_header_tvPhone"
         style="@style/TextContentStyle"
-        android:text="@string/prompt_email" />
+        android:text="@string/user_phone" />
 
 </LinearLayout>
