@@ -1,8 +1,6 @@
 package com.huyingbao.hyb.ui.user;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +15,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class UserSendMessageAty extends BaseActivity {
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
     @Bind(R.id.kf_tag)
     KeywordsFlow kfTag;
 
@@ -46,15 +42,6 @@ public class UserSendMessageAty extends BaseActivity {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        //设置toobar
-        setSupportActionBar(toolbar);
-        //设置标题
-        toolbar.setTitle(getTitle());
-        //设置返回按钮
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
         initFlowView();
     }
 

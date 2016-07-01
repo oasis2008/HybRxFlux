@@ -7,8 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,9 +37,6 @@ import butterknife.OnItemSelected;
 import retrofit2.adapter.rxjava.HttpException;
 
 public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
-
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
     @Bind(R.id.et_shop_name)
     EditText etShopName;
     @Bind(R.id.root_coordinator)
@@ -67,15 +62,6 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        //设置toobar
-        setSupportActionBar(toolbar);
-        //设置标题
-        toolbar.setTitle(getTitle());
-        //设置返回按钮
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
 
     }
 

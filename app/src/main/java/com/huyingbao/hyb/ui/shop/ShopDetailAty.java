@@ -8,8 +8,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,8 +28,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class ShopDetailAty extends BaseActivity implements RxViewDispatch {
-    @Bind(R.id.detail_toolbar)
-    Toolbar detailToolbar;
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout toolbarLayout;
     @Bind(R.id.app_bar)
@@ -58,12 +54,6 @@ public class ShopDetailAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        setSupportActionBar(detailToolbar);
-        // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
         mShop = (Shop) getIntent().getSerializableExtra(Keys.SHOP);
         toolbarLayout.setTitle(mShop.getShopName());
         Glide.with(HybApp.getInstance())

@@ -3,7 +3,6 @@ package com.huyingbao.hyb.ui.user;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,15 +35,7 @@ public class UserInfoAty extends BaseCameraAty {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        //设置toobar
-        setSupportActionBar(toolbar);
-        //设置标题
-        toolbar.setTitle(getTitle());
-        //设置返回按钮
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+
         etUserName.setText(HybApp.getUser().getUserName());
         Glide.with(HybApp.getInstance()).load(HybApp.getUser().getHeadImg())
                 .centerCrop().placeholder(R.mipmap.ic_launcher).crossFade()

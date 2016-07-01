@@ -13,7 +13,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,8 +48,6 @@ public class MainAty extends BaseActivity
      */
     private static final int COUNT_FRAGMENT = 3;
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
     @Bind(R.id.container)
     ViewPager mViewPager;
     @Bind(R.id.tabs)
@@ -84,8 +81,6 @@ public class MainAty extends BaseActivity
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        //设置toolbar
-        setSupportActionBar(toolbar);
         //侧滑菜单控件
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);

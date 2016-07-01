@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
+import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.component.ActivityComponent;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
@@ -21,6 +24,7 @@ import com.huyingbao.hyb.utils.ViewUtils;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -28,6 +32,8 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private static View loadingProgress;
+    @Bind(R.id.toolbar)
+    protected Toolbar toolbar;
     @Inject
     protected HybActionCreator hybActionCreator;
     @Inject
@@ -55,11 +61,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         //绑定view
         ButterKnife.bind(this);
-
+        //初始化actionbar
+        initActionBar();
         //创建之后的操作
         afterCreate(savedInstanceState);
     }
 
+    private void initActionBar() {
+        //设置toobar
+        setSupportActionBar(toolbar);
+        //设置标题
+        toolbar.setTitle(getTitle());
+        //设置返回按钮
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
 
     @Override
     public void onAttachFragment(Fragment fragment) {
