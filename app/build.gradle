@@ -55,7 +55,8 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
+    //--- Testing
+    testCompile 'junit:junit:4.12'
     //----- Support Libs
     compile "com.android.support:support-v4:${rootProject.ext.supportVersion}"
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportVersion}"
@@ -63,40 +64,31 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${rootProject.ext.supportVersion}"
     compile "com.android.support:cardview-v7:${rootProject.ext.supportVersion}"
     compile "com.android.support:support-annotations:${rootProject.ext.supportVersion}"
-
     //----dagger2
     apt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger}" //指定注解处理器
     compile "com.google.dagger:dagger:${rootProject.ext.dagger}"  //dagger公用api
     provided 'org.glassfish:javax.annotation:10.0-b28'  //添加android缺失的部分javax注解
-
     //----网络Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile "com.squareup.retrofit2:converter-gson:2.0.2"
     compile "com.squareup.retrofit2:adapter-rxjava:2.0.2"
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-
     //----图片加载
     compile 'com.github.bumptech.glide:glide:3.7.0'
     //图片加载使用okhttp
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-
     //----图片上传
-//    compile 'com.qiniu:qiniu-android-sdk:7.2.+'
-
+    compile 'com.qiniu:qiniu-android-sdk:7.2.+'
     //----Butterknife,view注解
     compile 'com.jakewharton:butterknife:7.0.1'
-
     //Logger
     compile 'com.github.orhanobut:logger:1.12'
-
     //Apache Commons IO
     compile 'commons-io:commons-io:2.5'
 
-//    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
-//    compile "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"
 
     compile project(':rxflux')
-
-    //--- Testing
-    testCompile 'junit:junit:4.12'
+    compile project(':eckitsdk')
 }
+//    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
+//    compile "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"
