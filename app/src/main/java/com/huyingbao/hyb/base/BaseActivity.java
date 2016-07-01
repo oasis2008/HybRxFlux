@@ -61,23 +61,28 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         //绑定view
         ButterKnife.bind(this);
-        //初始化actionbar
-        initActionBar();
         //创建之后的操作
         afterCreate(savedInstanceState);
     }
 
-    private void initActionBar() {
+    protected void initActionBar(String title, boolean backAble) {
         //设置toobar
         setSupportActionBar(toolbar);
         //设置标题
-        toolbar.setTitle(getTitle());
+        toolbar.setTitle(title == null ? getTitle() : title);
         //设置返回按钮
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+        if(backAble){
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null||backAble) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
     }
+
+    protected void initActionBar() {
+        this.initActionBar(null, true);
+    }
+
 
     @Override
     public void onAttachFragment(Fragment fragment) {

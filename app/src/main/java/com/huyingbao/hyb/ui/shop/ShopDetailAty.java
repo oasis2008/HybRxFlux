@@ -54,6 +54,7 @@ public class ShopDetailAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
+        initActionBar();
         mShop = (Shop) getIntent().getSerializableExtra(Keys.SHOP);
         toolbarLayout.setTitle(mShop.getShopName());
         Glide.with(HybApp.getInstance())

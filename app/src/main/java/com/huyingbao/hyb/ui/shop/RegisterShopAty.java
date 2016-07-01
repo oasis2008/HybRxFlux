@@ -62,7 +62,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-
+        initActionBar();
     }
 
     @Override

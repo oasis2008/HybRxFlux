@@ -42,6 +42,7 @@ public class UserSendMessageAty extends BaseActivity {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
+        initActionBar();
         initFlowView();
     }
 
