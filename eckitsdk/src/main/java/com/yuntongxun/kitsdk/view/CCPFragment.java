@@ -51,7 +51,7 @@ public abstract  class CCPFragment extends Fragment {
 
         @Override
         public void dispatchMessage(Message msg) {
-            // TODO Auto-generated method stub
+
             super.dispatchMessage(msg);
         }
 

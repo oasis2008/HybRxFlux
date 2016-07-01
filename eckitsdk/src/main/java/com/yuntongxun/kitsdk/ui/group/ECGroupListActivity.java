@@ -48,7 +48,7 @@ public class ECGroupListActivity extends ECSuperActivity implements
 	
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+
 		super.onResume();
 		
 		
@@ -63,7 +63,7 @@ public class ECGroupListActivity extends ECSuperActivity implements
 
 	@Override
 	protected int getLayoutId() {
-		// TODO Auto-generated method stub
+
 		return R.layout.ytx_layout_grouplist_activity;
 	}
 

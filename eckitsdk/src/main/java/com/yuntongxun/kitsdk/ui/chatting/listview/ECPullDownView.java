@@ -275,7 +275,7 @@ public class ECPullDownView  extends FrameLayout implements GestureDetector.OnGe
 
     @Override
     public void onLongPress(MotionEvent e) {
-        // TODO Auto-generated method stub
+
 
     }
 

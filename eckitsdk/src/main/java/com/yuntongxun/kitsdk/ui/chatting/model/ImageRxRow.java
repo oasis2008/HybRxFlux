@@ -142,7 +142,7 @@ public class ImageRxRow extends BaseChattingRow {
 	@Override
 	public boolean onCreateRowContextMenu(ContextMenu contextMenu,
 			View targetView, ECMessage detail) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 

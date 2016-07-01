@@ -17,36 +17,29 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.utils.BitmapUtils;
+import com.huyingbao.hyb.utils.DevUtils;
+import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public abstract class BaseCameraAty extends BaseActivity {
-    /***
+    /**
      * 拍照选图
-     ***/
+     */
     private static final int REQUEST_CODE_CAMERA = 1101;
-    /***
+    /**
      * 系统相册选图
-     ***/
+     */
     private static final int REQUEST_CODE_ALBUM = 1102;
-    /***
-     * 从系统裁剪界面返回的requestcode
-     ***/
-    private static final int REQUEST_CODE_CROP = 1103;
-    /***
-     * 从superphoto选图返回的requestcode,子类复写startAlbum()跳转到superPhoto选图,主要是单选图片,截图上传
-     ***/
-    protected static final int REQUEST_CODE_SUPER_PHOTO_HEAD = 1104;
-    BaseDialog mBaseDialog;
-
-    Uri mImageUri = null;
-
     /**
      * 裁剪图片所有参数，为null表示普通拍照选图
      */
     protected CropOption mCropOption;
+    BaseDialog mBaseDialog;
+    Uri mImageUri = null;
 
     /**
      * 默认选择菜单,子类调用使用
@@ -54,21 +47,26 @@ public abstract class BaseCameraAty extends BaseActivity {
     protected void showDefaultCameraMenu() {
         if (mBaseDialog == null) {
             mBaseDialog = DialogFactory.createBottomDialog(this);
-            View view = LayoutInflater.from(this).inflate(R.layout.view_popup_menu, null);
             OnClickListener listener = new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (v.getId() == R.id.v_popup_btn1) {
-                        startCamera();
-                    } else if (v.getId() == R.id.v_popup_btn2) {
-                        startAlbum();
-                    }
                     mBaseDialog.dismiss();
+                    switch (v.getId()) {
+                        case R.id.bt_camera:
+                            startCamera();
+                            break;
+                        case R.id.bt_album:
+                            startAlbum();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             };
-            view.findViewById(R.id.v_popup_btn1).setOnClickListener(listener);
-            view.findViewById(R.id.v_popup_btn2).setOnClickListener(listener);
-            view.findViewById(R.id.v_popup_btnDismiss).setOnClickListener(listener);
+            View view = LayoutInflater.from(this).inflate(R.layout.dialog_bottom_camera, null);
+            view.findViewById(R.id.bt_camera).setOnClickListener(listener);
+            view.findViewById(R.id.bt_album).setOnClickListener(listener);
+            view.findViewById(R.id.bt_cancel).setOnClickListener(listener);
             mBaseDialog.setContentView(view);
         }
         mBaseDialog.show();
@@ -78,7 +76,7 @@ public abstract class BaseCameraAty extends BaseActivity {
      * 初始化图片缓存(mImageUri及对应file) 用于 拍照(截图与非截图),相册(截图)
      */
     private void initImageUri() {
-        File photoFile = new File(WCApplication.getImageFilePath(this) + "temp.jpg");
+        File photoFile = new File(DevUtils.getImageFilePath(this) + "temp.jpg");
         if (!photoFile.getParentFile().exists()) {
             photoFile.getParentFile().mkdirs();
         }
@@ -104,7 +102,7 @@ public abstract class BaseCameraAty extends BaseActivity {
     }
 
     /**
-     * 相册选图,默认从系统相册选图 子类若是需要自定义选图需要重写该方法
+     * 相册选图,默认从系统相册选图
      */
     protected void startAlbum() {
         Intent intent = new Intent();
@@ -131,7 +129,6 @@ public abstract class BaseCameraAty extends BaseActivity {
                 if (mCropOption == null) {// 普通选图
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {// 有sd卡,拍照的图片已经缓存到mImageUri
                         bitmap = decodeUriAsBitmap(mImageUri);// decode bitmap
-//					rotateImg(bitmap, mImageUri);
                         onReceiveBitmap(mImageUri, bitmap);// 操作完成后调用此方法
                     } else {// 无内存卡,没有图片缓存路径mImageUri
                         Uri uri = handleUri(data);
@@ -165,17 +162,6 @@ public abstract class BaseCameraAty extends BaseActivity {
                 }
 
                 break;
-            // 从系统裁剪图片返回
-            case REQUEST_CODE_CROP:
-                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {// 有sd卡,已经设置图片缓存路径mImageUri
-                    bitmap = decodeUriAsBitmap(mImageUri);// decode bitmap
-                    onReceiveBitmap(mImageUri, bitmap);// 操作完成后调用此方法
-                } else {// 无内存卡,没有图片缓存路径mImageUri
-                    Uri uri = handleUri(data);
-                    bitmap = decodeUriAsBitmap(uri);
-                    onReceiveBitmap(uri, bitmap);
-                }
-                break;
             // 自定义裁剪图片
             case Crop.REQUEST_CROP:// 裁剪图片
                 Uri uri = Crop.getOutput(data);
@@ -183,14 +169,13 @@ public abstract class BaseCameraAty extends BaseActivity {
                 onReceiveBitmap(uri, bitmap);
                 break;
         }
-
     }
 
     /**
      * 裁剪图片
      */
     private void cropImage(Uri uri) {
-        // [start]调用自定义截图 传递Uri到截图界面截图
+        //调用自定义截图 传递Uri到截图界面截图
         String cropName;
         if (mCropOption != null && !mCropOption.cropName.isEmpty()) {
             cropName = mCropOption.cropName;
@@ -203,14 +188,12 @@ public abstract class BaseCameraAty extends BaseActivity {
             Crop.of(uri, destination).asSquare().start(this);
         } else {
             if (mCropOption.outputX > 0 && mCropOption.outputY > 0) {
-                // Crop.of(uri,
-                // destination).withMaxSize(mCropOption.outputX,mCropOption.outputY).start(this);
+                // Crop.of(uri, destination).withMaxSize(mCropOption.outputX,mCropOption.outputY).start(this);
                 Crop.of(uri, destination).withAspect(mCropOption.outputX, mCropOption.outputY).start(this);
             } else {
                 Crop.of(uri, destination).withAspect(mCropOption.aspectX, mCropOption.aspectY).start(this);
             }
         }
-        // [end]
     }
 
     /**
@@ -220,7 +203,6 @@ public abstract class BaseCameraAty extends BaseActivity {
      * @return 1:uri!=null则返回 ,2:uri==null有bitmap,存储bitmap到指定路径,并返回对应uri
      */
     private Uri handleUri(Intent data) {
-        // TODO Auto-generated method stub
         Uri uri = data.getData();
         if (uri != null) {
             return uri;
@@ -229,10 +211,10 @@ public abstract class BaseCameraAty extends BaseActivity {
         if (bundle == null) {
             return uri;
         }
-        String path = WCApplication.getImageFilePath(this) + "temp.jpg";
+        String path = DevUtils.getImageFilePath(this) + "temp.jpg";
         try {
             // 保存bitmap到指定路径
-            ImageHelper.saveImageToSD(path, (Bitmap) bundle.get("data"), 100);
+            BitmapUtils.saveImageToSD(path, (Bitmap) bundle.get("data"), 100);
             return uri = Uri.fromFile(new File(path));
         } catch (IOException e) {
             return uri;

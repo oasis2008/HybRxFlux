@@ -330,7 +330,7 @@ public class VideoCallInActivity extends ECVoIPBaseActivity implements
 
 	@Override
 	public void onMakeCallback(ECError arg0, String arg1, String arg2) {
-		// TODO Auto-generated method stub
+
 
 	}
 }

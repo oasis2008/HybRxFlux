@@ -38,7 +38,7 @@ public class ECConversationListActivity extends ECSuperActivity implements
 
 	@Override
 	protected int getLayoutId() {
-		// TODO Auto-generated method stub
+
 		return R.layout.ytx_layout_conversationlist_activity;
 	}
 

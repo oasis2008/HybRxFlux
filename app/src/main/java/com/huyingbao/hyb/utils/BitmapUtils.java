@@ -6,8 +6,10 @@ import android.os.Environment;
 
 import org.apache.commons.io.FileUtils;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -93,5 +95,23 @@ public class BitmapUtils {
         }
         inSampleSize = Math.max(1, inSampleSize);
         return inSampleSize;
+    }
+
+    /**
+     * 写图片文件到SD卡
+     *
+     * @throws IOException
+     */
+    public static void saveImageToSD(String filePath, Bitmap bitmap, int quality) throws IOException {
+        if (bitmap != null) {
+            File file = new File(filePath.substring(0, filePath.lastIndexOf(File.separator)));
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
+            bos.flush();
+            bos.close();
+        }
     }
 }

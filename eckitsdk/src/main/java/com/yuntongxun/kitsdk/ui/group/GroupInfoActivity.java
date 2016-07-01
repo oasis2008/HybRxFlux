@@ -10,7 +10,7 @@ public class GroupInfoActivity extends ECSuperActivity {
     public static final String EXTRA_QUEIT = "com.yuntongxun.ecdemo_quit";
 	@Override
 	protected int getLayoutId() {
-		// TODO Auto-generated method stub
+
 		return 0;
 	}
 

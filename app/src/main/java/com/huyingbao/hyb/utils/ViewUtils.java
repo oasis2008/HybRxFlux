@@ -13,8 +13,6 @@ import android.widget.ProgressBar;
  */
 public class ViewUtils {
 
-
-
     /**
      * 在屏幕上添加一个转动的小菊花（传说中的Loading），默认为隐藏状态
      * 注意：务必保证此方法在setContentView()方法后调用，否则小菊花将会处于最底层，被屏幕其他View给覆盖

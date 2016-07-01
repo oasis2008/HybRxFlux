@@ -1,5 +1,7 @@
 package com.huyingbao.hyb.ui.user;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -9,12 +11,12 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
-import com.huyingbao.hyb.base.BaseActivity;
+import com.huyingbao.hyb.base.BaseCameraAty;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class UserInfoAty extends BaseActivity {
+public class UserInfoAty extends BaseCameraAty {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.iv_head)
@@ -52,6 +54,11 @@ public class UserInfoAty extends BaseActivity {
 
     @OnClick(R.id.iv_head)
     public void changeHeadImg() {
+        showDefaultCameraMenu();
+    }
+
+    @Override
+    protected void onReceiveBitmap(Uri uri, Bitmap bitmap) {
 
     }
 }
