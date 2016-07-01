@@ -5,17 +5,18 @@
 
     <ImageView
         android:id="@+id/n_header_ivUserHeadImg"
-        android:src="@android:drawable/sym_def_app_icon"
-        style="@style/ImageHeadStyle" />
+        style="@style/ImageHeadStyle"
+        android:src="@android:drawable/sym_def_app_icon" />
 
     <TextView
         android:id="@+id/n_header_tvUserName"
-        android:text="@string/prompt_email"
-        style="@style/TextTitleStyle" />
+        style="@style/TextTitleStyle"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="@string/prompt_email" />
 
     <TextView
         android:id="@+id/n_header_tvPhone"
-        android:text="@string/prompt_email"
-        style="@style/TextContentStyle" />
+        style="@style/TextContentStyle"
+        android:text="@string/prompt_email" />
 
 </LinearLayout>

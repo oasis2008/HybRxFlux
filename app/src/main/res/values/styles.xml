@@ -103,6 +103,9 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="EditInfoStyle" parent="EditStyle">
+    </style>
+
     <style name="EditPasswordStyle" parent="EditStyle">
         <item name="android:inputType">textPassword</item>
     </style>
@@ -123,6 +126,12 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="LinearContantHorizontalStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="LinearNavStyle">
@@ -170,10 +179,15 @@
     </style>
 
 
-    <style name="TextTitleStyle">
-        <item name="android:layout_width">match_parent</item>
+    <style name="TextInfoTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">@dimen/nav_header_vertical_spacing</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+    </style>
+
+    <style name="TextTitleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
     </style>
 

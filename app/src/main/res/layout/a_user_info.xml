@@ -7,10 +7,29 @@
 
     <include layout="@layout/include_tool_bar" />
 
-    <ScrollView style="@style/ScrollviewStyle">
+    <ScrollView
+        style="@style/ScrollviewStyle"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout style="@style/LinearContantStyle">
 
+            <ImageView
+                style="@style/ImageHeadStyle"
+                android:layout_gravity="center_horizontal"
+                android:="@+id/iv_head"
+                tools:src="@mipmap/ic_launcher" />
+
+            <LinearLayout style="@style/LinearContantHorizontalStyle">
+
+                <TextView
+                    style="@style/TextInfoTitleStyle"
+                    android:text="名字" />
+
+                <EditText
+                    android:id="@+id/et_user_name"
+                    style="@style/EditInfoStyle"
+                    tools:text="名字" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
