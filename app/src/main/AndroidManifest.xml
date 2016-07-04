@@ -98,6 +98,7 @@
             android:name=".ui.user.UserSendMessageAty"
             android:label="@string/title_activity_send_message"
             android:parentActivityName=".MainAty" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
         <!-- 百度地图定位服务 -->
         <service

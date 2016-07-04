@@ -144,6 +144,20 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
+    public void getUpToken(String partName) {
+        final RxAction action = newRxAction(GET_UP_TOKEN, Keys.PART_NAME, partName);
+        if (hasRxAction(action)) return;
+        addRxAction(action, getApi()
+                .getUpToken(partName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(products -> {
+                    action.getData().put(Keys.UP_TOKEN, products);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
+    @Override
     public boolean retry(RxAction action) {
         if (hasRxAction(action)) return true;
 

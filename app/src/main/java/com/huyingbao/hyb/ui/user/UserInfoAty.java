@@ -1,27 +1,41 @@
 package com.huyingbao.hyb.ui.user;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hardsoftstudio.rxflux.action.RxError;
+import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
+import com.hardsoftstudio.rxflux.store.RxStore;
+import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseCameraAty;
+import com.huyingbao.hyb.stores.FileStore;
+import com.huyingbao.hyb.utils.BitmapUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class UserInfoAty extends BaseCameraAty {
+public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.iv_head)
     ImageView ivHead;
     @Bind(R.id.et_user_name)
     EditText etUserName;
+    private String headImg;
+    private FileStore fileStore;
 
     @Override
     public void initInjector() {
@@ -45,11 +59,73 @@ public class UserInfoAty extends BaseCameraAty {
 
     @OnClick(R.id.iv_head)
     public void changeHeadImg() {
+        mCropOption = new CropOption();
+        mCropOption.outputX = 480;
+        mCropOption.outputY = 480;
         showDefaultCameraMenu();
     }
 
     @Override
-    protected void onReceiveBitmap(Uri uri, Bitmap bitmap) {
+    protected void onReceiveBitmap(Uri uri) {
+        Glide.with(this).load(uri)
+                //不缓存到硬盘
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                //中间大小
+                .centerCrop()
+                //不使用内存缓存
+                .skipMemoryCache(true)
+                //淡入淡出动画
+                .crossFade()
+                .placeholder(R.mipmap.ic_launcher)
+                .into(ivHead);
+        headImg = BitmapUtils.compressWebp(uri.getPath());
+    }
 
+
+    @OnClick(R.id.bt_ok)
+    public void onClick() {
+        if (headImg != null) {
+            getHybActionCreator().getUpToken(headImg);
+        }
+    }
+
+    @Override
+    public void onRxStoreChanged(@NonNull RxStoreChange change) {
+        switch (change.getStoreId()) {
+            case FileStore.STORE_ID:
+                switch (change.getRxAction().getType()) {
+                    case Actions.GET_UP_TOKEN:
+                        break;
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onRxError(@NonNull RxError error) {
+
+    }
+
+    @Override
+    public void onRxViewRegistered() {
+
+    }
+
+    @Override
+    public void onRxViewUnRegistered() {
+
+    }
+
+    @Nullable
+    @Override
+    public List<RxStore> getRxStoreListToRegister() {
+        fileStore = FileStore.get(getRxFlux().getDispatcher());
+        return Arrays.asList(fileStore);
+    }
+
+    @Nullable
+    @Override
+    public List<RxStore> getRxStoreListToUnRegister() {
+        return Arrays.asList(fileStore);
     }
 }

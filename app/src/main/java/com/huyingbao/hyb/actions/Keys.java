@@ -22,4 +22,6 @@ public interface Keys {
     String PRODUCT_LIST = "product_list";
     String PRODUCT_STATUS = "productStatus";
     String CHANNEL_ID = "channel_id";
+    String PART_NAME = "part_name";
+    String UP_TOKEN = "up_token";
 }

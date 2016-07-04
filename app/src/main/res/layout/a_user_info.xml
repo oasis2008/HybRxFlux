@@ -29,7 +29,14 @@
                     android:id="@+id/et_user_name"
                     style="@style/EditInfoStyle"
                     tools:text="@string/user_name" />
+
             </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_ok"
+                style="@style/ButtonStyle"
+                android:text="@string/action_ok" />
+
         </LinearLayout>
     </ScrollView>
 

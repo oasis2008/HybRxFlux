@@ -23,6 +23,16 @@ public interface HybApi {
     /**
      * 用户注册
      *
+     * @param partName
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/qiniu/getUpToken")
+    Observable<String> getUpToken(@Field("partName") String partName);
+
+    /**
+     * 用户注册
+     *
      * @param user
      * @return
      */

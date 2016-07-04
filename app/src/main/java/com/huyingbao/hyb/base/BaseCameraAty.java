@@ -1,13 +1,8 @@
 package com.huyingbao.hyb.base;
 
 import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,7 +17,6 @@ import com.huyingbao.hyb.utils.DevUtils;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public abstract class BaseCameraAty extends BaseActivity {
@@ -39,6 +33,9 @@ public abstract class BaseCameraAty extends BaseActivity {
      */
     protected CropOption mCropOption;
     BaseDialog mBaseDialog;
+    /**
+     * 拍照存储路径
+     */
     Uri mImageUri = null;
 
     /**
@@ -73,7 +70,7 @@ public abstract class BaseCameraAty extends BaseActivity {
     }
 
     /**
-     * 初始化图片缓存(mImageUri及对应file) 用于 拍照(截图与非截图),相册(截图)
+     * 初始化拍照图片缓存(mImageUri及对应file) 用于 拍照(截图与非截图)
      */
     private void initImageUri() {
         File photoFile = new File(DevUtils.getImageFilePath(this) + "temp.jpg");
@@ -122,23 +119,22 @@ public abstract class BaseCameraAty extends BaseActivity {
         if (resultCode != Activity.RESULT_OK) {
             return;
         }
-        Bitmap bitmap = null;
         switch (requestCode) {
             // 系统拍照选图
             case REQUEST_CODE_CAMERA:
                 if (mCropOption == null) {// 普通选图
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {// 有sd卡,拍照的图片已经缓存到mImageUri
-                        bitmap = decodeUriAsBitmap(mImageUri);// decode bitmap
-                        onReceiveBitmap(mImageUri, bitmap);// 操作完成后调用此方法
-                    } else {// 无内存卡,没有图片缓存路径mImageUri
+                        onReceiveBitmap(mImageUri);// 操作完成后调用此方法
+                    } else {// 无内存卡,拍照的图片将会自动存储到系统空间,需要从返回的data中获取存储路径
+                        // 无内存卡,图片不会缓存路径mImageUri
                         Uri uri = handleUri(data);
-                        bitmap = decodeUriAsBitmap(uri);
-                        onReceiveBitmap(uri, bitmap);
+                        onReceiveBitmap(uri);
                     }
                 } else {// 裁剪图片
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {// 有sd卡,拍照的图片已经缓存到mImageUri
                         cropImage(mImageUri);
-                    } else {// 无内存卡,没有图片缓存路径mImageUri
+                    } else {// 无内存卡,拍照的图片将会自动存储到系统空间,需要从返回的data中获取存储路径
+                        // 无内存卡,图片不会缓存路径mImageUri
                         Uri uri = handleUri(data);
                         cropImage(uri);
                     }
@@ -148,25 +144,16 @@ public abstract class BaseCameraAty extends BaseActivity {
             case REQUEST_CODE_ALBUM:
                 if (mCropOption == null) {// 普通选图(只是把图片返回就可以,不需要Uri)
                     Uri uri = handleUri(data);
-                    bitmap = decodeUriAsBitmap(uri);// decode bitmap
-                    int rotate = getImageOrientation(data.getData());
-                    if (rotate != 0) {// 将图片旋转为垂直方向
-                        Matrix matrix = new Matrix();
-                        matrix.setRotate(rotate);
-                        bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-                    }
-                    onReceiveBitmap(uri, bitmap);// 操作完成后调用此方法
+                    onReceiveBitmap(uri);// 操作完成后调用此方法
                 } else {// 裁剪图片
                     Uri uri = handleUri(data);
                     cropImage(uri);
                 }
-
                 break;
             // 自定义裁剪图片
             case Crop.REQUEST_CROP:// 裁剪图片
                 Uri uri = Crop.getOutput(data);
-                bitmap = decodeUriAsBitmap(uri);
-                onReceiveBitmap(uri, bitmap);
+                onReceiveBitmap(uri);
                 break;
         }
     }
@@ -177,7 +164,7 @@ public abstract class BaseCameraAty extends BaseActivity {
     private void cropImage(Uri uri) {
         //调用自定义截图 传递Uri到截图界面截图
         String cropName;
-        if (mCropOption != null && !mCropOption.cropName.isEmpty()) {
+        if (mCropOption != null && mCropOption.cropName != null && !mCropOption.cropName.isEmpty()) {
             cropName = mCropOption.cropName;
         } else {
             cropName = "cropped.jpg";
@@ -223,78 +210,13 @@ public abstract class BaseCameraAty extends BaseActivity {
     }
 
     /**
-     * 得到图片Orientation
-     *
-     * @param uri
-     * @return
-     */
-    private int getImageOrientation(Uri uri) {
-        String[] cols =
-                {MediaStore.Images.Media.ORIENTATION};
-        Cursor cursor = getContentResolver().query(uri, cols, null, null, null);
-        int rotate = 0;
-        if (cursor != null) {
-            cursor.moveToPosition(0);
-            rotate = cursor.getInt(0);
-            cursor.close();
-        }
-        return rotate;
-    }
-
-    /**
-     * Gets the content:// URI from the given corresponding path to a file
-     * 从给定的相应路径文件取得content://uri
-     *
-     * @param context
-     * @param imageFile
-     * @return content Uri
-     */
-    public static Uri getImageContentUri(Context context, File imageFile) {
-        String filePath = imageFile.getAbsolutePath();
-        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[]
-                {MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "=? ", new String[]
-                {filePath}, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
-            Uri baseUri = Uri.parse("content://media/external/images/media");
-            return Uri.withAppendedPath(baseUri, "" + id);
-        } else {
-            if (imageFile.exists()) {
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Images.Media.DATA, filePath);
-                return context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-            } else {
-                return null;
-            }
-        }
-    }
-
-    /**
-     * 将uri转成bitmap
-     *
-     * @param uri
-     * @return
-     */
-    protected Bitmap decodeUriAsBitmap(Uri uri) {
-        Bitmap bitmap = null;
-        try {
-            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return bitmap;
-    }
-
-    /**
      * 拍照或选择图片后，回调此方法
      *
      * @param uri
-     * @param bitmap
      */
-    protected abstract void onReceiveBitmap(Uri uri, Bitmap bitmap);
+    protected abstract void onReceiveBitmap(Uri uri);
 
-    class CropOption {
+    public class CropOption {
         /**
          * 截图比例X
          */
