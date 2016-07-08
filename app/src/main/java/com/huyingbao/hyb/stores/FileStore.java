@@ -6,6 +6,16 @@ import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
+import com.yuntongxun.kitsdk.utils.LogUtil;
+
+import org.json.JSONObject;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Func1;
 
 /**
  * Created by marcel on 09/10/15.
@@ -43,7 +53,7 @@ public class FileStore extends RxStore implements FileStoreInterface {
     public void onRxAction(RxAction action) {
         switch (action.getType()) {
             case Actions.GET_UP_TOKEN:
-                upToken=action.get(Keys.UP_TOKEN);
+                upToken = action.get(Keys.UP_TOKEN);
                 break;
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
@@ -55,4 +65,53 @@ public class FileStore extends RxStore implements FileStoreInterface {
     public String getUpToken() {
         return null;
     }
+
+    public Observable upload(final String path, final String key) {
+        return Observable.create(new Observable.OnSubscribe<Subscriber>() {
+            @Override
+            public void call(Subscriber subscriber) {
+                UploadManager uploadManager = new UploadManager();
+                uploadManager.put(path, key, upToken, new UpCompletionHandler() {
+                    @Override
+                    public void complete(String key, ResponseInfo info, JSONObject response) {
+                        if (info.isOK()) {
+                            subscriber.onNext(key);
+                            subscriber.onCompleted();
+                        } else {
+//                            APIError apiError=newAPIError(info.statusCode,info.error);
+                            subscriber.onError();
+                        }
+                    }
+                });
+            }
+        }).retryWhen(new HttpTokenExpireFunc());
+
+    }
+
+    /**
+     * qiniu token 为空或者过期 重新获取
+     */
+    private class HttpTokenExpireFunc implements Func1<Observable<? extends Throwable>, Observable<?>> {
+        @Override
+        public Observable<?> call(Observable<? extends Throwable> observable) {
+            return observable.flatMap(new Func1<Throwable, Observable<?>>() {
+                @Override
+                public Observable<?> call(Throwable throwable) {
+                    APIError apiError = (APIError) throwable;
+                    if (apiError.getCode() == -4 || apiError.getCode() == -5) {
+                        LogUtil.e("token过期或失效，重新获取");
+                        return HttpApiUtils.getInstance().getQiNiuToken().doOnNext(new Action1<QiNiuToken>() {
+                            @Override
+                            public void call(QiNiuToken qiNiuToken) {
+                                LogUtil.e("获取七牛token成功");
+                                YebaConstants.QINIUTOKEN = qiNiuToken.getUpload_token();
+                            }
+                        });
+                    }
+                    return Observable.error(throwable);
+                }
+            });
+        }
+    }
+
 }
