@@ -17,6 +17,7 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
+import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseCameraAty;
 import com.huyingbao.hyb.stores.FileStore;
 import com.huyingbao.hyb.utils.BitmapUtils;
@@ -36,6 +37,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     EditText etUserName;
     private String headImg;
     private FileStore fileStore;
+    private String fileKey;
 
     @Override
     public void initInjector() {
@@ -85,7 +87,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     @OnClick(R.id.bt_ok)
     public void onClick() {
         if (headImg != null) {
-            getHybActionCreator().getUpToken(headImg);
+            getHybActionCreator().getUpToken("HeadImage");
         }
     }
 
@@ -95,6 +97,10 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
             case FileStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_UP_TOKEN:
+                        String token =fileStore.getUpToken();
+                        getHybActionCreator().upLoadFile(headImg,"asdf",token,"HeadImage");
+                    case Actions.UPLOAD_FILE:
+                        fileKey=fileStore.getFileKey();
                         break;
                 }
                 break;

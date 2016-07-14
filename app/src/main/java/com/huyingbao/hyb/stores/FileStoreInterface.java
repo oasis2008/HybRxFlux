@@ -7,4 +7,6 @@ package com.huyingbao.hyb.stores;
 public interface FileStoreInterface {
 
     String getUpToken();
+
+    String getFileKey();
 }

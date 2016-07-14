@@ -32,6 +32,7 @@ public class FileStore extends RxStore implements FileStoreInterface {
     private static FileStore instance;
 
     private String upToken;
+    private String fileKey;
 
     private FileStore(Dispatcher dispatcher) {
         super(dispatcher);
@@ -56,6 +57,8 @@ public class FileStore extends RxStore implements FileStoreInterface {
             case Actions.GET_UP_TOKEN:
                 upToken = action.get(Keys.UP_TOKEN);
                 break;
+            case Actions.UPLOAD_FILE:
+                fileKey=action.get(Keys.FILE_KEY);
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
         }
@@ -65,5 +68,10 @@ public class FileStore extends RxStore implements FileStoreInterface {
     @Override
     public String getUpToken() {
         return upToken;
+    }
+
+    @Override
+    public String getFileKey(){
+        return fileKey;
     }
 }
