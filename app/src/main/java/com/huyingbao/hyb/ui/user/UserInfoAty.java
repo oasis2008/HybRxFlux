@@ -80,14 +80,15 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
                 .crossFade()
                 .placeholder(R.mipmap.ic_launcher)
                 .into(ivHead);
-        headImg = BitmapUtils.compressWebp(uri.getPath());
+//        headImg = BitmapUtils.compressWebp(uri.getPath());
+        headImg = uri.getPath();
     }
 
 
     @OnClick(R.id.bt_ok)
     public void onClick() {
         if (headImg != null) {
-            getHybActionCreator().getUpToken("HeadImage");
+            getHybActionCreator().getUpToken("huyingbao");
         }
     }
 
@@ -98,7 +99,8 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_UP_TOKEN:
                         String token =fileStore.getUpToken();
-                        getHybActionCreator().upLoadFile(headImg,"asdf",token,"HeadImage");
+                        getHybActionCreator().upLoadFile(headImg,"huyingbao",token,"huyingbao");
+                        break;
                     case Actions.UPLOAD_FILE:
                         fileKey=fileStore.getFileKey();
                         break;
