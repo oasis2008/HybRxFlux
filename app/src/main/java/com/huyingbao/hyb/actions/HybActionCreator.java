@@ -1,18 +1,31 @@
 package com.huyingbao.hyb.actions;
 
+import android.support.annotation.NonNull;
+
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
+import com.huyingbao.hyb.core.APIError;
 import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
+import com.yuntongxun.kitsdk.utils.LogUtil;
+
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 
@@ -158,9 +171,60 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
+    public void upLoadFile(String localPath, String fileKey, String upToken, String partName) {
+        final RxAction action = newRxAction(UPLOAD_FILE, Keys.LOCAL_PATH, localPath, Keys.FILE_KEY, fileKey, Keys.UP_TOKEN, upToken);
+        if (hasRxAction(action)) return;
+        addRxAction(action, getUploadObservable(localPath, fileKey, upToken, partName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(key -> {
+                    action.getData().put(Keys.FILE_KEY, key);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
+    @NonNull
+    private Observable<String> getUploadObservable(String localPath, String fileKey, String upToken, String partName) {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                UploadManager uploadManager = new UploadManager();
+                uploadManager.put(localPath, fileKey, upToken, new UpCompletionHandler() {
+                    @Override
+                    public void complete(String key, ResponseInfo info, JSONObject response) {
+                        if (info.isOK()) {
+                            subscriber.onNext(key);
+                            subscriber.onCompleted();
+                        } else {
+                            APIError apiError = new APIError(info.statusCode, info.error);
+                            subscriber.onError(apiError);
+                        }
+                    }
+                }, null);
+            }
+        }).retryWhen(new Func1<Observable<? extends Throwable>, Observable<?>>() {
+            @Override
+            public Observable<?> call(Observable<? extends Throwable> observable) {
+                return observable.flatMap(new Func1<Throwable, Observable<?>>() {
+                    @Override
+                    public Observable<?> call(Throwable throwable) {
+                        APIError apiError = (APIError) throwable;
+                        if (apiError.getStatusCode() == -4 || apiError.getStatusCode() == -5) {
+                            getApi().getUpToken(partName).doOnNext(new Action1<String>() {
+                                public void call(String qiNiuToken) {
+                                }
+                            });
+                        }
+                        return Observable.error(throwable);
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
     public boolean retry(RxAction action) {
         if (hasRxAction(action)) return true;
-
         switch (action.getType()) {
             case LOGIN:
                 login((HybUser) action.getData().get(Keys.USER));

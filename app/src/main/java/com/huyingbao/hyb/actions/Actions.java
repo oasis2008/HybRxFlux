@@ -16,6 +16,7 @@ public interface Actions {
     String GET_NEARBY_SHOP = "get_nearby_shop";
     String GET_PRODUCT_BY_SHOP = "get_product_by_shop";
     String GET_UP_TOKEN = "get_up_token";
+    String UPLOAD_FILE = "upload_file";
     /**
      * action type 非api操作
      */
@@ -35,6 +36,15 @@ public interface Actions {
     void getProductByShop(int shopId, int status);
 
     void getUpToken(String partName);
+
+    /**
+     * 上传文件
+     * @param localPath
+     * @param fileKey
+     * @param upToken
+     * @param partName
+     */
+    void upLoadFile(String localPath, String fileKey,String upToken,String partName);
 
     boolean retry(RxAction action);
 

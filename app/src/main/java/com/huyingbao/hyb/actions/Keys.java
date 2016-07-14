@@ -24,4 +24,6 @@ public interface Keys {
     String CHANNEL_ID = "channel_id";
     String PART_NAME = "part_name";
     String UP_TOKEN = "up_token";
+    String LOCAL_PATH = "local_path";
+    String FILE_KEY = "file_key";
 }

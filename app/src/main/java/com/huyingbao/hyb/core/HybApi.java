@@ -4,6 +4,11 @@ package com.huyingbao.hyb.core;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -14,6 +19,10 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by marcel on 09/10/15.
@@ -184,4 +193,7 @@ public interface HybApi {
     @FormUrlEncoded
     @POST("/getEnableProductByShopCode")
     Observable<ArrayList<Product>> getEnableProductByShopCode(@Field("belongShop") int belongShop, @Field("status") int status);
+
+
+
 }
