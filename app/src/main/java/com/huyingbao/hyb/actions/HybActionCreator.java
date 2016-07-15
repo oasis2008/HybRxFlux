@@ -4,7 +4,6 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
-import com.huyingbao.hyb.core.APIError;
 import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
@@ -23,11 +22,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action2;
-import rx.functions.Func0;
 import rx.schedulers.Schedulers;
 
 
@@ -197,8 +196,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                             subscriber.onNext(CommonUtils.getFullPath(key, partName));
                             subscriber.onCompleted();
                         } else {
-                            APIError apiError = new APIError(info.statusCode, info.error);
-                            subscriber.onError(apiError);
+                            subscriber.onError(new HttpException(Response.error(433, null)));
                         }
                     }
                 }, null);

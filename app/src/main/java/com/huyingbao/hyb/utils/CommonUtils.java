@@ -2,6 +2,8 @@ package com.huyingbao.hyb.utils;
 
 import com.huyingbao.hyb.actions.Keys;
 
+import java.util.Random;
+
 /**
  * Created by Administrator on 2016/7/15.
  */
@@ -20,6 +22,16 @@ public class CommonUtils {
             default:
                 return key;
         }
+    }
+
+    /**
+     * 得到用时间戳生成的文件名字
+     *
+     * @param localPath
+     * @return
+     */
+    public static String getFileNameByTime(String localPath) {
+        return System.currentTimeMillis() + "." + FileUtils.getExtensionName(localPath);
     }
 }
 

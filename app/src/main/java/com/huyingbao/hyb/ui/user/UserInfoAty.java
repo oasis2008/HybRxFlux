@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseCameraAty;
 import com.huyingbao.hyb.model.LocalFile;
 import com.huyingbao.hyb.stores.FileStore;
+import com.huyingbao.hyb.utils.CommonUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -88,7 +90,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     @OnClick(R.id.bt_ok)
     public void onClick() {
         if (headImg != null) {
-            getHybActionCreator().uploadOneFile(new LocalFile(headImg,"1.jpg"), Keys.PART_NAME_HEAD_IMAGE);
+            getHybActionCreator().uploadOneFile(new LocalFile(headImg, CommonUtils.getFileNameByTime(headImg)), Keys.PART_NAME_HEAD_IMAGE);
         }
     }
 
