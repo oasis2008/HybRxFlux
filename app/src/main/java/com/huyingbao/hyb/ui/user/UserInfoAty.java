@@ -105,14 +105,14 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
             case FileStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.UPLOAD_ONE_FILE:
-                        user = HybApp.getUser();
+                        HybUser user = new HybUser();
                         user.setHeadImg(fileStore.getFileKey());
                         getHybActionCreator().updateUser(GsonHelper.toJson(user));
                         break;
                 }
                 break;
             case UsersStore.STORE_ID:
-                switch (change.getRxAction().getType()){
+                switch (change.getRxAction().getType()) {
                     case Actions.UPDATE_USER:
                         finish();
                         break;
