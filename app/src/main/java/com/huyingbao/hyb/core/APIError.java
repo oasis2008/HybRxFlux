@@ -3,7 +3,7 @@ package com.huyingbao.hyb.core;
 /**
  * Created by Administrator on 2016/7/14.
  */
-public class APIError extends Throwable {
+public class APIError extends Exception {
     public int getStatusCode() {
         return statusCode;
     }

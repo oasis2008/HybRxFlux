@@ -1,5 +1,7 @@
 package com.huyingbao.hyb;
 
+import com.huyingbao.hyb.actions.HybActionCreator_MembersInjector;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

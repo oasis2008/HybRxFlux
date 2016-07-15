@@ -2,7 +2,10 @@ package com.huyingbao.hyb.actions;
 
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.model.LocalFile;
 import com.huyingbao.hyb.model.Shop;
+
+import java.util.List;
 
 public interface Actions {
 
@@ -16,7 +19,8 @@ public interface Actions {
     String GET_NEARBY_SHOP = "get_nearby_shop";
     String GET_PRODUCT_BY_SHOP = "get_product_by_shop";
     String GET_UP_TOKEN = "get_up_token";
-    String UPLOAD_FILE = "upload_file";
+    String UPLOAD_ONE_FILE = "upload_one_file";
+    String UPLOAD_All_FILE = "upload_all_file";
     /**
      * action type 非api操作
      */
@@ -37,14 +41,9 @@ public interface Actions {
 
     void getUpToken(String partName);
 
-    /**
-     * 上传文件
-     * @param localPath
-     * @param fileKey
-     * @param upToken
-     * @param partName
-     */
-    void upLoadFile(String localPath, String fileKey,String upToken,String partName);
+    void uploadOneFile(LocalFile localFile, String partName);
+
+    void uploadAllFile(List<LocalFile> list, String partName);
 
     boolean retry(RxAction action);
 

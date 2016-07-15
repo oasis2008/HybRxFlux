@@ -6,17 +6,8 @@ import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
-import com.huyingbao.hyb.core.APIError;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.UpCompletionHandler;
-import com.qiniu.android.storage.UploadManager;
-import com.yuntongxun.kitsdk.utils.LogUtil;
 
-import org.json.JSONObject;
-
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func1;
+import java.util.List;
 
 /**
  * Created by marcel on 09/10/15.
@@ -33,6 +24,7 @@ public class FileStore extends RxStore implements FileStoreInterface {
 
     private String upToken;
     private String fileKey;
+    private List<String> fileKeyList;
 
     private FileStore(Dispatcher dispatcher) {
         super(dispatcher);
@@ -57,8 +49,11 @@ public class FileStore extends RxStore implements FileStoreInterface {
             case Actions.GET_UP_TOKEN:
                 upToken = action.get(Keys.UP_TOKEN);
                 break;
-            case Actions.UPLOAD_FILE:
+            case Actions.UPLOAD_ONE_FILE:
                 fileKey=action.get(Keys.FILE_KEY);
+                break;
+            case Actions.UPLOAD_All_FILE:
+                fileKeyList=action.get(Keys.FILE_KEY_LIST);
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
         }
@@ -73,5 +68,10 @@ public class FileStore extends RxStore implements FileStoreInterface {
     @Override
     public String getFileKey(){
         return fileKey;
+    }
+
+    @Override
+    public List<String> getFileKeyList() {
+        return fileKeyList;
     }
 }

@@ -1,7 +1,5 @@
 package com.huyingbao.hyb.actions;
 
-import android.support.annotation.NonNull;
-
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
@@ -10,22 +8,26 @@ import com.huyingbao.hyb.core.APIError;
 import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.model.LocalFile;
 import com.huyingbao.hyb.model.Shop;
+import com.huyingbao.hyb.utils.CommonUtils;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
-import com.yuntongxun.kitsdk.utils.LogUtil;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
+import rx.functions.Action2;
+import rx.functions.Func0;
 import rx.schedulers.Schedulers;
 
 
@@ -156,6 +158,11 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 }, throwable -> postError(action, throwable)));
     }
 
+    /**
+     * 获取七牛token
+     *
+     * @param partName
+     */
     @Override
     public void getUpToken(String partName) {
         final RxAction action = newRxAction(GET_UP_TOKEN, Keys.PART_NAME, partName);
@@ -170,30 +177,24 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 }, throwable -> postError(action, throwable)));
     }
 
-    @Override
-    public void upLoadFile(String localPath, String fileKey, String upToken, String partName) {
-        final RxAction action = newRxAction(UPLOAD_FILE, Keys.LOCAL_PATH, localPath, Keys.FILE_KEY, fileKey, Keys.UP_TOKEN, upToken);
-        if (hasRxAction(action)) return;
-        addRxAction(action, getUploadObservable(localPath, fileKey, upToken, partName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(key -> {
-                    action.getData().put(Keys.FILE_KEY, key);
-                    postRxAction(action);
-                }, throwable -> postError(action, throwable)));
-    }
-
-    @NonNull
-    private Observable<String> getUploadObservable(String localPath, String fileKey, String upToken, String partName) {
+    /**
+     * 上传文件,返回文件完整的路径
+     *
+     * @param localFile
+     * @param upToken
+     * @param partName
+     * @return
+     */
+    private Observable<String> getUploadObservable(LocalFile localFile, String upToken, String partName) {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
                 UploadManager uploadManager = new UploadManager();
-                uploadManager.put(localPath, fileKey, upToken, new UpCompletionHandler() {
+                uploadManager.put(localFile.getLocalPath(), localFile.getFileKey(), upToken, new UpCompletionHandler() {
                     @Override
                     public void complete(String key, ResponseInfo info, JSONObject response) {
                         if (info.isOK()) {
-                            subscriber.onNext(key);
+                            subscriber.onNext(CommonUtils.getFullPath(key, partName));
                             subscriber.onCompleted();
                         } else {
                             APIError apiError = new APIError(info.statusCode, info.error);
@@ -202,24 +203,56 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                     }
                 }, null);
             }
-        }).retryWhen(new Func1<Observable<? extends Throwable>, Observable<?>>() {
-            @Override
-            public Observable<?> call(Observable<? extends Throwable> observable) {
-                return observable.flatMap(new Func1<Throwable, Observable<?>>() {
-                    @Override
-                    public Observable<?> call(Throwable throwable) {
-                        APIError apiError = (APIError) throwable;
-                        if (apiError.getStatusCode() == -4 || apiError.getStatusCode() == -5) {
-                            getApi().getUpToken(partName).doOnNext(new Action1<String>() {
-                                public void call(String qiNiuToken) {
-                                }
-                            });
-                        }
-                        return Observable.error(throwable);
-                    }
-                });
-            }
         });
+    }
+
+    /**
+     * 获取token,然后单个文件上传
+     *
+     * @param localFile
+     * @param partName
+     */
+    @Override
+    public void uploadOneFile(LocalFile localFile, String partName) {
+        final RxAction action = newRxAction(UPLOAD_ONE_FILE);
+        if (hasRxAction(action)) return;
+        addRxAction(action, getApi()
+                .getUpToken(partName)// 返回 Observable<String>，在上传时时请求token，并在响应后发送 token
+                .flatMap(token -> getUploadObservable(localFile, token, partName))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(key -> {
+                    action.getData().put(Keys.FILE_KEY, key);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
+
+    /**
+     * 获取token,然后所有文件上传
+     *
+     * @param list
+     * @param partName
+     */
+    @Override
+    public void uploadAllFile(List<LocalFile> list, String partName) {
+        final RxAction action = newRxAction(UPLOAD_All_FILE);
+        final String[] mToken = new String[1];
+        if (hasRxAction(action)) return;
+        addRxAction(action, getApi()
+                .getUpToken(partName)// 返回 Observable<String>，在上传时时请求token，并在响应后发送 token
+                .flatMap(token -> {
+                    mToken[0] = token;
+                    return Observable.from(list);
+                })
+                .flatMap(localFile -> getUploadObservable(localFile, mToken[0], partName))
+                .collect(() -> new ArrayList<String>(), (localFiles, fullPath) -> localFiles.add(fullPath))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(fileKeyList -> {
+                    action.getData().put(Keys.FILE_KEY_LIST, fileKeyList);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
     }
 
     @Override

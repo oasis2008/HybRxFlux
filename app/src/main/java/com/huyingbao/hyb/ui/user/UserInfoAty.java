@@ -19,8 +19,8 @@ import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseCameraAty;
+import com.huyingbao.hyb.model.LocalFile;
 import com.huyingbao.hyb.stores.FileStore;
-import com.huyingbao.hyb.utils.BitmapUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -88,7 +88,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     @OnClick(R.id.bt_ok)
     public void onClick() {
         if (headImg != null) {
-            getHybActionCreator().getUpToken("huyingbao");
+            getHybActionCreator().uploadOneFile(new LocalFile(headImg,"1.jpg"), Keys.PART_NAME_HEAD_IMAGE);
         }
     }
 
@@ -97,12 +97,8 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
         switch (change.getStoreId()) {
             case FileStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
-                    case Actions.GET_UP_TOKEN:
-                        String token =fileStore.getUpToken();
-                        getHybActionCreator().upLoadFile(headImg,"huyingbao",token,"huyingbao");
-                        break;
-                    case Actions.UPLOAD_FILE:
-                        fileKey=fileStore.getFileKey();
+                    case Actions.UPLOAD_ONE_FILE:
+                        fileKey = fileStore.getFileKey();
                         break;
                 }
                 break;
