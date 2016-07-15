@@ -8,9 +8,11 @@ import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.LocalFile;
+import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.utils.CommonUtils;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
+import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -95,6 +97,32 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 }, throwable -> postError(action, throwable)));
     }
 
+    @Override
+    public void getUserByUuid(String uuid) {
+
+    }
+
+
+    @Override
+    public void updateUser(String user) {
+        final RxAction action = newRxAction(UPDATE_USER);
+        if (hasRxAction(action)) return;
+        addRxAction(action, getApi()
+                .updateUser(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userRes -> {
+                    action.getData().put(Keys.USER, userRes);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+
+    }
+
+    @Override
+    public void resetPassword(String oldPassword, String newPassword) {
+
+    }
+
 
     @Override
     public void registerUser(HybUser user) {
@@ -130,6 +158,21 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
+    public void getBelongShop() {
+
+    }
+
+    @Override
+    public void updateShop(Shop shop) {
+
+    }
+
+    @Override
+    public void getShopByCode(String code) {
+
+    }
+
+    @Override
     public void getNearbyShopList(double longitude, double latitude, int radius, int shopType) {
         final RxAction action = newRxAction(GET_NEARBY_SHOP, Keys.LONGITUDE, longitude, Keys.LATITUDE, latitude, Keys.RADIUS, radius, Keys.SHOP_TYPE, shopType);
         if (hasRxAction(action)) return;
@@ -141,6 +184,11 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                     action.getData().put(Keys.SHOP_LIST, shopListResponse);
                     postRxAction(action);
                 }, throwable -> postError(action, throwable)));
+    }
+
+    @Override
+    public void addProduct(Product product) {
+
     }
 
     @Override

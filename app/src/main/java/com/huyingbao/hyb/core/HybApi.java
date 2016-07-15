@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
 public interface HybApi {
 
     /**
-     * 用户注册
+     * 获取token
      *
      * @param partName
      * @return

@@ -20,9 +20,12 @@ import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseCameraAty;
+import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.LocalFile;
 import com.huyingbao.hyb.stores.FileStore;
+import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.CommonUtils;
+import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +43,8 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     private String headImg;
     private FileStore fileStore;
     private String fileKey;
+    private UsersStore usersStore;
+    private HybUser user;
 
     @Override
     public void initInjector() {
@@ -100,7 +105,16 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
             case FileStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.UPLOAD_ONE_FILE:
-                        fileKey = fileStore.getFileKey();
+                        user = HybApp.getUser();
+                        user.setHeadImg(fileStore.getFileKey());
+                        getHybActionCreator().updateUser(GsonHelper.toJson(user));
+                        break;
+                }
+                break;
+            case UsersStore.STORE_ID:
+                switch (change.getRxAction().getType()){
+                    case Actions.UPDATE_USER:
+                        finish();
                         break;
                 }
                 break;
@@ -126,7 +140,8 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     @Override
     public List<RxStore> getRxStoreListToRegister() {
         fileStore = FileStore.get(getRxFlux().getDispatcher());
-        return Arrays.asList(fileStore);
+        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+        return Arrays.asList(fileStore, usersStore);
     }
 
     @Nullable
