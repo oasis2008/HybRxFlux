@@ -3,6 +3,9 @@ package com.huyingbao.hyb.inject.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.hardsoftstudio.rxflux.RxFlux;
+import com.huyingbao.hyb.HybApp;
+import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 
@@ -11,7 +14,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = {HybApiModule.class, FluxModule.class})
+@Module(includes = {HybApiModule.class})
 public class ApplicationModule {
     Application mApplication;
 
@@ -35,6 +38,14 @@ public class ApplicationModule {
     @Singleton
     public LocalStorageUtils provideLocalStorageUtils() {
         return LocalStorageUtils.getInstance(mApplication.getApplicationContext());
+    }
+
+    @Singleton
+    @Provides
+    public HybActionCreator provideActionCreator() {
+        RxFlux rxFlux= HybApp.getRxFlux();
+        HybActionCreator actionCreator = new HybActionCreator(rxFlux.getDispatcher(), rxFlux.getSubscriptionManager());
+        return actionCreator;
     }
 
 }

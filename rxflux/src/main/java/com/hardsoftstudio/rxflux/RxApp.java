@@ -6,7 +6,7 @@ import android.app.Application;
  * Created by Administrator on 2016/7/18.
  */
 public class RxApp extends Application{
-    private RxFlux rxFlux;
+    private static RxFlux rxFlux;
 
     @Override
     public void onCreate() {
@@ -14,7 +14,7 @@ public class RxApp extends Application{
         rxFlux=RxFlux.init(this);
     }
 
-    public RxFlux getRxFlux() {
+    public static RxFlux getRxFlux() {
         return rxFlux;
     }
 }
