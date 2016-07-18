@@ -7,6 +7,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.google.gson.reflect.TypeToken;
+import com.hardsoftstudio.rxflux.RxApp;
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.huyingbao.hyb.actions.Actions;
@@ -23,11 +24,9 @@ import org.json.JSONException;
 
 import javax.inject.Inject;
 
-public class HybApp extends Application {
+public class HybApp extends RxApp {
     @Inject
     HybActionCreator hybActionCreator;
-    @Inject
-    RxFlux rxFlux;
     @Inject
     LocalStorageUtils mLocalStorageUtils;
     /**
@@ -114,10 +113,6 @@ public class HybApp extends Application {
 
     public LocalStorageUtils getLocalSorageUtils() {
         return mLocalStorageUtils;
-    }
-
-    public RxFlux getRxFlux() {
-        return rxFlux;
     }
 
     public HybActionCreator getHybActionCreator() {

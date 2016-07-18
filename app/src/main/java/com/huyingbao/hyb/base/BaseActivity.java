@@ -84,16 +84,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        if (fragment instanceof RxViewDispatch) {
-            RxViewDispatch viewDispatch = (RxViewDispatch) fragment;
-            viewDispatch.onRxViewRegistered();
-            rxFlux.getDispatcher().subscribeRxView(viewDispatch);
-        }
-    }
-
     /**
      * 注入Injector
      */
