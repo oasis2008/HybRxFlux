@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.hardsoftstudio.rxflux.RxFlux;
-import com.hardsoftstudio.rxflux.RxFragment;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.huyingbao.hyb.actions.HybActionCreator;
@@ -29,9 +28,11 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment extends RxFragment {
+public abstract class BaseFragment extends Fragment {
     @Inject
     protected HybActionCreator hybActionCreator;
+    @Inject
+    protected RxFlux rxFlux;
     @Inject
     @ContextLife("Activity")
     protected Context mContext;
@@ -49,11 +50,6 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         //初始化注入器
         mFragmentComponent = DaggerFragmentComponent.builder()
@@ -62,12 +58,29 @@ public abstract class BaseFragment extends RxFragment {
                 .build();
         //注入Injector
         initInjector();
+        //注册RxStore
+        if (this instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.register();
+                }
+            }
+        }
         //绑定view
         ButterKnife.bind(this, view);
         //绑定view之后运行
         super.onViewCreated(view, savedInstanceState);
         //view创建之后的操作
         afterCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (this instanceof RxViewDispatch) {
+            rxFlux.getDispatcher().unsubscribeRxView((RxViewDispatch) this);
+        }
     }
 
     protected abstract void initInjector();
@@ -86,11 +99,25 @@ public abstract class BaseFragment extends RxFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        //解除RxStore注册
+        if (this instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToUnRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.unregister();
+                }
+            }
+        }
+    }
+
+    public RxFlux getRxFlux() {
+        return rxFlux;
     }
 
     public HybActionCreator getHybActionCreator() {
         return hybActionCreator;
     }
+
 
     /**
      * 是否显示进度条

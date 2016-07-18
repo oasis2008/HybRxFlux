@@ -12,7 +12,6 @@ import android.view.View;
 
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
-import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.component.ActivityComponent;
@@ -37,6 +36,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     @Inject
     protected HybActionCreator hybActionCreator;
+    @Inject
+    protected RxFlux rxFlux;
     @Inject
     @ContextLife("Activity")
     protected Context mContext;
@@ -70,9 +71,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         //设置标题
         toolbar.setTitle(title == null ? getTitle() : title);
         //设置返回按钮
-        if (backAble) {
+        if(backAble){
             ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null || backAble) {
+            if (actionBar != null||backAble) {
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
         }
@@ -82,6 +83,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.initActionBar(null, true);
     }
 
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        if (fragment instanceof RxViewDispatch) {
+            RxViewDispatch viewDispatch = (RxViewDispatch) fragment;
+            viewDispatch.onRxViewRegistered();
+            rxFlux.getDispatcher().subscribeRxView(viewDispatch);
+        }
+    }
 
     /**
      * 注入Injector
@@ -114,7 +125,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public RxFlux getRxFlux() {
-        return HybApp.getRxFlux();
+        return rxFlux;
     }
 
     public HybActionCreator getHybActionCreator() {

@@ -1,26 +1,16 @@
 package com.hardsoftstudio.rxflux;
 
-import android.app.Activity;
+
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
-import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
-import com.hardsoftstudio.rxflux.dispatcher.RxBus;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
-import com.hardsoftstudio.rxflux.util.LogLevel;
-import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Created by marcel on 09/09/15.
