@@ -3,6 +3,7 @@ package com.huyingbao.hyb.inject.component;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.module.ApplicationModule;
@@ -42,6 +43,8 @@ public interface ApplicationComponent {
      *
      * @return
      */
+    RxFlux getRxFlux();
+
     HybActionCreator getHybActionCreator();
 
     /**

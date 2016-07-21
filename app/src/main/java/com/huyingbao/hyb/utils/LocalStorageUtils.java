@@ -58,6 +58,7 @@ public class LocalStorageUtils {
 
     private static LocalStorageUtils sInstance;
 
+    //TODO 这里还是同一个对象吗？毕竟变成public了，很多地方都可以调用
     public static LocalStorageUtils getInstance(Context context) {
         if (sInstance == null) {
             synchronized (LocalStorageUtils.class) {

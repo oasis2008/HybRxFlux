@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
-import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.inject.component.DaggerFragmentComponent;
@@ -33,6 +32,8 @@ public abstract class BaseFragment extends Fragment {
     @Inject
     protected HybActionCreator hybActionCreator;
     @Inject
+    protected RxFlux rxFlux;
+    @Inject
     @ContextLife("Activity")
     protected Context mContext;
     @Inject
@@ -40,24 +41,6 @@ public abstract class BaseFragment extends Fragment {
     protected FragmentComponent mFragmentComponent;
     private View mRootView;
     private ProgressBar loadingProgress;
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //初始化注入器
-        mFragmentComponent = DaggerFragmentComponent.builder()
-                .fragmentModule(new FragmentModule(this))
-                .applicationComponent(ApplicationComponent.Instance.get())
-                .build();
-        //注入Injector
-        initInjector();
-        if (this instanceof RxViewDispatch) {
-            RxViewDispatch viewDispatch = (RxViewDispatch) this;
-            viewDispatch.onRxViewRegistered();
-            getRxFlux().getDispatcher().subscribeRxView(viewDispatch);
-        }
-    }
 
     @Nullable
     @Override
@@ -68,6 +51,13 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        //初始化注入器
+        mFragmentComponent = DaggerFragmentComponent.builder()
+                .fragmentModule(new FragmentModule(this))
+                .applicationComponent(ApplicationComponent.Instance.get())
+                .build();
+        //注入Injector
+        initInjector();
         //注册RxStore
         if (this instanceof RxViewDispatch) {
             List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToRegister();
@@ -86,6 +76,26 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        if (this instanceof RxViewDispatch) {
+            rxFlux.getDispatcher().unsubscribeRxView((RxViewDispatch) this);
+        }
+    }
+
+    protected abstract void initInjector();
+
+    /**
+     * @return
+     */
+    protected abstract int getLayoutId();
+
+    /**
+     * @param savedInstanceState
+     */
+    protected abstract void afterCreate(Bundle savedInstanceState);
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
@@ -100,17 +110,8 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (this instanceof RxViewDispatch) {
-            getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) this);
-        }
-    }
-
-
     public RxFlux getRxFlux() {
-        return HybApp.getInstance().getRxFlux();
+        return rxFlux;
     }
 
     public HybActionCreator getHybActionCreator() {
@@ -130,15 +131,4 @@ public abstract class BaseFragment extends Fragment {
         loadingProgress.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    protected abstract void initInjector();
-
-    /**
-     * @return
-     */
-    protected abstract int getLayoutId();
-
-    /**
-     * @param savedInstanceState
-     */
-    protected abstract void afterCreate(Bundle savedInstanceState);
 }

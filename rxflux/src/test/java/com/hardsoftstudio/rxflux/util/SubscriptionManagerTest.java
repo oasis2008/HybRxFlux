@@ -2,11 +2,11 @@ package com.hardsoftstudio.rxflux.util;
 
 import com.hardsoftstudio.rxflux.action.RxAction;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscription;
