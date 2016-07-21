@@ -14,6 +14,7 @@ import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.inject.component.DaggerApplicationComponent;
 import com.huyingbao.hyb.inject.module.ApplicationModule;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 
@@ -26,6 +27,8 @@ public class HybApp extends RxApp {
     HybActionCreator hybActionCreator;
     @Inject
     LocalStorageUtils mLocalStorageUtils;
+//    @Inject
+//    UsersStore usersStore;
     /**
      * 定位配置类
      */

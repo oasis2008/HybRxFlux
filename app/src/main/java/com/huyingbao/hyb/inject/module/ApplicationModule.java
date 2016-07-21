@@ -39,4 +39,13 @@ public class ApplicationModule {
     public LocalStorageUtils provideLocalStorageUtils() {
         return LocalStorageUtils.getInstance(mApplication.getApplicationContext());
     }
+
+    @Singleton
+    @Provides
+    public HybActionCreator provideActionCreator() {
+        RxFlux rxFlux = ((RxApp)mApplication).getRxFlux();
+        HybActionCreator actionCreator = new HybActionCreator(rxFlux.getDispatcher(), rxFlux.getSubscriptionManager());
+        return actionCreator;
+    }
+
 }
