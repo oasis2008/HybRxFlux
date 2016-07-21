@@ -8,6 +8,7 @@ import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.inject.module.ActivityModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerActivity;
+import com.huyingbao.hyb.ui.login.LoginAty;
 
 import dagger.Component;
 
@@ -35,5 +36,7 @@ public interface ActivityComponent {
     void inject(BaseActivity baseActivity);
 
     void inject(MainAty MainAty);
+
+    void inject(LoginAty MainAty);
 
 }

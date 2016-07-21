@@ -5,6 +5,9 @@ import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.util.LogLevel;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
+import com.huyingbao.hyb.inject.scope.PerFragment;
+import com.huyingbao.hyb.stores.ProdcutStore;
+import com.huyingbao.hyb.stores.UsersStore;
 
 import javax.inject.Singleton;
 
@@ -32,5 +35,12 @@ public class FluxModule {
     public HybActionCreator provideActionCreator(RxFlux rxFlux) {
         HybActionCreator actionCreator = new HybActionCreator(rxFlux.getDispatcher(), rxFlux.getSubscriptionManager());
         return actionCreator;
+    }
+
+    @Singleton
+    @Provides
+    public UsersStore provideUsersStore(RxFlux rxFlux) {
+        UsersStore usersStore = new UsersStore(rxFlux.getDispatcher());
+        return usersStore;
     }
 }

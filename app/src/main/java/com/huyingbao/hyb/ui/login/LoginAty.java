@@ -35,6 +35,8 @@ import com.huyingbao.hyb.utils.StringUtils;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 import retrofit2.adapter.rxjava.HttpException;
@@ -59,7 +61,8 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @Bind(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
-    private UsersStore usersStore;
+    @Inject
+    UsersStore usersStore;
 
     @Override
     public void initInjector() {
@@ -187,7 +190,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(usersStore);
     }
 
