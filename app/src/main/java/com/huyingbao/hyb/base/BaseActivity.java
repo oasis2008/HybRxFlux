@@ -4,14 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.hardsoftstudio.rxflux.RxFlux;
-import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.component.ActivityComponent;
@@ -36,8 +35,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     @Inject
     protected HybActionCreator hybActionCreator;
-    @Inject
-    protected RxFlux rxFlux;
     @Inject
     @ContextLife("Activity")
     protected Context mContext;
@@ -115,7 +112,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public RxFlux getRxFlux() {
-        return rxFlux;
+        return HybApp.getInstance().getRxFlux();
     }
 
     public HybActionCreator getHybActionCreator() {

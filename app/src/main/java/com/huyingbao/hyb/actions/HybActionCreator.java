@@ -4,6 +4,7 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
@@ -45,8 +47,10 @@ public class HybActionCreator extends RxActionCreator implements Actions {
      * If you want to give more things to the constructor like API or Preferences or any other
      * parameter you can buy make sure to call super(dispatcher, manager)
      */
-    public HybActionCreator(Dispatcher dispatcher, SubscriptionManager manager) {
-        super(dispatcher, manager);
+    @Singleton
+    @Inject
+    public HybActionCreator() {
+        super(HybApp.getInstance().getRxFlux().getDispatcher(), HybApp.getInstance().getRxFlux().getSubscriptionManager());
         ApplicationComponent.Instance.get().inject(this);
     }
 

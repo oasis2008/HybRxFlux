@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.hardsoftstudio.rxflux.RxFlux;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerFragment;
 import com.huyingbao.hyb.stores.ProdcutStore;
@@ -41,7 +42,7 @@ public class FragmentModule {
 
     @Provides
     @PerFragment
-    public ProdcutStore provideLocalProdcutStore(RxFlux rxFlux) {
-        return new ProdcutStore(rxFlux.getDispatcher());
+    public ProdcutStore provideLocalProdcutStore() {
+        return new ProdcutStore(HybApp.getInstance().getRxFlux().getDispatcher());
     }
 }

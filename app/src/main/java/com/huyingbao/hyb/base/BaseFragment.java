@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.inject.component.DaggerFragmentComponent;
@@ -31,8 +32,6 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
     @Inject
     protected HybActionCreator hybActionCreator;
-    @Inject
-    protected RxFlux rxFlux;
     @Inject
     @ContextLife("Activity")
     protected Context mContext;
@@ -56,7 +55,7 @@ public abstract class BaseFragment extends Fragment {
         if (this instanceof RxViewDispatch) {
             RxViewDispatch viewDispatch = (RxViewDispatch) this;
             viewDispatch.onRxViewRegistered();
-            rxFlux.getDispatcher().subscribeRxView(viewDispatch);
+            getRxFlux().getDispatcher().subscribeRxView(viewDispatch);
         }
     }
 
@@ -105,13 +104,13 @@ public abstract class BaseFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         if (this instanceof RxViewDispatch) {
-            rxFlux.getDispatcher().unsubscribeRxView((RxViewDispatch) this);
+            getRxFlux().getDispatcher().unsubscribeRxView((RxViewDispatch) this);
         }
     }
 
 
     public RxFlux getRxFlux() {
-        return rxFlux;
+        return HybApp.getInstance().getRxFlux();
     }
 
     public HybActionCreator getHybActionCreator() {
