@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.hardsoftstudio.rxflux.RxFlux;
-import com.hardsoftstudio.rxflux.RxFragment;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.huyingbao.hyb.actions.HybActionCreator;
@@ -29,9 +28,11 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment extends RxFragment {
+public abstract class BaseFragment extends Fragment {
     @Inject
     protected HybActionCreator hybActionCreator;
+    @Inject
+    protected RxFlux rxFlux;
     @Inject
     @ContextLife("Activity")
     protected Context mContext;
@@ -40,6 +41,24 @@ public abstract class BaseFragment extends RxFragment {
     protected FragmentComponent mFragmentComponent;
     private View mRootView;
     private ProgressBar loadingProgress;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //初始化注入器
+        mFragmentComponent = DaggerFragmentComponent.builder()
+                .fragmentModule(new FragmentModule(this))
+                .applicationComponent(ApplicationComponent.Instance.get())
+                .build();
+        //注入Injector
+        initInjector();
+        if (this instanceof RxViewDispatch) {
+            RxViewDispatch viewDispatch = (RxViewDispatch) this;
+            viewDispatch.onRxViewRegistered();
+            rxFlux.getDispatcher().subscribeRxView(viewDispatch);
+        }
+    }
 
     @Nullable
     @Override
@@ -50,13 +69,15 @@ public abstract class BaseFragment extends RxFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        //初始化注入器
-        mFragmentComponent = DaggerFragmentComponent.builder()
-                .fragmentModule(new FragmentModule(this))
-                .applicationComponent(ApplicationComponent.Instance.get())
-                .build();
-        //注入Injector
-        initInjector();
+        //注册RxStore
+        if (this instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.register();
+                }
+            }
+        }
         //绑定view
         ButterKnife.bind(this, view);
         //绑定view之后运行
@@ -65,22 +86,32 @@ public abstract class BaseFragment extends RxFragment {
         afterCreate(savedInstanceState);
     }
 
-    protected abstract void initInjector();
-
-    /**
-     * @return
-     */
-    protected abstract int getLayoutId();
-
-    /**
-     * @param savedInstanceState
-     */
-    protected abstract void afterCreate(Bundle savedInstanceState);
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        //解除RxStore注册
+        if (this instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToUnRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.unregister();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (this instanceof RxViewDispatch) {
+            rxFlux.getDispatcher().unsubscribeRxView((RxViewDispatch) this);
+        }
+    }
+
+
+    public RxFlux getRxFlux() {
+        return rxFlux;
     }
 
     public HybActionCreator getHybActionCreator() {
@@ -100,4 +131,15 @@ public abstract class BaseFragment extends RxFragment {
         loadingProgress.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
+    protected abstract void initInjector();
+
+    /**
+     * @return
+     */
+    protected abstract int getLayoutId();
+
+    /**
+     * @param savedInstanceState
+     */
+    protected abstract void afterCreate(Bundle savedInstanceState);
 }
