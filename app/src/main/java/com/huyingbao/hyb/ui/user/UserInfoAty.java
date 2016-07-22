@@ -42,10 +42,15 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     @Bind(R.id.et_user_name)
     EditText etUserName;
     private String headImg;
-    private FileStore fileStore;
-    private String fileKey;
+
+
+    @Inject
+    FileStore fileStore;
     @Inject
     UsersStore usersStore;
+
+    private String fileKey;
+
     private HybUser user;
 
     @Override
@@ -141,8 +146,6 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        fileStore = FileStore.get(getRxFlux().getDispatcher());
-//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(fileStore, usersStore);
     }
 

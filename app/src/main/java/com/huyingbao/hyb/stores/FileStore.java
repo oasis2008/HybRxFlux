@@ -9,9 +9,6 @@ import com.huyingbao.hyb.actions.Keys;
 
 import java.util.List;
 
-/**
- * Created by marcel on 09/10/15.
- */
 public class FileStore extends RxStore implements FileStoreInterface {
 
     /**
@@ -20,19 +17,13 @@ public class FileStore extends RxStore implements FileStoreInterface {
      */
     public static final String STORE_ID = "FileStore";
 
-    private static FileStore instance;
 
     private String upToken;
     private String fileKey;
     private List<String> fileKeyList;
 
-    private FileStore(Dispatcher dispatcher) {
+    public FileStore(Dispatcher dispatcher) {
         super(dispatcher);
-    }
-
-    public static synchronized FileStore get(Dispatcher dispatcher) {
-        if (instance == null) instance = new FileStore(dispatcher);
-        return instance;
     }
 
     /**
