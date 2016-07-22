@@ -17,9 +17,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by marcel on 09/10/15.
- */
+
 public class ShopListAdapter extends RecyclerView.Adapter<ShopListAdapter.ViewHolder> {
 
     /**

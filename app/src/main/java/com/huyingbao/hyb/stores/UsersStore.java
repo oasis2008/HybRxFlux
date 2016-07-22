@@ -12,9 +12,7 @@ import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.push.BaiduPushBase;
 import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 
-/**
- * Created by marcel on 09/10/15.
- */
+
 public class UsersStore extends RxStore implements UsersStoreInterface {
 
     /**

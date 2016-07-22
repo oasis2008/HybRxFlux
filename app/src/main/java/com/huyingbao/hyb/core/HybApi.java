@@ -15,9 +15,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import rx.Observable;
 
-/**
- * Created by marcel on 09/10/15.
- */
+
 public interface HybApi {
 
     /**
