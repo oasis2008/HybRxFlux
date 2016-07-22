@@ -1,9 +1,5 @@
 package com.yuntongxun.kitsdk.core;
 
-import java.util.HashMap;
-
-import android.graphics.Bitmap;
-
 public class ContactLogic {
 
 

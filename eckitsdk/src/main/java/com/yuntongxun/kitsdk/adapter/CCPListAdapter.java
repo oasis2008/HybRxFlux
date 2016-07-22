@@ -15,13 +15,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.widget.BaseAdapter;
 
+import com.yuntongxun.kitsdk.db.OnMessageChange;
 
 import junit.framework.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.yuntongxun.kitsdk.db.OnMessageChange;
 
 /**
  * 定义抽象适配器，继承扩展不同的消息

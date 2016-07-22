@@ -16,7 +16,6 @@
 package com.yuntongxun.kitsdk.ui.photoview;
 
 import android.annotation.TargetApi;
-
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;

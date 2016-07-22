@@ -1,9 +1,9 @@
 package com.yuntongxun.kitsdk.utils;
 
+import com.yuntongxun.kitsdk.ui.group.model.ECContacts;
+
 import java.io.Serializable;
 import java.util.Comparator;
-
-import com.yuntongxun.kitsdk.ui.group.model.ECContacts;
 
 public class PyComparator implements Comparator<ECContacts>, Serializable {
     /**

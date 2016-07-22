@@ -11,12 +11,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.utils;
 
-import com.yuntongxun.kitsdk.ECDeviceKit;
-import com.yuntongxun.kitsdk.core.CCPAppManager;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
+
+import com.yuntongxun.kitsdk.core.CCPAppManager;
 
 
 

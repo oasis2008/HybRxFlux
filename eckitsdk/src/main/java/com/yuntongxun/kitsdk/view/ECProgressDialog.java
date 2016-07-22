@@ -12,8 +12,6 @@
  */
 package com.yuntongxun.kitsdk.view;
 
-import com.yuntongxun.eckitsdk.R;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +20,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
+import com.yuntongxun.eckitsdk.R;
 
 
 

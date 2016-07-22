@@ -13,7 +13,6 @@
 package com.yuntongxun.kitsdk.ui.chatting.view;
 
 import android.content.Context;
-
 import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -22,19 +21,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-
-
-
-
-
-
-
-
-
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.core.CCPAppManager;
 import com.yuntongxun.kitsdk.utils.DensityUtil;
@@ -42,6 +28,9 @@ import com.yuntongxun.kitsdk.utils.EmoticonUtil;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 import com.yuntongxun.kitsdk.view.CCPDotView;
 import com.yuntongxun.kitsdk.view.CCPFlipper;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 

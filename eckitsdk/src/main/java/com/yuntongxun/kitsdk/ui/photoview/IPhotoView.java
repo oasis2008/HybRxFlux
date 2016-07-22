@@ -16,7 +16,6 @@
 package com.yuntongxun.kitsdk.ui.photoview;
 
 import android.graphics.Bitmap;
-
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.view.GestureDetector;

@@ -17,20 +17,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-
-
-
-
+import com.yuntongxun.kitsdk.ECDeviceKit;
+import com.yuntongxun.kitsdk.core.CCPAppManager;
+import com.yuntongxun.kitsdk.utils.LogUtil;
 
 import java.io.InvalidClassException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
-import com.yuntongxun.kitsdk.ECDeviceKit;
-import com.yuntongxun.kitsdk.core.CCPAppManager;
-import com.yuntongxun.kitsdk.utils.LogUtil;
 
 
 

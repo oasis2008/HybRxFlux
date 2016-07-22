@@ -5,8 +5,6 @@ import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.util.LogLevel;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
-import com.huyingbao.hyb.inject.scope.PerFragment;
-import com.huyingbao.hyb.stores.ProdcutStore;
 import com.huyingbao.hyb.stores.UsersStore;
 
 import javax.inject.Singleton;

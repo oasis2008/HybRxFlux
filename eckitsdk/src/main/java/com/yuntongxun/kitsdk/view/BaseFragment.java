@@ -11,13 +11,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.view;
 
-import com.yuntongxun.kitsdk.utils.AudioManagerTools;
-import com.yuntongxun.kitsdk.utils.LogUtil;
-
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
+
+import com.yuntongxun.kitsdk.utils.AudioManagerTools;
+import com.yuntongxun.kitsdk.utils.LogUtil;
 
 
 /**

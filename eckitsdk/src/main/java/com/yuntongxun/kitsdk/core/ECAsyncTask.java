@@ -12,12 +12,12 @@
  */
 package com.yuntongxun.kitsdk.core;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 import com.yuntongxun.kitsdk.utils.ToastUtil;
-
-import android.content.Context;
-import android.os.AsyncTask;
 
 
 

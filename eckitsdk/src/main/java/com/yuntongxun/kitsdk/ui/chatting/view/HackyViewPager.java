@@ -1,10 +1,15 @@
 package com.yuntongxun.kitsdk.ui.chatting.view;
 
-import com.yuntongxun.kitsdk.utils.LogUtil;
+import com.yuntongxun.kitsdk.ut
+ls.Log til;
 
-import android.content.Context;
-import android.support.v4.view.ViewPager;
-import android.util.AttributeSet;
+import android.content.Conte
+t;
+imp rt android.support.v4.view
+ViewPa er;
+import android.util.A
+
+ribute et;
 import android.view.MotionEvent;
 
 

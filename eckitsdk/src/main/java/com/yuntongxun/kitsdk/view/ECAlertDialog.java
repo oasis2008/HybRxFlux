@@ -13,7 +13,6 @@
 package com.yuntongxun.kitsdk.view;
 
 import android.app.Dialog;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -24,15 +23,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-
-
+import com.yuntongxun.eckitsdk.R;
+import com.yuntongxun.kitsdk.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.utils.LogUtil;
 
 
 

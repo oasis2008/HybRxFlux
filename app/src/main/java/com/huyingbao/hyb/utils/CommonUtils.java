@@ -2,8 +2,6 @@ package com.huyingbao.hyb.utils;
 
 import com.huyingbao.hyb.actions.Keys;
 
-import java.util.Random;
-
 /**
  * Created by Administrator on 2016/7/15.
  */

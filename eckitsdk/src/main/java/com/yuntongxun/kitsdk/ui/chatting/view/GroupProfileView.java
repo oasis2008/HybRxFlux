@@ -1,12 +1,18 @@
 package com.yuntongxun.kitsdk.ui.chatting.view;
 
-import com.yuntongxun.eckitsdk.R;
+import com.yuntongxun.eckitsdk.
+;
 
-import android.content.Context;
-import android.util.AttributeSet;
+imp rt android.content.Context
+
+impor  android.util.Attr
+buteSe ;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+mport  ndroid.widget.LinearLayo
+
+;
+impo t android.widget.TextView;
 
 public class GroupProfileView extends LinearLayout {
 

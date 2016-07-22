@@ -14,13 +14,6 @@ package com.yuntongxun.kitsdk.ui.group.model;
 
 import android.database.Cursor;
 
-
-
-
-
-
-
-
 import com.yuntongxun.ecsdk.im.ECGroup;
 import com.yuntongxun.kitsdk.db.ContactSqlManager;
 import com.yuntongxun.kitsdk.db.GroupMemberSqlManager;

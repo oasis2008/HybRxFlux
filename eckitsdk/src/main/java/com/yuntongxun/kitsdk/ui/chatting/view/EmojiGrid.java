@@ -24,18 +24,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-
-
-
-
-
-
-import java.util.ArrayList;
-
 import com.yuntongxun.kitsdk.ui.chatting.model.CCPEmoji;
 import com.yuntongxun.kitsdk.utils.DensityUtil;
 import com.yuntongxun.kitsdk.utils.EmoticonUtil;
 import com.yuntongxun.kitsdk.utils.LogUtil;
+
+import java.util.ArrayList;
 
 
 /**

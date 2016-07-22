@@ -10,11 +10,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.adapter.IBaseAdapter;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class ECListDialog extends ECAlertDialog implements AdapterView.OnItemClickListener {

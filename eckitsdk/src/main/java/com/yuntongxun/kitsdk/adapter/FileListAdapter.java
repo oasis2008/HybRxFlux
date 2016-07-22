@@ -13,9 +13,6 @@
 package com.yuntongxun.kitsdk.adapter;
 
 import android.content.Context;
-
-
-
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,17 +20,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.yuntongxun.eckitsdk.R;
+import com.yuntongxun.kitsdk.utils.CnToCharUntil;
+import com.yuntongxun.kitsdk.utils.FileUtils;
+import com.yuntongxun.kitsdk.utils.LogUtil;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.utils.CnToCharUntil;
-import com.yuntongxun.kitsdk.utils.FileUtils;
-import com.yuntongxun.kitsdk.utils.LogUtil;
 
 
 public class FileListAdapter extends BaseAdapter {

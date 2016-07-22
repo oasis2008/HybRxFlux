@@ -26,25 +26,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-
-
-
-
-
-
-
-
-
-
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECGroupManager;
-import com.yuntongxun.ecsdk.SdkErrorCode;
 import com.yuntongxun.ecsdk.im.ECGroup;
 import com.yuntongxun.kitsdk.ECDeviceKit;
-import com.yuntongxun.kitsdk.core.CCPAppManager;
 import com.yuntongxun.kitsdk.ui.ECChattingActivity;
 import com.yuntongxun.kitsdk.ui.ECSuperActivity;
 import com.yuntongxun.kitsdk.utils.DemoUtils;

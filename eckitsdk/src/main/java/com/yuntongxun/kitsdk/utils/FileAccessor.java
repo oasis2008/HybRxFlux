@@ -14,16 +14,11 @@
 import android.os.Environment;
 import android.text.TextUtils;
 
-
-
-
+import com.yuntongxun.eckitsdk.R;
 
 import java.io.File;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.ECDeviceKit;
 
 
 

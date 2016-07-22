@@ -23,7 +23,6 @@ import com.yuntongxun.ecsdk.im.ECFileMessageBody;
 import com.yuntongxun.ecsdk.im.ECImageMessageBody;
 import com.yuntongxun.ecsdk.im.ECTextMessageBody;
 import com.yuntongxun.ecsdk.im.ECVoiceMessageBody;
-import com.yuntongxun.kitsdk.ECDeviceKit;
 import com.yuntongxun.kitsdk.core.CCPAppManager;
 import com.yuntongxun.kitsdk.ui.chatting.model.ImgInfo;
 import com.yuntongxun.kitsdk.utils.DemoUtils;

@@ -12,8 +12,6 @@
  */
 package com.yuntongxun.kitsdk.view;
 
-import com.yuntongxun.kitsdk.utils.EmoticonUtil;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,6 +19,8 @@ import android.util.AttributeSet;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
+
+import com.yuntongxun.kitsdk.utils.EmoticonUtil;
 
 
 public class CCPEditText extends EditText {

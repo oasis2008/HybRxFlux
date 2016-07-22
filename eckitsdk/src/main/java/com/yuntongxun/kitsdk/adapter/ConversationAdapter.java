@@ -13,7 +13,6 @@
 package com.yuntongxun.kitsdk.adapter;
 
 import android.content.Context;
-
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -24,8 +23,6 @@ import android.widget.TextView;
 
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECMessage;
-
-
 import com.yuntongxun.kitsdk.db.ConversationSqlManager;
 import com.yuntongxun.kitsdk.db.GroupNoticeSqlManager;
 import com.yuntongxun.kitsdk.db.GroupSqlManager;

@@ -12,11 +12,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.ui;
 
-import com.yuntongxun.kitsdk.core.CCPAppManager;
-import com.yuntongxun.kitsdk.ui.ECSuperActivity;
-import com.yuntongxun.kitsdk.view.CCPActivityBase;
-
 import android.view.View;
+
+import com.yuntongxun.kitsdk.view.CCPActivityBase;
 
 
 

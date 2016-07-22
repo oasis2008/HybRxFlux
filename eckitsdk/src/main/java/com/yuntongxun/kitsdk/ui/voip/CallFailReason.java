@@ -1,11 +1,10 @@
 package com.yuntongxun.kitsdk.ui.voip;
 
 
-import java.util.HashMap;
-
-import java.util.Map;
-
 import com.yuntongxun.eckitsdk.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**

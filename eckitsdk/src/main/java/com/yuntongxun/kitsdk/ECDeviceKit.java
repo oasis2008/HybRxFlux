@@ -1,8 +1,12 @@
 package com.yuntongxun.kitsdk;
 
 
-import com.yuntongxun.ecsdk.ECDevice;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.text.TextUtils;
 
+import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECInitParams;
 import com.yuntongxun.kitsdk.beans.ECAuthParameters;
 import com.yuntongxun.kitsdk.core.CCPAppManager;
@@ -19,12 +23,6 @@ import com.yuntongxun.kitsdk.ui.chatting.model.IMChattingHelper;
 import com.yuntongxun.kitsdk.ui.voip.VoIPCallActivity;
 import com.yuntongxun.kitsdk.utils.FileAccessor;
 import com.yuntongxun.kitsdk.utils.LogUtil;
-
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 
 public class ECDeviceKit {
 

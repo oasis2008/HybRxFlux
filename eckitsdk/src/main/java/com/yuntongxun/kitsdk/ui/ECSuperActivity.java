@@ -1,18 +1,5 @@
 package com.yuntongxun.kitsdk.ui;
 
-import java.util.Map;
-
-
-
-import org.apache.http.entity.StringEntity;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.yuntongxun.kitsdk.core.ECKitConstant;
-import com.yuntongxun.kitsdk.utils.LogUtil;
-import com.yuntongxun.kitsdk.view.CCPActivityBase;
-import com.yuntongxun.kitsdk.view.TopBarView;
-
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
@@ -26,6 +13,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+
+import com.yuntongxun.kitsdk.core.ECKitConstant;
+import com.yuntongxun.kitsdk.utils.LogUtil;
+import com.yuntongxun.kitsdk.view.CCPActivityBase;
+import com.yuntongxun.kitsdk.view.TopBarView;
 
 
 

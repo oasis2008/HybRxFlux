@@ -13,9 +13,6 @@
 package com.yuntongxun.kitsdk.ui;
 
 import android.content.Context;
-
-
-
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,21 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECDevice;
@@ -55,7 +37,6 @@ import com.yuntongxun.kitsdk.beans.NoticeSystemMessage;
 import com.yuntongxun.kitsdk.db.GroupNoticeSqlManager;
 import com.yuntongxun.kitsdk.group.GroupNoticeHelper;
 import com.yuntongxun.kitsdk.utils.DateUtil;
-import com.yuntongxun.kitsdk.utils.LogUtil;
 import com.yuntongxun.kitsdk.utils.ToastUtil;
 import com.yuntongxun.kitsdk.view.ECProgressDialog;
 

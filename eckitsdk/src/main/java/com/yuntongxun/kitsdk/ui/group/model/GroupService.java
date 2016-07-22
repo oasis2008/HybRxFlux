@@ -15,16 +15,6 @@ package com.yuntongxun.kitsdk.ui.group.model;
 import android.content.Intent;
 import android.util.Log;
 
-
-
-
-
-
-
-
-
-
-
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECGroupManager;

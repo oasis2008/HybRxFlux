@@ -13,7 +13,6 @@
 package com.yuntongxun.kitsdk.utils;
 
 import android.content.ClipData;
-
 import android.content.Context;
 import android.os.Build;
 

@@ -17,14 +17,9 @@ import android.content.pm.PackageManager;
 import android.content.res.XmlResourceParser;
 import android.text.TextUtils;
 
-
-
+import com.yuntongxun.eckitsdk.R;
 
 import org.xmlpull.v1.XmlPullParserException;
-
-
-
-import com.yuntongxun.eckitsdk.R;
 
 import java.io.IOException;
 

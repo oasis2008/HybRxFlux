@@ -17,8 +17,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.utils.DiskCacheUtils;
-
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.beans.ViewImageInfo;
 import com.yuntongxun.kitsdk.db.ImgInfoSqlManager;

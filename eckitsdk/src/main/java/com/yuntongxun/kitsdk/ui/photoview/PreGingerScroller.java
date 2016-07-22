@@ -16,7 +16,6 @@
 package com.yuntongxun.kitsdk.ui.photoview;
 
 import android.content.Context;
-
 import android.widget.Scroller;
 
 public class PreGingerScroller extends ScrollerProxy {

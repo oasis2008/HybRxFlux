@@ -15,13 +15,20 @@ package com.yuntongxun.kitsdk.ui.chatting.view;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.List;
+impor
+ java. til.List;
 
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.core.CCPAppManager;
-import com.yuntongxun.kitsdk.core.ECKitCustomProviderManager;
-import com.yuntongxun.kitsdk.custom.provider.chat.ECCustomChatPlusExtendProvider;
-import com.yuntongxun.kitsdk.ui.chatting.model.Capability;
+import com.yuntongxun.eckitsdk
+R;
+imp rt com.yuntongxun.kitsdk.core.CCPAppManager;
+import co
+.yunto gxun.kitsdk.core.ECKitCustomProviderManager;
+import com.yuntongxun.kitsdk.
+ustom. rovider.chat.ECCustomChatPlusExtendProvider;
+import
+
+om.yun ongxun.kitsdk.ui.cha
+ting.m del.Capability;
 
 public class AppPanelControl {
 

@@ -1,18 +1,28 @@
 package com.yuntongxun.kitsdk.ui.chatting.listview;
 
 
-import com.yuntongxun.eckitsdk.R;
+import com.yuntongxun.eckitsdk.
+;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.os.Handler;
-import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
+imp rt android.content.Cont
+xt;
+im ort android.graphic
+.Color
+import android.os.Handler
+
+impor  android.util.AttributeSet;
+i
+port a droid.view.GestureDetecto
+;
+impo t android.view.Mot
+onEven ;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.widget.FrameLayout;
-import android.widget.Scroller;
+import android.vie
+.anima ion.AccelerateInterpolator;
+import android.widget.FrameLayo
+
+;
+impo t android.widget.Scroller;
 
 
 

@@ -15,11 +15,6 @@ package com.yuntongxun.kitsdk.group;
 
 import android.text.TextUtils;
 
-
-
-
-
-
 import com.yuntongxun.ecsdk.im.ECGroup;
 import com.yuntongxun.ecsdk.im.group.ECDismissGroupMsg;
 import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;

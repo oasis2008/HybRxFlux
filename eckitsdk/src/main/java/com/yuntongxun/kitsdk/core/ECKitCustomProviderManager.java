@@ -1,8 +1,5 @@
 package com.yuntongxun.kitsdk.core;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.text.TextUtils;
 
 import com.yuntongxun.kitsdk.custom.provider.IBaseProvider;
@@ -11,6 +8,9 @@ import com.yuntongxun.kitsdk.custom.provider.chat.ECCustomChatPlusExtendProvider
 import com.yuntongxun.kitsdk.custom.provider.chat.ECCustomChatUIProvider;
 import com.yuntongxun.kitsdk.custom.provider.conversation.ECCustomConversationListActionProvider;
 import com.yuntongxun.kitsdk.custom.provider.conversation.ECCustomConversationListUIProvider;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ECKitCustomProviderManager
 

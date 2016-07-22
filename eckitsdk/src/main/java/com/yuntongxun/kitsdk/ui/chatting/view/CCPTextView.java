@@ -12,15 +12,15 @@
  */
 package com.yuntongxun.kitsdk.ui.chatting.view;
 
-import com.yuntongxun.kitsdk.utils.EmoticonUtil;
-import com.yuntongxun.kitsdk.utils.LogUtil;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
+import com.yuntongxun.kitsdk.utils.EmoticonUtil;
+import com.yuntongxun.kitsdk.utils.LogUtil;
 
 
 

@@ -1,9 +1,9 @@
 package com.yuntongxun.kitsdk.beans;
 
-import com.yuntongxun.kitsdk.utils.DemoUtils;
-
 import android.content.ContentValues;
 import android.database.Cursor;
+
+import com.yuntongxun.kitsdk.utils.DemoUtils;
 
 
 

@@ -13,7 +13,6 @@
 package com.yuntongxun.kitsdk.beans;
 
 import android.content.ContentValues;
-
 import android.database.Cursor;
 
 import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;

@@ -1,19 +1,32 @@
 package com.yuntongxun.kitsdk.ui.chatting.view;
 
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.utils.DensityUtil;
+import com.yuntongxun.eckits
+k.R;
+i port com.yuntongxun.kits
+k.util .DensityUtil;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
+import
+ndroid app.Activity;
+import android
+conten .Context;
+import android.
+iew.Ke Event;
+import andr
+id.vie .LayoutInflater;
+import and
+oid.vi w.MotionEvent;
+import andro
+d.view View;
+import android.view.Wi
+dowMan ger;
+import android.widget.
+dapter iew;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.PopupWindow.OnDismissListener;
+impo
+
+ andro d.widget.PopupWindow;
+impo
+t andr id.widget.PopupWindow.OnDismissListener;
 
 /**
  * 自定义Overflow ActionBar菜单，显示下拉更多选项

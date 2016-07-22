@@ -1,10 +1,8 @@
 package com.yuntongxun.kitsdk.db;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import junit.framework.Assert;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.text.TextUtils;
 
 import com.yuntongxun.ecsdk.im.ECGroupMember;
 import com.yuntongxun.kitsdk.beans.ClientUser;
@@ -12,9 +10,11 @@ import com.yuntongxun.kitsdk.core.CCPAppManager;
 import com.yuntongxun.kitsdk.core.ContactLogic;
 import com.yuntongxun.kitsdk.ui.group.model.ECContacts;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.text.TextUtils;
+import junit.framework.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class ContactSqlManager extends AbstractSQLManager {
 

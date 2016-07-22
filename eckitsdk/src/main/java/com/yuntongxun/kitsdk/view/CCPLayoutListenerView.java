@@ -11,11 +11,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.view;
 
-import com.yuntongxun.kitsdk.utils.LogUtil;
-
 import android.annotation.TargetApi;
-
-
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;

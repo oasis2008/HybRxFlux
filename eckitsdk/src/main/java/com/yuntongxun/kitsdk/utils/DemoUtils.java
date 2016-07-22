@@ -28,6 +28,10 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.yuntongxun.kitsdk.core.CCPAppManager;
+import com.yuntongxun.kitsdk.view.PhotoBitmapDrawable;
 
 import junit.framework.Assert;
 
@@ -41,11 +45,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.yuntongxun.kitsdk.core.CCPAppManager;
-import com.yuntongxun.kitsdk.view.PhotoBitmapDrawable;
 
 /**
  * Created by Jorstin on 2015/3/18.

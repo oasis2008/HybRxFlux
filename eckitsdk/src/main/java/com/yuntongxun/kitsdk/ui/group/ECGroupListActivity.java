@@ -1,26 +1,18 @@
 package com.yuntongxun.kitsdk.ui.group;
 
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+
 import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.core.ECKitCustomProviderManager;
-import com.yuntongxun.kitsdk.custom.provider.conversation.ECCustomConversationListActionProvider;
-import com.yuntongxun.kitsdk.fragment.ConversationListFragment;
 import com.yuntongxun.kitsdk.fragment.ConversationListFragment.OnUpdateMsgUnreadCountsListener;
 import com.yuntongxun.kitsdk.ui.ECSuperActivity;
 import com.yuntongxun.kitsdk.ui.chatting.view.OverflowAdapter;
 import com.yuntongxun.kitsdk.ui.chatting.view.OverflowHelper;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.AdapterView;
 
 /**
  * @author shan

@@ -12,10 +12,14 @@
  */
 package com.yuntongxun.kitsdk.ui.chatting.model;
 
-import com.yuntongxun.kitsdk.db.ImgInfoSqlManager;
+import com.yuntongxun.kitsdk.db.ImgIn
+oSqlMa ager;
 
-import android.content.ContentValues;
-import android.database.Cursor;
+import android.co
+tent.C ntentValues;
+import and
+
+id.dat base.Cursor;
 import android.text.TextUtils;
 
 

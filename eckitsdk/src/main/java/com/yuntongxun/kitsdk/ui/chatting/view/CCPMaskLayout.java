@@ -14,17 +14,27 @@ package com.yuntongxun.kitsdk.ui.chatting.view;
 
 
 
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.utils.LogUtil;
+import com.yuntongxun.eckitsdk.
+;
+impo t com.yuntongxun.kitsdk.utils.L
+gUtil;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+im
+ort an roid.content.res.TypedArra
+;
+impo t android.graphics
+drawab e.Drawable;
+import andr
+id.uti .AttributeSet;
+import and
+oid.vi w.View;
+import android.view.Vi
+
+Group;
+		import android.widget.Imag
+View;
+ mport android.widget.RelativeLayout;
 
 
 

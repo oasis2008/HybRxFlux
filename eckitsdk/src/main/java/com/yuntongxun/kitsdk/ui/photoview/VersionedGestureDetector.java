@@ -17,7 +17,6 @@ package com.yuntongxun.kitsdk.ui.photoview;
  *******************************************************************************/
 
 import android.content.Context;
-
 import android.os.Build;
 
 public final class VersionedGestureDetector {

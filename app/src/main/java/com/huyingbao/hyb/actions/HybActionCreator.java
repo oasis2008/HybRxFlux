@@ -12,7 +12,6 @@ import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.utils.CommonUtils;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
-import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;

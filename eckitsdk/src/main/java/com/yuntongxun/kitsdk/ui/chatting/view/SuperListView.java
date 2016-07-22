@@ -1,20 +1,35 @@
 package com.yuntongxun.kitsdk.ui.chatting.view;
 
 import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.utils.DemoUtils;
-import com.yuntongxun.kitsdk.utils.LogUtil;
+im
+ort co .yuntongxun.kitsdk.utils
+DemoUt ls;
+import com.yuntongxu
+.kitsd .utils.LogUtil;
 
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.util.AttributeSet;
-import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ListAdapter;
+
+mport  ndroid.annotation.T
+rgetAp ;
+import android.c
+ntent. ontext;
+import andr
+id.gra hics.Canvas;
+import androi
+.os.Bu ld;
+import android
+os.Han ler;
+import android.os.Loop
+r;
+imp rt android.os.Message;
+impo
+t andr id.util.AttributeSet;
+im
+
+rt and oid.view.View;
+import andr
+id.wid et.AbsListView;
+import android.widget.
+istAda ter;
 import android.widget.ListView;
 
 public class SuperListView extends ListView {

@@ -1,8 +1,6 @@
 package com.yuntongxun.kitsdk.ui;
 
 import android.os.Bundle;
-
-
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -16,9 +14,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import java.io.File;
-import java.util.List;
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.beans.ViewImageInfo;
 import com.yuntongxun.kitsdk.fragment.ImageGalleryFragment;
@@ -27,6 +22,9 @@ import com.yuntongxun.kitsdk.utils.DemoUtils;
 import com.yuntongxun.kitsdk.utils.FileAccessor;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 import com.yuntongxun.kitsdk.utils.ToastUtil;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * com.yuntongxun.ecdemo.ui.chatting in ECDemo_Android

@@ -1,17 +1,17 @@
 package com.yuntongxun.kitsdk.ui.group.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
+import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.yuntongxun.kitsdk.beans.ClientUser;
 import com.yuntongxun.kitsdk.core.ContactLogic;
 import com.yuntongxun.kitsdk.db.AbstractSQLManager;
 import com.yuntongxun.kitsdk.db.ContactSqlManager;
 
-import android.content.ContentValues;
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class ECContacts  implements Parcelable {
 

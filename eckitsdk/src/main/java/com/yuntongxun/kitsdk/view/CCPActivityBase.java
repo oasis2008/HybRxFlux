@@ -12,8 +12,6 @@
  */package com.yuntongxun.kitsdk.view;
 
 import android.app.Dialog;
-
-
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.IBinder;
@@ -27,19 +25,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-
-
-
-
-
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.ui.ECSuperActivity;
 import com.yuntongxun.kitsdk.utils.AudioManagerTools;
 import com.yuntongxun.kitsdk.utils.LogUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 界面处理

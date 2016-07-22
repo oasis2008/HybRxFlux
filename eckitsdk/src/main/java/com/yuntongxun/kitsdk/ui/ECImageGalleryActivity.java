@@ -26,15 +26,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-
-import java.io.File;
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.beans.ImageMsgInfoEntry;
 import com.yuntongxun.kitsdk.core.ChattingAysnImageLoader;
 import com.yuntongxun.kitsdk.utils.DemoUtils;
 import com.yuntongxun.kitsdk.utils.FileAccessor;
 import com.yuntongxun.kitsdk.utils.LogUtil;
+
+import java.io.File;
 
 
 

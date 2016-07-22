@@ -11,13 +11,12 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.utils;
 
-import com.yuntongxun.kitsdk.ECDeviceKit;
-import com.yuntongxun.kitsdk.core.CCPAppManager;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+
+import com.yuntongxun.kitsdk.core.CCPAppManager;
 
 public class DensityUtil {
 

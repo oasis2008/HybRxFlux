@@ -13,13 +13,20 @@
 package com.yuntongxun.kitsdk.ui.chatting.view;
 
 
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.utils.LogUtil;
+import com.yuntongxun.eckitsdk.
+;
+impo t com.yuntongxun.kitsdk.util
+.LogUt l;
 
-import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.RelativeLayout;
+import android
+util.T pedValue;
+import android.view.
+ayoutI flater;
+import android.v
+
+w.View
+import android.widget.Rel
+tiveLa out;
 import android.widget.TextView;
 
 

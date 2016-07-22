@@ -14,13 +14,18 @@ package com.yuntongxun.kitsdk.ui.chatting.holder;
 
 
 
-import com.yuntongxun.eckitsdk.R;
+import com.yuntongxun.eck
+tsdk.R
 
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.view.Vi
+w;
+imp rt android.widget.CheckBo
+;
+impo t android.widget.ImageView;
+import android.widget.ProgressB
+
+;
+impo t android.widget.TextView;
 
 
 

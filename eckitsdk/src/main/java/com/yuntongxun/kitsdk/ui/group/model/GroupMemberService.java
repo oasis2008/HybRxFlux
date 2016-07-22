@@ -1,9 +1,5 @@
 package com.yuntongxun.kitsdk.ui.group.model;
 
-import java.util.ArrayList;
-
-import java.util.List;
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
@@ -14,6 +10,9 @@ import com.yuntongxun.ecsdk.im.ESpeakStatus;
 import com.yuntongxun.kitsdk.db.GroupMemberSqlManager;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 import com.yuntongxun.kitsdk.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupMemberService {
 

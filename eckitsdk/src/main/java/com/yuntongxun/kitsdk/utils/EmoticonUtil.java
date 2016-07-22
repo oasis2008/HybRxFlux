@@ -21,21 +21,15 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ImageSpan;
 
-
-
-
-
-
+import com.yuntongxun.eckitsdk.R;
+import com.yuntongxun.kitsdk.core.CCPAppManager;
+import com.yuntongxun.kitsdk.ui.chatting.model.CCPEmoji;
 
 import java.lang.ref.SoftReference;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.core.CCPAppManager;
-import com.yuntongxun.kitsdk.ui.chatting.model.CCPEmoji;
 
 
 /**

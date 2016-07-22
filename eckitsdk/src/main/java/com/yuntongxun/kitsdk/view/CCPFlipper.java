@@ -12,9 +12,6 @@
  */
 package com.yuntongxun.kitsdk.view;
 
-import com.yuntongxun.kitsdk.utils.DensityUtil;
-import com.yuntongxun.kitsdk.utils.LogUtil;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -27,6 +24,9 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+
+import com.yuntongxun.kitsdk.utils.DensityUtil;
+import com.yuntongxun.kitsdk.utils.LogUtil;
 
 
 

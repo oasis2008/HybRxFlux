@@ -23,17 +23,11 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-
-
-
-
-
-import java.util.List;
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.ui.chatting.model.Capability;
 import com.yuntongxun.kitsdk.utils.DensityUtil;
+
+import java.util.List;
 
 
 

@@ -11,25 +11,12 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.core;
 
-import java.io.File;
-
-
-
-
-
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Bundle;
-import android.provider.ContactsContract.Intents;
 import android.text.TextUtils;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -41,15 +28,19 @@ import com.yuntongxun.kitsdk.beans.ViewImageInfo;
 import com.yuntongxun.kitsdk.setting.ECPreferenceSettings;
 import com.yuntongxun.kitsdk.setting.ECPreferences;
 import com.yuntongxun.kitsdk.ui.ECChattingActivity;
-import com.yuntongxun.kitsdk.ui.ECSuperActivity;
 import com.yuntongxun.kitsdk.ui.ECImageGalleryActivity;
 import com.yuntongxun.kitsdk.ui.ECImageGralleryPagerActivity;
+import com.yuntongxun.kitsdk.ui.ECSuperActivity;
 import com.yuntongxun.kitsdk.ui.chatting.view.ChatFooterPanel;
 import com.yuntongxun.kitsdk.ui.voip.VideoActivity;
 import com.yuntongxun.kitsdk.ui.voip.VoIPCallActivity;
 import com.yuntongxun.kitsdk.ui.voip.VoIPCallHelper;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 import com.yuntongxun.kitsdk.utils.MimeTypesTools;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**

@@ -20,9 +20,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.core.ECKitCustomProviderManager;
 import com.yuntongxun.kitsdk.custom.provider.chat.ECCustomChatPlusExtendProvider;
@@ -30,6 +27,9 @@ import com.yuntongxun.kitsdk.utils.DensityUtil;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 import com.yuntongxun.kitsdk.view.CCPDotView;
 import com.yuntongxun.kitsdk.view.CCPFlipper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppPanel extends LinearLayout implements
 		CCPFlipper.OnFlipperPageListener,

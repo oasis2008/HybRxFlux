@@ -1,17 +1,13 @@
 package com.yuntongxun.kitsdk.ui.voip;
 
 
-import android.content.Intent;
-
 import android.os.Bundle;
 import android.text.TextUtils;
-
 
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.SdkErrorCode;
-import com.yuntongxun.ecsdk.ECVoIPCallManager.CallType;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 import com.yuntongxun.kitsdk.utils.ToastUtil;
 

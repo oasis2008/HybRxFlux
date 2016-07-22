@@ -1,12 +1,5 @@
 package com.yuntongxun.kitsdk.ui.voip;
 
-import java.util.Arrays;
-
-
-
-import org.webrtc.videoengine.ViERenderer;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.SurfaceView;
@@ -20,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.CameraCapability;
 import com.yuntongxun.ecsdk.CameraInfo;
@@ -28,9 +20,12 @@ import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
 import com.yuntongxun.ecsdk.ECVoIPSetupManager;
-import com.yuntongxun.kitsdk.core.CCPAppManager;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 import com.yuntongxun.kitsdk.utils.TextUtil;
+
+import org.webrtc.videoengine.ViERenderer;
+
+import java.util.Arrays;
 
 
 public class VideoActivity extends ECVoIPBaseActivity implements OnClickListener{

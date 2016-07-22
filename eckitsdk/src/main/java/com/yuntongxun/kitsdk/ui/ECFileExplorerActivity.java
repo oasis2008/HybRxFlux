@@ -13,8 +13,6 @@
 package com.yuntongxun.kitsdk.ui;
 
 import android.content.Intent;
-
-
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -23,15 +21,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
-
-
-
-import java.io.File;
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.kitsdk.adapter.FileListAdapter;
 import com.yuntongxun.kitsdk.utils.FileUtils;
+
+import java.io.File;
 
 
 public class ECFileExplorerActivity extends ECSuperActivity implements

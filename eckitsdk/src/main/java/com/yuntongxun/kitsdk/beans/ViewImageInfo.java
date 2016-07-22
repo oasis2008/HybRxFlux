@@ -1,10 +1,10 @@
 package com.yuntongxun.kitsdk.beans;
 
-import com.yuntongxun.kitsdk.db.ImgInfoSqlManager;
-
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.yuntongxun.kitsdk.db.ImgInfoSqlManager;
 
 
 public class ViewImageInfo implements Parcelable {

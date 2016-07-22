@@ -1,15 +1,15 @@
 package com.yuntongxun.kitsdk.db;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.text.TextUtils;
 
 import com.yuntongxun.ecsdk.im.ECGroupMember;
 import com.yuntongxun.kitsdk.core.CCPAppManager;
 import com.yuntongxun.kitsdk.ui.group.model.ECContacts;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.text.TextUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GroupMemberSqlManager extends AbstractSQLManager {

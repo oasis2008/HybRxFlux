@@ -11,11 +11,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.view;
 
-import com.yuntongxun.eckitsdk.R;
-
 import android.annotation.TargetApi;
-
-
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -24,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.yuntongxun.eckitsdk.R;
 
 
 /**

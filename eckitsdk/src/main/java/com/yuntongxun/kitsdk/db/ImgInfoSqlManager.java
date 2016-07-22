@@ -12,13 +12,6 @@
  */
 
 package com.yuntongxun.kitsdk.db;
-import java.io.File;
-
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -37,6 +30,11 @@ import com.yuntongxun.kitsdk.utils.DemoUtils;
 import com.yuntongxun.kitsdk.utils.FileAccessor;
 import com.yuntongxun.kitsdk.utils.FileUtils;
 import com.yuntongxun.kitsdk.utils.LogUtil;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**

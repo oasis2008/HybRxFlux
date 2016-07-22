@@ -11,10 +11,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.ui.voip;
 
-import com.yuntongxun.eckitsdk.R;
-
 import android.content.Context;
-
 import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.View;
@@ -22,6 +19,8 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.yuntongxun.eckitsdk.R;
 
 
 

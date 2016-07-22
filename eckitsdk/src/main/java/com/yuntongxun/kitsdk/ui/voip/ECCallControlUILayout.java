@@ -12,10 +12,6 @@
  */package com.yuntongxun.kitsdk.ui.voip;
 
 
-
-import com.yuntongxun.eckitsdk.R;
-
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -23,7 +19,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+
+import com.yuntongxun.eckitsdk.R;
 
 
 /**

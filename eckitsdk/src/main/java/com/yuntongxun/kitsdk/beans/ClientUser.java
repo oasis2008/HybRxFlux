@@ -1,14 +1,12 @@
 package com.yuntongxun.kitsdk.beans;
 
-import org.json.JSONException;
-
-
-import org.json.JSONObject;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.yuntongxun.ecsdk.ECInitParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Jorstin on 2015/3/18.

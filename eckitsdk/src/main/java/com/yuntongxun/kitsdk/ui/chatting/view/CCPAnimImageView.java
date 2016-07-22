@@ -12,14 +12,21 @@
  */
 package com.yuntongxun.kitsdk.ui.chatting.view;
 
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.ui.ECSuperActivity;
+import com.yuntongxun.eckitsdk.
+;
+impo t com.yuntongxun.kitsdk.ui.ECSuperActivity;
 
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.AttributeSet;
-import android.view.animation.AlphaAnimation;
+import and
+oid.gr phics.drawable.AnimationDr
+wable;
+		import android.graphics.drawable.Drawa
+le;
+im ort android.util.Attribu
+
+Set;
+i port android.view.animatio
+.Alpha nimation;
 import android.widget.TextView;
 
 

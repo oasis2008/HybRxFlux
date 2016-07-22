@@ -5,7 +5,6 @@ import android.content.Context;
 import com.huyingbao.hyb.inject.module.ServiceModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerService;
-import com.huyingbao.hyb.utils.LocalStorageUtils;
 
 import dagger.Component;
 

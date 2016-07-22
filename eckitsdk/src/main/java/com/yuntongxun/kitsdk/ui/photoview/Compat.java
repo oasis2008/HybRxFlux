@@ -16,7 +16,6 @@
 package com.yuntongxun.kitsdk.ui.photoview;
 
 import android.annotation.TargetApi;
-
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.view.MotionEvent;

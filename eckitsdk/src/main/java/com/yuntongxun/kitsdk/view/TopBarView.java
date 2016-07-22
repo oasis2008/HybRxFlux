@@ -12,12 +12,8 @@
  */package com.yuntongxun.kitsdk.view;
 
 
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.utils.DensityUtil;
-
 import android.content.Context;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -28,6 +24,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.yuntongxun.eckitsdk.R;
+import com.yuntongxun.kitsdk.utils.DensityUtil;
 
 
 /**

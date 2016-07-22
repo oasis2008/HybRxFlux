@@ -4,12 +4,10 @@ package com.yuntongxun.kitsdk.ui.voip;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
-import com.yuntongxun.ecsdk.ECVoIPCallManager.CallBackEntity;
 import com.yuntongxun.ecsdk.ECVoIPCallManager.CallType;
 import com.yuntongxun.ecsdk.ECVoIPCallManager.OnMakeCallBackListener;
 import com.yuntongxun.ecsdk.ECVoIPSetupManager;
 import com.yuntongxun.ecsdk.VideoRatio;
-import com.yuntongxun.kitsdk.core.CCPAppManager;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 
 /**

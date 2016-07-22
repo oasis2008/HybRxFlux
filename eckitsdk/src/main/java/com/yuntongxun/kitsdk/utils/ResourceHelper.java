@@ -11,13 +11,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.utils;
 
-import com.yuntongxun.kitsdk.core.CCPAppManager;
-
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
+
+import com.yuntongxun.kitsdk.core.CCPAppManager;
 
 
 /**

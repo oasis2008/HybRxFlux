@@ -11,31 +11,20 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.yuntongxun.kitsdk.fragment;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECDevice.ECDeviceState;
 import com.yuntongxun.ecsdk.platformtools.ECHandlerHelper;
 import com.yuntongxun.kitsdk.adapter.CCPListAdapter.OnListAdapterCallBackListener;
 import com.yuntongxun.kitsdk.adapter.ConversationAdapter;
-import com.yuntongxun.kitsdk.core.ECCustomProviderEnum;
 import com.yuntongxun.kitsdk.core.ECKitConstant;
 import com.yuntongxun.kitsdk.core.ECKitCustomProviderManager;
 import com.yuntongxun.kitsdk.custom.provider.conversation.ECCustomConversationListActionProvider;
@@ -51,6 +40,9 @@ import com.yuntongxun.kitsdk.view.BaseFragment;
 import com.yuntongxun.kitsdk.view.ECListDialog;
 import com.yuntongxun.kitsdk.view.ECProgressDialog;
 import com.yuntongxun.kitsdk.view.NetWarnBannerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConversationListFragment extends BaseFragment implements
 		OnListAdapterCallBackListener {

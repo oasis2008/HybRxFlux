@@ -15,7 +15,6 @@ package com.yuntongxun.kitsdk.ui.group;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -25,23 +24,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.kitsdk.adapter.CCPListAdapter;
@@ -49,8 +31,6 @@ import com.yuntongxun.kitsdk.core.CCPAppManager;
 import com.yuntongxun.kitsdk.db.GroupSqlManager;
 import com.yuntongxun.kitsdk.db.IMessageSqlManager;
 import com.yuntongxun.kitsdk.ui.chatting.view.EmojiconTextView;
-import com.yuntongxun.kitsdk.ui.chatting.view.OverflowAdapter;
-import com.yuntongxun.kitsdk.ui.chatting.view.OverflowHelper;
 import com.yuntongxun.kitsdk.ui.group.model.DemoGroup;
 import com.yuntongxun.kitsdk.ui.group.model.GroupService;
 import com.yuntongxun.kitsdk.utils.DemoUtils;

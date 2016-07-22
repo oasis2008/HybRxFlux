@@ -13,25 +13,12 @@
 package com.yuntongxun.kitsdk.core;
 
 import android.content.Context;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.widget.LinearLayout;
-
-
-
-
-
-
-
-
-
-
-
-
 
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECChatManager;

@@ -1,11 +1,11 @@
 package com.yuntongxun.kitsdk.ui.group;
 
-import com.yuntongxun.eckitsdk.R;
-import com.yuntongxun.kitsdk.ui.ECSuperActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.yuntongxun.eckitsdk.R;
+import com.yuntongxun.kitsdk.ui.ECSuperActivity;
 
 
 /**

@@ -14,15 +14,12 @@
 import android.os.Environment;
 import android.text.TextUtils;
 
-
-
+import com.yuntongxun.eckitsdk.R;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
-
-import com.yuntongxun.eckitsdk.R;
 
 
 public class FileUtils {
