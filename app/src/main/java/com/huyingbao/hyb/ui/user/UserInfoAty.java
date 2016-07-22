@@ -102,7 +102,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     @OnClick(R.id.bt_ok)
     public void onClick() {
         if (headImg != null) {
-            getHybActionCreator().uploadOneFile(new LocalFile(headImg, CommonUtils.getFileNameByTime(headImg)), Keys.PART_NAME_HEAD_IMAGE);
+            hybActionCreator.uploadOneFile(new LocalFile(headImg, CommonUtils.getFileNameByTime(headImg)), Keys.PART_NAME_HEAD_IMAGE);
         }
     }
 
@@ -114,7 +114,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
                     case Actions.UPLOAD_ONE_FILE:
                         HybUser user = new HybUser();
                         user.setHeadImg(fileStore.getFileKey());
-                        getHybActionCreator().updateUser(GsonHelper.toJson(user));
+                        hybActionCreator.updateUser(GsonHelper.toJson(user));
                         break;
                 }
                 break;

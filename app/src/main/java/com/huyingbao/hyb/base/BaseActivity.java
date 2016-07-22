@@ -124,15 +124,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public RxFlux getRxFlux() {
-        return rxFlux;
-    }
-
-    public HybActionCreator getHybActionCreator() {
-        return hybActionCreator;
-    }
-
-
     /**
      * 是否显示进度条
      *

@@ -62,7 +62,7 @@ public class ProductListFrg extends BaseFragment implements RxViewDispatch, Prod
     protected void afterCreate(Bundle savedInstanceState) {
         if (getArguments().containsKey(Keys.SHOP)) {
             mShop = (Shop) getArguments().getSerializable(Keys.SHOP);
-            getHybActionCreator().getProductByShop(mShop.getShopId(), 0);
+            hybActionCreator.getProductByShop(mShop.getShopId(), 0);
         }
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -17,6 +17,7 @@ import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.stores.UsersStore;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -67,8 +68,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
-        usersStore.register();
     }
 
 
@@ -122,7 +121,7 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        return null;
+        return Arrays.asList(usersStore);
     }
 
     @Nullable

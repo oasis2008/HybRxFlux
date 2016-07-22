@@ -115,7 +115,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
             case UsersStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.A_GET_LOCATION:
-                        getHybActionCreator().getNearbyShopList(
+                        hybActionCreator.getNearbyShopList(
                                 usersStore.getBDLocation().getLongitude(),
                                 usersStore.getBDLocation().getLatitude(),
                                 10000,
@@ -149,7 +149,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
             if (throwable instanceof HttpException) {
                 int httpCode = ((HttpException) throwable).code();
                 Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("重试", v -> getHybActionCreator().retry(error.getAction()))
+                        .setAction("重试", v -> hybActionCreator.retry(error.getAction()))
                         .show();
             }
         } else {
@@ -188,7 +188,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
 
     @Override
     public void onClicked(Shop shop) {
-        RxAction action = getHybActionCreator().newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP, shop);
-        getHybActionCreator().postRxAction(action);
+        RxAction action = hybActionCreator.newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP, shop);
+        hybActionCreator.postRxAction(action);
     }
 }

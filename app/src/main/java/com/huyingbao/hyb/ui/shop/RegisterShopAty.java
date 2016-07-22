@@ -99,7 +99,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
         shop.setLongitude(mLatitude);
         shop.setLatitude(mLongitude);
         shop.setShopType(mShopTyep);
-        getHybActionCreator().registerShop(shop);
+        hybActionCreator.registerShop(shop);
 
     }
 
@@ -147,7 +147,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
                 return;
             }
             Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
-                    .setAction("重试", v -> getHybActionCreator().retry(error.getAction()))
+                    .setAction("重试", v -> hybActionCreator.retry(error.getAction()))
                     .show();
         } else {
             Snackbar.make(rootCoordinator, "未知错误", Snackbar.LENGTH_INDEFINITE)

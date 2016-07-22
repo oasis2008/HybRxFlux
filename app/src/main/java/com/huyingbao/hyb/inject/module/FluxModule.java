@@ -29,6 +29,10 @@ public class FluxModule {
         return rxFlux;
     }
 
+    /**
+     * @param rxFlux 从当前module中调用返回值是RxFlux的方法
+     * @return
+     */
     @Singleton
     @Provides
     public HybActionCreator provideActionCreator(RxFlux rxFlux) {

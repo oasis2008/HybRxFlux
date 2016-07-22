@@ -95,7 +95,7 @@ public class ShopDetailAty extends BaseActivity implements RxViewDispatch {
     public void onRxViewRegistered() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
         if (fragment instanceof ProductListFrg) {
-            getRxFlux().getDispatcher().subscribeRxView((RxViewDispatch) fragment);
+            rxFlux.getDispatcher().subscribeRxView((RxViewDispatch) fragment);
         }
     }
 

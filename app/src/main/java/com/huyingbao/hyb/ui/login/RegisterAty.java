@@ -96,7 +96,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
                     case Actions.REGISTER_USER:
                         HybUser user = usersStore.getUser();
                         user.setPassword(mPasswordView.getText().toString());
-                        getHybActionCreator().login(user);
+                        hybActionCreator.login(user);
                         break;
                     case Actions.LOGIN:
                         showProgress(false);
@@ -129,7 +129,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
                 return;
             }
             Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
-                    .setAction("重试", v -> getHybActionCreator().retry(error.getAction()))
+                    .setAction("重试", v -> hybActionCreator.retry(error.getAction()))
                     .show();
         } else {
             Snackbar.make(rootCoordinator, "未知错误", Snackbar.LENGTH_INDEFINITE)
@@ -196,7 +196,7 @@ public class RegisterAty extends BaseActivity implements RxViewDispatch {
             HybUser user = new HybUser();
             user.setPhone(phone);
             user.setPassword(password);
-            getHybActionCreator().registerUser(user);
+            hybActionCreator.registerUser(user);
         }
     }
 

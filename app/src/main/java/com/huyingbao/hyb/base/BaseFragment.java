@@ -58,21 +58,28 @@ public abstract class BaseFragment extends Fragment {
                 .build();
         //注入Injector
         initInjector();
-        //注册RxStore
-        if (this instanceof RxViewDispatch) {
-            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToRegister();
-            if (rxStoreList != null) {
-                for (RxStore rxStore : rxStoreList) {
-                    rxStore.register();
-                }
-            }
-        }
+        registerRxStore();
         //绑定view
         ButterKnife.bind(this, view);
         //绑定view之后运行
         super.onViewCreated(view, savedInstanceState);
         //view创建之后的操作
         afterCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+        //解除RxStore注册
+        if (this instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToUnRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.unregister();
+                }
+            }
+        }
     }
 
     @Override
@@ -95,30 +102,6 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract void afterCreate(Bundle savedInstanceState);
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-        //解除RxStore注册
-        if (this instanceof RxViewDispatch) {
-            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToUnRegister();
-            if (rxStoreList != null) {
-                for (RxStore rxStore : rxStoreList) {
-                    rxStore.unregister();
-                }
-            }
-        }
-    }
-
-    public RxFlux getRxFlux() {
-        return rxFlux;
-    }
-
-    public HybActionCreator getHybActionCreator() {
-        return hybActionCreator;
-    }
-
-
     /**
      * 是否显示进度条
      *
@@ -129,6 +112,22 @@ public abstract class BaseFragment extends Fragment {
             loadingProgress = ViewUtils.createProgressBar((Activity) mContext, null);
         }
         loadingProgress.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * 因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
+     * 调用getRxStoreListToRegister,注册RxStore,只能手动注册
+     * 注册RxStore
+     */
+    private void registerRxStore() {
+        if (this instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.register();
+                }
+            }
+        }
     }
 
 }

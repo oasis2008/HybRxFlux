@@ -123,7 +123,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
             HybUser user = new HybUser();
             user.setPhone(phone);
             user.setPassword(password);
-            getHybActionCreator().login(user);
+            hybActionCreator.login(user);
         }
     }
 
@@ -169,7 +169,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                     return;
                 }
                 Snackbar.make(rootCoordinator, httpCode + HttpCode.getHttpCodeInfo(httpCode), Snackbar.LENGTH_INDEFINITE)
-                        .setAction("重试", v -> getHybActionCreator().retry(error.getAction()))
+                        .setAction("重试", v -> hybActionCreator.retry(error.getAction()))
                         .show();
             }
         } else {
