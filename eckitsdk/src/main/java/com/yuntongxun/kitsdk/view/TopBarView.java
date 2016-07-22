@@ -9,7 +9,8 @@
  *  An additional intellectual property rights grant can be found
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
- */package com.yuntongxun.kitsdk.view;
+ */
+package com.yuntongxun.kitsdk.view;
 
 
 import android.content.Context;
@@ -35,7 +36,7 @@ import com.yuntongxun.kitsdk.utils.DensityUtil;
  */
 public class TopBarView extends LinearLayout {
     public static final int SHOW_SUTITLE = 2;
-    private Context mContext ;
+    private Context mContext;
     private ImageView mLeftButton;
     private TextView mMiddleButton;
     private TextView mMiddleSub;
@@ -80,14 +81,14 @@ public class TopBarView extends LinearLayout {
         mRightText = (TextView) findViewById(R.id.text_right);
     }
 
-    private void setMiddleSubTitle(int type , String title , String subTitle , View.OnClickListener onClickListener) {
-        if(type == 1) {
+    private void setMiddleSubTitle(int type, String title, String subTitle, View.OnClickListener onClickListener) {
+        if (type == 1) {
             setOnClickListener(onClickListener);
         }
         setTitle(title);
-        if(TextUtils.isEmpty(subTitle) || type == 2) {
+        if (TextUtils.isEmpty(subTitle) || type == 2) {
             mMiddleSub.setVisibility(View.GONE);
-            return ;
+            return;
         }
         mMiddleSub.setText(subTitle);
         mMiddleSub.setVisibility(View.VISIBLE);
@@ -100,17 +101,18 @@ public class TopBarView extends LinearLayout {
     public void showTopProgressbar() {
         mRightButton.setVisibility(View.GONE);
         mRightText.setVisibility(View.GONE);
-        ((RelativeLayout)findViewById(R.id.top_progressbar)).setVisibility(View.VISIBLE);
+        ((RelativeLayout) findViewById(R.id.top_progressbar)).setVisibility(View.VISIBLE);
     }
 
     /**
      * 设置TopBarView 右边按钮的背景
+     *
      * @param resId
      */
     public void setRightButtonRes(int resId) {
-        if(resId == -1) {
+        if (resId == -1) {
             mRightButton.setVisibility(View.GONE);
-            return ;
+            return;
         }
         int padding = getContext().getResources().getDimensionPixelSize(R.dimen.btn_topbar_paddingHorizontal);
         mRightButton.setImageResource(resId);
@@ -119,25 +121,27 @@ public class TopBarView extends LinearLayout {
 
     /**
      * 设置右边按钮的显示文字
+     *
      * @param text
      */
     public void setRightButtonText(String text) {
-        if(text == null) {
+        if (text == null) {
             mRightText.setVisibility(View.GONE);
-            return ;
+            return;
         }
         mRightText.setText(text);
     }
 
     /**
      * 设置TopBarView 顶部更新提示是否显示
+     *
      * @param show
      */
     public void setTopbarUpdatePoint(boolean show) {
         View mTopbarUpdatePoint = findViewById(R.id.topbar_update_point);
-        if(show) {
+        if (show) {
             mTopbarUpdatePoint.setVisibility(View.VISIBLE);
-            return ;
+            return;
         }
         mTopbarUpdatePoint.setVisibility(View.GONE);
     }
@@ -148,18 +152,19 @@ public class TopBarView extends LinearLayout {
     public void setRightVisible() {
         mRightButton.setVisibility(View.VISIBLE);
         mRightText.setVisibility(View.VISIBLE);
-        ((RelativeLayout)findViewById(R.id.top_progressbar)).setVisibility(View.GONE);
+        ((RelativeLayout) findViewById(R.id.top_progressbar)).setVisibility(View.GONE);
     }
 
     /**
      * 设置TopBarView RightPoint是否显示
+     *
      * @param show
      */
     public void setTopbarRightPoint(boolean show) {
         View mTopbarRightPoint = findViewById(R.id.right_point);
-        if(show) {
+        if (show) {
             mTopbarRightPoint.setVisibility(View.VISIBLE);
-            return ;
+            return;
         }
         mTopbarRightPoint.setVisibility(View.GONE);
     }
@@ -198,17 +203,18 @@ public class TopBarView extends LinearLayout {
 
     /**
      * 显示up  或者Down 的图标
+     *
      * @param up
      * @param arrow
      */
-    public void setMiddleBtnArrowUp(boolean up , boolean arrow) {
-        if(mArrowUp == up && !arrow) {
-            return ;
+    public void setMiddleBtnArrowUp(boolean up, boolean arrow) {
+        if (mArrowUp == up && !arrow) {
+            return;
         }
 
         mArrowUp = up;
         int id = R.drawable.common_top_bar_arrow_down;
-        if(mArrowUp) {
+        if (mArrowUp) {
             id = R.drawable.common_top_bar_arrow_up;
         }
         Drawable upDownDrawable = mContext.getResources().getDrawable(id);
@@ -219,17 +225,19 @@ public class TopBarView extends LinearLayout {
 
     /**
      * 设置MiddleButton 的padding
+     *
      * @param padding
      */
     public void setMiddleBtnPadding(int padding) {
-        if(mMiddleButton == null) {
-            return ;
+        if (mMiddleButton == null) {
+            return;
         }
         mMiddleButton.setPadding(padding, 0, padding, 0);
     }
 
     /**
      * 右侧按钮是否可用
+     *
      * @param enabled
      */
     public void setRightBtnEnable(boolean enabled) {
@@ -239,12 +247,13 @@ public class TopBarView extends LinearLayout {
 
     /**
      * 设置TopBarView 标题
+     *
      * @param title
      */
     public void setTitle(String title) {
-        if(TextUtils.isEmpty(title)) {
+        if (TextUtils.isEmpty(title)) {
             mMiddleButton.setVisibility(View.INVISIBLE);
-            return ;
+            return;
         }
         mMiddleButton.setText(title);
         mMiddleButton.setVisibility(View.VISIBLE);
@@ -272,18 +281,18 @@ public class TopBarView extends LinearLayout {
 
     /**
      * 设置标题的背景
+     *
      * @param resId
      */
     public void setTitleDrawable(int resId) {
-        if(resId == -1) {
+        if (resId == -1) {
             mMiddleButton.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(resId), null, null, null);
-            return ;
+            return;
         }
         mMiddleButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
     }
 
     /**
-     *
      * @param type
      * @param leftResid
      * @param rightResid
@@ -301,6 +310,7 @@ public class TopBarView extends LinearLayout {
 
     /**
      * 设置纯图片的按钮TopBarView
+     *
      * @param type
      * @param leftResid
      * @param rightResid
@@ -314,6 +324,7 @@ public class TopBarView extends LinearLayout {
 
     /**
      * 重载方法，设置返回、标题、右侧Action按钮
+     *
      * @param type
      * @param leftResid
      * @param rightText
@@ -327,22 +338,23 @@ public class TopBarView extends LinearLayout {
 
     /**
      * 设置TopBarView 属性
-     * @param type 类型
+     *
+     * @param type       类型
      * @param leftResid  左边按钮背景
-     * @param rightResid  右边按钮背景
-     * @param leftText  左边按钮文字
-     * @param rightText 右边按钮文字
-     * @param title  标题文字
-     * @param subTitle 子标题文字
+     * @param rightResid 右边按钮背景
+     * @param leftText   左边按钮文字
+     * @param rightText  右边按钮文字
+     * @param title      标题文字
+     * @param subTitle   子标题文字
      * @param l
      */
-    public  void setTopBarToStatus(int type, int leftResid, int rightResid, String leftText, String rightText, String title, String subTitle, View.OnClickListener l) {
+    public void setTopBarToStatus(int type, int leftResid, int rightResid, String leftText, String rightText, String title, String subTitle, View.OnClickListener l) {
         mClickListener = l;
         findViewById(R.id.common_top_wrapper).setOnClickListener(mClickListener);
         int padding = getContext().getResources().getDimensionPixelSize(R.dimen.btn_topbar_paddingHorizontal);
-        if(leftResid <= 0 || leftText != null) {
+        if (leftResid <= 0 || leftText != null) {
             mLeftButton.setVisibility(View.GONE);
-            if(leftText != null) {
+            if (leftText != null) {
                 mLeftButton.setVisibility(View.GONE);
                 mLeftText.setText(leftText);
                 mLeftText.setVisibility(View.VISIBLE);
@@ -351,7 +363,7 @@ public class TopBarView extends LinearLayout {
                 mLeftText.setVisibility(View.GONE);
             }
 
-            if(leftResid > 0) {
+            if (leftResid > 0) {
                 mLeftText.setBackgroundResource(leftResid);
                 mLeftText.setPadding(padding, 0, padding, 0);
             }
@@ -362,10 +374,10 @@ public class TopBarView extends LinearLayout {
             mLeftButton.setOnClickListener(l);
         }
 
-        if(rightResid <= 0 || rightText != null) {
+        if (rightResid <= 0 || rightText != null) {
             mRightButton.setVisibility(View.GONE);
 
-            if(rightText != null) {
+            if (rightText != null) {
                 mRightButton.setVisibility(View.GONE);
                 mRightText.setText(rightText);
                 mRightText.setVisibility(View.VISIBLE);
@@ -374,7 +386,7 @@ public class TopBarView extends LinearLayout {
                 mRightText.setVisibility(View.GONE);
             }
 
-            if(rightResid > 0) {
+            if (rightResid > 0) {
                 mRightText.setBackgroundResource(rightResid);
                 mRightText.setPadding(padding, 0, padding, 0);
             }

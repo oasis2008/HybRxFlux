@@ -27,46 +27,46 @@ import com.yuntongxun.kitsdk.ui.chatting.view.ChattingItemContainer;
 
 public class VoiceRxRow extends BaseChattingRow {
 
-	public VoiceRxRow(int type) {
-		super(type);
-	}
-	
-	@Override
-	public View buildChatView(LayoutInflater inflater, View convertView) {
+    public VoiceRxRow(int type) {
+        super(type);
+    }
+
+    @Override
+    public View buildChatView(LayoutInflater inflater, View convertView) {
         //we have a don't have a converView so we'll have to create a new one
         if (convertView == null) {
             convertView = new ChattingItemContainer(inflater, R.layout.ytx_chatting_item_from_voice);
-            
+
             //use the view holder pattern to save of already looked up subviews
             VoiceRowViewHolder holder = new VoiceRowViewHolder(mRowType);
             convertView.setTag(holder.initBaseHolder(convertView, true));
-        } 
-		return convertView;
-	}
-
-	@Override
-	public void buildChattingData(Context context, BaseHolder baseHolder,
-			final ECMessage detail, int position) {
-		
-		VoiceRowViewHolder holder = (VoiceRowViewHolder) baseHolder;
-        if(detail != null) {
-        	VoiceRowViewHolder.initVoiceRow(holder, detail, position, (ECChattingActivity) context, true);
-        	holder.voiceAnim.setVoiceFrom(true);
         }
-	}
-	
+        return convertView;
+    }
 
-	@Override
-	public int getChatViewType() {
+    @Override
+    public void buildChattingData(Context context, BaseHolder baseHolder,
+                                  final ECMessage detail, int position) {
 
-		return ChattingRowType.VOICE_ROW_RECEIVED.ordinal();
-	}
+        VoiceRowViewHolder holder = (VoiceRowViewHolder) baseHolder;
+        if (detail != null) {
+            VoiceRowViewHolder.initVoiceRow(holder, detail, position, (ECChattingActivity) context, true);
+            holder.voiceAnim.setVoiceFrom(true);
+        }
+    }
 
-	@Override
-	public boolean onCreateRowContextMenu(ContextMenu contextMenu,
-			View targetView, ECMessage detail) {
 
-		return false;
-	}
+    @Override
+    public int getChatViewType() {
+
+        return ChattingRowType.VOICE_ROW_RECEIVED.ordinal();
+    }
+
+    @Override
+    public boolean onCreateRowContextMenu(ContextMenu contextMenu,
+                                          View targetView, ECMessage detail) {
+
+        return false;
+    }
 
 }

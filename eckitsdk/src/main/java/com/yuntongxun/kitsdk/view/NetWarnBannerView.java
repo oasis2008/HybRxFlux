@@ -9,7 +9,8 @@
  *  An additional intellectual property rights grant can be found
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
- */package com.yuntongxun.kitsdk.view;
+ */
+package com.yuntongxun.kitsdk.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -41,7 +42,7 @@ public class NetWarnBannerView extends LinearLayout {
      * @param context
      */
     public NetWarnBannerView(Context context) {
-        this(context , null);
+        this(context, null);
     }
 
     /**
@@ -100,7 +101,7 @@ public class NetWarnBannerView extends LinearLayout {
      * set gone
      */
     public void hideWarnBannerView() {
-        if(mContetLayout == null) {
+        if (mContetLayout == null) {
             return;
         }
         mContetLayout.setVisibility(View.GONE);
@@ -108,14 +109,15 @@ public class NetWarnBannerView extends LinearLayout {
 
     /**
      * 重新连接
+     *
      * @param reconnect
      */
     public final void reconnect(boolean reconnect) {
         mContetLayout.setVisibility(View.VISIBLE);
-        if(reconnect) {
+        if (reconnect) {
             mProgressBar.setVisibility(View.VISIBLE);
             mNetWarnIcon.setVisibility(View.INVISIBLE);
-            return ;
+            return;
         }
         mProgressBar.setVisibility(View.GONE);
         mNetWarnIcon.setVisibility(View.VISIBLE);

@@ -23,13 +23,13 @@ public abstract class IBaseAdapter<T> extends BaseAdapter {
         data = new ArrayList<T>();
     }
 
-    public IBaseAdapter(Context ctx ,List<T> data) {
+    public IBaseAdapter(Context ctx, List<T> data) {
         this(ctx);
         this.data = data;
     }
 
     public View inflateView(int resource) {
-        return mLayoutInflater.inflate(resource , null);
+        return mLayoutInflater.inflate(resource, null);
     }
 
 
@@ -37,35 +37,35 @@ public abstract class IBaseAdapter<T> extends BaseAdapter {
         return data;
     }
 
-    public void replace(int position , T t) {
+    public void replace(int position, T t) {
         data.remove(position);
-        data.add(position , t);
-        if(!mNotifyOnChange) {
-            return ;
-        }
-        notifyDataSetChanged();
-    }
-
-    public void insert(int position , T t) {
         data.add(position, t);
-        if(!mNotifyOnChange) {
-            return ;
+        if (!mNotifyOnChange) {
+            return;
         }
         notifyDataSetChanged();
     }
 
-    public void addAll(int position , Collection<T> t) {
+    public void insert(int position, T t) {
+        data.add(position, t);
+        if (!mNotifyOnChange) {
+            return;
+        }
+        notifyDataSetChanged();
+    }
+
+    public void addAll(int position, Collection<T> t) {
         data.addAll(position, t);
-        if(!mNotifyOnChange) {
-            return ;
+        if (!mNotifyOnChange) {
+            return;
         }
         notifyDataSetChanged();
     }
 
     public void add(T t) {
         data.add(t);
-        if(!mNotifyOnChange) {
-            return ;
+        if (!mNotifyOnChange) {
+            return;
         }
         notifyDataSetChanged();
     }
@@ -76,22 +76,22 @@ public abstract class IBaseAdapter<T> extends BaseAdapter {
     }
 
     public void addData(T[] ts) {
-        if(ts == null || ts.length == 0) {
-            return ;
+        if (ts == null || ts.length == 0) {
+            return;
         }
-        for(int i = 0 ; i < ts.length ; i++) {
+        for (int i = 0; i < ts.length; i++) {
             data.add(ts[i]);
         }
-        if(!mNotifyOnChange) {
-            return ;
+        if (!mNotifyOnChange) {
+            return;
         }
         notifyDataSetChanged();
     }
 
     public void clear(boolean notify) {
         data.clear();
-        if(!mNotifyOnChange) {
-            return ;
+        if (!mNotifyOnChange) {
+            return;
         }
         notifyDataSetChanged();
     }
@@ -100,22 +100,22 @@ public abstract class IBaseAdapter<T> extends BaseAdapter {
         addData(t, this.mNotifyOnChange);
     }
 
-    public void addData(Collection<T> t ,boolean notify) {
+    public void addData(Collection<T> t, boolean notify) {
         data.addAll(t);
-        if(!mNotifyOnChange) {
-            return ;
+        if (!mNotifyOnChange) {
+            return;
         }
         notifyDataSetChanged();
     }
 
-    public  void reset() {
+    public void reset() {
         clear(this.mNotifyOnChange);
     }
 
     public void remove(int position) {
         data.remove(position);
-        if(!mNotifyOnChange) {
-            return ;
+        if (!mNotifyOnChange) {
+            return;
         }
         notifyDataSetChanged();
     }
@@ -138,7 +138,7 @@ public abstract class IBaseAdapter<T> extends BaseAdapter {
 
     public boolean hasDataAndRemove(T t) {
         boolean remove = data.remove(t);
-        if(mNotifyOnChange) {
+        if (mNotifyOnChange) {
             notifyDataSetChanged();
         }
         return remove;

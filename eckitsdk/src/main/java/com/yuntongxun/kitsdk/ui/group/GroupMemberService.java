@@ -18,50 +18,55 @@ public class GroupMemberService {
 
     public static final String TAG = "GroupMemberService";
     private static GroupMemberService sInstence;
+
     public static GroupMemberService getInstance() {
-        if(sInstence == null) {
+        if (sInstence == null) {
             sInstence = new GroupMemberService();
         }
         return sInstence;
     }
 
-    /**SDK 访问接口*/
+    /**
+     * SDK 访问接口
+     */
     private ECGroupManager mGroupManager;
-    /**群组成员同步完成回调*/
+    /**
+     * 群组成员同步完成回调
+     */
     private OnSynsGroupMemberListener mGroupMemberListener;
+
     private GroupMemberService() {
         mGroupManager = ECDevice.getECGroupManager();
     }
 
     public static void synsGroupMember(final String groupId) {
         getGroupManager();
-        if(getInstance().mGroupManager == null) {
-            return ;
+        if (getInstance().mGroupManager == null) {
+            return;
         }
         ECGroupManager groupManager = getInstance().mGroupManager;
         groupManager.queryGroupMembers(groupId, new ECGroupManager.OnQueryGroupMembersListener() {
 
-            
 
             @Override
             public void onQueryGroupMembersComplete(ECError error,
                                                     List<ECGroupMember> members) {
-                if(getInstance().isSuccess(error)) {
-                    if(members == null || members.isEmpty()) {
+                if (getInstance().isSuccess(error)) {
+                    if (members == null || members.isEmpty()) {
                         GroupMemberSqlManager.delAllMember(groupId);
                     } else {
 
-                        LogUtil.d(TAG , "[synsGroupMember] members size :" +members.size());
+                        LogUtil.d(TAG, "[synsGroupMember] members size :" + members.size());
                         ArrayList<String> accounts = GroupMemberSqlManager.getGroupMemberAccounts(groupId);
                         ArrayList<String> ids = new ArrayList<String>();
-                        for(ECGroupMember member :members) {
+                        for (ECGroupMember member : members) {
                             ids.add(member.getVoipAccount());
                         }
 
                         // 查找不是群组成员
-                        if(accounts != null && !accounts.isEmpty()) {
-                            for(String id : accounts) {
-                                if(ids.contains(id)) {
+                        if (accounts != null && !accounts.isEmpty()) {
+                            for (String id : accounts) {
+                                if (ids.contains(id)) {
                                     continue;
                                 }
                                 // 不是群组成员、从数据库删除
@@ -77,8 +82,8 @@ public class GroupMemberService {
 
         });
     }
-    
-    public static void inviteMembers(String groupId ,String reason ,final ECGroupManager.InvitationMode confirm , String[] members) {
+
+    public static void inviteMembers(String groupId, String reason, final ECGroupManager.InvitationMode confirm, String[] members) {
         getGroupManager();
         inviteMembers(groupId, reason, confirm, members, new ECGroupManager.OnInviteJoinGroupListener() {
 
@@ -99,9 +104,9 @@ public class GroupMemberService {
             }
         });
 
-   }
+    }
 
-    public static void inviteMembers(String groupId ,String reason ,final ECGroupManager.InvitationMode confirm , String[] members , ECGroupManager.OnInviteJoinGroupListener l) {
+    public static void inviteMembers(String groupId, String reason, final ECGroupManager.InvitationMode confirm, String[] members, ECGroupManager.OnInviteJoinGroupListener l) {
         getGroupManager();
         getInstance().mGroupManager.inviteJoinGroup(groupId, reason, members, confirm, l);
     }
@@ -110,23 +115,23 @@ public class GroupMemberService {
      * @param groupId
      */
     private void notify(final String groupId) {
-        if(getInstance().mGroupMemberListener != null) {
+        if (getInstance().mGroupMemberListener != null) {
             getInstance().mGroupMemberListener.onSynsGroupMember(groupId);
         }
     }
 
     /**
      * 邀请成员加入群组
+     *
      * @param groupId 群组ID
-     * @param reason 邀请原因
+     * @param reason  邀请原因
      * @param confirm 是否需要对方确认
      * @param members 邀请的成员
      */
-    public static void inviteMembers(String groupId ,String reason ,final int confirm , String[] members) {
+    public static void inviteMembers(String groupId, String reason, final int confirm, String[] members) {
         getGroupManager();
         inviteMembers(groupId, reason, confirm, members, new ECGroupManager.OnInviteJoinGroupListener() {
 
-            
 
             @Override
             public void onInviteJoinGroupComplete(ECError error, String groupId,
@@ -145,23 +150,24 @@ public class GroupMemberService {
             }
         });
 
-   }
+    }
 
-    public static void inviteMembers(String groupId ,String reason ,final int confirm , String[] members , ECGroupManager.OnInviteJoinGroupListener l) {
+    public static void inviteMembers(String groupId, String reason, final int confirm, String[] members, ECGroupManager.OnInviteJoinGroupListener l) {
         getGroupManager();
         getInstance().mGroupManager.inviteJoinGroup(groupId, reason, members, confirm, l);
     }
 
     /**
      * 将成员移除出群组
+     *
      * @param groupid 群组ID
-     * @param member 移除出的群组成员
+     * @param member  移除出的群组成员
      */
-    public static void removerMember(String groupid , String member) {
+    public static void removerMember(String groupid, String member) {
         getGroupManager();
         getInstance().mGroupManager.deleteGroupMember(groupid, member, new ECGroupManager.OnDeleteGroupMembersListener() {
 
-            
+
             @Override
             public void onDeleteGroupMembersComplete(ECError error, String groupId, String members) {
                 if (getInstance().isSuccess(error)) {
@@ -177,11 +183,12 @@ public class GroupMemberService {
 
     /**
      * 设置群组成员禁言状态
+     *
      * @param groupId
      * @param member
      * @param enabled
      */
-    public static void forbidMemberSpeakStatus(final String groupId , final String member ,final boolean enabled ) {
+    public static void forbidMemberSpeakStatus(final String groupId, final String member, final boolean enabled) {
         getGroupManager();
         ESpeakStatus speakStatus = new ESpeakStatus();
         speakStatus.setOperation(enabled ? 2 : 1);
@@ -196,12 +203,12 @@ public class GroupMemberService {
                 getInstance().notify(groupId);
             }
 
-           
+
         });
     }
 
 
-    public static void queryGroupMemberCard(final String groupId , final String member) {
+    public static void queryGroupMemberCard(final String groupId, final String member) {
         getGroupManager();
         getInstance().mGroupManager.queryMemberCard(member, groupId, new ECGroupManager.OnQueryMemberCardListener() {
             @Override
@@ -216,11 +223,11 @@ public class GroupMemberService {
                         ", errorCode=" + error.errorCode);
             }
 
-            
+
         });
     }
 
-    public static void modifyGroupMemberCard(final String groupId , final String member) {
+    public static void modifyGroupMemberCard(final String groupId, final String member) {
         getGroupManager();
         ECGroupMember groupMember = new ECGroupMember();
         groupMember.setBelong(groupId);
@@ -242,7 +249,7 @@ public class GroupMemberService {
                         ", errorCode=" + error.errorCode);
             }
 
-            
+
         });
     }
 
@@ -254,11 +261,12 @@ public class GroupMemberService {
 
     /**
      * 请求是否成功
+     *
      * @param error
      * @return
      */
     private boolean isSuccess(ECError error) {
-        if(error.errorCode == SdkErrorCode.REQUEST_SUCCESS)  {
+        if (error.errorCode == SdkErrorCode.REQUEST_SUCCESS) {
             return true;
         }
         return false;
@@ -271,13 +279,14 @@ public class GroupMemberService {
 
     /**
      * 注入SDK群组成员同步回调
+     *
      * @param l
      */
     public static void addListener(OnSynsGroupMemberListener l) {
         getInstance().mGroupMemberListener = l;
     }
 
-    public interface OnSynsGroupMemberListener{
+    public interface OnSynsGroupMemberListener {
         void onSynsGroupMember(String groupId);
     }
 }

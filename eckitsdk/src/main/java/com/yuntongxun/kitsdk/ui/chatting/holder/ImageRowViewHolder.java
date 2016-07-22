@@ -18,60 +18,59 @@ tsdk.R
 
 import android.view.Vi
 w;
-imp rt android.widget.CheckBo
-;
-impo t android.widget.ImageView;
+        imp rt android.widget.CheckBo
+        ;
+        impo t android.widget.ImageView;
 import android.widget.ProgressB
 
-;
+        ;
 impo t android.widget.TextView;
-
 
 
 /**
  * @author 容联•云通讯
- * @date 2014-12-9
  * @version 4.0
+ * @date 2014-12-9
  */
 public class ImageRowViewHolder extends BaseHolder {
 
-	public ImageView chattingContentIv;
-	public View uploadingView;
-	public TextView uploadingText;
-	public ImageView maskView;
-	
-	/**
-	 * @param type
-	 */
-	public ImageRowViewHolder(int type) {
-		super(type);
-	}
+    public ImageView chattingContentIv;
+    public View uploadingView;
+    public TextView uploadingText;
+    public ImageView maskView;
 
-	/* (non-Javadoc)
-	 * @see com.hisun.cas.model.BaseHolder#initBaseHolder(android.view.View)
-	 */
-	public BaseHolder initBaseHolder(View baseView , boolean receive) {
-		super.initBaseHolder(baseView);
-		
-		chattingTime = (TextView) baseView.findViewById(R.id.chatting_time_tv);
-		chattingContentIv = (ImageView) baseView.findViewById(R.id.chatting_content_iv);
-		checkBox = (CheckBox) baseView.findViewById(R.id.chatting_checkbox);
-		chattingMaskView = baseView.findViewById(R.id.chatting_maskview);
-		uploadingView = baseView.findViewById(R.id.uploading_view);
-		
-		if(receive) {
-			chattingUser = (TextView) baseView.findViewById(R.id.chatting_user_tv);
-			progressBar = (ProgressBar) baseView.findViewById(R.id.downloading_pb);
-			type = 1;
-		} else {
-			progressBar = (ProgressBar) baseView.findViewById(R.id.uploading_pb);
-			uploadingText = (TextView) baseView.findViewById(R.id.uploading_tv);
-			chattingUser = (TextView) baseView.findViewById(R.id.chatting_user_tv);
-			type = 2;
-		}
-		maskView = (ImageView) baseView.findViewById(R.id.chatting_content_mask_iv);
-		
-		return this;
-	}
+    /**
+     * @param type
+     */
+    public ImageRowViewHolder(int type) {
+        super(type);
+    }
+
+    /* (non-Javadoc)
+     * @see com.hisun.cas.model.BaseHolder#initBaseHolder(android.view.View)
+     */
+    public BaseHolder initBaseHolder(View baseView, boolean receive) {
+        super.initBaseHolder(baseView);
+
+        chattingTime = (TextView) baseView.findViewById(R.id.chatting_time_tv);
+        chattingContentIv = (ImageView) baseView.findViewById(R.id.chatting_content_iv);
+        checkBox = (CheckBox) baseView.findViewById(R.id.chatting_checkbox);
+        chattingMaskView = baseView.findViewById(R.id.chatting_maskview);
+        uploadingView = baseView.findViewById(R.id.uploading_view);
+
+        if (receive) {
+            chattingUser = (TextView) baseView.findViewById(R.id.chatting_user_tv);
+            progressBar = (ProgressBar) baseView.findViewById(R.id.downloading_pb);
+            type = 1;
+        } else {
+            progressBar = (ProgressBar) baseView.findViewById(R.id.uploading_pb);
+            uploadingText = (TextView) baseView.findViewById(R.id.uploading_tv);
+            chattingUser = (TextView) baseView.findViewById(R.id.chatting_user_tv);
+            type = 2;
+        }
+        maskView = (ImageView) baseView.findViewById(R.id.chatting_content_mask_iv);
+
+        return this;
+    }
 }
 

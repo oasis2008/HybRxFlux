@@ -29,90 +29,90 @@ import java.io.InvalidClassException;
 
 
 public class ECImagePreviewActivity extends ECSuperActivity implements
-		View.OnClickListener {
+        View.OnClickListener {
 
-	private static final String TAG = "ECDemo.ImagePreviewActivity";
-	private TopBarView mTopBarView;
-	private PhotoView mImageView;
-	private Bitmap bitmap;
+    private static final String TAG = "ECDemo.ImagePreviewActivity";
+    private TopBarView mTopBarView;
+    private PhotoView mImageView;
+    private Bitmap bitmap;
 
-	private CoreHandler mCoreHandler = new CoreHandler(
-			new CoreHandler.HandlerCallbck() {
-				@Override
-				public boolean dispatchMessage() {
-					mImageView.setImageBitmap(bitmap);
-					mImageView.invalidate();
-					mTopBarView.setRightBtnEnable(true);
-					return false;
-				}
-			}, false);
+    private CoreHandler mCoreHandler = new CoreHandler(
+            new CoreHandler.HandlerCallbck() {
+                @Override
+                public boolean dispatchMessage() {
+                    mImageView.setImageBitmap(bitmap);
+                    mImageView.invalidate();
+                    mTopBarView.setRightBtnEnable(true);
+                    return false;
+                }
+            }, false);
 
-	@Override
-	protected int getLayoutId() {
-		return R.layout.ytx_image_preview_activity;
-	}
+    @Override
+    protected int getLayoutId() {
+        return R.layout.ytx_image_preview_activity;
+    }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		mTopBarView = getTopBarView();
-		mTopBarView.setTopBarToStatus(1, R.drawable.ytx_topbar_back_bt,
-				R.drawable.ytx_btn_style_green, null,
-				getString(R.string.dialog_ok_button),
-				getString(R.string.app_title_image_preview), null, this);
-		mTopBarView.setRightBtnEnable(false);
+        mTopBarView = getTopBarView();
+        mTopBarView.setTopBarToStatus(1, R.drawable.ytx_topbar_back_bt,
+                R.drawable.ytx_btn_style_green, null,
+                getString(R.string.dialog_ok_button),
+                getString(R.string.app_title_image_preview), null, this);
+        mTopBarView.setRightBtnEnable(false);
 
-		initViewUI();
-	}
+        initViewUI();
+    }
 
-	private void initViewUI() {
-		final String path = ECPreferences.getSharedPreferences().getString(
-				ECPreferenceSettings.SETTINGS_CROPIMAGE_OUTPUTPATH.getId(),
-				(String) ECPreferenceSettings.SETTINGS_CROPIMAGE_OUTPUTPATH
-						.getDefaultValue());
+    private void initViewUI() {
+        final String path = ECPreferences.getSharedPreferences().getString(
+                ECPreferenceSettings.SETTINGS_CROPIMAGE_OUTPUTPATH.getId(),
+                (String) ECPreferenceSettings.SETTINGS_CROPIMAGE_OUTPUTPATH
+                        .getDefaultValue());
 
-		mImageView = (PhotoView) findViewById(R.id.image);
-		ECHandlerHelper handlerHelper = new ECHandlerHelper();
-		handlerHelper.postRunnOnThead(new Runnable() {
+        mImageView = (PhotoView) findViewById(R.id.image);
+        ECHandlerHelper handlerHelper = new ECHandlerHelper();
+        handlerHelper.postRunnOnThead(new Runnable() {
 
-			@Override
-			public void run() {
-				bitmap = DemoUtils.getSuitableBitmap(path);
-				mCoreHandler.sendEmptyMessageDelayed(200);
-			}
-		});
+            @Override
+            public void run() {
+                bitmap = DemoUtils.getSuitableBitmap(path);
+                mCoreHandler.sendEmptyMessageDelayed(200);
+            }
+        });
 
-	}
+    }
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		if (bitmap != null && !bitmap.isRecycled()) {
-			bitmap.recycle();
-			bitmap = null;
-		}
-	}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (bitmap != null && !bitmap.isRecycled()) {
+            bitmap.recycle();
+            bitmap = null;
+        }
+    }
 
-	@Override
-	public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
 
-		if (v.getId() == R.id.btn_left) {
-			hideSoftKeyboard();
-			finish();
+        if (v.getId() == R.id.btn_left) {
+            hideSoftKeyboard();
+            finish();
 
-		} else if (v.getId() == R.id.text_right) {
-			try {
-				ECPreferences.savePreference(
-						ECPreferenceSettings.SETTINGS_PREVIEW_SELECTED,
-						Boolean.TRUE, true);
-				setResult(RESULT_OK);
-			} catch (InvalidClassException e) {
-				e.printStackTrace();
-			}
-			finish();
+        } else if (v.getId() == R.id.text_right) {
+            try {
+                ECPreferences.savePreference(
+                        ECPreferenceSettings.SETTINGS_PREVIEW_SELECTED,
+                        Boolean.TRUE, true);
+                setResult(RESULT_OK);
+            } catch (InvalidClassException e) {
+                e.printStackTrace();
+            }
+            finish();
 
-		}
-	}
+        }
+    }
 
 }

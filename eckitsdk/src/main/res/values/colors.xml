@@ -12,9 +12,9 @@
  	 be found in the AUTHORS file in the root of the source tree.
 -->
 <resources>
-     <color name="x_default_text_color">#ff535353</color>
+    <color name="x_default_text_color">#ff535353</color>
     <color name="darkGrey">#848284</color>
-	<color name="list_view_background_default">#fff1f1f1</color>
+    <color name="list_view_background_default">#fff1f1f1</color>
     <color name="abc_search_url_text_normal">#ff7fa87f</color>
 
     <item name="abc_search_url_text_selected" type="color">@*android:color/black</item>
@@ -82,7 +82,7 @@
     <color name="bg_warning">#fffde1b6</color>
     <color name="text_warning">#ffb8956b</color>
 
-    
+
     <!-- 蓝色 -->
     <color name="blue01">#3BA6FB</color>
     <color name="blue02">#0C8EF8</color>
@@ -106,7 +106,7 @@
     <color name="green03">#C9FFDE</color>
     <color name="green04">#31F77E</color>
     <color name="green05">#9BECF9</color>
-    
+
     <!-- 紫色 -->
     <color name="violet01">#DB96FF</color>
     <color name="violet02">#BE55F5</color>
@@ -144,8 +144,8 @@
     <color name="sign_mood_selected">#ff9B9B9C</color>
     <color name="sign_mood_nomal">#00000000</color>
     <color name="sign_mood_nomal_0">#e0e0e0</color>
-    
-    
+
+
     <color name="dialog_title_color">#ff3cac17</color>
     <dimen name="DialogTitleTextSize">20.0dip</dimen>
     <color name="big_line_color">#40000000</color>

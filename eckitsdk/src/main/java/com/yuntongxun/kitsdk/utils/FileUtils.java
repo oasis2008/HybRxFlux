@@ -9,7 +9,8 @@
  *  An additional intellectual property rights grant can be found
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
- */package com.yuntongxun.kitsdk.utils;
+ */
+package com.yuntongxun.kitsdk.utils;
 
 import android.os.Environment;
 import android.text.TextUtils;
@@ -25,23 +26,22 @@ import java.io.RandomAccessFile;
 public class FileUtils {
 
     /**
-     *
      * @param root
      * @param fileName
      * @return
      */
-    public static String getMD5FileDir(String root , String fileName) {
+    public static String getMD5FileDir(String root, String fileName) {
         // FileAccessor.IMESSAGE_IMAGE + File.separator + FileAccessor.getSecondLevelDirectory(fileNameMD5)+ File.separator;
-        if(TextUtils.isEmpty(root)) {
+        if (TextUtils.isEmpty(root)) {
             return null;
         }
         File file = new File(root);
-        if(!file.exists()) {
+        if (!file.exists()) {
             file.mkdirs();
         }
 
-        File fullPath = new File(file , FileAccessor.getSecondLevelDirectory(fileName));
-        if(!fullPath.exists()) {
+        File fullPath = new File(file, FileAccessor.getSecondLevelDirectory(fileName));
+        if (!fullPath.exists()) {
             fullPath.mkdirs();
         }
         return fullPath.getAbsolutePath();
@@ -49,6 +49,7 @@ public class FileUtils {
 
     /**
      * 转换成单位
+     *
      * @param length
      * @return
      */
@@ -69,6 +70,7 @@ public class FileUtils {
 
     /**
      * 转换成Mb单位
+     *
      * @param length
      * @return
      */
@@ -79,14 +81,15 @@ public class FileUtils {
 
     /**
      * 检查SDCARD是否可写
+     *
      * @return
      */
     public static boolean checkExternalStorageCanWrite() {
         try {
             boolean mouted = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-            if(mouted) {
+            if (mouted) {
                 boolean canWrite = new File(Environment.getExternalStorageDirectory().getAbsolutePath()).canWrite();
-                if(canWrite) {
+                if (canWrite) {
                     return true;
                 }
             }
@@ -96,46 +99,46 @@ public class FileUtils {
     }
 
 
-
-
     /**
      * 返回文件的图标
+     *
      * @param fileName
      * @return
      */
     public static int getFileIcon(String fileName) {
         String fileType = fileName.toLowerCase();
-        if(isDocument(fileType)) {
-        	
-        	
-        	return R.drawable.ytx_file_attach_doc;
+        if (isDocument(fileType)) {
+
+
+            return R.drawable.ytx_file_attach_doc;
         }
-        if(isPic(fileType)) {
-        	return R.drawable.ytx_file_attach_img;
+        if (isPic(fileType)) {
+            return R.drawable.ytx_file_attach_img;
         }
 
-        if(isCompresseFile(fileType)) {
-        	return R.drawable.ytx_file_attach_rar;
+        if (isCompresseFile(fileType)) {
+            return R.drawable.ytx_file_attach_rar;
         }
-        if(isTextFile(fileType)) {
-        	return R.drawable.ytx_file_attach_txt;
+        if (isTextFile(fileType)) {
+            return R.drawable.ytx_file_attach_txt;
         }
-        if(isPdf(fileType)) {
-        	return R.drawable.ytx_file_attach_pdf;
-        }
-
-        if(isPPt(fileType)) {
-        	return R.drawable.ytx_file_attach_ppt;
+        if (isPdf(fileType)) {
+            return R.drawable.ytx_file_attach_pdf;
         }
 
-        if(isXls(fileType)) {
-        	return R.drawable.ytx_file_attach_xls;
+        if (isPPt(fileType)) {
+            return R.drawable.ytx_file_attach_ppt;
+        }
+
+        if (isXls(fileType)) {
+            return R.drawable.ytx_file_attach_xls;
         }
         return R.drawable.ytx_file_attach_ohter;
     }
 
     /**
      * 是否图片
+     *
      * @param fileName
      * @return
      */
@@ -145,11 +148,12 @@ public class FileUtils {
                 || lowerCase.endsWith(".png")
                 || lowerCase.endsWith(".jpg")
                 || lowerCase.endsWith(".jpeg")
-                || lowerCase .endsWith(".gif");
+                || lowerCase.endsWith(".gif");
     }
 
     /**
      * 是否压缩文件
+     *
      * @param fileName
      * @return
      */
@@ -164,6 +168,7 @@ public class FileUtils {
 
     /**
      * 是否音频
+     *
      * @param fileName
      * @return
      */
@@ -177,6 +182,7 @@ public class FileUtils {
 
     /**
      * 是否文档
+     *
      * @param fileName
      * @return
      */
@@ -184,11 +190,12 @@ public class FileUtils {
         String lowerCase = DemoUtils.nullAsNil(fileName).toLowerCase();
         return lowerCase.endsWith(".doc")
                 || lowerCase.endsWith(".docx")
-                || lowerCase .endsWith("wps");
+                || lowerCase.endsWith("wps");
     }
 
     /**
      * 是否Pdf
+     *
      * @param fileName
      * @return
      */
@@ -198,6 +205,7 @@ public class FileUtils {
 
     /**
      * 是否Excel
+     *
      * @param fileName
      * @return
      */
@@ -209,39 +217,42 @@ public class FileUtils {
 
     /**
      * 是否文本文档
+     *
      * @param fileName
      * @return
      */
     public static boolean isTextFile(String fileName) {
         String lowerCase = DemoUtils.nullAsNil(fileName).toLowerCase();
         return lowerCase.endsWith(".txt")
-                || lowerCase .endsWith(".rtf");
+                || lowerCase.endsWith(".rtf");
     }
 
     /**
      * 是否Ppt
+     *
      * @param fileName
      * @return
      */
     public static boolean isPPt(String fileName) {
         String lowerCase = DemoUtils.nullAsNil(fileName).toLowerCase();
-        return lowerCase.endsWith(".ppt") || lowerCase .endsWith(".pptx");
+        return lowerCase.endsWith(".ppt") || lowerCase.endsWith(".pptx");
     }
 
     /**
      * decode file length
+     *
      * @param filePath
      * @return
      */
     public static int decodeFileLength(String filePath) {
-        if(TextUtils.isEmpty(filePath)) {
+        if (TextUtils.isEmpty(filePath)) {
             return 0;
         }
         File file = new File(filePath);
-        if(!file.exists()) {
+        if (!file.exists()) {
             return 0;
         }
-        return (int)file.length();
+        return (int) file.length();
     }
 
     /**
@@ -249,7 +260,7 @@ public class FileUtils {
      *
      * @param uri
      * @return Extension including the dot("."); "" if there is no extension;
-     *         null if uri was null.
+     * null if uri was null.
      */
     public static String getExtension(String uri) {
         if (uri == null) {
@@ -266,34 +277,32 @@ public class FileUtils {
     }
 
     /**
-     *
      * @param filePath
      * @return
      */
     public static boolean checkFile(String filePath) {
-        if(TextUtils.isEmpty(filePath) || !(new File(filePath).exists())) {
+        if (TextUtils.isEmpty(filePath) || !(new File(filePath).exists())) {
             return false;
         }
         return true;
     }
 
     /**
-     *
      * @param filePath
      * @param seek
      * @param length
      * @return
      */
-    public static byte[] readFlieToByte (String filePath , int seek , int length) {
-        if(TextUtils.isEmpty(filePath)) {
+    public static byte[] readFlieToByte(String filePath, int seek, int length) {
+        if (TextUtils.isEmpty(filePath)) {
             return null;
         }
         File file = new File(filePath);
-        if(!file.exists()) {
+        if (!file.exists()) {
             return null;
         }
-        if(length == -1) {
-            length = (int)file.length();
+        if (length == -1) {
+            length = (int) file.length();
         }
 
         try {
@@ -313,23 +322,24 @@ public class FileUtils {
 
     /**
      * 拷贝文件
+     *
      * @param fileDir
      * @param fileName
      * @param buffer
      * @return
      */
-    public static int copyFile(String fileDir ,String fileName , byte[] buffer) {
-        if(buffer == null) {
+    public static int copyFile(String fileDir, String fileName, byte[] buffer) {
+        if (buffer == null) {
             return -2;
         }
 
         try {
             File file = new File(fileDir);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 file.mkdirs();
             }
             File resultFile = new File(file, fileName);
-            if(!resultFile.exists()) {
+            if (!resultFile.exists()) {
                 resultFile.createNewFile();
             }
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
@@ -347,13 +357,14 @@ public class FileUtils {
 
     /**
      * 根据文件名和后缀 拷贝文件
+     *
      * @param fileDir
      * @param fileName
      * @param ext
      * @param buffer
      * @return
      */
-    public static int copyFile(String fileDir ,String fileName , String ext , byte[] buffer) {
+    public static int copyFile(String fileDir, String fileName, String ext, byte[] buffer) {
         return copyFile(fileDir, fileName + ext, buffer);
     }
 

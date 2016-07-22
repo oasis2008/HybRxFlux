@@ -21,12 +21,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 
-
-
-
-
-
-
 import java.util.ArrayList;
 
 import com.yuntongxun.eckitsdk.R;
@@ -35,80 +29,80 @@ import com.yuntongxun.kitsdk.utils.EmoticonUtil;
 import com.yuntongxun.kitsdk.utils.LogUtil;
 
 
-
 public class EmojiApapter extends BaseAdapter {
 
 
-	ArrayList<CCPEmoji> emojis;
-	
-	LayoutInflater mInflater;
+    ArrayList<CCPEmoji> emojis;
+
+    LayoutInflater mInflater;
 
     public EmojiApapter(Context context) {
-    	
-    	mInflater = LayoutInflater.from(context);;
+
+        mInflater = LayoutInflater.from(context);
+        ;
     }
 
 
-	@Override
-	public int getCount() {
+    @Override
+    public int getCount() {
 
-		if(emojis != null && emojis.size() > 0) {
-			return this.emojis.size() + 1;
-		}
-		
-		return 0;
-	}
+        if (emojis != null && emojis.size() > 0) {
+            return this.emojis.size() + 1;
+        }
 
-
-	@Override
-	public Object getItem(int position) {
-		
-		if(emojis != null && (position <= (emojis.size() - 1)))  {
-			return emojis.get(position);
-		}
-		
-		return null;
-	}
+        return 0;
+    }
 
 
-	@Override
-	public long getItemId(int position) {
+    @Override
+    public Object getItem(int position) {
 
-		return position;
-	}
-	
+        if (emojis != null && (position <= (emojis.size() - 1))) {
+            return emojis.get(position);
+        }
+
+        return null;
+    }
+
+
+    @Override
+    public long getItemId(int position) {
+
+        return position;
+    }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if(convertView == null || convertView.getTag() == null ) {
-            viewHolder=new ViewHolder();
-            convertView=mInflater.inflate(R.layout.ytx_emoji_item, null);
-            viewHolder.emoji_icon=(ImageView)convertView.findViewById(R.id.emoji_id);
+        if (convertView == null || convertView.getTag() == null) {
+            viewHolder = new ViewHolder();
+            convertView = mInflater.inflate(R.layout.ytx_emoji_item, null);
+            viewHolder.emoji_icon = (ImageView) convertView.findViewById(R.id.emoji_id);
             viewHolder.emoji_icon.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             convertView.setTag(viewHolder);
         } else {
-            viewHolder=(ViewHolder)convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        
-        
-        if(getCount() - 1 == position) {
-    		viewHolder.emoji_icon.setImageResource(R.drawable.ytx_emoji_del_selector);
+
+
+        if (getCount() - 1 == position) {
+            viewHolder.emoji_icon.setImageResource(R.drawable.ytx_emoji_del_selector);
         } else {
-        	
-        	CCPEmoji emoji=(CCPEmoji) getItem(position);
-        	if(emoji != null) {
-        		if(emoji.getId() == R.drawable.ytx_emoji_del_selector) {
-        			convertView.setBackgroundDrawable(null);
-        			viewHolder.emoji_icon.setImageResource(emoji.getId());
-        		} else if(TextUtils.isEmpty(emoji.getEmojiDesc())) {
-        			convertView.setBackgroundDrawable(null);
-        			viewHolder.emoji_icon.setImageDrawable(null);
-        		} else {
-        			viewHolder.emoji_icon.setTag(emoji);
-        			viewHolder.emoji_icon.setImageResource(emoji.getId());
-        		}
-        	}
+
+            CCPEmoji emoji = (CCPEmoji) getItem(position);
+            if (emoji != null) {
+                if (emoji.getId() == R.drawable.ytx_emoji_del_selector) {
+                    convertView.setBackgroundDrawable(null);
+                    viewHolder.emoji_icon.setImageResource(emoji.getId());
+                } else if (TextUtils.isEmpty(emoji.getEmojiDesc())) {
+                    convertView.setBackgroundDrawable(null);
+                    viewHolder.emoji_icon.setImageDrawable(null);
+                } else {
+                    viewHolder.emoji_icon.setTag(emoji);
+                    viewHolder.emoji_icon.setImageResource(emoji.getId());
+                }
+            }
         }
 
         return convertView;
@@ -118,24 +112,24 @@ public class EmojiApapter extends BaseAdapter {
 
         public ImageView emoji_icon;
     }
-    
+
     public void release() {
-    	if(emojis != null) {
-    		emojis.clear();
-    		emojis = null;
-    	}
-    	mInflater = null;
+        if (emojis != null) {
+            emojis.clear();
+            emojis = null;
+        }
+        mInflater = null;
     }
-    
+
     /**
      * @param emojis
      */
     public void updateEmoji(ArrayList<CCPEmoji> emojis) {
-    	this.emojis = emojis;
-    	if(this.emojis == null) {
-    		emojis = new ArrayList<CCPEmoji>();
-    		LogUtil.e(LogUtil.getLogUtilsTag(EmoticonUtil.class), "EmojiApapter.updateEmoji get emoji list fail, new one");
-    	}
-    	notifyDataSetChanged();
+        this.emojis = emojis;
+        if (this.emojis == null) {
+            emojis = new ArrayList<CCPEmoji>();
+            LogUtil.e(LogUtil.getLogUtilsTag(EmoticonUtil.class), "EmojiApapter.updateEmoji get emoji list fail, new one");
+        }
+        notifyDataSetChanged();
     }
 }

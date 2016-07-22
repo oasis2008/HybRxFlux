@@ -16,108 +16,108 @@ import android.content.Context;
 
 import java.util.ArrayList;
 impor
- java. til.List;
+        java.til.List;
 
 import com.yuntongxun.eckitsdk
 R;
-imp rt com.yuntongxun.kitsdk.core.CCPAppManager;
+        imp rt com.yuntongxun.kitsdk.core.CCPAppManager;
 import co
-.yunto gxun.kitsdk.core.ECKitCustomProviderManager;
+        .yunto gxun.kitsdk.core.ECKitCustomProviderManager;
 import com.yuntongxun.kitsdk.
-ustom. rovider.chat.ECCustomChatPlusExtendProvider;
+        ustom.rovider.chat.ECCustomChatPlusExtendProvider;
+
 import
 
-om.yun ongxun.kitsdk.ui.cha
-ting.m del.Capability;
+        om.yun ongxun.kitsdk.ui.cha
+        ting.m del.Capability;
 
 public class AppPanelControl {
 
-	private Context mContext;
+    private Context mContext;
 
-	public int[] cap = new int[] { R.string.app_panel_pic,
-			R.string.app_panel_tackpic, R.string.app_panel_file,
+    public int[] cap = new int[]{R.string.app_panel_pic,
+            R.string.app_panel_tackpic, R.string.app_panel_file,
 
-	};
+    };
 
-	private ECCustomChatPlusExtendProvider obj;
+    private ECCustomChatPlusExtendProvider obj;
 
-	/**
+    /**
      *
      */
-	public AppPanelControl() {
-		mContext = CCPAppManager.getContext();
+    public AppPanelControl() {
+        mContext = CCPAppManager.getContext();
 
-		obj = ECKitCustomProviderManager.getCustomChatPlusExtendProvider();
+        obj = ECKitCustomProviderManager.getCustomChatPlusExtendProvider();
 
-	}
+    }
 
-	/**
-	 *
-	 * @return
-	 */
-	public List<Capability> getCapability() {
-		List<Capability> capabilities = new ArrayList<Capability>();
+    /**
+     * @return
+     */
+    public List<Capability> getCapability() {
+        List<Capability> capabilities = new ArrayList<Capability>();
 
-		for (int i = 0; i < cap.length; i++) {
-			Capability capability = getCapability(cap[i]);
-			capabilities.add(capabilities.size(), capability);
-		}
+        for (int i = 0; i < cap.length; i++) {
+            Capability capability = getCapability(cap[i]);
+            capabilities.add(capabilities.size(), capability);
+        }
 
-		if (obj != null ) {
+        if (obj != null) {
 
-			String[] titleArr = obj.getCustomPlusTitleArray(mContext);
-			int[] resArr = obj.getCustomPlusDrawableArray(mContext);
-			
-			if(titleArr!=null&&titleArr.length>0&&resArr!=null&&resArr.length>0){
+            String[] titleArr = obj.getCustomPlusTitleArray(mContext);
+            int[] resArr = obj.getCustomPlusDrawableArray(mContext);
 
-			for (int i = 0; i < titleArr.length; i++) {
+            if (titleArr != null && titleArr.length > 0 && resArr != null && resArr.length > 0) {
 
-				Capability capability = new Capability(titleArr[i], resArr[i]);
+                for (int i = 0; i < titleArr.length; i++) {
 
-				capabilities.add(cap.length + i, capability);
+                    Capability capability = new Capability(titleArr[i], resArr[i]);
 
-			}
-			}
-		}
+                    capabilities.add(cap.length + i, capability);
 
-		return capabilities;
-	}
+                }
+            }
+        }
 
-	/**
-	 * @param resid
-	 * @return
-	 */
-	private Capability getCapability(int resid) {
-		Capability capability = null;
+        return capabilities;
+    }
 
-		if (resid == R.string.app_panel_pic) {
-			capability = new Capability(getContext().getString(
-					R.string.app_panel_pic),
-					R.drawable.ytx_chattingfooter_image_selector);
+    /**
+     * @param resid
+     * @return
+     */
+    private Capability getCapability(int resid) {
+        Capability capability = null;
 
-		} else if (resid == R.string.app_panel_tackpic) {
-			capability = new Capability(getContext().getString(
-					R.string.app_panel_tackpic),
-					R.drawable.ytx_chattingfooter_takephoto_selector);
+        if (resid == R.string.app_panel_pic) {
+            capability = new Capability(getContext().getString(
+                    R.string.app_panel_pic),
+                    R.drawable.ytx_chattingfooter_image_selector);
 
-		} else if (resid == R.string.app_panel_file) {
-			capability = new Capability(getContext().getString(
-					R.string.app_panel_file),
-					R.drawable.ytx_chattingfooter_file_selector);
+        } else if (resid == R.string.app_panel_tackpic) {
+            capability = new Capability(getContext().getString(
+                    R.string.app_panel_tackpic),
+                    R.drawable.ytx_chattingfooter_takephoto_selector);
 
-		}
+        } else if (resid == R.string.app_panel_file) {
+            capability = new Capability(getContext().getString(
+                    R.string.app_panel_file),
+                    R.drawable.ytx_chattingfooter_file_selector);
 
-		capability.setId(resid);
-		return capability;
-	}
+        }
 
-	/**
-	 * @return
-	 */
-	private Context getContext() {
-		if (mContext == null) {
-			mContext = CCPAppManager.getContext();
-		}
-		return mContext;
-	}
+        capability.setId(resid);
+        return capability;
+    }
+
+    /**
+     * @return
+     */
+    private Context getContext() {
+        if (mContext == null) {
+            mContext = CCPAppManager.getContext();
+        }
+        return mContext;
+    }
 }

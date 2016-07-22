@@ -11,49 +11,49 @@ import com.yuntongxun.kitsdk.ui.group.ECGroupListActivity;
 
 public class IMKitManager {
 
-	protected static IMKitManager sInstance;
+    protected static IMKitManager sInstance;
 
-	protected static IMKitManager getInstance() {
-		if (sInstance == null) {
-			synchronized (IMKitManager.class) {
-				sInstance = new IMKitManager();
-			}
-		}
+    protected static IMKitManager getInstance() {
+        if (sInstance == null) {
+            synchronized (IMKitManager.class) {
+                sInstance = new IMKitManager();
+            }
+        }
 
-		return sInstance;
-	}
+        return sInstance;
+    }
 
-	public void startConversationActivity(String target) {
+    public void startConversationActivity(String target) {
 
-		Intent intent = new Intent(CCPAppManager.getContext(),
-				ECChattingActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra(ECKitConstant.KIT_CONVERSATION_TARGET, target);
-		CCPAppManager.getContext().startActivity(intent);
+        Intent intent = new Intent(CCPAppManager.getContext(),
+                ECChattingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(ECKitConstant.KIT_CONVERSATION_TARGET, target);
+        CCPAppManager.getContext().startActivity(intent);
 
-	}
+    }
 
-	public void startConversationListActivity() {
+    public void startConversationListActivity() {
 
-		Intent intent = new Intent(CCPAppManager.getContext(),
-				ECConversationListActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		CCPAppManager.getContext().startActivity(intent);
+        Intent intent = new Intent(CCPAppManager.getContext(),
+                ECConversationListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        CCPAppManager.getContext().startActivity(intent);
 
-	}
+    }
 
-	public static void setAutoReceiverOfflineMsg(boolean isAuto) {
+    public static void setAutoReceiverOfflineMsg(boolean isAuto) {
 
-		IMChattingHelper.isAutoGetOfflineMsg = isAuto;
-	}
-	
-	public void startGroupListActivity() {
+        IMChattingHelper.isAutoGetOfflineMsg = isAuto;
+    }
 
-		Intent intent = new Intent(CCPAppManager.getContext(),
-				ECGroupListActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		CCPAppManager.getContext().startActivity(intent);
+    public void startGroupListActivity() {
 
-	}
+        Intent intent = new Intent(CCPAppManager.getContext(),
+                ECGroupListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        CCPAppManager.getContext().startActivity(intent);
+
+    }
 
 }

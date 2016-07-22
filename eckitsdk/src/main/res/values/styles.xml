@@ -23,6 +23,7 @@
 
         -->
     </style>
+
     <style name="BaseTextViewStyle" parent="@android:style/Widget.TextView" />
 
     <style name="BaseButtonStyle" parent="@android:style/Widget.Button" />
@@ -34,19 +35,19 @@
     <style name="BaseRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton" />
 
     <style name="BaseToggleButtonStyle" parent="@android:style/Widget.Button.Toggle" />
-    
-     <style name="mediumCustomProgressBar" parent="@android:style/Widget.ProgressBar">
+
+    <style name="mediumCustomProgressBar" parent="@android:style/Widget.ProgressBar">
         <item name="android:indeterminateDrawable">@drawable/ytx_progress_medium_holo</item>
     </style>
-    
-      <style name="CCPLineEditText" parent="@style/CCPEditText">
+
+    <style name="CCPLineEditText" parent="@style/CCPEditText">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">@dimen/SmallListHeight</item>
         <item name="android:paddingLeft">@dimen/NormalPadding</item>
         <item name="android:background">@drawable/login_input_box</item>
     </style>
-    
-      <style name="CCPEditText">
+
+    <style name="CCPEditText">
         <item name="android:textSize">@dimen/NormalTextSize</item>
         <item name="android:textColor">@color/normal_text_color</item>
         <item name="android:textColorHint">@color/light_text_color</item>
@@ -59,7 +60,7 @@
     </style>
 
     <style name="BaseAutoCompleteTextViewStyle" parent="@android:style/Widget.AutoCompleteTextView" />
-    
+
     <style name="Theme_Light_CustomDialog_Blue" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">@drawable/bg_common_toast</item>
         <item name="android:windowFrame">@null</item>
@@ -70,7 +71,7 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
-    
+
     <style name="Theme.Light.FullScreenDialogAct" parent="@style/BaseDialog">
         <item name="android:windowBackground">@drawable/transparent</item>
         <item name="android:windowFrame">@null</item>
@@ -82,7 +83,7 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
-    
+
     <style name="ChattingUIAvatarTo">
         <item name="android:background">@drawable/icon_touxiang_persion_gray</item>
         <item name="android:layout_width">48.0dip</item>
@@ -101,9 +102,9 @@
         <item name="android:listViewStyle">@style/BaseListViewStyle</item>
         <item name="android:radioButtonStyle">@style/BaseRadioButtonStyle</item>
         <item name="android:textViewStyle">@style/BaseTextViewStyle</item>
-<!--
-        <item name="android:windowAnimationStyle">@style/ECAnimation.Activity</item>
--->
+        <!--
+                <item name="android:windowAnimationStyle">@style/ECAnimation.Activity</item>
+        -->
         <item name="android:fadingEdge">none</item>
         <item name="android:fadingEdgeLength">0.0dip</item>
     </style>
@@ -120,21 +121,25 @@
         <item name="android:divider">@color/list_divider</item>
         <item name="android:dividerHeight">@dimen/list_divider_height</item>
     </style>
+
     <style name="recLargeCustomProgressBar" parent="@android:style/Widget.ProgressBar">
         <item name="android:indeterminateDrawable">@drawable/ytx_progressbar</item>
     </style>
 
-     <style name="DialogButton">
+    <style name="DialogButton">
         <item name="android:textSize">16.0dip</item>
         <item name="android:textColor">@color/ytx_btn_dialog</item>
         <item name="android:minHeight">45.0dip</item>
     </style>
+
     <style name="DialogButton.Left" parent="@style/DialogButton">
         <item name="android:background">@drawable/ytx_btn_dialog_left</item>
     </style>
+
     <style name="DialogButton.Right" parent="@style/DialogButton">
         <item name="android:background">@drawable/ytx_btn_dialog_right</item>
     </style>
+
     <style name="DialogButton.Center" parent="@style/DialogButton">
         <item name="android:background">@drawable/ytx_btn_dialog_center</item>
     </style>
@@ -201,9 +206,6 @@
         <item name="android:minHeight">@dimen/big_horizontal_progress_height</item>
     </style>
 
-    
-
-   
 
     <style name="CCPSmallButton">
         <item name="android:textSize">@dimen/HintTextSize</item>
@@ -217,7 +219,6 @@
         <item name="android:minHeight">@dimen/SmallButtonHeight</item>
     </style>
 
-   
 
     <style name="CCPFontEmptyMsgLarge" parent="@style/CCPFontPreferenceLarge">
         <item name="android:textColor">@color/ytx_ccp_pref_summary</item>
@@ -333,7 +334,6 @@
         <item name="android:layout_marginLeft">1.0dip</item>
     </style>
 
-  
 
     <style name="ChattingUIState">
         <item name="android:layout_width">wrap_content</item>
@@ -399,32 +399,18 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    
-     
+
+
     <style name="CCPBigGreenButton" parent="@style/CCPBigButton">
         <item name="android:background">@drawable/green_btn_style</item>
     </style>
 
-  
 
     <style name="app_grid_item_name_font">
         <item name="android:textSize">12.0dip</item>
     </style>
-    
-	
-		
-	
 
-   
 
-    
-
-   
-
-   
-    
-
-   
     <style name="CCPList">
         <item name="android:scrollbars">none</item>
         <item name="android:fadingEdge">none</item>
@@ -434,6 +420,7 @@
         <item name="android:divider">@color/list_devider_color</item>
         <item name="android:dividerHeight">0.0px</item>
     </style>
+
     <style name="CCPListItem">
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
@@ -442,21 +429,25 @@
         <item name="android:layout_height">@dimen/NormalListHeight</item>
         <item name="android:minHeight">@dimen/NormalListHeight</item>
     </style>
+
     <style name="CCPGroupListItem" parent="@style/CCPListItem">
         <item name="android:paddingLeft">@dimen/SmallPadding</item>
         <item name="android:paddingRight">@dimen/SmallPadding</item>
     </style>
+
     <style name="style_topbar_textview_shadow">
         <item name="android:shadowColor">#bf000000</item>
         <item name="android:shadowDy">-2.0</item>
         <item name="android:shadowRadius">1.0</item>
     </style>
+
     <style name="CCPScroll">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">0.0dip</item>
         <item name="android:layout_weight">1.0</item>
     </style>
+
     <style name="CCPBody">
         <item name="android:orientation">vertical</item>
         <item name="android:paddingLeft">@dimen/NormalPadding</item>
@@ -468,13 +459,14 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_weight">1.0</item>
     </style>
+
     <style name="settings_item_layout_single">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">@dimen/SmallListHeight</item>
     </style>
-   
-    
+
+
     <style name="Title_category">
         <item name="android:paddingLeft">@dimen/SmallPadding</item>
         <item name="android:paddingRight">@dimen/SmallPadding</item>
@@ -482,6 +474,7 @@
         <item name="android:textColor">@color/hint_text_color</item>
         <item name="android:textSize">@dimen/HintTextSize</item>
     </style>
+
     <style name="CCPBigButton">
         <item name="android:textSize">@dimen/ActionBarTextSize</item>
         <item name="android:textColor">@color/ytx_white_color_selector</item>
@@ -492,41 +485,39 @@
         <item name="android:layout_height">@dimen/SmallListHeight</item>
         <item name="android:minHeight">@dimen/NormalButtonHeight</item>
     </style>
-    
-	
+
+
     <style name="BaseDialog" parent="@android:style/Theme.Dialog" />
+
     <style name="ShadowedText">
         <item name="android:shadowDx">0.0</item>
         <item name="android:shadowDy">-1.0</item>
         <item name="android:shadowRadius">1.0</item>
     </style>
+
     <style name="ShadowedText.Light" parent="@style/ShadowedText">
         <item name="android:textColor">#ffffffff</item>
         <item name="android:shadowColor">#ff555555</item>
     </style>
+
     <style name="DialogTitle" parent="@style/ShadowedText">
         <item name="android:textColor">@color/ccp_green</item>
     </style>
+
     <style name="Style_Scrollable">
         <item name="android:fadingEdge">none</item>
         <item name="android:scrollingCache">false</item>
         <item name="android:cacheColorHint">#00000000</item>
         <item name="android:overScrollMode">never</item>
     </style>
-  
-    
-  
-   
-   
+
+
     <style name="CCPTheme.Holo.Transparent" parent="@style/AppTheme">
         <item name="android:windowBackground">@*android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    
-    
-   
-    
+
     <style name="ccpalertdialog" parent="@android:style/Theme.Dialog">
         <item name="android:backgroundDimAmount">0.5</item>
         <item name="android:windowBackground">@color/transparent</item>
@@ -537,7 +528,7 @@
         <item name="android:background">@color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
-    
+
     <style name="CCPStyleTabButton">
         <item name="android:textColor">@color/ytx_ccp_smiley_tab_color</item>
         <item name="android:gravity">center</item>

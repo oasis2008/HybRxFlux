@@ -15,7 +15,7 @@
     <attr name="CCPactionMenuTextAppearance" format="reference" />
     <!-- Color for text that appears within action menu items. -->
     <attr name="CCPactionMenuTextColor" format="color|reference" />
-	 <declare-styleable name="MaskLayout">
+    <declare-styleable name="MaskLayout">
         <attr name="foreground" format="reference" />
         <attr name="content_margin" format="dimension" />
         <attr name="content_marginLeft" format="dimension" />
@@ -23,18 +23,18 @@
         <attr name="content_marginTop" format="dimension" />
         <attr name="content_marginBottom" format="dimension" />
     </declare-styleable>
-        <declare-styleable name="AppPanel">
+    <declare-styleable name="AppPanel">
         <attr name="dot_count" format="dimension" />
         <attr name="dot_selected" format="dimension" />
     </declare-styleable>
-    
+
     <declare-styleable name="form_input">
         <attr name="form_layout" format="reference" />
         <attr name="form_title" format="string" />
         <attr name="form_hint" format="string" />
     </declare-styleable>
     <attr name="attrBgSelectedLetter" format="reference" />
-    
+
     <declare-styleable name="setting_info">
         <attr name="item_titleText" format="string" />
         <attr name="item_detailText" format="string" />
@@ -98,20 +98,18 @@
             <flag name="flip" value="0x00000001" />
         </attr>
     </declare-styleable>
-    
-    
-    
-    
+
+
     <declare-styleable name="SpinnerView">
         <attr name="Spinner_item" format="reference" />
         <attr name="Spinner_DropDownTitle" format="reference" />
     </declare-styleable>
-	<declare-styleable name="call_control">
+    <declare-styleable name="call_control">
         <attr name="call_direct">
             <enum name="incoming" value="0" />
             <enum name="outgoing" value="1" />
-            <enum name="inCall" value="2"/>
+            <enum name="inCall" value="2" />
         </attr>
     </declare-styleable>
-    
+
 </resources>

@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Set;
 
 
-
 public class ECPreferences {
 
 
@@ -77,16 +76,14 @@ public class ECPreferences {
     }
 
     /**
-     *
-     * @return  SharedPreferences file name
+     * @return SharedPreferences file name
      */
     public static String getDefaultSharedPreferencesFileName() {
-    	//??待改
-        return "com.yuntongxun.kitsdk_preferences_"+ECDeviceKit.getInstance().getUserId();
+        //??待改
+        return "com.yuntongxun.kitsdk_preferences_" + ECDeviceKit.getInstance().getUserId();
     }
 
-    
-    
+
     public static Editor getSharedPreferencesEditor() {
         SharedPreferences cCPreferences = getSharedPreferences();
         Editor edit = cCPreferences.edit();
@@ -94,7 +91,7 @@ public class ECPreferences {
         return edit;
     }
 
-   
+
     public static void savePreference(ECPreferenceSettings pref, Object value, boolean applied)
             throws InvalidClassException {
         Map<ECPreferenceSettings, Object> prefs =
@@ -103,13 +100,13 @@ public class ECPreferences {
         savePreferences(prefs, applied);
     }
 
-    
+
     public static void savePreferences(Map<ECPreferenceSettings, Object> prefs, boolean applied)
             throws InvalidClassException {
         savePreferences(prefs, true, applied);
     }
 
-    
+
     @SuppressLint("NewApi")
     @SuppressWarnings("unchecked")
     private static void savePreferences(
@@ -130,29 +127,29 @@ public class ECPreferences {
 
             //Known and valid types
             Object value = prefs.get(pref);
-            if(value == null ) {
+            if (value == null) {
                 return;
             }
             if (value instanceof Boolean && pref.getDefaultValue() instanceof Boolean) {
-                editor.putBoolean(pref.getId(), ((Boolean)value).booleanValue());
+                editor.putBoolean(pref.getId(), ((Boolean) value).booleanValue());
             } else if (value instanceof String && pref.getDefaultValue() instanceof String) {
-                editor.putString(pref.getId(), (String)value);
+                editor.putString(pref.getId(), (String) value);
             } else if (value instanceof Integer && pref.getDefaultValue() instanceof Integer) {
-                editor.putInt(pref.getId(), (Integer)value);
+                editor.putInt(pref.getId(), (Integer) value);
             } else if (value instanceof Long && pref.getDefaultValue() instanceof Long) {
-                editor.putLong(pref.getId(), (Long)value);
+                editor.putLong(pref.getId(), (Long) value);
             } else if (value instanceof Set && pref.getDefaultValue() instanceof Set) {
                 //editor.putStringSet(pref.getId(), (Set<String>)value);
             } else if (value instanceof ObjectStringIdentifier
                     && pref.getDefaultValue() instanceof ObjectStringIdentifier) {
-                editor.putString(pref.getId(), ((ObjectStringIdentifier)value).getId());
-            }   else {
+                editor.putString(pref.getId(), ((ObjectStringIdentifier) value).getId());
+            } else {
                 //The object is not of the appropriate type
                 String msg = String.format(
                         "%s: %s",
                         pref.getId(),
                         value.getClass().getName());
-                LogUtil.e( String.format(
+                LogUtil.e(String.format(
                         "Configuration error. InvalidClassException: %s",
                         msg));
                 throw new InvalidClassException(msg);

@@ -20,11 +20,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 
-
-
-
-
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.im.ECTextMessageBody;
@@ -34,55 +29,54 @@ import com.yuntongxun.kitsdk.ui.chatting.holder.DescriptionViewHolder;
 import com.yuntongxun.kitsdk.ui.chatting.view.ChattingItemContainer;
 
 
+public class DescriptionTxRow extends BaseChattingRow {
 
-public class DescriptionTxRow extends BaseChattingRow{
+    public DescriptionTxRow(int type) {
+        super(type);
+    }
 
-	public DescriptionTxRow(int type){
-		super(type);
-	}
-	
-	
-	@Override
-	public View buildChatView(LayoutInflater inflater, View convertView) {
+
+    @Override
+    public View buildChatView(LayoutInflater inflater, View convertView) {
         //we have a don't have a converView so we'll have to create a new one
-        if (convertView == null || ((BaseHolder)convertView.getTag()).getType() != mRowType) {
-        	
-        	convertView = new ChattingItemContainer(inflater, R.layout.ytx_chatting_item_to);
+        if (convertView == null || ((BaseHolder) convertView.getTag()).getType() != mRowType) {
+
+            convertView = new ChattingItemContainer(inflater, R.layout.ytx_chatting_item_to);
 
             //use the view holder pattern to save of already looked up subviews
-        	DescriptionViewHolder holder = new DescriptionViewHolder(mRowType);
-        	convertView.setTag(holder.initBaseHolder(convertView, false));
+            DescriptionViewHolder holder = new DescriptionViewHolder(mRowType);
+            convertView.setTag(holder.initBaseHolder(convertView, false));
         }
-		return convertView;
-	}
+        return convertView;
+    }
 
-	@Override
-	public void buildChattingData(Context context, BaseHolder baseHolder,
-			ECMessage msg, int position) {
-		DescriptionViewHolder holder = (DescriptionViewHolder) baseHolder;
-		if(msg != null) {
-			ECTextMessageBody textBody = (ECTextMessageBody) msg.getBody();
-			holder.getDescTextView().setEmojiText(textBody.getMessage());
-			holder.getDescTextView().setMovementMethod(LinkMovementMethod.getInstance());
-			OnClickListener onClickListener = ((ECChattingActivity) context).getChattingAdapter().getOnClickListener();
-			getMsgStateResId(position, holder, msg, onClickListener);
+    @Override
+    public void buildChattingData(Context context, BaseHolder baseHolder,
+                                  ECMessage msg, int position) {
+        DescriptionViewHolder holder = (DescriptionViewHolder) baseHolder;
+        if (msg != null) {
+            ECTextMessageBody textBody = (ECTextMessageBody) msg.getBody();
+            holder.getDescTextView().setEmojiText(textBody.getMessage());
+            holder.getDescTextView().setMovementMethod(LinkMovementMethod.getInstance());
+            OnClickListener onClickListener = ((ECChattingActivity) context).getChattingAdapter().getOnClickListener();
+            getMsgStateResId(position, holder, msg, onClickListener);
 
-           // ((ChattingActivity) context).registerForContextMenu(holder.getDescTextView());
-		}
-	}
+            // ((ChattingActivity) context).registerForContextMenu(holder.getDescTextView());
+        }
+    }
 
 
-	@Override
-	public int getChatViewType() {
-		return ChattingRowType.DESCRIPTION_ROW_TRANSMIT.ordinal();
-	}
-	
-	@Override
-	public boolean onCreateRowContextMenu(ContextMenu contextMenu,
-			View targetView, ECMessage detail) {
-		
-		return false;
-	}
-	
+    @Override
+    public int getChatViewType() {
+        return ChattingRowType.DESCRIPTION_ROW_TRANSMIT.ordinal();
+    }
+
+    @Override
+    public boolean onCreateRowContextMenu(ContextMenu contextMenu,
+                                          View targetView, ECMessage detail) {
+
+        return false;
+    }
+
 
 }

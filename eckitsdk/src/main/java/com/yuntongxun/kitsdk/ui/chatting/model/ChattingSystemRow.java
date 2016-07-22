@@ -19,9 +19,6 @@ import android.view.View;
 import android.widget.TextView;
 
 
-
-
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.im.ECTextMessageBody;
@@ -29,53 +26,52 @@ import com.yuntongxun.kitsdk.ui.chatting.holder.BaseHolder;
 import com.yuntongxun.kitsdk.ui.chatting.holder.SystemViewHolder;
 
 
-
 public class ChattingSystemRow extends BaseChattingRow {
 
-	public ChattingSystemRow(int type) {
-		super(type);
-	}
+    public ChattingSystemRow(int type) {
+        super(type);
+    }
 
-	@Override
-	public View buildChatView(LayoutInflater inflater, View convertView) {
-		// we have a don't have a converView so we'll have to create a new one
-		if (convertView == null || convertView.getTag() == null || ((BaseHolder)convertView.getTag()).getType() != mRowType) {
-			convertView =  inflater.inflate(R.layout.ytx_chatting_item_system, null);
+    @Override
+    public View buildChatView(LayoutInflater inflater, View convertView) {
+        // we have a don't have a converView so we'll have to create a new one
+        if (convertView == null || convertView.getTag() == null || ((BaseHolder) convertView.getTag()).getType() != mRowType) {
+            convertView = inflater.inflate(R.layout.ytx_chatting_item_system, null);
 
-			// use the view holder pattern to save of already looked up subviews
-			SystemViewHolder holder = new SystemViewHolder(mRowType);
-			holder.setChattingTime((TextView) convertView.findViewById(R.id.chatting_time_tv));
-			holder.mSystemView = (TextView) convertView.findViewById(R.id.chatting_content_itv);
-			convertView.setTag(holder);
-		} 
-		return convertView;
-	}
+            // use the view holder pattern to save of already looked up subviews
+            SystemViewHolder holder = new SystemViewHolder(mRowType);
+            holder.setChattingTime((TextView) convertView.findViewById(R.id.chatting_time_tv));
+            holder.mSystemView = (TextView) convertView.findViewById(R.id.chatting_content_itv);
+            convertView.setTag(holder);
+        }
+        return convertView;
+    }
 
-	@Override
-	public void buildChattingData(Context context, BaseHolder baseHolder,
-			ECMessage detail, int position) {
+    @Override
+    public void buildChattingData(Context context, BaseHolder baseHolder,
+                                  ECMessage detail, int position) {
 
-		SystemViewHolder holder = (SystemViewHolder) baseHolder;
-		// actually setup the view
-		ECMessage iMessage = detail;
-		if(iMessage != null) {
-			ECTextMessageBody textBody = (ECTextMessageBody) iMessage.getBody();
-			holder.mSystemView.setText(textBody.getMessage());
-			holder.mSystemView.invalidate();
-		}
-	}
-	
+        SystemViewHolder holder = (SystemViewHolder) baseHolder;
+        // actually setup the view
+        ECMessage iMessage = detail;
+        if (iMessage != null) {
+            ECTextMessageBody textBody = (ECTextMessageBody) iMessage.getBody();
+            holder.mSystemView.setText(textBody.getMessage());
+            holder.mSystemView.invalidate();
+        }
+    }
 
-	@Override
-	public int getChatViewType() {
 
-		return ChattingRowType.CHATTING_SYSTEM.ordinal();
-	}
+    @Override
+    public int getChatViewType() {
 
-	@Override
-	public boolean onCreateRowContextMenu(ContextMenu contextMenu,
-			View targetView, ECMessage detail) {
+        return ChattingRowType.CHATTING_SYSTEM.ordinal();
+    }
 
-		return false;
-	}
+    @Override
+    public boolean onCreateRowContextMenu(ContextMenu contextMenu,
+                                          View targetView, ECMessage detail) {
+
+        return false;
+    }
 }

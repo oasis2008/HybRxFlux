@@ -12,6 +12,7 @@
  */
 
 package com.yuntongxun.kitsdk.db;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -171,16 +172,17 @@ public class ConversationSqlManager extends AbstractSQLManager {
 
     public static void delSession(String contactId) {
         String where = IThreadColumn.THREAD_ID + " = '" + contactId + "' ";
-        getInstance().sqliteDB().delete(DatabaseHelper.TABLES_NAME_IM_SESSION , where, null);
+        getInstance().sqliteDB().delete(DatabaseHelper.TABLES_NAME_IM_SESSION, where, null);
     }
 
     /**
      * 更新会话已读状态
+     *
      * @param id
      * @return
      */
     public static long setChattingSessionRead(long id) {
-        if(id <= 0) {
+        if (id <= 0) {
             return -1;
         }
         ContentValues values = new ContentValues();

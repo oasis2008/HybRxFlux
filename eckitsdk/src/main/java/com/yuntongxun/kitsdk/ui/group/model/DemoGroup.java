@@ -25,12 +25,14 @@ import java.util.ArrayList;
 
 /**
  * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-18
  * @version 4.0
+ * @date 2014-12-18
  */
 public class DemoGroup extends ECGroup {
 
-    /**是否加入群组*/
+    /**
+     * 是否加入群组
+     */
     private boolean isJoin;
     private String ownerName;
 
@@ -70,12 +72,12 @@ public class DemoGroup extends ECGroup {
         setPermission(ECGroup.Permission.values()[cursor.getInt(4)]);
         this.isJoin = (cursor.getInt(5) == 1);
 
-        if(getPermission() == ECGroup.Permission.NEED_AUTH && getName() != null && getName().endsWith(IMChattingHelper.GROUP_PRIVATE_TAG)) {
+        if (getPermission() == ECGroup.Permission.NEED_AUTH && getName() != null && getName().endsWith(IMChattingHelper.GROUP_PRIVATE_TAG)) {
             ArrayList<String> member = GroupMemberSqlManager.getGroupMemberID(getGroupId());
-            if(member != null) {
+            if (member != null) {
                 ArrayList<String> contactName = ContactSqlManager.getContactName(member.toArray(new String[]{}));
-                if(contactName == null || contactName.isEmpty()) {
-                    return ;
+                if (contactName == null || contactName.isEmpty()) {
+                    return;
                 }
                 String chatroomName = DemoUtils.listToString(contactName, ",");
                 setName(chatroomName);

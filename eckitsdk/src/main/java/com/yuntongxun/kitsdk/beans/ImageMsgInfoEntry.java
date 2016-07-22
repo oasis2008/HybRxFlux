@@ -17,188 +17,181 @@ import android.os.Parcelable;
 
 /**
  * @author Jorstin Chan@容联•云通讯
- * @date 2015-1-4
  * @version 4.0
+ * @date 2015-1-4
  */
-public class ImageMsgInfoEntry implements Parcelable{
+public class ImageMsgInfoEntry implements Parcelable {
 
-	// 消息ID
-	private String id; 
-	// 消息图片url
-	private String picurl; 
-	private String remoteUrl; 
-	// 消息图片缩略图url
-	private String thumbnailurl; 
-	// 图片类型
-	private String pictype; 
-	// 图片MD5校验值
-	private String picmd5; 
-	// 图片大小，单位为字节
-	private String picsize; 
-
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+    // 消息ID
+    private String id;
+    // 消息图片url
+    private String picurl;
+    private String remoteUrl;
+    // 消息图片缩略图url
+    private String thumbnailurl;
+    // 图片类型
+    private String pictype;
+    // 图片MD5校验值
+    private String picmd5;
+    // 图片大小，单位为字节
+    private String picsize;
 
 
-	/**
-	 * @return the picurl
-	 */
-	public String getPicurl() {
-		return picurl;
-	}
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
 
-	/**
-	 * @param picurl
-	 *            the picurl to set
-	 */
-	public void setPicurl(String picurl) {
-		this.picurl = picurl;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return the thumbnailurl
-	 */
-	public String getThumbnailurl() {
-		return thumbnailurl;
-	}
 
-	/**
-	 * @param thumbnailurl
-	 *            the thumbnailurl to set
-	 */
-	public void setThumbnailurl(String thumbnailurl) {
-		this.thumbnailurl = thumbnailurl;
-	}
+    /**
+     * @return the picurl
+     */
+    public String getPicurl() {
+        return picurl;
+    }
 
-	/**
-	 * @return the pictype
-	 */
-	public String getPictype() {
-		return pictype;
-	}
+    /**
+     * @param picurl the picurl to set
+     */
+    public void setPicurl(String picurl) {
+        this.picurl = picurl;
+    }
 
-	/**
-	 * @param pictype
-	 *            the pictype to set
-	 */
-	public void setPictype(String pictype) {
-		this.pictype = pictype;
-	}
+    /**
+     * @return the thumbnailurl
+     */
+    public String getThumbnailurl() {
+        return thumbnailurl;
+    }
 
-	/**
-	 * @return the picmd5
-	 */
-	public String getPicmd5() {
-		return picmd5;
-	}
+    /**
+     * @param thumbnailurl the thumbnailurl to set
+     */
+    public void setThumbnailurl(String thumbnailurl) {
+        this.thumbnailurl = thumbnailurl;
+    }
 
-	/**
-	 * @param picmd5
-	 *            the picmd5 to set
-	 */
-	public void setPicmd5(String picmd5) {
-		this.picmd5 = picmd5;
-	}
+    /**
+     * @return the pictype
+     */
+    public String getPictype() {
+        return pictype;
+    }
 
-	/**
-	 * @return the picsize
-	 */
-	public String getPicsize() {
-		return picsize;
-	}
+    /**
+     * @param pictype the pictype to set
+     */
+    public void setPictype(String pictype) {
+        this.pictype = pictype;
+    }
 
-	/**
-	 * @param picsize
-	 *            the picsize to set
-	 */
-	public void setPicsize(String picsize) {
-		this.picsize = picsize;
-	}
+    /**
+     * @return the picmd5
+     */
+    public String getPicmd5() {
+        return picmd5;
+    }
 
-	/**
-	 * @return the remoteUrl
-	 */
-	public String getRemoteUrl() {
-		return remoteUrl;
-	}
+    /**
+     * @param picmd5 the picmd5 to set
+     */
+    public void setPicmd5(String picmd5) {
+        this.picmd5 = picmd5;
+    }
 
-	/**
-	 * @param remoteUrl the remoteUrl to set
-	 */
-	public void setRemoteUrl(String remoteUrl) {
-		this.remoteUrl = remoteUrl;
-	}
+    /**
+     * @return the picsize
+     */
+    public String getPicsize() {
+        return picsize;
+    }
 
-	/**
-	 * 
-	 * @param id
-	 * @param remoteUrl
-	 * @param thumbnailurl
-	 * @param picurl
-	 */
-	public ImageMsgInfoEntry(String id, String remoteUrl, String thumbnailurl,
-			String picurl) {
-		super();
-		this.id = id;
-		this.picurl = picurl;
-		this.remoteUrl = remoteUrl;
-		this.thumbnailurl = thumbnailurl;
-	}
-	
-	public ImageMsgInfoEntry(String msgId) {
-		this.id = msgId;
-	}
-	
-	private ImageMsgInfoEntry(Parcel in) {
-		this.id = in.readString();
-		this.picurl = in.readString();
-		this.thumbnailurl = in.readString();
-		this.pictype = in.readString();
-		this.picmd5 = in.readString();
-		this.picsize = in.readString();
-		this.remoteUrl = in.readString();
-	}
-	
-	public static final Creator<ImageMsgInfoEntry> CREATOR = new Creator<ImageMsgInfoEntry>() {
+    /**
+     * @param picsize the picsize to set
+     */
+    public void setPicsize(String picsize) {
+        this.picsize = picsize;
+    }
 
-		@Override
-		public ImageMsgInfoEntry createFromParcel(Parcel in) {
-			return new ImageMsgInfoEntry(in);
-		}
+    /**
+     * @return the remoteUrl
+     */
+    public String getRemoteUrl() {
+        return remoteUrl;
+    }
 
-		@Override
-		public ImageMsgInfoEntry[] newArray(int size) {
-			return new ImageMsgInfoEntry[size];
-		}
+    /**
+     * @param remoteUrl the remoteUrl to set
+     */
+    public void setRemoteUrl(String remoteUrl) {
+        this.remoteUrl = remoteUrl;
+    }
 
-	};
+    /**
+     * @param id
+     * @param remoteUrl
+     * @param thumbnailurl
+     * @param picurl
+     */
+    public ImageMsgInfoEntry(String id, String remoteUrl, String thumbnailurl,
+                             String picurl) {
+        super();
+        this.id = id;
+        this.picurl = picurl;
+        this.remoteUrl = remoteUrl;
+        this.thumbnailurl = thumbnailurl;
+    }
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
+    public ImageMsgInfoEntry(String msgId) {
+        this.id = msgId;
+    }
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(this.id);
-		dest.writeString(this.picurl);
-		dest.writeString(this.thumbnailurl);
-		dest.writeString(this.pictype);
-		dest.writeString(this.picmd5);
-		dest.writeString(this.picsize);
-		dest.writeString(this.remoteUrl);
-	}
+    private ImageMsgInfoEntry(Parcel in) {
+        this.id = in.readString();
+        this.picurl = in.readString();
+        this.thumbnailurl = in.readString();
+        this.pictype = in.readString();
+        this.picmd5 = in.readString();
+        this.picsize = in.readString();
+        this.remoteUrl = in.readString();
+    }
+
+    public static final Creator<ImageMsgInfoEntry> CREATOR = new Creator<ImageMsgInfoEntry>() {
+
+        @Override
+        public ImageMsgInfoEntry createFromParcel(Parcel in) {
+            return new ImageMsgInfoEntry(in);
+        }
+
+        @Override
+        public ImageMsgInfoEntry[] newArray(int size) {
+            return new ImageMsgInfoEntry[size];
+        }
+
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.picurl);
+        dest.writeString(this.thumbnailurl);
+        dest.writeString(this.pictype);
+        dest.writeString(this.picmd5);
+        dest.writeString(this.picsize);
+        dest.writeString(this.remoteUrl);
+    }
 }

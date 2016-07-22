@@ -68,14 +68,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/mute_selector" />
-                
-				<ImageButton
-	                android:id="@+id/layout_call_release"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:background="@drawable/hook_selector"
-	                android:layout_marginLeft="@dimen/LargestPadding"
-	                android:layout_marginRight="@dimen/LargestPadding" />
+
+                <ImageButton
+                    android:id="@+id/layout_call_release"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/hook_selector"
+                    android:layout_marginLeft="@dimen/LargestPadding"
+                    android:layout_marginRight="@dimen/LargestPadding" />
 
                 <ImageView
                     android:id="@+id/layout_call_handfree"

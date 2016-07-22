@@ -27,6 +27,7 @@
 
         <requestFocus />
     </com.yuntongxun.kitsdk.ui.chatting.view.CCPClearEditText>
+
     <ListView
         android:id="@+id/searcha_result_lv"
         android:layout_width="fill_parent"
@@ -36,7 +37,8 @@
         android:divider="@null"
         android:dividerHeight="0.0px"
         android:listSelector="@null"
-        android:scrollbars="none"/>
+        android:scrollbars="none" />
+
     <TextView
         android:id="@+id/empty_search_tv"
         style="@style/CCPFontEmptyMsgLarge"

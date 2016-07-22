@@ -13,10 +13,8 @@ import java.lang.reflect.Type;
 import java.util.Date;
 
 class DateSerializer
-        implements JsonSerializer<Date>
-{
-    public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context)
-    {
+        implements JsonSerializer<Date> {
+    public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
         return new JsonPrimitive(Long.valueOf(src.getTime()));
     }
 }

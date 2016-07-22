@@ -19,18 +19,20 @@ import android.widget.TextView;
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2014</p>
  * <p>Company: Beijing Speedtong Information Technology Co.,Ltd</p>
+ *
  * @author Jorstin Chan
- * @date 2014-8-4
  * @version 1.0
+ * @date 2014-8-4
  */
 public class SystemViewHolder extends BaseHolder {
 
-	public TextView mSystemView;
-	/**
-	 * @param type
-	 */
-	public SystemViewHolder(int type) {
-		super(type);
-	}
+    public TextView mSystemView;
+
+    /**
+     * @param type
+     */
+    public SystemViewHolder(int type) {
+        super(type);
+    }
 
 }

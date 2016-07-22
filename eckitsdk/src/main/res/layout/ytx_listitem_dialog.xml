@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="@drawable/ytx_bg_dialog_listitem_selector"
+<LinearLayout android:background="@drawable/ytx_bg_dialog_listitem_selector"
     android:paddingLeft="@dimen/dialog_padding"
     android:paddingTop="12.0dip"
     android:paddingRight="@dimen/dialog_padding"

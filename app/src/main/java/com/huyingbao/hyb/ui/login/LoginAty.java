@@ -76,7 +76,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        initActionBar(null,false);
+        initActionBar(null, false);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -150,7 +150,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
 
     @Override
     public void onRxError(@NonNull RxError error) {
-        if(this.isFinishing()){
+        if (this.isFinishing()) {
             return;
         }
         showProgress(false);

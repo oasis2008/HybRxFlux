@@ -15,8 +15,6 @@ package com.yuntongxun.kitsdk.ui.chatting.holder;
 import com.yuntongxun.eckitsdk.R;
 
 
-
-
 import com.yuntongxun.kitsdk.ui.chatting.view.CCPTextView;
 
 import android.view.View;
@@ -26,79 +24,77 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-
 /**
  * @author 容联•云通讯
- * @date 2014-12-9
  * @version 4.0
+ * @date 2014-12-9
  */
-public class DescriptionViewHolder extends BaseHolder{
+public class DescriptionViewHolder extends BaseHolder {
 
-	public View chattingContent;
-	/**
-	 * TextView that display IMessage description.
-	 */
-	private CCPTextView descTextView;
-	
-	/**
-	 * @param type
-	 */
-	public DescriptionViewHolder(int type) {
-		super(type);
+    public View chattingContent;
+    /**
+     * TextView that display IMessage description.
+     */
+    private CCPTextView descTextView;
 
-	}
-	
-	public BaseHolder initBaseHolder(View baseView , boolean receive) {
-		super.initBaseHolder(baseView);
+    /**
+     * @param type
+     */
+    public DescriptionViewHolder(int type) {
+        super(type);
 
-		chattingTime = (TextView) baseView.findViewById(R.id.chatting_time_tv);
-		chattingUser = (TextView) baseView.findViewById(R.id.chatting_user_tv);
-		descTextView = (CCPTextView) baseView.findViewById(R.id.chatting_content_itv);
-		checkBox = (CheckBox) baseView.findViewById(R.id.chatting_checkbox);
-		chattingMaskView = baseView.findViewById(R.id.chatting_maskview);
-		chattingContent = baseView.findViewById(R.id.chatting_content_area);
-		if(receive) {
-			type = 7;
-			return this;
-		}
-		
-		uploadState = (ImageView) baseView.findViewById(R.id.chatting_state_iv);
-		progressBar = (ProgressBar) baseView.findViewById(R.id.uploading_pb);
-		type = 8;
-		return this;
-	}
+    }
 
-	/**
-	 * {@link CCPTextView} Display imessage text 
-	 * @return
-	 */
-	public CCPTextView getDescTextView() {
-		if(descTextView == null) {
-			descTextView = (CCPTextView) getBaseView().findViewById(R.id.chatting_content_itv);
-		}
-		return descTextView;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public ImageView getChattingState() {
-		if(uploadState == null) {
-			uploadState = (ImageView) getBaseView().findViewById(R.id.chatting_state_iv);
-		}
-		return uploadState;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public ProgressBar getUploadProgressBar() {
-		if(progressBar == null) {
-			progressBar = (ProgressBar) getBaseView().findViewById(R.id.uploading_pb);
-		}
-		return progressBar;
-	}
+    public BaseHolder initBaseHolder(View baseView, boolean receive) {
+        super.initBaseHolder(baseView);
+
+        chattingTime = (TextView) baseView.findViewById(R.id.chatting_time_tv);
+        chattingUser = (TextView) baseView.findViewById(R.id.chatting_user_tv);
+        descTextView = (CCPTextView) baseView.findViewById(R.id.chatting_content_itv);
+        checkBox = (CheckBox) baseView.findViewById(R.id.chatting_checkbox);
+        chattingMaskView = baseView.findViewById(R.id.chatting_maskview);
+        chattingContent = baseView.findViewById(R.id.chatting_content_area);
+        if (receive) {
+            type = 7;
+            return this;
+        }
+
+        uploadState = (ImageView) baseView.findViewById(R.id.chatting_state_iv);
+        progressBar = (ProgressBar) baseView.findViewById(R.id.uploading_pb);
+        type = 8;
+        return this;
+    }
+
+    /**
+     * {@link CCPTextView} Display imessage text
+     *
+     * @return
+     */
+    public CCPTextView getDescTextView() {
+        if (descTextView == null) {
+            descTextView = (CCPTextView) getBaseView().findViewById(R.id.chatting_content_itv);
+        }
+        return descTextView;
+    }
+
+    /**
+     * @return
+     */
+    public ImageView getChattingState() {
+        if (uploadState == null) {
+            uploadState = (ImageView) getBaseView().findViewById(R.id.chatting_state_iv);
+        }
+        return uploadState;
+    }
+
+    /**
+     * @return
+     */
+    public ProgressBar getUploadProgressBar() {
+        if (progressBar == null) {
+            progressBar = (ProgressBar) getBaseView().findViewById(R.id.uploading_pb);
+        }
+        return progressBar;
+    }
 
 }

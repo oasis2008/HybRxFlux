@@ -19,8 +19,9 @@ import java.util.Random;
 public class ContactSqlManager extends AbstractSQLManager {
 
     private static ContactSqlManager sInstance;
+
     private static ContactSqlManager getInstance() {
-        if(sInstance == null) {
+        if (sInstance == null) {
             sInstance = new ContactSqlManager();
         }
         return sInstance;
@@ -28,8 +29,8 @@ public class ContactSqlManager extends AbstractSQLManager {
 
     public static boolean hasContact(String contactId) {
         String sql = "select contact_id from contacts where contact_id = '" + contactId + "'";
-        Cursor cursor = getInstance().sqliteDB().rawQuery(sql , null);
-        if(cursor != null && cursor.getCount() > 0) {
+        Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
+        if (cursor != null && cursor.getCount() > 0) {
             cursor.close();
             return true;
         }
@@ -38,6 +39,7 @@ public class ContactSqlManager extends AbstractSQLManager {
 
     /**
      * 插入联系人到数据库
+     *
      * @param contacts
      * @return
      */
@@ -47,9 +49,9 @@ public class ContactSqlManager extends AbstractSQLManager {
         try {
 
             getInstance().sqliteDB().beginTransaction();
-            for(ECContacts c : contacts) {
+            for (ECContacts c : contacts) {
                 long rowId = insertContact(c);
-                if(rowId != -1L) {
+                if (rowId != -1L) {
                     rows.add(rowId);
                 }
             }
@@ -67,6 +69,7 @@ public class ContactSqlManager extends AbstractSQLManager {
 
     /**
      * 初始化联系人数据库
+     *
      * @return
      */
     private static long insertSystemNoticeContact() {
@@ -78,38 +81,39 @@ public class ContactSqlManager extends AbstractSQLManager {
     }
 
     public static long updateContactPhoto(ECContacts contact) {
-        return insertContact(contact , 1 , true);
+        return insertContact(contact, 1, true);
     }
 
     /**
      * 根据性别更新联系人信息（区分联系人头像）
+     *
      * @param contact
      * @param sex
      * @return
      */
-    public static long insertContact(ECContacts contact , int sex) {
-        return insertContact(contact , sex , false);
+    public static long insertContact(ECContacts contact, int sex) {
+        return insertContact(contact, sex, false);
     }
 
-    public static long insertContact(ECContacts contact , int sex , boolean hasPhoto) {
-        if(contact == null || TextUtils.isEmpty(contact.getContactid())) {
+    public static long insertContact(ECContacts contact, int sex, boolean hasPhoto) {
+        if (contact == null || TextUtils.isEmpty(contact.getContactid())) {
             return -1;
         }
         try {
             ContentValues values = contact.buildContentValues();
-            if(!hasPhoto ) {
+            if (!hasPhoto) {
                 int index = getIntRandom(3, 0);
-                if(sex == 2) {
+                if (sex == 2) {
                     index = 4;
                 }
                 String remark = ContactLogic.CONVER_PHONTO[index];
                 contact.setRemark(remark);
             }
             values.put(AbstractSQLManager.ContactsColumn.REMARK, contact.getRemark());
-            if(!hasContact(contact.getContactid())) {
+            if (!hasContact(contact.getContactid())) {
                 return getInstance().sqliteDB().insert(DatabaseHelper.TABLES_NAME_CONTACT, null, values);
             }
-            getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_CONTACT , values , "contact_id = '" + contact.getContactid() + "'" , null);
+            getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_CONTACT, values, "contact_id = '" + contact.getContactid() + "'", null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,16 +122,18 @@ public class ContactSqlManager extends AbstractSQLManager {
 
     /**
      * 插入联系人到数据库
+     *
      * @param contact
      * @return
      */
     public static long insertContact(ECContacts contact) {
-        return insertContact(contact , 1);
+        return insertContact(contact, 1);
     }
 
 
     /**
      * 查询联系人名称
+     *
      * @param contactId
      * @return
      */
@@ -157,7 +163,7 @@ public class ContactSqlManager extends AbstractSQLManager {
                     }
                     String displayName = cursor.getString(0);
                     String contact_id = cursor.getString(1);
-                    if(TextUtils.isEmpty(displayName) || TextUtils.isEmpty(contact_id) || displayName.equals(contact_id)) {
+                    if (TextUtils.isEmpty(displayName) || TextUtils.isEmpty(contact_id) || displayName.equals(contact_id)) {
                         continue;
                     }
                     contacts.add(displayName);
@@ -172,6 +178,7 @@ public class ContactSqlManager extends AbstractSQLManager {
 
     /**
      * 查询联系人名称
+     *
      * @param contactId
      * @return
      */
@@ -204,16 +211,18 @@ public class ContactSqlManager extends AbstractSQLManager {
 
     /**
      * 更新联系人名字
+     *
      * @param member
      */
     public static void updateContactName(ECGroupMember member) {
         ContentValues values = new ContentValues();
-        values.put(AbstractSQLManager.ContactsColumn.USERNAME , member.getDisplayName());
-        getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_CONTACT , values , "contact_id = '" + member.getVoipAccount() + "'" , null);
+        values.put(AbstractSQLManager.ContactsColumn.USERNAME, member.getDisplayName());
+        getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_CONTACT, values, "contact_id = '" + member.getVoipAccount() + "'", null);
     }
 
     /**
      * 查询联系人
+     *
      * @return
      */
     public static ArrayList<ECContacts> getContacts() {
@@ -222,23 +231,23 @@ public class ContactSqlManager extends AbstractSQLManager {
             Cursor cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_CONTACT,
                     new String[]{
                             ContactsColumn.ID,
-                            ContactsColumn.USERNAME ,
+                            ContactsColumn.USERNAME,
                             ContactsColumn.CONTACT_ID,
                             ContactsColumn.REMARK},
                     null, null, null, null, null, null);
             if (cursor != null && cursor.getCount() > 0) {
                 contacts = new ArrayList<ECContacts>();
                 // 过滤自己的联系人账号信息
-                 ClientUser clientUser = CCPAppManager.getClientUser();
+                ClientUser clientUser = CCPAppManager.getClientUser();
                 while (cursor.moveToNext()) {
-                    if(GroupNoticeSqlManager.CONTACT_ID.equals(cursor.getString(2))) {
+                    if (GroupNoticeSqlManager.CONTACT_ID.equals(cursor.getString(2))) {
                         continue;
                     }
                     ECContacts c = new ECContacts(cursor.getString(2));
                     c.setNickname(cursor.getString(1));
                     c.setRemark(cursor.getString(3));
                     c.setId(cursor.getInt(0));
-                    if(clientUser != null && clientUser.getUserId().equals(c.getContactid())) {
+                    if (clientUser != null && clientUser.getUserId().equals(c.getContactid())) {
                         continue;
                     }
                     contacts.add(c);
@@ -255,16 +264,17 @@ public class ContactSqlManager extends AbstractSQLManager {
 
     /**
      * 根据联系人ID查询联系人
+     *
      * @param rawId
      * @return
      */
     public static ECContacts getContact(long rawId) {
-        if(rawId == -1) {
+        if (rawId == -1) {
             return null;
         }
         try {
-            Cursor cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_CONTACT, new String[]{ContactsColumn.ID,ContactsColumn.USERNAME ,ContactsColumn.CONTACT_ID ,ContactsColumn.REMARK},
-                    "id=?", new String[]{String.valueOf(rawId)},null , null, null, null);
+            Cursor cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_CONTACT, new String[]{ContactsColumn.ID, ContactsColumn.USERNAME, ContactsColumn.CONTACT_ID, ContactsColumn.REMARK},
+                    "id=?", new String[]{String.valueOf(rawId)}, null, null, null, null);
             ECContacts c = null;
             if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
@@ -282,22 +292,22 @@ public class ContactSqlManager extends AbstractSQLManager {
         return null;
     }
 
-    
 
     /**
      * 根据联系人账号查询
+     *
      * @param contactId
      * @return
      */
     public static ECContacts getContact(String contactId) {
-        if(TextUtils.isEmpty(contactId)) {
+        if (TextUtils.isEmpty(contactId)) {
             return null;
         }
         ECContacts c = new ECContacts(contactId);
         c.setNickname(contactId);
         try {
-            Cursor cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_CONTACT, new String[]{ContactsColumn.ID,ContactsColumn.USERNAME ,ContactsColumn.CONTACT_ID ,ContactsColumn.REMARK},
-                    "contact_id=?", new String[]{contactId},null , null, null, null);
+            Cursor cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_CONTACT, new String[]{ContactsColumn.ID, ContactsColumn.USERNAME, ContactsColumn.CONTACT_ID, ContactsColumn.REMARK},
+                    "contact_id=?", new String[]{contactId}, null, null, null, null);
             if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
                     c = new ECContacts(cursor.getString(2));
@@ -316,16 +326,17 @@ public class ContactSqlManager extends AbstractSQLManager {
 
     /**
      * 根据昵称查询信息
+     *
      * @param nikeName
      * @return
      */
     public static ECContacts getContactLikeUsername(String nikeName) {
-        if(TextUtils.isEmpty(nikeName)) {
+        if (TextUtils.isEmpty(nikeName)) {
             return null;
         }
         try {
-            Cursor cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_CONTACT, new String[]{ContactsColumn.ID,ContactsColumn.USERNAME ,ContactsColumn.CONTACT_ID ,ContactsColumn.REMARK},
-                    "username LIKE '" + nikeName + "'" , null,null , null, null, null);
+            Cursor cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_CONTACT, new String[]{ContactsColumn.ID, ContactsColumn.USERNAME, ContactsColumn.CONTACT_ID, ContactsColumn.REMARK},
+                    "username LIKE '" + nikeName + "'", null, null, null, null, null);
             ECContacts c = null;
             if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
@@ -344,12 +355,12 @@ public class ContactSqlManager extends AbstractSQLManager {
     }
 
     public static ECContacts getContactLikeUserId(String nikeName) {
-        if(TextUtils.isEmpty(nikeName)) {
+        if (TextUtils.isEmpty(nikeName)) {
             return null;
         }
         try {
-            Cursor cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_CONTACT, new String[]{ContactsColumn.ID,ContactsColumn.USERNAME ,ContactsColumn.CONTACT_ID ,ContactsColumn.REMARK},
-                    "username LIKE '" + nikeName + "'" , null,null , null, null, null);
+            Cursor cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_CONTACT, new String[]{ContactsColumn.ID, ContactsColumn.USERNAME, ContactsColumn.CONTACT_ID, ContactsColumn.REMARK},
+                    "username LIKE '" + nikeName + "'", null, null, null, null, null);
             ECContacts c = null;
             if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {

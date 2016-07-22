@@ -19,52 +19,52 @@ import android.widget.LinearLayout;
 
 /**
  * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-10
  * @version 4.0
+ * @date 2014-12-10
  */
 public abstract class ChatFooterPanel extends LinearLayout {
 
-	protected EmojiGrid.OnEmojiItemClickListener mItemClickListener;
-	
-	/**
-	 * @param context
-	 * @param attrs
-	 */
-	public ChatFooterPanel(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
-	
-	 /**
+    protected EmojiGrid.OnEmojiItemClickListener mItemClickListener;
+
+    /**
+     * @param context
+     * @param attrs
+     */
+    public ChatFooterPanel(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    /**
      * Register a callback to be invoked when an item in this EmojiGird View has
      * been clicked.
      *
      * @param listener The callback that will be invoked.
      */
-	protected void setOnEmojiItemClickListener(EmojiGrid.OnEmojiItemClickListener listener) {
-    	mItemClickListener = listener;
+    protected void setOnEmojiItemClickListener(EmojiGrid.OnEmojiItemClickListener listener) {
+        mItemClickListener = listener;
     }
 
     /**
      * @return The callback to be invoked with an item in this EmojiGird View has
-     *         been clicked, or null id no callback has been set.
+     * been clicked, or null id no callback has been set.
      */
     public final EmojiGrid.OnEmojiItemClickListener getOnEmojiItemClickListener() {
         return mItemClickListener;
     }
 
-	public void onDestroy() {
-		
-	}
-	
-	public abstract void setChatFooterPanelHeight(int height);
-	
-	
-	public abstract void onPause();
+    public void onDestroy() {
 
-	
-	public abstract void onResume();
+    }
 
-	
-	public abstract void reset();
+    public abstract void setChatFooterPanelHeight(int height);
+
+
+    public abstract void onPause();
+
+
+    public abstract void onResume();
+
+
+    public abstract void reset();
 }
 

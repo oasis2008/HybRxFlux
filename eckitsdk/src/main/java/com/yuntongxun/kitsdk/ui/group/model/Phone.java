@@ -71,7 +71,7 @@ public class Phone {
         result = prime * result + ((phoneNum == null) ? 0 : phoneNum.hashCode());
         result = prime * result + type;
 /*		if (type == 0) {
-			result = prime * result + ((customLabel == null) ? 0 : customLabel.hashCode());
+            result = prime * result + ((customLabel == null) ? 0 : customLabel.hashCode());
 		}*/
         return result;
     }

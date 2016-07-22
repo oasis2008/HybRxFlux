@@ -11,15 +11,15 @@ public class ViewImageInfo implements Parcelable {
 
 
     public static final Parcelable.Creator<ViewImageInfo> CREATOR
-                 = new Parcelable.Creator<ViewImageInfo>() {
-                 public ViewImageInfo createFromParcel(Parcel in) {
-                         return new ViewImageInfo(in);
-                     }
+            = new Parcelable.Creator<ViewImageInfo>() {
+        public ViewImageInfo createFromParcel(Parcel in) {
+            return new ViewImageInfo(in);
+        }
 
-                 public ViewImageInfo[] newArray(int size) {
-                         return new ViewImageInfo[size];
-                     }
-             };
+        public ViewImageInfo[] newArray(int size) {
+            return new ViewImageInfo[size];
+        }
+    };
 
 
     private int index;
@@ -28,7 +28,7 @@ public class ViewImageInfo implements Parcelable {
     private String picurl;
     private boolean isDownload = false;
 
-    public ViewImageInfo(int index , String thumb , String url) {
+    public ViewImageInfo(int index, String thumb, String url) {
         this.index = index;
         this.thumbnailurl = thumb;
         this.picurl = url;
@@ -41,7 +41,7 @@ public class ViewImageInfo implements Parcelable {
 
     }
 
-    public ViewImageInfo(String thumb , String url) {
+    public ViewImageInfo(String thumb, String url) {
         this(0, thumb, url);
     }
 

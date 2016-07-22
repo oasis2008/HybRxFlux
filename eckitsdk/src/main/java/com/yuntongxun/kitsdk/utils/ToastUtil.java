@@ -9,14 +9,14 @@
  *  An additional intellectual property rights grant can be found
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
- */package com.yuntongxun.kitsdk.utils;
+ */
+package com.yuntongxun.kitsdk.utils;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
 import com.yuntongxun.kitsdk.core.CCPAppManager;
-
 
 
 public class ToastUtil {
@@ -33,6 +33,7 @@ public class ToastUtil {
 
     /**
      * 根据设置的文本显示
+     *
      * @param msg
      */
     public static void showMessage(final int msg) {
@@ -41,6 +42,7 @@ public class ToastUtil {
 
     /**
      * 显示一个文本并且设置时长
+     *
      * @param msg
      * @param len
      */
@@ -68,6 +70,7 @@ public class ToastUtil {
 
     /**
      * 资源文件方式显示文本
+     *
      * @param msg
      * @param len
      */

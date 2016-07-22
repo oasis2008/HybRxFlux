@@ -30,7 +30,7 @@ import java.util.List;
  * com.yuntongxun.ecdemo.ui.chatting in ECDemo_Android
  * Created by Jorstin on 2015/3/30.
  */
-public class ECImageGralleryPagerActivity extends ECSuperActivity implements View.OnClickListener{
+public class ECImageGralleryPagerActivity extends ECSuperActivity implements View.OnClickListener {
 
     private static final String TAG = "ImageGralleryPagerActivity";
 
@@ -46,6 +46,7 @@ public class ECImageGralleryPagerActivity extends ECSuperActivity implements Vie
     private int pagerPosition;
     private TextView indicator;
     private List<ViewImageInfo> urls;
+
     @Override
     protected int getLayoutId() {
         return R.layout.ytx_image_grallery_container;
@@ -61,11 +62,11 @@ public class ECImageGralleryPagerActivity extends ECSuperActivity implements Vie
         pagerPosition = getIntent().getIntExtra(EXTRA_IMAGE_INDEX, 0);
         urls = getIntent().getParcelableArrayListExtra(EXTRA_IMAGE_URLS);
 
-        if(urls == null || urls.isEmpty()) {
+        if (urls == null || urls.isEmpty()) {
             finish();
-            return ;
+            return;
         }
-        if(pagerPosition > urls.size()) {
+        if (pagerPosition > urls.size()) {
             pagerPosition = 0;
         }
 
@@ -77,14 +78,14 @@ public class ECImageGralleryPagerActivity extends ECSuperActivity implements Vie
         findViewById(R.id.imagebrower_iv_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mAdapter != null) {
+                if (mAdapter != null) {
                     ViewImageInfo viewImageInfo = urls.get(mPager.getCurrentItem());
-                    if(viewImageInfo == null || !viewImageInfo.isDownload()) {
+                    if (viewImageInfo == null || !viewImageInfo.isDownload()) {
                         ToastUtil.showMessage(R.string.save_img_waite_download);
-                        return ;
+                        return;
                     }
                     try {
-                        File file = new File(FileAccessor.getImagePathName() ,viewImageInfo.getPicurl());
+                        File file = new File(FileAccessor.getImagePathName(), viewImageInfo.getPicurl());
                         DemoUtils.saveImage(file.getAbsolutePath());
                     } catch (Exception e) {
                         LogUtil.e(TAG, "onContextItemSelected error ");
@@ -128,24 +129,24 @@ public class ECImageGralleryPagerActivity extends ECSuperActivity implements Vie
     @Override
     public void onClick(View v) {
         mHandlerCallbck.sendEmptyMessageDelayed(1, 350L);
-        
-        
-        if(v.getId()==R.id.btn_left){
-        	 hideSoftKeyboard();
-             finish();
+
+
+        if (v.getId() == R.id.btn_left) {
+            hideSoftKeyboard();
+            finish();
         }
-        
-        
+
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(urls != null) {
+        if (urls != null) {
             urls.clear();
             urls = null;
         }
-        if(mHandlerCallbck != null) {
+        if (mHandlerCallbck != null) {
             mHandlerCallbck.removeCallbacksAndMessages(null);
         }
         mPager = null;
@@ -168,19 +169,18 @@ public class ECImageGralleryPagerActivity extends ECSuperActivity implements Vie
     public void onBaseContentViewAttach(View contentView) {
         View activityLayoutView = getActivityLayoutView();
         ((ViewGroup) activityLayoutView.getParent()).removeView(activityLayoutView);
-        ((ViewGroup) getWindow().getDecorView()).addView(activityLayoutView , 1);
+        ((ViewGroup) getWindow().getDecorView()).addView(activityLayoutView, 1);
 
     }
 
 
     /**
-     *
      * @param request
      */
     private void requestStatusbars(boolean request) {
-        if(request) {
+        if (request) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            return ;
+            return;
         }
         LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "request custom title");
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -188,13 +188,14 @@ public class ECImageGralleryPagerActivity extends ECSuperActivity implements Vie
 
     /**
      * Full screen, hidden actionBar
+     *
      * @param visible
      */
     void setTitleFooterVisible(boolean visible) {
-        if(visible) {
+        if (visible) {
             requestStatusbars(false);
             showTitleView();
-            return ;
+            return;
         }
 
         requestStatusbars(true);

@@ -16,7 +16,7 @@ public class LoadingAty extends BaseActivity {
     private final Handler mHideHandler = new Handler();
     private final Runnable mHandleActionRunnable = new Runnable() {
         public void run() {
-            if (mLocalStorageUtils.isFirstTime()||!mLocalStorageUtils.isLogin()||HybApp.getUser() == null) {
+            if (mLocalStorageUtils.isFirstTime() || !mLocalStorageUtils.isLogin() || HybApp.getUser() == null) {
                 finish();
                 startActivity(LoginAty.class);
                 return;

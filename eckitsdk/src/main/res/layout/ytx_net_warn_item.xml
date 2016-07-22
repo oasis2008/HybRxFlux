@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright (c) 2013 The CCP project authors. All Rights Reserved.
  
    Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
@@ -15,7 +14,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@null"
-    android:contentDescription="net_warn_item.xml" >
+    android:contentDescription="net_warn_item.xml">
 
     <LinearLayout
         android:id="@+id/nwview"
@@ -23,7 +22,7 @@
         android:layout_height="@dimen/SmallListHeight"
         android:background="@drawable/ytx_tips_bar_red_selector"
         android:gravity="left|center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/nw_icon"
@@ -37,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/SmallPadding"
             android:gravity="center_vertical"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/nw_detail"

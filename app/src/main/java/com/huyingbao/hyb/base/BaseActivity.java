@@ -71,9 +71,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         //设置标题
         toolbar.setTitle(title == null ? getTitle() : title);
         //设置返回按钮
-        if(backAble){
+        if (backAble) {
             ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null||backAble) {
+            if (actionBar != null || backAble) {
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
         }

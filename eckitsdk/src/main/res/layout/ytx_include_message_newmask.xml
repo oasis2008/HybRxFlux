@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:gravity="center"
+<LinearLayout android:gravity="center"
     android:id="@+id/message_layout_mask"
     android:background="@color/bg_warning"
     android:visibility="gone"

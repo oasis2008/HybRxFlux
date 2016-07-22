@@ -84,7 +84,7 @@ public class MainAty extends BaseActivity
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        initActionBar(null,false);
+        initActionBar(null, false);
         //侧滑菜单控件
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);

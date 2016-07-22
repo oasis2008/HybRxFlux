@@ -88,70 +88,119 @@ import java.util.List;
 
 
 public class ECChattingActivity extends ECSuperActivity implements View.OnClickListener,
-        AbsListView.OnScrollListener , IMChattingHelper.OnMessageReportCallback{
+        AbsListView.OnScrollListener, IMChattingHelper.OnMessageReportCallback {
 
     private static final String TAG = "ECSDK_Kit.ChattingActivity";
     private static final int WHAT_ON_COMPUTATION_TIME = 10000;
-    /**request code for tack pic*/
+    /**
+     * request code for tack pic
+     */
     public static final int REQUEST_CODE_TAKE_PICTURE = 0x3;
     public static final int REQUEST_CODE_LOAD_IMAGE = 0x4;
     public static final int REQUEST_CODE_IMAGE_CROP = 0x5;
-    /**查看名片*/
+    /**
+     * 查看名片
+     */
     public static final int REQUEST_VIEW_CARD = 0x6;
 
-    /**会话ID，数据库主键*/
+    /**
+     * 会话ID，数据库主键
+     */
     public final static String THREAD_ID = "thread_id";
-    /**联系人账号*/
+    /**
+     * 联系人账号
+     */
     public final static String RECIPIENTS = "recipients";
-    /**联系人名称*/
+    /**
+     * 联系人名称
+     */
     public final static String CONTACT_USER = "contact_user";
-    /**按键振动时长*/
+    /**
+     * 按键振动时长
+     */
     public static final int TONE_LENGTH_MS = 200;
-    /**音量值*/
+    /**
+     * 音量值
+     */
     private static final float TONE_RELATIVE_VOLUME = 100.0F;
-    /**待发送的语音文件最短时长*/
+    /**
+     * 待发送的语音文件最短时长
+     */
     private static final int MIX_TIME = 1000;
-    /**聊天界面消息适配器*/
+    /**
+     * 聊天界面消息适配器
+     */
     private ChattingListAdapter mChattingAdapter;
     private long mPageCount;
-    /**历史聊天纪录消息显示View*/
+    /**
+     * 历史聊天纪录消息显示View
+     */
     private ListView mListView;
     private View mListViewHeadView;
-    /**聊天界面附加聊天控件面板*/
+    /**
+     * 聊天界面附加聊天控件面板
+     */
     private CCPChattingFooter2 mChattingFooter;
-    /**选择图片拍照路径*/
+    /**
+     * 选择图片拍照路径
+     */
     private String mFilePath;
-    /**会话ID*/
+    /**
+     * 会话ID
+     */
     private long mThread = -1;
-    /**会话联系人账号*/
+    /**
+     * 会话联系人账号
+     */
     private String mRecipients;
-    /**联系人名称*/
+    /**
+     * 联系人名称
+     */
     private String mUsername;
-    /**计算当前录音时长*/
+    /**
+     * 计算当前录音时长
+     */
     private long computationTime = -1L;
-    /**当前语言录制文件的时间长度*/
+    /**
+     * 当前语言录制文件的时间长度
+     */
     private int mVoiceRecodeTime = 0;
-    /**是否使用边录制便传送模式发送语音*/
+    /**
+     * 是否使用边录制便传送模式发送语音
+     */
     private boolean isRecordAndSend = false;
-    /**手机震动API*/
+    /**
+     * 手机震动API
+     */
     private Vibrator mVibrator;
     private ToneGenerator mToneGenerator;
-    /**录音剩余时间Toast提示*/
+    /**
+     * 录音剩余时间Toast提示
+     */
     private Toast mRecordTipsToast;
     private ECHandlerHelper mHandlerHelper = new ECHandlerHelper();
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private Handler mVoiceHandler;
     private Looper mChattingLooper;
-    /**IM聊天管理工具*/
+    /**
+     * IM聊天管理工具
+     */
     private ECChatManager mChatManager;
-    /**聊天底部导航控件通知回调*/
+    /**
+     * 聊天底部导航控件通知回调
+     */
     private OnChattingFooterImpl mChattingFooterImpl = new OnChattingFooterImpl(this);
-    /**聊天功能插件接口实现*/
+    /**
+     * 聊天功能插件接口实现
+     */
     private OnOnChattingPanelImpl mChattingPanelImpl = new OnOnChattingPanelImpl();
     private ECPullDownView mECPullDownView;
-    /**是否查看消息模式*/
+    /**
+     * 是否查看消息模式
+     */
     private boolean isViewMode = false;
     private View mMsgLayoutMask;
+
     @Override
     protected int getLayoutId() {
         return R.layout.ytx_chatting_activity;
@@ -209,41 +258,41 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mChattingLooper != null) {
+        if (mChattingLooper != null) {
             mChattingLooper.quit();
             mChattingLooper = null;
         }
-        if(mChattingFooter != null){
+        if (mChattingFooter != null) {
             mChattingFooter.onDestory();
             mChattingFooter = null;
         }
 
-        if(mHandlerHelper != null) {
+        if (mHandlerHelper != null) {
             mHandlerHelper.getTheadHandler().removeCallbacksAndMessages(null);
             mHandlerHelper = null;
         }
-        if(mVoiceHandler != null) {
+        if (mVoiceHandler != null) {
             mVoiceHandler.removeCallbacksAndMessages(null);
             mVoiceHandler = null;
         }
-        if(mHandler != null) {
+        if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
             mHandler = null;
         }
-        if(mListView != null) {
+        if (mListView != null) {
             mListView.setOnItemLongClickListener(null);
             mListView.setOnItemClickListener(null);
         }
-        if(mChattingAdapter != null) {
+        if (mChattingAdapter != null) {
             mChattingAdapter.onDestory();
             mListView.setAdapter(null);
         }
         mChatManager = null;
         mOnItemLongClickListener = null;
-        mOnListViewBottomListener =null;
+        mOnListViewBottomListener = null;
         mOnListViewTopListener = null;
         mOnRefreshAdapterDataListener = null;
-        if(mChattingFooterImpl != null) {
+        if (mChattingFooterImpl != null) {
             mChattingFooterImpl.release();
             mChattingFooterImpl = null;
         }
@@ -259,7 +308,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
      * 初始化聊天界面资源
      */
     private void initView() {
-    	 
+
         mListView = (ListView) findViewById(R.id.chatting_history_lv);
         mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
         mListView.setItemsCanFocus(false);
@@ -280,7 +329,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
                 hideSoftKeyboard();
 
-                
+
                 mChattingFooter.hideBottomPanel();
                 return false;
             }
@@ -296,7 +345,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
             }
         });
         /************************************************************************************************************/
-        mECPullDownView = (ECPullDownView)findViewById(R.id.chatting_pull_down_view);
+        mECPullDownView = (ECPullDownView) findViewById(R.id.chatting_pull_down_view);
         mECPullDownView.setTopViewInitialize(true);
         mECPullDownView.setIsCloseTopAllowRefersh(false);
         mECPullDownView.setHasbottomViewWithoutscroll(false);
@@ -352,17 +401,18 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     private void hideBottom() {
         // 隐藏键盘
         hideSoftKeyboard();
-        if(mChattingFooter != null) {
+        if (mChattingFooter != null) {
             // 隐藏更多的聊天功能面板
             mChattingFooter.hideBottomPanel();
         }
     }
 
     private Animation mAnimation;
+
     private void showMsgLayoutMask() {
-        if(isViewMode && !mMsgLayoutMask.isShown() ) {
-            if(mAnimation == null) {
-                mAnimation = AnimationUtils.loadAnimation(this , R.anim.ytx_buttomtip_in);
+        if (isViewMode && !mMsgLayoutMask.isShown()) {
+            if (mAnimation == null) {
+                mAnimation = AnimationUtils.loadAnimation(this, R.anim.ytx_buttomtip_in);
             }
             mMsgLayoutMask.setVisibility(View.VISIBLE);
             mMsgLayoutMask.startAnimation(mAnimation);
@@ -371,7 +421,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     }
 
     private void hideMsgLayoutMask() {
-        if(mMsgLayoutMask != null && mMsgLayoutMask.isShown()) {
+        if (mMsgLayoutMask != null && mMsgLayoutMask.isShown()) {
             mMsgLayoutMask.setVisibility(View.GONE);
         }
     }
@@ -383,37 +433,39 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
         Intent intent = getIntent();
         mRecipients = intent.getStringExtra(ECKitConstant.KIT_CONVERSATION_TARGET);
         mUsername = intent.getStringExtra(CONTACT_USER);
-        if(mUsername == null) {
-          mUsername = mRecipients;
+        if (mUsername == null) {
+            mUsername = mRecipients;
         }
         getTopBarView().setTopBarToStatus(1, R.drawable.ytx_topbar_back_bt, isPeerChat() ? R.drawable.actionbar_facefriend_icon : R.drawable.actionbar_particular_icon, mUsername, this);
         mThread = ConversationSqlManager.querySessionIdForBySessionId(mRecipients);
-        mPageCount =  IMessageSqlManager.qureyIMCountForSession(mThread);
+        mPageCount = IMessageSqlManager.qureyIMCountForSession(mThread);
         //setting single chat or group chat
-        if(isPeerChat()){
-        	getTopBarView().getRightButton().setImageResource(R.drawable.title_bar_group_details_01);
-        }else{
-        	getTopBarView().getRightButton().setImageResource(R.drawable.title_bar_detail);
+        if (isPeerChat()) {
+            getTopBarView().getRightButton().setImageResource(R.drawable.title_bar_group_details_01);
+        } else {
+            getTopBarView().getRightButton().setImageResource(R.drawable.title_bar_detail);
         }
-        
+
     }
 
     /**
      * 是否群组
+     *
      * @return
      */
     public boolean isPeerChat() {
         try {
-			return mRecipients.toLowerCase().startsWith("g");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+            return mRecipients.toLowerCase().startsWith("g");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
      * 返回聊天消息适配器
+     *
      * @return the mChattingAdapter
      */
     public ChattingListAdapter getChattingAdapter() {
@@ -422,9 +474,9 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
+        if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
             View topView = mListView.getChildAt(mListView.getFirstVisiblePosition());
-            if ((topView != null) && (topView.getTop() == 0)){
+            if ((topView != null) && (topView.getTop() == 0)) {
                 LogUtil.d(LogUtil.getLogUtilsTag(ECChattingActivity.class), "doLoadingView auto pull");
                 mECPullDownView.startTopScroll();
             }
@@ -434,8 +486,8 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            LogUtil.d(TAG, "keycode back , chatfooter mode: " +  mChattingFooter.getMode());
-            if(!mChattingFooter.isButtomPanelNotVisibility()) {
+            LogUtil.d(TAG, "keycode back , chatfooter mode: " + mChattingFooter.getMode());
+            if (!mChattingFooter.isButtomPanelNotVisibility()) {
                 hideBottom();
                 return true;
             }
@@ -449,14 +501,14 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
         LogUtil.d(TAG, "[onScroll] firstVisibleItem :" + firstVisibleItem + " ,visibleItemCount:" + visibleItemCount + " ,totalItemCount:" + totalItemCount);
         isViewMode = !((firstVisibleItem + visibleItemCount) == totalItemCount);
-        if(mECPullDownView != null ){
-            if( mPageCount > 0){
+        if (mECPullDownView != null) {
+            if (mPageCount > 0) {
                 mECPullDownView.setIsCloseTopAllowRefersh(false);
-            }else{
+            } else {
                 mECPullDownView.setIsCloseTopAllowRefersh(true);
             }
         }
-        if(!isViewMode) hideMsgLayoutMask();
+        if (!isViewMode) hideMsgLayoutMask();
     }
 
 
@@ -475,10 +527,10 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
         ECNotificationManager.getInstance().forceCancelNotification();
 
 
-        if(isPeerChat() && !GroupSqlManager.getJoinState(mRecipients)) {
+        if (isPeerChat() && !GroupSqlManager.getJoinState(mRecipients)) {
             getTopBarView().setTopBarToStatus(1, R.drawable.ytx_topbar_back_bt, -1, mUsername, this);
             mChattingFooter.setVisibility(View.GONE);
-            return ;
+            return;
         }
         mChattingFooter.setVisibility(View.VISIBLE);
     }
@@ -505,12 +557,12 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
      * 检查是否有预览带发送图片
      */
     private void checkPreviewImage() {
-        if(TextUtils.isEmpty(mFilePath)) {
-            return ;
+        if (TextUtils.isEmpty(mFilePath)) {
+            return;
         }
         boolean previewImage = ECPreferences.getSharedPreferences().getBoolean(ECPreferenceSettings.SETTINGS_PREVIEW_SELECTED.getId()
-                ,(Boolean)ECPreferenceSettings.SETTINGS_PREVIEW_SELECTED.getDefaultValue());
-        if(previewImage){
+                , (Boolean) ECPreferenceSettings.SETTINGS_PREVIEW_SELECTED.getDefaultValue());
+        if (previewImage) {
             try {
                 ECPreferences.savePreference(ECPreferenceSettings.SETTINGS_PREVIEW_SELECTED, Boolean.FALSE, true);
                 new ChattingAsyncTask(this).execute(mFilePath);
@@ -526,7 +578,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     }
 
     private void doEmojiPanel() {
-        if(EmoticonUtil.getEmojiSize() == 0) {
+        if (EmoticonUtil.getEmojiSize() == 0) {
             EmoticonUtil.initEmoji();
         }
     }
@@ -534,7 +586,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogUtil.d(TAG ,"onActivityResult: requestCode=" + requestCode
+        LogUtil.d(TAG, "onActivityResult: requestCode=" + requestCode
                 + ", resultCode=" + resultCode + ", data=" + data);
 
         // If there's no data (because the user didn't select a picture and
@@ -548,21 +600,21 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
             return;
         }
 
-        if(data != null && 0x2a == requestCode) {
+        if (data != null && 0x2a == requestCode) {
             handleAttachUrl(data.getStringExtra("choosed_file_path"));
-            return ;
+            return;
         }
 
-        if(requestCode == REQUEST_CODE_TAKE_PICTURE
+        if (requestCode == REQUEST_CODE_TAKE_PICTURE
                 || requestCode == REQUEST_CODE_LOAD_IMAGE) {
-            if(requestCode == REQUEST_CODE_LOAD_IMAGE) {
+            if (requestCode == REQUEST_CODE_LOAD_IMAGE) {
                 mFilePath = DemoUtils.resolvePhotoFromIntent(ECChattingActivity.this, data, FileAccessor.IMESSAGE_IMAGE);
             }
-            if(TextUtils.isEmpty(mFilePath)) {
-                return ;
+            if (TextUtils.isEmpty(mFilePath)) {
+                return;
             }
             File file = new File(mFilePath);
-            if(file == null || !file.exists()) {
+            if (file == null || !file.exists()) {
                 return;
             }
             try {
@@ -572,9 +624,9 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
             } catch (InvalidClassException e1) {
                 e1.printStackTrace();
             }
-            return ;
+            return;
         }
-        if(requestCode == REQUEST_VIEW_CARD && data != null) {
+        if (requestCode == REQUEST_VIEW_CARD && data != null) {
 //            boolean exit = data.getBooleanExtra(GroupInfoActivity.EXTRA_QUEIT , false);
 //            if(exit) {
 //                finish();
@@ -591,20 +643,22 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     /**
      * 处理附件
+     *
      * @param path
      */
     private void handleAttachUrl(final String path) {
         File file = new File(path);
-        if(!file.exists()) {
-            return ;
+        if (!file.exists()) {
+            return;
         }
         final long length = file.length();
-        ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, getString(R.string.plugin_upload_attach_size_tip , FileUtils.formatFileLength(length)), new DialogInterface.OnClickListener(){
+        ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, getString(R.string.plugin_upload_attach_size_tip, FileUtils.formatFileLength(length)), new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                handleSendFileAttachMessage(length , path);
-            }});
+                handleSendFileAttachMessage(length, path);
+            }
+        });
 
         buildAlert.setTitle(R.string.app_tip);
         buildAlert.show();
@@ -612,15 +666,16 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     /**
      * 处理文本发送方法事件通知
+     *
      * @param text
      */
     private void handleSendTextMessage(CharSequence text) {
-        if(text == null) {
-            return ;
+        if (text == null) {
+            return;
         }
-        if(text.toString().trim().length() <= 0) {
+        if (text.toString().trim().length() <= 0) {
             canotSendEmptyMessage();
-            return ;
+            return;
         }
         // 组建一个待发送的ECMessage
         ECMessage msg = ECMessage.createECMessage(ECMessage.Type.TXT);
@@ -646,7 +701,6 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
         }
 
 
-
     }
 
     /**
@@ -654,7 +708,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
      */
     private void canotSendEmptyMessage() {
 
-        ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, R.string.chatting_empty_message_cant_be_sent ,R.string.dialog_btn_confim, new DialogInterface.OnClickListener() {
+        ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, R.string.chatting_empty_message_cant_be_sent, R.string.dialog_btn_confim, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mChattingFooter.setEditTextNull();
@@ -667,12 +721,13 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     /**
      * 处理发送附件消息
+     *
      * @param length
      * @param pathName
      */
     private void handleSendFileAttachMessage(long length, String pathName) {
-        if(TextUtils.isEmpty(pathName)) {
-            return ;
+        if (TextUtils.isEmpty(pathName)) {
+            return;
         }
         // 组建一个待发送的附件ECMessage
         ECMessage msg = ECMessage.createECMessage(ECMessage.Type.FILE);
@@ -683,7 +738,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
         msg.setDirection(ECMessage.Direction.SEND);
         msg.setMsgTime(System.currentTimeMillis());
         // 创建附件消息体
-        ECFileMessageBody msgBody  = new ECFileMessageBody();
+        ECFileMessageBody msgBody = new ECFileMessageBody();
         // 设置附件名
         msgBody.setFileName(DemoUtils.getFilename(pathName));
         // 设置附件扩展名
@@ -707,12 +762,13 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     /**
      * 处理发送图片消息
+     *
      * @param imgInfo
      */
     public void handleSendImageMessage(ImgInfo imgInfo) {
         String fileName = imgInfo.getBigImgPath();
         String fileUrl = FileAccessor.getImagePathName() + "/" + fileName;
-        if(new File(fileUrl).exists()) {
+        if (new File(fileUrl).exists()) {
             // 组建一个待发送的ECMessage
             ECMessage msg = ECMessage.createECMessage(ECMessage.Type.IMAGE);
             // 设置接收者、发送者、会话ID等信息
@@ -722,7 +778,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
             msg.setDirection(ECMessage.Direction.SEND);
             msg.setMsgTime(System.currentTimeMillis());
             // 设置附件包体（图片也是相当于附件）
-            ECFileMessageBody msgBody  = new ECFileMessageBody();
+            ECFileMessageBody msgBody = new ECFileMessageBody();
 
             // 设置附件名
             msgBody.setFileName(fileName);
@@ -733,7 +789,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
             msg.setBody(msgBody);
 
             try {
-                long rowId = IMChattingHelper.sendImageMessage(imgInfo ,msg);
+                long rowId = IMChattingHelper.sendImageMessage(imgInfo, msg);
                 // 通知列表刷新
                 msg.setId(rowId);
                 notifyIMessageListView(msg);
@@ -746,6 +802,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     /**
      * 将发送的消息放入消息列表
+     *
      * @param message
      */
     public void notifyIMessageListView(ECMessage message) {
@@ -757,13 +814,14 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     /**
      * 获得最后一条消息的时间
+     *
      * @return
      */
     private long getMessageAdapterLastMessageTime() {
         long lastTime = 0;
-        if(mChattingAdapter != null && mChattingAdapter.getCount() >0) {
+        if (mChattingAdapter != null && mChattingAdapter.getCount() > 0) {
             ECMessage item = mChattingAdapter.getItem(mChattingAdapter.getCount() - 1);
-            if(item != null) {
+            if (item != null) {
                 lastTime = item.getMsgTime();
             }
         }
@@ -776,13 +834,13 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
      * 消息发送报告
      */
     @Override
-    public void onMessageReport(ECError error ,ECMessage message) {
-        if(mChattingAdapter != null) {
+    public void onMessageReport(ECError error, ECMessage message) {
+        if (mChattingAdapter != null) {
             mChattingAdapter.notifyDataSetChanged();
         }
-        if(error != null && (SdkErrorCode.SPEAK_LIMIT_FILE == error.errorCode || SdkErrorCode.SPEAK_LIMIT_TEXT == error.errorCode)) {
+        if (error != null && (SdkErrorCode.SPEAK_LIMIT_FILE == error.errorCode || SdkErrorCode.SPEAK_LIMIT_TEXT == error.errorCode)) {
             // 成员被禁言
-            ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, R.string.sendmsg_error_15032, R.string.dialog_btn_confim ,new DialogInterface.OnClickListener() {
+            ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, R.string.sendmsg_error_15032, R.string.dialog_btn_confim, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -791,11 +849,11 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
             buildAlert.setTitle(R.string.app_tip);
             buildAlert.setCanceledOnTouchOutside(false);
             buildAlert.show();
-            return ;
+            return;
         }
-        if(error != null && ( SdkErrorCode.NON_GROUPMEMBER == error.errorCode)) {
+        if (error != null && (SdkErrorCode.NON_GROUPMEMBER == error.errorCode)) {
             // 文件上传发送者不在群组内
-            ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, R.string.sendmsg_error_16072, R.string.dialog_btn_confim ,new DialogInterface.OnClickListener() {
+            ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, R.string.sendmsg_error_16072, R.string.dialog_btn_confim, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -804,7 +862,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
             buildAlert.setTitle(R.string.app_tip);
             buildAlert.setCanceledOnTouchOutside(false);
             buildAlert.show();
-            return ;
+            return;
         }
     }
 
@@ -812,10 +870,10 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
      * 收到新的Push消息
      */
     @Override
-    public void onPushMessage(String sid ,List<ECMessage> msgs) {
+    public void onPushMessage(String sid, List<ECMessage> msgs) {
 
-        if(!mRecipients.equals(sid)) {
-            return ;
+        if (!mRecipients.equals(sid)) {
+            return;
         }
         mThread = ConversationSqlManager.querySessionIdForBySessionId(mRecipients);
 
@@ -823,7 +881,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
         forceAdapter.insertDataArraysAfter(msgs);
         showMsgLayoutMask();
         // 当前是否正在查看消息
-        if(!isViewMode)mListView.setSelection(mListView.getCount() - 1);
+        if (!isViewMode) mListView.setSelection(mListView.getCount() - 1);
 
         setIMessageNomalThreadRead();
     }
@@ -859,6 +917,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     }
 
     private Object mToneGeneratorLock = new Object();
+
     // 初始化
     private void initToneGenerator() {
         AudioManager mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -881,20 +940,21 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
      * 停止播放声音
      */
     public void stopTone() {
-        if(mToneGenerator != null)
+        if (mToneGenerator != null)
             mToneGenerator.stopTone();
     }
 
     /**
      * 播放提示音
+     *
      * @param tone
      * @param durationMs
      */
-    public void playTone(int tone ,int durationMs) {
-        synchronized(mToneGeneratorLock) {
+    public void playTone(int tone, int durationMs) {
+        synchronized (mToneGeneratorLock) {
             initToneGenerator();
             if (mToneGenerator == null) {
-                LogUtil.d("playTone: mToneGenerator == null, tone: "+tone);
+                LogUtil.d("playTone: mToneGenerator == null, tone: " + tone);
                 return;
             }
 
@@ -905,18 +965,19 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     /**
      * 手机震动
+     *
      * @param milliseconds
      */
     public synchronized void vibrate(long milliseconds) {
         Vibrator mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (mVibrator == null) {
-            return ;
+            return;
         }
         mVibrator.vibrate(milliseconds);
     }
 
     private void handleTackPicture() {
-        if(!FileAccessor.isExistExternalStore()) {
+        if (!FileAccessor.isExistExternalStore()) {
             return;
         }
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -935,7 +996,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
      *
      */
     private void scrollListViewToLast() {
-        if(mListView != null){
+        if (mListView != null) {
             mListView.postDelayed(new Runnable() {
 
                 @Override
@@ -943,7 +1004,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                     int lastVisiblePosition = mListView.getLastVisiblePosition();
                     int count = mListView.getCount() - 1;
                     LogUtil.v(LogUtil.TAG + "ChattingFooterEventImpl", "last visible/adapter=" + lastVisiblePosition + "/" + count);
-                    if(lastVisiblePosition > count - 1) {
+                    if (lastVisiblePosition > count - 1) {
                         mListView.setSelectionFromTop(count - 1, 0);
                     } else {
                         mListView.setSelection(count);
@@ -960,10 +1021,11 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     /**
      * 消息重发
+     *
      * @param msg
      * @param position
      */
-    public void doResendMsgRetryTips(final ECMessage msg , final int position) {
+    public void doResendMsgRetryTips(final ECMessage msg, final int position) {
         ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, R.string.chatting_resend_content, null, new DialogInterface.OnClickListener() {
 
             @Override
@@ -974,22 +1036,24 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
         buildAlert.setTitle(R.string.chatting_resend_title);
         buildAlert.show();
     }
+
     /**
      * @param msg
      * @param position
      */
     protected void resendMsg(ECMessage msg, int position) {
-        if(msg == null || position < 0 || mChattingAdapter.getItem(position) == null) {
+        if (msg == null || position < 0 || mChattingAdapter.getItem(position) == null) {
             LogUtil.d(TAG, "ignore resend msg , msg " + msg + " , position " + position);
-            return ;
+            return;
         }
         ECMessage message = mChattingAdapter.getItem(position);
         message.setTo(mRecipients);
         long rowid = IMChattingHelper.reSendECMessage(message);
-        if(rowid != -1) {
+        if (rowid != -1) {
             mChattingAdapter.notifyDataSetChanged();
         }
     }
+
     /**
      * 聊天插件功能实现
      */
@@ -1026,18 +1090,31 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
         ECChattingActivity mActivity;
         protected String mAmrPathName;
-        /**保存当前的录音状态*/
+        /**
+         * 保存当前的录音状态
+         */
         public int mRecordState = RECORD_IDLE;
-        /**语音录制空闲*/
+        /**
+         * 语音录制空闲
+         */
         public static final int RECORD_IDLE = 0;
-        /**语音录制中*/
+        /**
+         * 语音录制中
+         */
         public static final int RECORD_ING = 1;
-        /**语音录制结束*/
+        /**
+         * 语音录制结束
+         */
         public static final int RECORD_DONE = 2;
-        /**待发的ECMessage消息*/
+        /**
+         * 待发的ECMessage消息
+         */
         private ECMessage mPreMessage;
-        /**同步锁*/
+        /**
+         * 同步锁
+         */
         Object mLock = new Object();
+
         public OnChattingFooterImpl(ECChattingActivity ctx) {
             mActivity = ctx;
         }
@@ -1048,7 +1125,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
             if (FileAccessor.getVoicePathName() == null) {
                 ToastUtil.showMessage("Path to file could not be created");
                 mAmrPathName = null;
-                return ;
+                return;
             }
 
             if (getRecordState() != RECORD_ING) {
@@ -1060,8 +1137,8 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                 mChattingFooter.showVoiceRecordWindow(findViewById(R.id.chatting_bg_ll).getHeight() - mChattingFooter.getHeight());
 
                 final ECChatManager chatManager = ECDevice.getECChatManager();
-                if(chatManager == null) {
-                    return ;
+                if (chatManager == null) {
+                    return;
                 }
                 mVoiceHandler.post(new Runnable() {
 
@@ -1075,7 +1152,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                             message.setDirection(ECMessage.Direction.SEND);
                             message.setUserData("ext=amr");
                             message.setMsgTime(System.currentTimeMillis());
-                            ECVoiceMessageBody messageBody = new ECVoiceMessageBody(new File(FileAccessor.getVoicePathName() ,mAmrPathName ), 0);
+                            ECVoiceMessageBody messageBody = new ECVoiceMessageBody(new File(FileAccessor.getVoicePathName(), mAmrPathName), 0);
                             message.setBody(messageBody);
                             mPreMessage = message;
                             // 仅录制语音消息，录制完成后需要调用发送接口发送消息
@@ -1095,7 +1172,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                                 public void onRecordingAmplitude(
                                         double amplitude) {
                                     // 显示声音振幅
-                                    if(mChattingFooter != null && getRecordState()  == RECORD_ING) {
+                                    if (mChattingFooter != null && getRecordState() == RECORD_ING) {
                                         mChattingFooter.showVoiceRecording();
                                         mChattingFooter.displayAmplitude(amplitude);
                                     }
@@ -1109,7 +1186,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                 });
             }
 
-          
+
         }
 
         @Override
@@ -1126,18 +1203,18 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
         @Override
         public void OnVoiceRcdStopRequest() {
-             handleMotionEventActionUp(false);
+            handleMotionEventActionUp(false);
         }
 
         @Override
         public void OnSendTextMessageRequest(CharSequence text) {
-            if(text != null && text.toString().trim().startsWith("starttest://")) {
+            if (text != null && text.toString().trim().startsWith("starttest://")) {
 
                 handleTest(text.toString().substring("starttest://".length()));
-                return ;
+                return;
             } else if (text != null && text.toString().trim().startsWith("endtest://")) {
                 debugeTest = false;
-                return ;
+                return;
             } else if (text != null && text.toString().trim().startsWith("startmcmmessage://")) {
                 handleSendeMcmMsgTest(text.toString().substring("startmcmmessage://".length()));
             }
@@ -1183,21 +1260,23 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
         /**
          * 处理Button 按钮按下抬起事件
+         *
          * @param doCancle 是否取消或者停止录制
          */
         private void handleMotionEventActionUp(final boolean doCancle) {
-            if(getRecordState()  == RECORD_ING) {
+            if (getRecordState() == RECORD_ING) {
                 doVoiceRecordAction(doCancle);
             }
         }
 
         /**
          * 处理语音录制结束事件
+         *
          * @param doCancle 是否取消或者停止录制
          */
         private void doVoiceRecordAction(boolean doCancle) {
             final boolean cancleVoice = doCancle;
-            if(mChatManager != null) {
+            if (mChatManager != null) {
                 mVoiceHandler.post(new Runnable() {
 
                     @Override
@@ -1219,19 +1298,20 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
         /**
          * 处理录音结束消息是否发送逻辑
+         *
          * @param cancle 是否取消发送
          */
         protected void doProcesOperationRecordOver(boolean cancle) {
-            if(getRecordState() == RECORD_ING) {
+            if (getRecordState() == RECORD_ING) {
                 // 当前是否有正在录音的操作
 
                 // 定义标志位判断当前所录制的语音文件是否符合发送条件
                 // 只有当录制的语音文件的长度超过1s才进行发送语音
                 boolean isVoiceToShort = false;
-                File amrPathFile = new File(FileAccessor.getVoicePathName() ,mAmrPathName);
-                if(amrPathFile.exists()) {
+                File amrPathFile = new File(FileAccessor.getVoicePathName(), mAmrPathName);
+                if (amrPathFile.exists()) {
                     mVoiceRecodeTime = DemoUtils.calculateVoiceTime(amrPathFile.getAbsolutePath());
-                    if(!isRecordAndSend) {
+                    if (!isRecordAndSend) {
                         if (mVoiceRecodeTime * 1000 < MIX_TIME) {
                             isVoiceToShort = true;
                         }
@@ -1241,7 +1321,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                 }
                 // 设置录音空闲状态
                 setRecordState(RECORD_IDLE);
-                if(mChattingFooter != null ) {
+                if (mChattingFooter != null) {
                     if (isVoiceToShort && !cancle) {
                         // 提示语音文件长度太短
                         mChattingFooter.tooShortPopuWindow();
@@ -1251,8 +1331,8 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                     mChattingFooter.dismissPopuWindow();
                 }
 
-                if(!cancle && mPreMessage != null) {
-                    if(!isRecordAndSend) {
+                if (!cancle && mPreMessage != null) {
+                    if (!isRecordAndSend) {
                         // 如果当前的录音模式为非Chunk模式
                         try {
                             ECVoiceMessageBody body = (ECVoiceMessageBody) mPreMessage.getBody();
@@ -1264,7 +1344,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                             e.printStackTrace();
                         }
                     }
-                    return ;
+                    return;
                 }
 
                 // 删除语音文件
@@ -1289,7 +1369,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     }
 
     private void stopPlayVoice() {
-        if(mChattingAdapter != null)  {
+        if (mChattingAdapter != null) {
             // 停止播放语音
             mChattingAdapter.onPause();
             mChattingAdapter.notifyDataSetChanged();
@@ -1308,13 +1388,13 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
         @Override
         protected Object doInBackground(Object... params) {
-            ImgInfo createImgInfo = ImgInfoSqlManager.getInstance().createImgInfo((String)params[0]);
+            ImgInfo createImgInfo = ImgInfoSqlManager.getInstance().createImgInfo((String) params[0]);
             return createImgInfo;
         }
 
         @Override
         protected void onPostExecute(Object result) {
-            if(result instanceof ImgInfo) {
+            if (result instanceof ImgInfo) {
                 ImgInfo imgInfo = (ImgInfo) result;
                 handleSendImageMessage(imgInfo);
             }
@@ -1324,26 +1404,25 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-       
-        
-        if(v.getId()==R.id.btn_left){
-        	hideSoftKeyboard();
+
+
+        if (v.getId() == R.id.btn_left) {
+            hideSoftKeyboard();
             finish();
-        	
-        }else if(v.getId()==R.id.btn_right){
-        	
-        	
-        ECCustomChatActionProvider obj=	  ECKitCustomProviderManager.getCustomChatActionProvider();
-        
-        if(obj!=null){
-        	
-        	obj.onRightavigationBarClick(this, mRecipients);
-        }
-        	
-        	
-        	
-        }else if(v.getId()==R.id.btn_middle){
-        	if (mListView != null) {
+
+        } else if (v.getId() == R.id.btn_right) {
+
+
+            ECCustomChatActionProvider obj = ECKitCustomProviderManager.getCustomChatActionProvider();
+
+            if (obj != null) {
+
+                obj.onRightavigationBarClick(this, mRecipients);
+            }
+
+
+        } else if (v.getId() == R.id.btn_middle) {
+            if (mListView != null) {
                 getTopBarView().post(new Runnable() {
                     @Override
                     public void run() {
@@ -1351,19 +1430,10 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                     }
                 });
             }
-        	
+
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
     }
 
     private OnRefreshAdapterDataListener mOnRefreshAdapterDataListener = new OnRefreshAdapterDataListener() {
@@ -1371,9 +1441,9 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
         @Override
         public void refreshData() {
             long lastTime = 0;
-            if(mChattingAdapter != null) {
+            if (mChattingAdapter != null) {
                 ECMessage item = mChattingAdapter.getItem(0);
-                if(item != null) {
+                if (item != null) {
                     lastTime = item.getId();
                 }
             }
@@ -1401,11 +1471,11 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
         @Override
         public boolean getIsListViewToBottom() {
-            View lastChildAt = mListView.getChildAt(mListView.getChildCount() - 1) ;
-            if(lastChildAt == null) {
+            View lastChildAt = mListView.getChildAt(mListView.getChildCount() - 1);
+            if (lastChildAt == null) {
                 return false;
             }
-            if((lastChildAt.getBottom() <= mListView.getHeight())
+            if ((lastChildAt.getBottom() <= mListView.getHeight())
                     && mListView.getLastVisiblePosition() == mListView.getAdapter().getCount() - 1) {
                 return true;
             }
@@ -1417,7 +1487,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
 
         @Override
         public boolean getIsListViewToTop() {
-            View topChildAt =  mListView.getChildAt(mListView.getFirstVisiblePosition());
+            View topChildAt = mListView.getChildAt(mListView.getFirstVisiblePosition());
             return ((topChildAt != null) && (topChildAt.getTop() == 0));
         }
     };
@@ -1428,7 +1498,7 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
             final int itemPosition = position;
-            if(mChattingAdapter != null) {
+            if (mChattingAdapter != null) {
                 int headerViewsCount = mListView.getHeaderViewsCount();
                 if (itemPosition < headerViewsCount) {
                     return false;
@@ -1440,35 +1510,34 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                 }
                 ECMessage item = mChattingAdapter.getItem(_position);
                 String title = mUsername;
-                if(item.getDirection() == ECMessage.Direction.SEND) {
+                if (item.getDirection() == ECMessage.Direction.SEND) {
                     title = ECDeviceKit.getInstance().getUserId();
                 }
                 ECListDialog dialog;
-                
-               ECCustomChatActionProvider obj=  ECKitCustomProviderManager.getCustomChatActionProvider();
-               
-               if(obj!=null){
-            	   
-            	   
-            	boolean result=   obj.onCustomChatMessageItemLongClick(ECChattingActivity.this,item);
-            	
-            	if(result){
-            	   return true;
-            	}
-               }
-                
-                
-                
-                if(item.getType() == ECMessage.Type.TXT) {
+
+                ECCustomChatActionProvider obj = ECKitCustomProviderManager.getCustomChatActionProvider();
+
+                if (obj != null) {
+
+
+                    boolean result = obj.onCustomChatMessageItemLongClick(ECChattingActivity.this, item);
+
+                    if (result) {
+                        return true;
+                    }
+                }
+
+
+                if (item.getType() == ECMessage.Type.TXT) {
                     // 文本有复制功能
-                    dialog = new ECListDialog(ECChattingActivity.this , R.array.chat_menu);
+                    dialog = new ECListDialog(ECChattingActivity.this, R.array.chat_menu);
                 } else {
-                    dialog = new ECListDialog(ECChattingActivity.this , new String[]{getString(R.string.menu_del)});
+                    dialog = new ECListDialog(ECChattingActivity.this, new String[]{getString(R.string.menu_del)});
                 }
                 dialog.setOnDialogItemClickListener(new ECListDialog.OnDialogItemClickListener() {
                     @Override
                     public void onDialogItemClick(Dialog d, int position) {
-                        handleContentMenuClick(itemPosition ,position);
+                        handleContentMenuClick(itemPosition, position);
                     }
                 });
                 dialog.setTitle(title);
@@ -1480,8 +1549,8 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     };
 
 
-    private Boolean handleContentMenuClick(int convresion ,int position) {
-        if(mChattingAdapter != null) {
+    private Boolean handleContentMenuClick(int convresion, int position) {
+        if (mChattingAdapter != null) {
             int headerViewsCount = mListView.getHeaderViewsCount();
             if (convresion < headerViewsCount) {
                 return false;
@@ -1494,12 +1563,12 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
             ECMessage msg = mChattingAdapter.getItem(_position);
             switch (position) {
                 case 0: // 删除
-                    doDelMsgTips(msg , _position);
+                    doDelMsgTips(msg, _position);
 
                     break;
                 case 1: // 复制
                     try {
-                        if(msg.getType() == ECMessage.Type.TXT) {
+                        if (msg.getType() == ECMessage.Type.TXT) {
                             ECTextMessageBody body = (ECTextMessageBody) msg.getBody();
                             ClipboardUtils.copyFromEdit(ECChattingActivity.this, getString(R.string.app_pic), body.getMessage());
                             ToastUtil.showMessage(R.string.app_copy_ok);
@@ -1516,11 +1585,10 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     }
 
     /**
-     *
      * @param msg
      * @param position
      */
-    public void doDelMsgTips(final ECMessage msg , final int position) {
+    public void doDelMsgTips(final ECMessage msg, final int position) {
         ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, R.string.app_delete_tips, null, new DialogInterface.OnClickListener() {
 
             @Override
@@ -1544,15 +1612,17 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     }
 
 
-    /*******************************************DEBUGE START*********************************************/
+    /*******************************************
+     * DEBUGE START
+     *********************************************/
     private void handleTest(final String count) {
-        if(TextUtils.isEmpty(count) || count.trim().length() == 0) {
+        if (TextUtils.isEmpty(count) || count.trim().length() == 0) {
             ToastUtil.showMessage("测试协议失败，测试消息条数必须大于0");
-            return ;
+            return;
         }
         final String text = "";//??
         // final String text = getTestText();
-        ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, "是否开始发送"+count+"条测试消息\n["+text+"]？",  new DialogInterface.OnClickListener() {
+        ECAlertDialog buildAlert = ECAlertDialog.buildAlert(this, "是否开始发送" + count + "条测试消息\n[" + text + "]？", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -1572,7 +1642,8 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
     }
 
     private boolean debugeTest = false;
-    private void doStartTest(String count , final String text) {
+
+    private void doStartTest(String count, final String text) {
         try {
             final int num = Integer.parseInt(count);
             ECHandlerHelper handlerHelper = new ECHandlerHelper();
@@ -1580,10 +1651,10 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                 @Override
                 public void run() {
                     ToastUtil.showMessage("开始测试.");
-                    for (int i = 0; i < num && debugeTest ; i++) {
+                    for (int i = 0; i < num && debugeTest; i++) {
                         try {
-                            ToastUtil.showMessage("正在发送第[" + (i+1) + "]条测试消息");
-                            final String pretext = "[第" + (i+1) + "条]\n" + text;
+                            ToastUtil.showMessage("正在发送第[" + (i + 1) + "]条测试消息");
+                            final String pretext = "[第" + (i + 1) + "条]\n" + text;
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -1604,13 +1675,14 @@ public class ECChattingActivity extends ECSuperActivity implements View.OnClickL
                     });
                 }
             });
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
-    
 
-    /*******************************************DEBUGE END*********************************************/
-
+    /*******************************************
+     * DEBUGE END
+     *********************************************/
 
 
     private void handleSendeMcmMsgTest(String text) {

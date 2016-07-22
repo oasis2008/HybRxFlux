@@ -186,5 +186,4 @@ public interface HybApi {
     Observable<ArrayList<Product>> getEnableProductByShopCode(@Field("belongShop") int belongShop, @Field("status") int status);
 
 
-
 }

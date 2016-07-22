@@ -5,13 +5,12 @@ ls.Log til;
 
 import android.content.Conte
 t;
-imp rt android.support.v4.view
-ViewPa er;
+        imp rt android.support.v4.view
+        ViewPa er;
 import android.util.A
 
 ribute et;
 import android.view.MotionEvent;
-
 
 
 public class HackyViewPager extends ViewPager {

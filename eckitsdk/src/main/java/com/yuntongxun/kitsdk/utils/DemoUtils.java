@@ -53,30 +53,35 @@ public class DemoUtils {
     public static final String TAG = "ECDemo.DemoUtils";
     private static final int MAX_DECODE_PICTURE_SIZE = 1920 * 1440;
     public static boolean inNativeAllocAccessError = false;
-    /**当前SDK版本号*/
+    /**
+     * 当前SDK版本号
+     */
     private static int mSdkint = -1;
+
     /**
      * 计算语音文件的时间长度
+     *
      * @param file
      * @return
      */
     public static int calculateVoiceTime(String file) {
         File _file = new File(file);
-        if(!_file.exists()) {
+        if (!_file.exists()) {
             return 0;
         }
         // 650个字节就是1s
-        int duration = (int) Math.ceil(_file.length() / 650) ;
+        int duration = (int) Math.ceil(_file.length() / 650);
 
-        if(duration > 60) {
+        if (duration > 60) {
             return 60;
         }
 
-        if(duration < 1) {
+        if (duration < 1) {
             return 1;
         }
         return duration;
     }
+
     public static String getLastwords(String srcText, String p) {
         try {
             String[] array = TextUtils.split(srcText, p);
@@ -89,6 +94,7 @@ public class DemoUtils {
     }
 
     private static MessageDigest md = null;
+
     public static String md5(final String c) {
         if (md == null) {
             try {
@@ -123,7 +129,8 @@ public class DemoUtils {
 
     /**
      * 将集合转换成字符串，用特殊字符做分隔符
-     * @param srcList 转换前集合
+     *
+     * @param srcList   转换前集合
      * @param separator 分隔符
      * @return
      */
@@ -143,10 +150,11 @@ public class DemoUtils {
 
     /**
      * SDK版本号
+     *
      * @return
      */
     public static int getSdkint() {
-        if(mSdkint < 0) {
+        if (mSdkint < 0) {
             mSdkint = Build.VERSION.SDK_INT;
         }
         return mSdkint;
@@ -155,7 +163,6 @@ public class DemoUtils {
     /**
      * Java文件操作 获取文件扩展名
      * Get the file extension, if no extension or file name
-     *
      */
     public static String getExtensionName(String filename) {
         if ((filename != null) && (filename.length() > 0)) {
@@ -182,12 +189,13 @@ public class DemoUtils {
 
     /**
      * 返回文件名
+     *
      * @param pathName
      * @return
      */
     public static String getFilename(String pathName) {
         File file = new File(pathName);
-        if(!file.exists()) {
+        if (!file.exists()) {
             return "";
         }
         return file.getName();
@@ -195,6 +203,7 @@ public class DemoUtils {
 
     /**
      * 过滤字符串为空
+     *
      * @param str
      * @return
      */
@@ -207,6 +216,7 @@ public class DemoUtils {
 
     /**
      * 将字符串转换成整型，如果为空则返回默认值
+     *
      * @param str 字符串
      * @param def 默认值
      * @return
@@ -243,16 +253,15 @@ public class DemoUtils {
         Matcher m = p.matcher(str);
         // 替换与模式匹配的所有字符（即非数字的字符将被""替换）
         //对voip造成的负数号码，做处理
-        if(str.startsWith("-")){
-            return "-"+m.replaceAll("").trim();
-        }else{
+        if (str.startsWith("-")) {
+            return "-" + m.replaceAll("").trim();
+        } else {
             return m.replaceAll("").trim();
         }
 
     }
 
     /**
-     *
      * @param c
      * @return
      */
@@ -276,8 +285,10 @@ public class DemoUtils {
     }
 
     public static final String PHONE_PREFIX = "+86";
+
     /**
      * 去除+86
+     *
      * @param phoneNumber
      * @return
      */
@@ -292,29 +303,29 @@ public class DemoUtils {
     }
 
     /**
-     *
      * @param userData
      * @return
      */
     public static String getFileNameFormUserdata(String userData) {
-        if(TextUtils.isEmpty(userData) || "null".equals(userData)) {
+        if (TextUtils.isEmpty(userData) || "null".equals(userData)) {
             return "";
         }
         return userData.substring(userData.indexOf("fileName=") + "fileName=".length(), userData.length());
     }
 
     static MediaPlayer mediaPlayer = null;
-    public static void playNotifycationMusic (Context context ,String voicePath) throws IOException  {
+
+    public static void playNotifycationMusic(Context context, String voicePath) throws IOException {
         //paly music ...
         AssetFileDescriptor fileDescriptor = context.getAssets().openFd(voicePath);
-        if(mediaPlayer == null ) {
+        if (mediaPlayer == null) {
             mediaPlayer = new MediaPlayer();
         }
-        if(mediaPlayer.isPlaying()) {
+        if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
         }
         mediaPlayer.reset();
-        mediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),fileDescriptor.getStartOffset(),
+        mediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(), fileDescriptor.getStartOffset(),
                 fileDescriptor.getLength());
         mediaPlayer.prepare();
         mediaPlayer.setLooping(false);
@@ -327,8 +338,8 @@ public class DemoUtils {
      * @param appPath
      * @return
      */
-    public static String resolvePhotoFromIntent(Context context , Intent intent , String appPath) {
-        if(context == null || intent == null || appPath == null) {
+    public static String resolvePhotoFromIntent(Context context, Intent intent, String appPath) {
+        if (context == null || intent == null || appPath == null) {
             LogUtil.e(LogUtil.getLogUtilsTag(DemoUtils.class), "resolvePhotoFromIntent fail, invalid argument");
             return null;
         }
@@ -337,35 +348,35 @@ public class DemoUtils {
         try {
 
             String pathFromUri = null;
-            if(cursor != null && cursor.getCount() > 0) {
+            if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 int columnIndex = cursor.getColumnIndex(MediaStore.MediaColumns.DATA);
                 // if it is a picasa image on newer devices with OS 3.0 and up
-                if(uri.toString().startsWith("content://com.google.android.gallery3d")) {
+                if (uri.toString().startsWith("content://com.google.android.gallery3d")) {
                     // Do this in a background thread, since we are fetching a large image from the web
-                    pathFromUri =  saveBitmapToLocal(appPath, createChattingImageByUri(intent.getData()));
+                    pathFromUri = saveBitmapToLocal(appPath, createChattingImageByUri(intent.getData()));
                 } else {
                     // it is a regular local image file
-                    pathFromUri =  cursor.getString(columnIndex);
+                    pathFromUri = cursor.getString(columnIndex);
                 }
                 cursor.close();
                 LogUtil.d(TAG, "photo from resolver, path: " + pathFromUri);
                 return pathFromUri;
             } else {
 
-                if(intent.getData() != null) {
+                if (intent.getData() != null) {
                     pathFromUri = intent.getData().getPath();
-                    if(new File(pathFromUri).exists()) {
+                    if (new File(pathFromUri).exists()) {
                         LogUtil.d(TAG, "photo from resolver, path: " + pathFromUri);
                         return pathFromUri;
                     }
                 }
 
                 // some devices (OS versions return an URI of com.android instead of com.google.android
-                if((intent.getAction() != null) && (!(intent.getAction().equals("inline-data")))){
+                if ((intent.getAction() != null) && (!(intent.getAction().equals("inline-data")))) {
                     // use the com.google provider, not the com.android provider.
                     // Uri.parse(intent.getData().toString().replace("com.android.gallery3d","com.google.android.gallery3d"));
-                    pathFromUri =  saveBitmapToLocal(appPath, (Bitmap)intent.getExtras().get("data"));
+                    pathFromUri = saveBitmapToLocal(appPath, (Bitmap) intent.getExtras().get("data"));
                     LogUtil.d(TAG, "photo from resolver, path: " + pathFromUri);
                     return pathFromUri;
                 }
@@ -382,7 +393,6 @@ public class DemoUtils {
 
 
     /**
-     *
      * @param uri
      * @return
      */
@@ -391,7 +401,6 @@ public class DemoUtils {
     }
 
     /**
-     *
      * @param resource
      * @param path
      * @param b
@@ -401,8 +410,8 @@ public class DemoUtils {
      * @param height
      * @return
      */
-    public static Bitmap createChattingImage(int resource , String path , byte[] b , Uri uri ,float dip , int width , int height ) {
-        if(width <= 0 || height <= 0) {
+    public static Bitmap createChattingImage(int resource, String path, byte[] b, Uri uri, float dip, int width, int height) {
+        if (width <= 0 || height <= 0) {
             return null;
         }
 
@@ -413,8 +422,8 @@ public class DemoUtils {
         try {
 
             do {
-                if(dip != 0.0F) {
-                    options.inDensity = (int)(160.0F * dip);
+                if (dip != 0.0F) {
+                    options.inDensity = (int) (160.0F * dip);
                 }
                 options.inJustDecodeBounds = true;
                 decodeMuilt(options, b, path, uri, resource);
@@ -423,20 +432,20 @@ public class DemoUtils {
                 outHeight = options.outHeight;
 
                 options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                if(outWidth <= width || outHeight <= height){
+                if (outWidth <= width || outHeight <= height) {
                     sampleSize = 0;
                     setInNativeAlloc(options);
                     Bitmap decodeMuiltBitmap = decodeMuilt(options, b, path, uri, resource);
                     return decodeMuiltBitmap;
                 } else {
-                    options.inSampleSize = (int)Math.max(outWidth / width, outHeight / height);
+                    options.inSampleSize = (int) Math.max(outWidth / width, outHeight / height);
                     sampleSize = options.inSampleSize;
                 }
             } while (sampleSize != 0);
 
         } catch (IncompatibleClassChangeError e) {
             e.printStackTrace();
-            throw ((IncompatibleClassChangeError)new IncompatibleClassChangeError("May cause dvmFindCatchBlock crash!").initCause(e));
+            throw ((IncompatibleClassChangeError) new IncompatibleClassChangeError("May cause dvmFindCatchBlock crash!").initCause(e));
         } catch (Throwable throwable) {
             throwable.printStackTrace();
             BitmapFactory.Options catchOptions = new BitmapFactory.Options();
@@ -444,7 +453,7 @@ public class DemoUtils {
                 catchOptions.inDensity = (int) (160.0F * dip);
             }
             catchOptions.inPreferredConfig = Bitmap.Config.RGB_565;
-            if(sampleSize != 0) {
+            if (sampleSize != 0) {
                 catchOptions.inSampleSize = sampleSize;
             }
             setInNativeAlloc(catchOptions);
@@ -452,7 +461,7 @@ public class DemoUtils {
                 return decodeMuilt(options, b, path, uri, resource);
             } catch (IncompatibleClassChangeError twoE) {
                 twoE.printStackTrace();
-                throw ((IncompatibleClassChangeError)new IncompatibleClassChangeError("May cause dvmFindCatchBlock crash!").initCause(twoE));
+                throw ((IncompatibleClassChangeError) new IncompatibleClassChangeError("May cause dvmFindCatchBlock crash!").initCause(twoE));
             } catch (Throwable twoThrowable) {
                 twoThrowable.printStackTrace();
             }
@@ -463,15 +472,16 @@ public class DemoUtils {
 
     /**
      * save image from uri
+     *
      * @param outPath
      * @param bitmap
      * @return
      */
-    public static String saveBitmapToLocal(String outPath , Bitmap bitmap) {
+    public static String saveBitmapToLocal(String outPath, Bitmap bitmap) {
         try {
             String imagePath = outPath + DemoUtils.md5(DateFormat.format("yyyy-MM-dd-HH-mm-ss", System.currentTimeMillis()).toString()) + ".jpg";
             File file = new File(imagePath);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 file.createNewFile();
             }
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
@@ -485,9 +495,9 @@ public class DemoUtils {
         return null;
     }
 
-    public static String saveBitmapToLocal(File file , Bitmap bitmap) {
+    public static String saveBitmapToLocal(File file, Bitmap bitmap) {
         try {
-            if(!file.exists()) {
+            if (!file.exists()) {
                 file.createNewFile();
             }
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
@@ -502,7 +512,6 @@ public class DemoUtils {
     }
 
     /**
-     *
      * @param options
      * @param data
      * @param path
@@ -510,25 +519,25 @@ public class DemoUtils {
      * @param resource
      * @return
      */
-    public static Bitmap decodeMuilt(BitmapFactory.Options options , byte[] data , String path , Uri uri , int resource) {
+    public static Bitmap decodeMuilt(BitmapFactory.Options options, byte[] data, String path, Uri uri, int resource) {
         try {
 
-            if(!checkByteArray(data) && TextUtils.isEmpty(path) && uri == null && resource <= 0) {
+            if (!checkByteArray(data) && TextUtils.isEmpty(path) && uri == null && resource <= 0) {
                 return null;
             }
 
-            if(checkByteArray(data)) {
+            if (checkByteArray(data)) {
                 return BitmapFactory.decodeByteArray(data, 0, data.length, options);
             }
 
-            if (uri != null){
+            if (uri != null) {
                 InputStream inputStream = CCPAppManager.getContext().getContentResolver().openInputStream(uri);
                 Bitmap localBitmap = BitmapFactory.decodeStream(inputStream, null, options);
                 inputStream.close();
                 return localBitmap;
             }
 
-            if(resource > 0) {
+            if (resource > 0) {
                 return BitmapFactory.decodeResource(CCPAppManager.getContext().getResources(), resource, options);
             }
             return BitmapFactory.decodeFile(path, options);
@@ -542,7 +551,7 @@ public class DemoUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH && !inNativeAllocAccessError) {
             try {
                 BitmapFactory.Options.class.getField("inNativeAlloc").setBoolean(options, true);
-                return ;
+                return;
             } catch (Exception e) {
                 inNativeAllocAccessError = true;
             }
@@ -554,12 +563,12 @@ public class DemoUtils {
     }
 
     public static Bitmap getSuitableBitmap(String filePath) {
-        if(TextUtils.isEmpty(filePath)) {
+        if (TextUtils.isEmpty(filePath)) {
             LogUtil.e(TAG, "filepath is null or nil");
             return null;
         }
 
-        if(!new File(filePath).exists()) {
+        if (!new File(filePath).exists()) {
             LogUtil.e(TAG, "getSuitableBmp fail, file does not exist, filePath = " + filePath);
             return null;
         }
@@ -567,20 +576,20 @@ public class DemoUtils {
 
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
-            Bitmap decodeFile = BitmapFactory.decodeFile(filePath , options);
-            if(decodeFile != null) {
+            Bitmap decodeFile = BitmapFactory.decodeFile(filePath, options);
+            if (decodeFile != null) {
                 decodeFile.recycle();
             }
 
             if ((options.outWidth <= 0) || (options.outHeight <= 0)) {
-                LogUtil.e(TAG,  "get bitmap fail, file is not a image file = " + filePath);
+                LogUtil.e(TAG, "get bitmap fail, file is not a image file = " + filePath);
                 return null;
             }
 
             int maxWidth = 960;
             int width = 0;
             int height = 0;
-            if((options.outWidth <= options.outHeight * 2.0D) && options.outWidth > 480) {
+            if ((options.outWidth <= options.outHeight * 2.0D) && options.outWidth > 480) {
                 height = maxWidth;
                 width = options.outWidth;
             }
@@ -591,12 +600,12 @@ public class DemoUtils {
             }
 
             Bitmap bitmap = extractThumbNail(filePath, width, height, false);
-            if(bitmap == null) {
+            if (bitmap == null) {
                 LogUtil.e(TAG, "getSuitableBmp fail, temBmp is null, filePath = " + filePath);
                 return null;
             }
             int degree = readPictureDegree(filePath);
-            if(degree != 0) {
+            if (degree != 0) {
                 bitmap = degreeBitmap(bitmap, degree);
             }
             return bitmap;
@@ -608,6 +617,7 @@ public class DemoUtils {
 
     /**
      * 读取图片属性：旋转的角度
+     *
      * @param path 图片绝对路径
      * @return degree旋转的角度
      */
@@ -636,13 +646,12 @@ public class DemoUtils {
     }
 
     /**
-     *
      * @param src
      * @param degree
      * @return
      */
-    public static Bitmap degreeBitmap(Bitmap src , float degree) {
-        if(degree == 0.0F) {
+    public static Bitmap degreeBitmap(Bitmap src, float degree) {
+        if (degree == 0.0F) {
             return src;
         }
         Matrix matrix = new Matrix();
@@ -650,14 +659,14 @@ public class DemoUtils {
         matrix.setRotate(degree, src.getWidth() / 2, src.getHeight() / 2);
         Bitmap resultBitmap = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
         boolean filter = true;
-        if(resultBitmap == null) {
+        if (resultBitmap == null) {
             LogUtil.e(TAG, "resultBmp is null: ");
             filter = true;
         } else {
             filter = false;
         }
 
-        if(resultBitmap != src) {
+        if (resultBitmap != src) {
             src.recycle();
         }
         LogUtil.d(TAG, "filter: " + filter + "  degree:" + degree);
@@ -666,6 +675,7 @@ public class DemoUtils {
 
     /**
      * 得到指定路径图片的options
+     *
      * @param srcPath
      * @return Options {@link android.graphics.BitmapFactory.Options}
      */
@@ -678,20 +688,21 @@ public class DemoUtils {
 
     /**
      * 压缩发送到服务器的图片
-     * @param origPath 原始图片路径
-     * @param widthLimit 图片宽度限制
-     * @param heightLimit 图片高度限制
-     * @param format 图片格式
-     * @param quality 图片压缩率
+     *
+     * @param origPath     原始图片路径
+     * @param widthLimit   图片宽度限制
+     * @param heightLimit  图片高度限制
+     * @param format       图片格式
+     * @param quality      图片压缩率
      * @param authorityDir 图片目录
-     * @param outPath 图片详细目录
+     * @param outPath      图片详细目录
      * @return
      */
     public static boolean createThumbnailFromOrig(String origPath,
                                                   int widthLimit, int heightLimit, Bitmap.CompressFormat format,
                                                   int quality, String authorityDir, String outPath) {
         Bitmap bitmapThumbNail = extractThumbNail(origPath, widthLimit, heightLimit, false);
-        if(bitmapThumbNail == null) {
+        if (bitmapThumbNail == null) {
             return false;
         }
 
@@ -699,13 +710,13 @@ public class DemoUtils {
             saveImageFile(bitmapThumbNail, quality, format, authorityDir, outPath);
             return true;
         } catch (IOException e) {
-            LogUtil.e(TAG,  "create thumbnail from orig failed: " + outPath);
+            LogUtil.e(TAG, "create thumbnail from orig failed: " + outPath);
         }
         return false;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static Bitmap extractThumbNail(final String path, final int width, final int height,  final boolean crop) {
+    public static Bitmap extractThumbNail(final String path, final int width, final int height, final boolean crop) {
         Assert.assertTrue(path != null && !path.equals("") && height > 0 && width > 0);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -787,11 +798,11 @@ public class DemoUtils {
         return null;
     }
 
-    public static void saveImageFile(Bitmap bitmap , int quality ,Bitmap.CompressFormat format , String authorityDir, String outPath) throws IOException {
-        if(!TextUtils.isEmpty(authorityDir) && !TextUtils.isEmpty(outPath)) {
+    public static void saveImageFile(Bitmap bitmap, int quality, Bitmap.CompressFormat format, String authorityDir, String outPath) throws IOException {
+        if (!TextUtils.isEmpty(authorityDir) && !TextUtils.isEmpty(outPath)) {
             LogUtil.d(TAG, "saving to " + authorityDir + outPath);
             File file = new File(authorityDir);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 file.mkdirs();
             }
             File outfile = new File(file, outPath);
@@ -808,18 +819,19 @@ public class DemoUtils {
     }
 
 
-    private static int mScreenWidth ;
+    private static int mScreenWidth;
+
     public static int getImageMinWidth(Context context) {
-        if(mScreenWidth <= 0){
-            mScreenWidth = DensityUtil.getImageWeidth(context, 1.0F)- DensityUtil.getDisplayMetrics(context, 40F);
+        if (mScreenWidth <= 0) {
+            mScreenWidth = DensityUtil.getImageWeidth(context, 1.0F) - DensityUtil.getDisplayMetrics(context, 40F);
             mScreenWidth = mScreenWidth / 4;
         }
         return mScreenWidth;
     }
 
     public static int getImageMinWidth2(Context context) {
-        if(mScreenWidth <= 0){
-            mScreenWidth = DensityUtil.getImageWeidth(context, 1.0F)- DensityUtil.getDisplayMetrics(context, 40F);
+        if (mScreenWidth <= 0) {
+            mScreenWidth = DensityUtil.getImageWeidth(context, 1.0F) - DensityUtil.getDisplayMetrics(context, 40F);
             mScreenWidth = mScreenWidth / 4;
         }
         return mScreenWidth;
@@ -827,29 +839,30 @@ public class DemoUtils {
 
     /**
      * 获取图片被旋转的角度
+     *
      * @param filePath
      * @return
      */
     public static int getBitmapDegrees(String filePath) {
-        if(TextUtils.isEmpty(filePath)) {
+        if (TextUtils.isEmpty(filePath)) {
             LogUtil.d(TAG, "filePath is null or nil");
             return 0;
         }
-        if(!new File(filePath).exists()) {
+        if (!new File(filePath).exists()) {
             LogUtil.d(TAG, "file not exist:" + filePath);
             return 0;
         }
         ExifInterface exifInterface = null;
         try {
 
-            if(Integer.valueOf(Build.VERSION.SDK).intValue() >= 5) {
+            if (Integer.valueOf(Build.VERSION.SDK).intValue() >= 5) {
                 exifInterface = new ExifInterface(filePath);
-                int attributeInt = - 1;
-                if(exifInterface != null) {
+                int attributeInt = -1;
+                if (exifInterface != null) {
                     attributeInt = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, -1);
                 }
 
-                if(attributeInt != -1) {
+                if (attributeInt != -1) {
                     switch (attributeInt) {
                         case ExifInterface.ORIENTATION_FLIP_VERTICAL:
                         case ExifInterface.ORIENTATION_TRANSPOSE:
@@ -867,7 +880,7 @@ public class DemoUtils {
                 }
             }
         } catch (IOException e) {
-            LogUtil.e(TAG,  "cannot read exif :" + e.getMessage());
+            LogUtil.e(TAG, "cannot read exif :" + e.getMessage());
         } finally {
             exifInterface = null;
         }
@@ -876,6 +889,7 @@ public class DemoUtils {
 
     /**
      * 旋转图片
+     *
      * @param srcPath
      * @param degrees
      * @param format
@@ -883,9 +897,9 @@ public class DemoUtils {
      * @param fileName
      * @return
      */
-    public static boolean rotateCreateBitmap(String srcPath , int degrees , Bitmap.CompressFormat format , String root , String fileName) {
+    public static boolean rotateCreateBitmap(String srcPath, int degrees, Bitmap.CompressFormat format, String root, String fileName) {
         Bitmap decodeFile = BitmapFactory.decodeFile(srcPath);
-        if(decodeFile == null) {
+        if (decodeFile == null) {
             LogUtil.e(TAG, "rotate: create bitmap fialed");
             return false;
         }
@@ -899,13 +913,14 @@ public class DemoUtils {
             saveImageFile(createBitmap, 60, format, root, fileName);
             return true;
         } catch (Exception e) {
-            LogUtil.e(TAG,  "create thumbnail from orig failed: " + fileName);
+            LogUtil.e(TAG, "create thumbnail from orig failed: " + fileName);
         }
         return false;
     }
 
     /**
      * 生成一张缩略图
+     *
      * @param bitmap
      * @param paramFloat
      * @return
@@ -931,15 +946,14 @@ public class DemoUtils {
     }
 
     /**
-     *
      * @param stream
      * @param dip
      * @return
      */
-    public static Bitmap decodeStream(InputStream stream , float dip) {
+    public static Bitmap decodeStream(InputStream stream, float dip) {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        if(dip != 0.0F) {
-            options.inDensity = (int)(160.0F * dip);
+        if (dip != 0.0F) {
+            options.inDensity = (int) (160.0F * dip);
         }
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         setInNativeAlloc(options);
@@ -972,7 +986,6 @@ public class DemoUtils {
     }
 
     /**
-     *
      * @return
      */
     public static Paint newPaint() {
@@ -982,7 +995,7 @@ public class DemoUtils {
         return paint;
     }
 
-    public static Drawable getDrawable(Context context, int resid,Bitmap defaultMask) {
+    public static Drawable getDrawable(Context context, int resid, Bitmap defaultMask) {
         return getDrawable(((BitmapDrawable) context.getResources()
                 .getDrawable(resid)).getBitmap(), defaultMask, newPaint());
     }
@@ -999,9 +1012,9 @@ public class DemoUtils {
     /*
      *
      */
-    public static Bitmap newBitmap(int width, int height,Bitmap.Config config) {
+    public static Bitmap newBitmap(int width, int height, Bitmap.Config config) {
         try {
-            Bitmap bitmap = Bitmap.createBitmap(width, height,config);
+            Bitmap bitmap = Bitmap.createBitmap(width, height, config);
             return bitmap;
         } catch (Throwable localThrowable) {
             LogUtil.e(TAG, localThrowable.getMessage());
@@ -1033,7 +1046,6 @@ public class DemoUtils {
         return new PhotoBitmapDrawable(src, mask, paint);
     }
 
-    
 
     public static int compareVersion(String curVer, String serVer) {
         if (curVer.equals(serVer) || serVer == null) {
@@ -1049,7 +1061,7 @@ public class DemoUtils {
         }
         if (diff == 0) {
             for (int i = index; i < version1Array.length; i++) {
-                if (i >=4 || Integer.parseInt(version1Array[i]) > 0) {
+                if (i >= 4 || Integer.parseInt(version1Array[i]) > 0) {
                     //  没有新版本
                     return 1;
                 }
@@ -1067,15 +1079,15 @@ public class DemoUtils {
     }
 
     public static boolean saveImage(String url) {
-        if(TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url)) {
             return false;
         }
         String filePath = url;
-        File dir = new File(FileAccessor.APPS_ROOT_DIR , "ECDemo_IM");
-        if(!dir.exists()) dir.mkdirs();
+        File dir = new File(FileAccessor.APPS_ROOT_DIR, "ECDemo_IM");
+        if (!dir.exists()) dir.mkdirs();
         int result = FileUtils.copyFile(dir.getAbsolutePath(), "ecexport" + System.currentTimeMillis(), ".jpg", FileUtils.readFlieToByte(filePath, 0, FileUtils.decodeFileLength(filePath)));
-        if(result == 0) {
-            ToastUtil.showMessage("图片已保存至" + dir.getAbsolutePath() , Toast.LENGTH_LONG);
+        if (result == 0) {
+            ToastUtil.showMessage("图片已保存至" + dir.getAbsolutePath(), Toast.LENGTH_LONG);
             return false;
         }
         ToastUtil.showMessage("图片保存失败");
@@ -1091,12 +1103,11 @@ public class DemoUtils {
     }
 
     /**
-     *
      * @param context
      * @param id
      * @return
      */
-    public static Drawable getDrawables(Context context , int id) {
+    public static Drawable getDrawables(Context context, int id) {
         Drawable drawable = getResources(context).getDrawable(id);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
 
@@ -1104,11 +1115,10 @@ public class DemoUtils {
     }
 
     /**
-     *
-     * @Title: getResource
-     * @Description: TODO
      * @param context
      * @return Resources
+     * @Title: getResource
+     * @Description: TODO
      */
     public static Resources getResources(Context context) {
         return context.getResources();

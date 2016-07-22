@@ -6,7 +6,7 @@
     android:background="#E4E3E3"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-   
+
     <com.yuntongxun.kitsdk.ui.chatting.view.SettingItem
         android:id="@+id/search_by_id"
         style="@style/settings_item_layout_single"

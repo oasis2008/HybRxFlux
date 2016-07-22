@@ -29,50 +29,51 @@ import java.io.IOException;
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2014</p>
  * <p>Company: Beijing Speedtong Information Technology Co.,Ltd</p>
+ *
  * @author Jorstin Chan@容联•云通讯
- * @date 2015-1-4
  * @version 4.0
+ * @date 2015-1-4
  */
 public class MimeTypesTools {
-	
-	private static boolean hasLoadMimeType = false;
-	
-	public static String getMimeType(Context context, String fileName) {
-		if (!TextUtils.isEmpty(fileName)) {
-			fileName = fileName.toLowerCase();
 
-			MimeTypes mimeTypes = getMimeTypes(context);
-			String extension = FileUtils.getExtension(fileName);
-			return mimeTypes.getMimeType(extension);
-		}
+    private static boolean hasLoadMimeType = false;
 
-		return null;
-	}
+    public static String getMimeType(Context context, String fileName) {
+        if (!TextUtils.isEmpty(fileName)) {
+            fileName = fileName.toLowerCase();
 
-	private static MimeTypes getMimeTypes(Context context) {
-		return loadMimeTypes(context);
-	}
+            MimeTypes mimeTypes = getMimeTypes(context);
+            String extension = FileUtils.getExtension(fileName);
+            return mimeTypes.getMimeType(extension);
+        }
 
-	private static MimeTypes loadMimeTypes(Context context) {
-		MimeTypeParser parser = null;
-		XmlResourceParser xmlResourceParser = null;
-		if (!hasLoadMimeType) {
-			try {
-				parser = new MimeTypeParser(context, context.getPackageName());
-				xmlResourceParser = context.getResources().getXml(R.xml.mimetypes);
-				
+        return null;
+    }
 
-				return parser.fromXmlResource(xmlResourceParser);
-			} catch (XmlPullParserException e) {
-				e.printStackTrace();
-			} catch (PackageManager.NameNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			hasLoadMimeType = true;
-		}
+    private static MimeTypes getMimeTypes(Context context) {
+        return loadMimeTypes(context);
+    }
 
-		return null;
-	}
+    private static MimeTypes loadMimeTypes(Context context) {
+        MimeTypeParser parser = null;
+        XmlResourceParser xmlResourceParser = null;
+        if (!hasLoadMimeType) {
+            try {
+                parser = new MimeTypeParser(context, context.getPackageName());
+                xmlResourceParser = context.getResources().getXml(R.xml.mimetypes);
+
+
+                return parser.fromXmlResource(xmlResourceParser);
+            } catch (XmlPullParserException e) {
+                e.printStackTrace();
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            hasLoadMimeType = true;
+        }
+
+        return null;
+    }
 }

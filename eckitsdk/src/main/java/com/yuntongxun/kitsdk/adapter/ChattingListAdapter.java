@@ -47,26 +47,40 @@ import java.util.List;
 
 /**
  * @author 容联•云通讯
- * @date 2014-12-9
  * @version 4.0
+ * @date 2014-12-9
  */
 public class ChattingListAdapter extends BaseAdapter {
 
     private List<ECMessage> details;
     protected View.OnClickListener mOnClickListener;
-    /**当前语音播放的Item*/
+    /**
+     * 当前语音播放的Item
+     */
     public int mVoicePosition = -1;
-    /**聊天所在的Activity*/
+    /**
+     * 聊天所在的Activity
+     */
     private ECChattingActivity mContext;
-    /**需要显示时间的Item position*/
+    /**
+     * 需要显示时间的Item position
+     */
     private ArrayList<String> mShowTimePosition;
-    /**初始化所有类型的聊天Item 集合*/
-    private HashMap<Integer, IChattingRow> mRowItems ;
-    /**时间显示控件的垂直Padding*/
+    /**
+     * 初始化所有类型的聊天Item 集合
+     */
+    private HashMap<Integer, IChattingRow> mRowItems;
+    /**
+     * 时间显示控件的垂直Padding
+     */
     private int mVerticalPadding;
-    /**时间显示控件的横向Padding*/
+    /**
+     * 时间显示控件的横向Padding
+     */
     private int mHorizontalPadding;
-    /**消息联系人名称显示颜色*/
+    /**
+     * 消息联系人名称显示颜色
+     */
     private ColorStateList[] mChatNameColor;
 
     /**
@@ -80,7 +94,7 @@ public class ChattingListAdapter extends BaseAdapter {
         details = new ArrayList<ECMessage>();
 
         // 初始化聊天消息点击事件回调
-        mOnClickListener = new ChattingListClickListener(mContext , null);
+        mOnClickListener = new ChattingListClickListener(mContext, null);
         mVerticalPadding = mContext.getResources().getDimensionPixelSize(R.dimen.SmallestPadding);
         mHorizontalPadding = mContext.getResources().getDimensionPixelSize(R.dimen.LittlePadding);
         mChatNameColor = new ColorStateList[]{
@@ -91,8 +105,8 @@ public class ChattingListAdapter extends BaseAdapter {
 
     public void setData(List<ECMessage> data) {
         details.clear();
-        if(data != null) {
-            for(ECMessage iMessage : data){
+        if (data != null) {
+            for (ECMessage iMessage : data) {
                 initRowType(iMessage);
             }
         }
@@ -118,7 +132,7 @@ public class ChattingListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(details == null) {
+        if (details == null) {
             return 0;
         }
         return details.size();
@@ -126,7 +140,7 @@ public class ChattingListAdapter extends BaseAdapter {
 
     @Override
     public ECMessage getItem(int position) {
-        if(getCount() == 0) {
+        if (getCount() == 0) {
             return null;
         }
         return details.get(position);
@@ -134,7 +148,7 @@ public class ChattingListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        if(getCount() == 0) {
+        if (getCount() == 0) {
             return 0L;
         }
         return details.get(position).getId();
@@ -143,16 +157,16 @@ public class ChattingListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ECMessage item = getItem(position);
-        if(item == null) {
+        if (item == null) {
             return null;
         }
         boolean showTimer = false;
-        if(position == 0) {
+        if (position == 0) {
             showTimer = true;
         }
-        if(position != 0) {
+        if (position != 0) {
             ECMessage previousItem = getItem(position - 1);
-            if(mShowTimePosition.contains(item.getMsgId())
+            if (mShowTimePosition.contains(item.getMsgId())
                     || (item.getMsgTime() - previousItem.getMsgTime() >= 180000L)) {
                 showTimer = true;
 
@@ -164,7 +178,7 @@ public class ChattingListAdapter extends BaseAdapter {
         View chatView = chattingRow.buildChatView(LayoutInflater.from(mContext), convertView);
         BaseHolder baseHolder = (BaseHolder) chatView.getTag();
 
-        if(showTimer) {
+        if (showTimer) {
             baseHolder.getChattingTime().setVisibility(View.VISIBLE);
             baseHolder.getChattingTime().setBackgroundResource(R.drawable.chat_tips_bg);
             baseHolder.getChattingTime().setText(DateUtil.getDateString(item.getMsgTime(), DateUtil.SHOW_TYPE_CALL_LOG).trim());
@@ -178,7 +192,7 @@ public class ChattingListAdapter extends BaseAdapter {
 
         chattingRow.buildChattingBaseData(mContext, baseHolder, item, position);
 
-        if(baseHolder.getChattingUser() != null && baseHolder.getChattingUser().getVisibility() == View.VISIBLE) {
+        if (baseHolder.getChattingUser() != null && baseHolder.getChattingUser().getVisibility() == View.VISIBLE) {
             baseHolder.getChattingUser().setTextColor(mChatNameColor[1]);
             baseHolder.getChattingUser().setShadowLayer(0.0F, 0.0F, 0.0F, 0);
         }
@@ -199,54 +213,56 @@ public class ChattingListAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         ECMessage message = getItem(position);
-        return getBaseChattingRow(ChattingsRowUtils.getChattingMessageType(message.getType()),message.getDirection() == ECMessage.Direction.SEND).getChatViewType();
+        return getBaseChattingRow(ChattingsRowUtils.getChattingMessageType(message.getType()), message.getDirection() == ECMessage.Direction.SEND).getChatViewType();
     }
 
     /**
      * 根据消息类型返回相对应的消息Item
+     *
      * @param rowType
      * @param isSend
      * @return
      */
-    public BaseChattingRow getBaseChattingRow(int rowType , boolean isSend) {
+    public BaseChattingRow getBaseChattingRow(int rowType, boolean isSend) {
         StringBuilder builder = new StringBuilder("C").append(rowType);
 
-        if(isSend) {
+        if (isSend) {
             builder.append("T");
         } else {
             builder.append("R");
         }
 
-        LogUtil.d("ChattingListAdapter" , "builder.toString() = " + builder.toString());
+        LogUtil.d("ChattingListAdapter", "builder.toString() = " + builder.toString());
         ChattingRowType fromValue = ChattingRowType.fromValue(builder.toString());
-        LogUtil.d("ChattingListAdapter" , "fromValue = " + fromValue);
+        LogUtil.d("ChattingListAdapter", "fromValue = " + fromValue);
         IChattingRow iChattingRow = mRowItems.get(fromValue.getId().intValue());
         return (BaseChattingRow) iChattingRow;
     }
 
     /**
      * 下拉刷新
+     *
      * @param data
      */
     public void insertDataArrays(List<ECMessage> data) {
-        if(data != null) {
-            if(getCount() > 0) {
+        if (data != null) {
+            if (getCount() > 0) {
                 ECMessage item = getItem(0);
-                if(item != null) {
+                if (item != null) {
                     mShowTimePosition.add(item.getMsgId());
                 }
             }
-            for(int i = data.size() -1 ; i >=0 ; i --) {
-                insertData(data.get(i) , 0);
+            for (int i = data.size() - 1; i >= 0; i--) {
+                insertData(data.get(i), 0);
 
             }
         }
     }
 
     public void insertDataArraysAfter(List<ECMessage> data) {
-        if(data != null) {
-            for(int i = data.size() -1 ; i >=0 ; i --) {
-                insertData(data.get(i) , (getCount() - 1) == 0 ?getCount() : getCount() - 1);
+        if (data != null) {
+            for (int i = data.size() - 1; i >= 0; i--) {
+                insertData(data.get(i), (getCount() - 1) == 0 ? getCount() : getCount() - 1);
 
             }
         }
@@ -256,25 +272,25 @@ public class ChattingListAdapter extends BaseAdapter {
      * @param data
      */
     public void insertData(ECMessage data) {
-        if(getCount() > 0) {
-            if(getCount() == 1) {
+        if (getCount() > 0) {
+            if (getCount() == 1) {
                 insertData(data, getCount());
                 return;
             }
             insertData(data, getCount() - 1);
             return;
         }
-        insertData(data , 0);
+        insertData(data, 0);
     }
 
-    private void insertData(ECMessage data , int index) {
-        if(data != null) {
+    private void insertData(ECMessage data, int index) {
+        if (data != null) {
 
-            if(index < 0) {
+            if (index < 0) {
                 index = 0;
             }
 
-            initRowType(data ,index);
+            initRowType(data, index);
             notifyDataSetChanged();
         }
     }
@@ -288,19 +304,20 @@ public class ChattingListAdapter extends BaseAdapter {
 
     /**
      * Gets the message type row
+     *
      * @param iMessage
      */
-    private void initRowType(ECMessage iMessage , int index) {
-        if(iMessage == null) {
-            return ;
+    private void initRowType(ECMessage iMessage, int index) {
+        if (iMessage == null) {
+            return;
         }
-        if(details == null) {
+        if (details == null) {
             details = new ArrayList<ECMessage>();
         }
-        if(index != 0) {
+        if (index != 0) {
             index = details.size();
         }
-        details.add(index , iMessage);
+        details.add(index, iMessage);
 
     }
 
@@ -308,19 +325,19 @@ public class ChattingListAdapter extends BaseAdapter {
      * @param detail
      */
     public void removeMsg(ECMessage detail) {
-        if(detail != null) {
+        if (detail != null) {
             int removeIndex = -1;
             //details.
-            for(int i = 0 ; details != null && i < details.size() ; i++) {
+            for (int i = 0; details != null && i < details.size(); i++) {
                 ECMessage iMessageDetail = details.get(i);
-                if(iMessageDetail.getId() != detail.getId()) {
+                if (iMessageDetail.getId() != detail.getId()) {
                     continue;
                 }
                 removeIndex = i;
                 break;
             }
 
-            if(removeIndex != -1) {
+            if (removeIndex != -1) {
                 details.remove(removeIndex);
                 notifyDataSetChanged();
             }
@@ -333,6 +350,7 @@ public class ChattingListAdapter extends BaseAdapter {
 
     /**
      * 当前语音播放的位置
+     *
      * @param position
      */
     public void setVoicePosition(int position) {
@@ -363,16 +381,16 @@ public class ChattingListAdapter extends BaseAdapter {
      *
      */
     public void onDestory() {
-        if(details != null) {
+        if (details != null) {
             details.clear();
             details = null;
         }
         ImageLoader.getInstance().clearMemoryCache();
-        if(mShowTimePosition != null) {
+        if (mShowTimePosition != null) {
             mShowTimePosition.clear();
             mShowTimePosition = null;
         }
-        if(mRowItems != null) {
+        if (mRowItems != null) {
             mRowItems.clear();
             mRowItems = null;
         }

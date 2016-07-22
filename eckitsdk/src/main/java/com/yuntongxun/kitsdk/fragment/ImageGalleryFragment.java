@@ -74,7 +74,7 @@ public class ImageGalleryFragment extends CCPFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mEntry  = getArguments() != null ? getArguments().<ViewImageInfo>getParcelable("entry") : null;
+        mEntry = getArguments() != null ? getArguments().<ViewImageInfo>getParcelable("entry") : null;
     }
 
 
@@ -93,7 +93,7 @@ public class ImageGalleryFragment extends CCPFragment {
         mImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ECListDialog dialog = new ECListDialog(getActivity() , new String[]{getString(R.string.save_to_local)});
+                ECListDialog dialog = new ECListDialog(getActivity(), new String[]{getString(R.string.save_to_local)});
                 dialog.setOnDialogItemClickListener(new ECListDialog.OnDialogItemClickListener() {
                     @Override
                     public void onDialogItemClick(Dialog d, int position) {
@@ -117,9 +117,9 @@ public class ImageGalleryFragment extends CCPFragment {
         progressBar = (ProgressBar) findViewById(R.id.loading);
         if (mEntry == null) {
             finish();
-            return ;
+            return;
         }
-        if(mThumbnailBitmap == null){
+        if (mThumbnailBitmap == null) {
             mThumbnailBitmap = BitmapFactory.decodeFile(FileAccessor.getImagePathName() + "/" + mEntry.getThumbnailurl());
         }
 
@@ -127,7 +127,7 @@ public class ImageGalleryFragment extends CCPFragment {
         mImageUrl = mEntry.getPicurl();
         if (null != mImageUrl && !TextUtils.isEmpty(mImageUrl) && !mImageUrl.startsWith("http")) {
             // load 本地
-            mImageUrl = "file://" + FileAccessor.getImagePathName() + "/"+  mImageUrl;
+            mImageUrl = "file://" + FileAccessor.getImagePathName() + "/" + mImageUrl;
         } else {
             // 下载
             mImageUrl = mEntry.getPicurl();
@@ -186,7 +186,7 @@ public class ImageGalleryFragment extends CCPFragment {
 
                     if (imageUri.startsWith("http:")) {
                         ImgInfo thumbimginfo = ImgInfoSqlManager.getInstance().getImgInfo(mEntry.getIndex());
-                        if(thumbimginfo != null && mCacheImageUrl != null) {
+                        if (thumbimginfo != null && mCacheImageUrl != null) {
                             thumbimginfo.setBigImgPath(mCacheImageUrl.substring(mCacheImageUrl.lastIndexOf("/")));
                             ImgInfoSqlManager.getInstance().updateImageInfo(thumbimginfo);
                         }
@@ -218,15 +218,15 @@ public class ImageGalleryFragment extends CCPFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(mImageView != null) {
+        if (mImageView != null) {
             mImageView.setImageDrawable(null);
             ImageLoader.getInstance().cancelDisplayTask(mImageView);
         }
         mImageView = null;
-        if(mViewContainer != null) {
+        if (mViewContainer != null) {
             mViewContainer.removeView(webView);
         }
-        if(webView != null) {
+        if (webView != null) {
             webView.removeAllViews();
             webView.destroy();
             webView = null;

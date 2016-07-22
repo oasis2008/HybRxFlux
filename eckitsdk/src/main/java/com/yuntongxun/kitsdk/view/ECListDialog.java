@@ -22,6 +22,7 @@ public class ECListDialog extends ECAlertDialog implements AdapterView.OnItemCli
     private int mCheckIndex;
     private ListView mListView;
     private OnDialogItemClickListener mListener;
+
     /**
      * @param context
      */
@@ -31,19 +32,20 @@ public class ECListDialog extends ECAlertDialog implements AdapterView.OnItemCli
         mListener = null;
         mListView = null;
         // setTitleNormalColor();
-        View contatinView = LayoutInflater.from(context).inflate(R.layout.ytx_include_dialog_simplelist ,null);
+        View contatinView = LayoutInflater.from(context).inflate(R.layout.ytx_include_dialog_simplelist, null);
         setContentView(contatinView);
-        setContentPadding(0,0,-1,0);
+        setContentPadding(0, 0, -1, 0);
         mListView = (ListView) contatinView.findViewById(R.id.listview);
         mListView.setOnItemClickListener(this);
     }
 
     /**
-     *据数组资源文件创建\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+     * 据数组资源文件创建\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+     *
      * @param context
      * @param resourceIdArray
      */
-    public ECListDialog(Context context , int resourceIdArray) {
+    public ECListDialog(Context context, int resourceIdArray) {
         this(context);
         String[] stringArray = context.getResources().getStringArray(resourceIdArray);
         setAdapter(new ListDialogAdapter(getContext(), Arrays.asList(stringArray)));
@@ -51,34 +53,35 @@ public class ECListDialog extends ECAlertDialog implements AdapterView.OnItemCli
 
     /**
      * 根据集合数组创建
+     *
      * @param context
      * @param strs
      */
-    public ECListDialog(Context context , List<String> strs) {
+    public ECListDialog(Context context, List<String> strs) {
         this(context);
         setAdapter(new ListDialogAdapter(getContext(), strs));
     }
 
-    public ECListDialog(Context context , List<String> strs  , int checkPosition) {
-        this(context ,strs);
+    public ECListDialog(Context context, List<String> strs, int checkPosition) {
+        this(context, strs);
         this.mCheckIndex = checkPosition;
 
     }
 
-    public ECListDialog(Context context , String[] strs , int checkPosition) {
-        this(context ,strs);
+    public ECListDialog(Context context, String[] strs, int checkPosition) {
+        this(context, strs);
         this.mCheckIndex = checkPosition;
     }
 
-    public ECListDialog(Context context , String[] strs) {
+    public ECListDialog(Context context, String[] strs) {
         this(context);
         setAdapter(new ListDialogAdapter(getContext(), Arrays.asList(strs)));
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(mListener != null) {
-            mListener.onDialogItemClick(this , position);
+        if (mListener != null) {
+            mListener.onDialogItemClick(this, position);
         }
         dismiss();
     }
@@ -86,7 +89,6 @@ public class ECListDialog extends ECAlertDialog implements AdapterView.OnItemCli
     public void setAdapter(ListAdapter adapter) {
         mListView.setAdapter(adapter);
     }
-
 
 
     public class ListDialogAdapter extends IBaseAdapter<String> {
@@ -98,11 +100,11 @@ public class ECListDialog extends ECAlertDialog implements AdapterView.OnItemCli
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null) {
-                convertView = this.mLayoutInflater.inflate(R.layout.ytx_listitem_dialog , null);
+            if (convertView == null) {
+                convertView = this.mLayoutInflater.inflate(R.layout.ytx_listitem_dialog, null);
             }
             ((TextView) convertView.findViewById(R.id.textview)).setText(getItem(position).toString());
-            if(mCheckIndex == position) {
+            if (mCheckIndex == position) {
                 convertView.findViewById(R.id.imageview).setVisibility(View.VISIBLE);
             } else {
                 convertView.findViewById(R.id.imageview).setVisibility(View.GONE);
@@ -116,6 +118,6 @@ public class ECListDialog extends ECAlertDialog implements AdapterView.OnItemCli
     }
 
     public interface OnDialogItemClickListener {
-        void onDialogItemClick(Dialog d , int position);
+        void onDialogItemClick(Dialog d, int position);
     }
 }

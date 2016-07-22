@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright (c) 2013 The CCP project authors. All Rights Reserved.
  
    Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
@@ -12,7 +11,7 @@
    be found in the AUTHORS file in the root of the source tree.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/ChattingUIContent" >
+    style="@style/ChattingUIContent">
 
     <View
         android:layout_width="wrap_content"
@@ -22,7 +21,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/chatting_user_tv"
@@ -33,7 +32,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/chatting_state_iv"
@@ -45,15 +44,14 @@
                 android:id="@+id/chatting_click_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ytx_chatto_img_bg"
-                 >
+                android:background="@drawable/ytx_chatto_img_bg">
 
                 <ImageView
                     android:id="@+id/chatting_content_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="200.0dip"
-                    android:maxHeight="230.0dip"/>
+                    android:maxHeight="230.0dip" />
 
                 <ImageView
                     android:id="@+id/chatting_content_mask_iv"
@@ -66,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ProgressBar
                         android:id="@+id/uploading_pb"

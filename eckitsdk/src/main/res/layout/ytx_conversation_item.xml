@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (c) 2013 The CCP project authors. All Rights Reserved.
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (c) 2013 The CCP project authors. All Rights Reserved.
  
      Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
      that can be found in the LICENSE file in the root of the web site.
@@ -17,14 +16,14 @@
     android:background="@drawable/ytx_contact_list_item_selector"
     android:baselineAligned="false"
     android:minHeight="@dimen/NormalListHeight"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="@dimen/NormalAvatarWrapSize"
         android:layout_height="@dimen/NormalAvatarWrapSize"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/NormalPadding"
-        android:layout_marginRight="@dimen/SmallerPadding" >
+        android:layout_marginRight="@dimen/SmallerPadding">
 
         <ImageView
             android:id="@+id/avatar_iv"
@@ -58,20 +57,20 @@
         android:layout_height="fill_parent"
         android:layout_marginRight="@dimen/NormalPadding"
         android:gravity="center_vertical"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="24.0dip"
             android:layout_marginTop="@dimen/OneDPPadding"
             android:gravity="top"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/nickname_tv"
@@ -87,7 +86,7 @@
                 android:id="@+id/update_time_tv"
                 style="@style/CCPFontTimeInList"
                 android:layout_width="110.0dip"
-                
+
                 android:layout_height="wrap_content"
                 android:gravity="right|center"
                 android:tag="update_time_tv"
@@ -99,13 +98,13 @@
             android:layout_width="fill_parent"
             android:layout_height="22.0dip"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <com.yuntongxun.kitsdk.ui.chatting.view.CCPTextView
                     android:id="@+id/last_msg_tv"
@@ -123,7 +122,7 @@
             <LinearLayout
                 android:layout_width="40.0dip"
                 android:layout_height="wrap_content"
-                android:gravity="bottom|right|center" >
+                android:gravity="bottom|right|center">
 
                 <ImageView
                     android:id="@+id/image_input_text"

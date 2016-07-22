@@ -27,10 +27,10 @@ public class PyComparator implements Comparator<ECContacts>, Serializable {
             } else {
                 boolean firstIsChar = false;
                 boolean secondIsChar = false;
-                if (('a'  <= contact1.getNickname().charAt(0) && contact1.getNickname().charAt(0) <= 'z') || ('A'  <= contact1.getNickname().charAt(0) && contact1.getNickname().charAt(0) <= 'Z')) {
+                if (('a' <= contact1.getNickname().charAt(0) && contact1.getNickname().charAt(0) <= 'z') || ('A' <= contact1.getNickname().charAt(0) && contact1.getNickname().charAt(0) <= 'Z')) {
                     firstIsChar = true;
                 }
-                if (('a'  <= contact2.getNickname().charAt(0) && contact2.getNickname().charAt(0) <= 'z') || ('A'  <= contact2.getNickname().charAt(0) && contact2.getNickname().charAt(0) <= 'Z')) {
+                if (('a' <= contact2.getNickname().charAt(0) && contact2.getNickname().charAt(0) <= 'z') || ('A' <= contact2.getNickname().charAt(0) && contact2.getNickname().charAt(0) <= 'Z')) {
                     secondIsChar = true;
                 }
                 if (firstIsChar && secondIsChar) { //如果都是英文，比较全拼
@@ -56,6 +56,7 @@ public class PyComparator implements Comparator<ECContacts>, Serializable {
 
     /**
      * 重写的String比较方法，设置大小写排序一样，符号数字在字母后边
+     *
      * @param name1
      * @param name2
      * @return
@@ -95,15 +96,16 @@ public class PyComparator implements Comparator<ECContacts>, Serializable {
 
     /**
      * 改变ascii的顺序，设置大小写排序一样，符号数字在字母后边
+     *
      * @param c
      * @return
      */
     private char changeASCII(char c) {
-        if (65 <=c && c <= 90) {
-            c = (char)(c - 33);
-        } else if (97 <= c && c<= 122) {
+        if (65 <= c && c <= 90) {
+            c = (char) (c - 33);
+        } else if (97 <= c && c <= 122) {
             c = (char) (c - 65);
-        } else if (32 <=c && c<=64) {
+        } else if (32 <= c && c <= 64) {
             c = (char) (c + 26);
         }
         return c;

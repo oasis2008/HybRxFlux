@@ -29,9 +29,10 @@ import com.yuntongxun.kitsdk.ui.voip.ECVoIPBaseActivity;
 
 /**
  * 状态栏通知
+ *
  * @author Jorstin Chan@容联•云通讯
- * @date 2015-1-4
  * @version 4.0
+ * @date 2015-1-4
  */
 public class ECNotificationManager {
 
@@ -44,8 +45,9 @@ public class ECNotificationManager {
     private static NotificationManager mNotificationManager;
 
     public static ECNotificationManager mInstance;
+
     public static ECNotificationManager getInstance() {
-        if(mInstance == null) {
+        if (mInstance == null) {
             mInstance = new ECNotificationManager(CCPAppManager.getContext());
         }
 
@@ -53,22 +55,19 @@ public class ECNotificationManager {
     }
 
 
-    private ECNotificationManager(Context context){
+    private ECNotificationManager(Context context) {
         mContext = context;
     }
 
-   
-
 
     /**
-     *
      * @param contex
      * @param fromUserName
      * @param msgType
      * @return
      */
-    public final String getTickerText(Context contex ,String fromUserName ,int msgType) {
-        if(msgType == ECMessage.Type.TXT.ordinal()) {
+    public final String getTickerText(Context contex, String fromUserName, int msgType) {
+        if (msgType == ECMessage.Type.TXT.ordinal()) {
             return contex.getResources().getString(R.string.notification_fmt_one_txttype, fromUserName);
         } else if (msgType == ECMessage.Type.IMAGE.ordinal()) {
             return contex.getResources().getString(R.string.notification_fmt_one_imgtype, fromUserName);
@@ -85,8 +84,8 @@ public class ECNotificationManager {
 
     }
 
-    public final String getContentTitle(Context context ,int sessionUnreadCount, String fromUserName) {
-        if(sessionUnreadCount > 1) {
+    public final String getContentTitle(Context context, int sessionUnreadCount, String fromUserName) {
+        if (sessionUnreadCount > 1) {
             return context.getString(R.string.app_name);
         }
 
@@ -94,25 +93,24 @@ public class ECNotificationManager {
     }
 
     /**
-     *
      * @param context
      * @return
      */
-    public final String getContentText(Context context , int sessionCount , int sessionUnread , String pushContent ,int lastMsgType) {
+    public final String getContentText(Context context, int sessionCount, int sessionUnread, String pushContent, int lastMsgType) {
 
         if (sessionCount > 1) {
 
             return context.getResources().getQuantityString(
-                    R.plurals.notification_fmt_multi_msg_and_talker,1,
+                    R.plurals.notification_fmt_multi_msg_and_talker, 1,
                     sessionCount, sessionUnread);
         }
 
-        if(sessionUnread > 1) {
+        if (sessionUnread > 1) {
             return context.getResources().getQuantityString(
-                    R.plurals.notification_fmt_multi_msg_and_one_talker, sessionUnread,sessionUnread);
+                    R.plurals.notification_fmt_multi_msg_and_one_talker, sessionUnread, sessionUnread);
         }
 
-        if(lastMsgType == ECMessage.Type.TXT.ordinal()) {
+        if (lastMsgType == ECMessage.Type.TXT.ordinal()) {
             return pushContent;
         } else if (lastMsgType == ECMessage.Type.FILE.ordinal()) {
             return context.getResources().getString(R.string.app_file);
@@ -153,10 +151,10 @@ public class ECNotificationManager {
         return Looper.getMainLooper();
     }
 
-   
-    
+
     /**
      * 后台呈现音视频呼叫Notification
+     *
      * @param callType 呼叫类型
      */
     public static void showCallingNotification(ECVoIPCallManager.CallType callType) {
@@ -165,7 +163,7 @@ public class ECNotificationManager {
 //            String topic = getInstance().mContext.getString(R.string.ec_voip_is_talking_tip);
             String topic = " 正在通话中, 轻击以继续";
             Intent intent;
-            if(callType == ECVoIPCallManager.CallType.VIDEO) {
+            if (callType == ECVoIPCallManager.CallType.VIDEO) {
                 intent = new Intent(ECVoIPBaseActivity.ACTION_VIDEO_CALL);
             } else {
                 intent = new Intent(ECVoIPBaseActivity.ACTION_VOICE_CALL);
@@ -186,13 +184,13 @@ public class ECNotificationManager {
             e.printStackTrace();
         }
     }
-    
+
     private void checkNotification() {
-        if(mNotificationManager == null) {
+        if (mNotificationManager == null) {
             mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         }
     }
-    
+
     public static void cancelCCPNotification(int id) {
         getInstance().checkNotification();
         mNotificationManager.cancel(id);

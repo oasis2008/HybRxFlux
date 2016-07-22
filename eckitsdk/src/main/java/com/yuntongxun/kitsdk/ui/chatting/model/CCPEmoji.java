@@ -14,8 +14,8 @@ package com.yuntongxun.kitsdk.ui.chatting.model;
 
 /**
  * @author 容联•云通讯
- * @date 2014-12-9
  * @version 4.0
+ * @date 2014-12-9
  */
 public class CCPEmoji {
 
@@ -39,25 +39,25 @@ public class CCPEmoji {
     }
 
     public void setId(int id) {
-        this.id=id;
+        this.id = id;
     }
 
-	public String getEmojiDesc() {
-		return EmojiDesc;
-	}
+    public String getEmojiDesc() {
+        return EmojiDesc;
+    }
 
-	public void setEmojiDesc(String emojiDesc) {
-		EmojiDesc = emojiDesc;
-	}
+    public void setEmojiDesc(String emojiDesc) {
+        EmojiDesc = emojiDesc;
+    }
 
-	public String getEmojiName() {
-		return EmojiName;
-	}
+    public String getEmojiName() {
+        return EmojiName;
+    }
 
-	public void setEmojiName(String emojiName) {
-		EmojiName = emojiName;
-	}
+    public void setEmojiName(String emojiName) {
+        EmojiName = emojiName;
+    }
 
-    
+
 }
 

@@ -15,160 +15,159 @@ import java.util.Map;
 public class ECKitCustomProviderManager
 
 {
-	private static Map<String, String> providerMap = new HashMap<String ,String>();
+    private static Map<String, String> providerMap = new HashMap<String, String>();
 
-	public static void addCustomProvider(ECCustomProviderEnum customEnum,
-			Class<? extends IBaseProvider> baseProvider) {
-		providerMap.put(customEnum.getName(), baseProvider.getName());
-	}
+    public static void addCustomProvider(ECCustomProviderEnum customEnum,
+                                         Class<? extends IBaseProvider> baseProvider) {
+        providerMap.put(customEnum.getName(), baseProvider.getName());
+    }
 
-	public static String getCustomProviderName(
-			ECCustomProviderEnum customProvider) {
-		return (String) providerMap.get(customProvider.getName());
-	}
-	
-	public static void release(){
-		
-		if(providerMap!=null){
-			providerMap.clear();
-			
-		}
-		
-	}
+    public static String getCustomProviderName(
+            ECCustomProviderEnum customProvider) {
+        return (String) providerMap.get(customProvider.getName());
+    }
 
-	public static ECCustomConversationListActionProvider getCustomConversationAction() {
+    public static void release() {
 
-		ECCustomConversationListActionProvider instance = null;
-		String name = ECKitCustomProviderManager
-				.getCustomProviderName(ECCustomProviderEnum.CONVERSATION_PROVIDER);
+        if (providerMap != null) {
+            providerMap.clear();
 
-		if (!TextUtils.isEmpty(name)) {
-			try {
-				Class clazz = Class.forName(name);
-				Object obj = clazz.newInstance();
+        }
 
-				if (obj instanceof ECCustomConversationListActionProvider) {
+    }
 
-					instance = (ECCustomConversationListActionProvider) obj;
-				}
+    public static ECCustomConversationListActionProvider getCustomConversationAction() {
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
+        ECCustomConversationListActionProvider instance = null;
+        String name = ECKitCustomProviderManager
+                .getCustomProviderName(ECCustomProviderEnum.CONVERSATION_PROVIDER);
 
-		return instance;
+        if (!TextUtils.isEmpty(name)) {
+            try {
+                Class clazz = Class.forName(name);
+                Object obj = clazz.newInstance();
 
-	}
-	
-	public static ECCustomChatActionProvider getCustomChatActionProvider() {
+                if (obj instanceof ECCustomConversationListActionProvider) {
 
-		ECCustomChatActionProvider instance = null;
-		String name = ECKitCustomProviderManager
-				.getCustomProviderName(ECCustomProviderEnum.CHATTING_PROVIDER);
+                    instance = (ECCustomConversationListActionProvider) obj;
+                }
 
-		if (!TextUtils.isEmpty(name)) {
-			try {
-				Class clazz = Class.forName(name);
-				Object obj = clazz.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
 
-				if (obj instanceof ECCustomChatActionProvider) {
+        return instance;
 
-					instance = (ECCustomChatActionProvider) obj;
-				}
+    }
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
+    public static ECCustomChatActionProvider getCustomChatActionProvider() {
 
-		return instance;
+        ECCustomChatActionProvider instance = null;
+        String name = ECKitCustomProviderManager
+                .getCustomProviderName(ECCustomProviderEnum.CHATTING_PROVIDER);
 
-	}
-	
-	
-	public static ECCustomConversationListUIProvider getCustomConversationListUIProvider() {
+        if (!TextUtils.isEmpty(name)) {
+            try {
+                Class clazz = Class.forName(name);
+                Object obj = clazz.newInstance();
 
-		ECCustomConversationListUIProvider instance = null;
-		String name = ECKitCustomProviderManager
-				.getCustomProviderName(ECCustomProviderEnum.CONVERSATION_PROVIDER);
+                if (obj instanceof ECCustomChatActionProvider) {
 
-		if (!TextUtils.isEmpty(name)) {
-			try {
-				Class clazz = Class.forName(name);
-				Object obj = clazz.newInstance();
+                    instance = (ECCustomChatActionProvider) obj;
+                }
 
-				if (obj instanceof ECCustomConversationListUIProvider) {
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
 
-					instance = (ECCustomConversationListUIProvider) obj;
-				}
+        return instance;
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
+    }
 
-		return instance;
 
-	}
-	
-	
-	public static ECCustomChatUIProvider getCustomChatUIProvider() {
+    public static ECCustomConversationListUIProvider getCustomConversationListUIProvider() {
 
-		ECCustomChatUIProvider instance = null;
-		String name = ECKitCustomProviderManager
-				.getCustomProviderName(ECCustomProviderEnum.CHATTING_PROVIDER);
+        ECCustomConversationListUIProvider instance = null;
+        String name = ECKitCustomProviderManager
+                .getCustomProviderName(ECCustomProviderEnum.CONVERSATION_PROVIDER);
 
-		if (!TextUtils.isEmpty(name)) {
-			try {
-				Class clazz = Class.forName(name);
-				Object obj = clazz.newInstance();
+        if (!TextUtils.isEmpty(name)) {
+            try {
+                Class clazz = Class.forName(name);
+                Object obj = clazz.newInstance();
 
-				if (obj instanceof ECCustomChatUIProvider) {
+                if (obj instanceof ECCustomConversationListUIProvider) {
 
-					instance = (ECCustomChatUIProvider) obj;
-				}
+                    instance = (ECCustomConversationListUIProvider) obj;
+                }
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
 
-		return instance;
+        return instance;
 
-	}
-	
-	
-	public static ECCustomChatPlusExtendProvider getCustomChatPlusExtendProvider() {
+    }
 
-		ECCustomChatPlusExtendProvider instance = null;
-		String name = ECKitCustomProviderManager
-				.getCustomProviderName(ECCustomProviderEnum.CHATTING_PROVIDER);
 
-		if (!TextUtils.isEmpty(name)) {
-			try {
-				Class clazz = Class.forName(name);
-				Object obj = clazz.newInstance();
+    public static ECCustomChatUIProvider getCustomChatUIProvider() {
 
-				if (obj instanceof ECCustomChatPlusExtendProvider) {
+        ECCustomChatUIProvider instance = null;
+        String name = ECKitCustomProviderManager
+                .getCustomProviderName(ECCustomProviderEnum.CHATTING_PROVIDER);
 
-					instance = (ECCustomChatPlusExtendProvider) obj;
-				}
+        if (!TextUtils.isEmpty(name)) {
+            try {
+                Class clazz = Class.forName(name);
+                Object obj = clazz.newInstance();
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
+                if (obj instanceof ECCustomChatUIProvider) {
 
-		return instance;
+                    instance = (ECCustomChatUIProvider) obj;
+                }
 
-	}
-	
-	
-	
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        return instance;
+
+    }
+
+
+    public static ECCustomChatPlusExtendProvider getCustomChatPlusExtendProvider() {
+
+        ECCustomChatPlusExtendProvider instance = null;
+        String name = ECKitCustomProviderManager
+                .getCustomProviderName(ECCustomProviderEnum.CHATTING_PROVIDER);
+
+        if (!TextUtils.isEmpty(name)) {
+            try {
+                Class clazz = Class.forName(name);
+                Object obj = clazz.newInstance();
+
+                if (obj instanceof ECCustomChatPlusExtendProvider) {
+
+                    instance = (ECCustomChatPlusExtendProvider) obj;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        return instance;
+
+    }
+
+
 }

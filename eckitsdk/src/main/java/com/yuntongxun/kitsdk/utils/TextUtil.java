@@ -404,7 +404,7 @@ public class TextUtil {
     static void testFree() {
         /* 测试添加免费短信 */
         /*
-		 * for (int i = 0; i < 25; i++) { String[] phoneNum = {"1381197"}; int p
+         * for (int i = 0; i < 25; i++) { String[] phoneNum = {"1381197"}; int p
 		 * = 5406 + i; phoneNum[0] += p; String content = "测试" + i; int boxType
 		 * = SQLiteManager.XMESSENGER_BOX_TYPE_SMS_INBOX;//
 		 * SQLiteManager.XMESSENGER_BOX_TYPE_SMS_OUTBOX

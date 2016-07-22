@@ -43,16 +43,19 @@ import com.yuntongxun.kitsdk.view.ECProgressDialog;
 
 /**
  * 群组通知列表界面
+ *
  * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-31
  * @version 4.0
+ * @date 2014-12-31
  */
 public class ECGroupNoticeActivity extends ECSuperActivity implements
         View.OnClickListener {
 
     private static final String TAG = "ECDemo.GroupNoticeActivity";
 
-    /**会话消息列表ListView*/
+    /**
+     * 会话消息列表ListView
+     */
     private ListView mListView;
     private GroupNoticeAdapter mAdapter;
     private ECProgressDialog mPostingdialog;
@@ -90,7 +93,7 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
      *
      */
     private void initView() {
-        if(mListView != null) {
+        if (mListView != null) {
             mListView.setAdapter(null);
         }
 
@@ -105,7 +108,7 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
         mAdapter = new GroupNoticeAdapter(this);
         mListView.setAdapter(mAdapter);
     }
-    
+
     public static interface OnAckGroupServiceListener {
         void onAckGroupService(boolean success);
     }
@@ -127,14 +130,14 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
 
         @Override
         public DemoGroupNotice getItem(DemoGroupNotice t,
-                                          Cursor cursor) {
+                                       Cursor cursor) {
             DemoGroupNotice message = new DemoGroupNotice();
             message.setCursor(cursor);
             return message;
         }
 
         public final CharSequence getContent(NoticeSystemMessage message) {
-            if(message.getType() == ECGroupNoticeMessage.ECGroupMessageType.QUIT) {
+            if (message.getType() == ECGroupNoticeMessage.ECGroupMessageType.QUIT) {
 
             }
             return message.getContent();
@@ -170,17 +173,17 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
             mViewHolder.resultSummary.setText(item.getContent());
             mViewHolder.sysMsgFrom.setText(getString(R.string.str_system_come_from, item.getGroupName()));
             mViewHolder.sysMsgFrom.setVisibility(View.GONE);
-            if(!TextUtils.isEmpty(item.getDeclared())) {
+            if (!TextUtils.isEmpty(item.getDeclared())) {
                 mViewHolder.sysMsgFrom.setText("附加消息：" + item.getDeclared());
                 mViewHolder.sysMsgFrom.setVisibility(View.VISIBLE);
             }
-            if(item.getDateCreate() > 0) {
-                mViewHolder.msgTime.setText(DateUtil.getDateString(item.getDateCreate() , DateUtil.SHOW_TYPE_CALL_LOG));
-            } else  {
+            if (item.getDateCreate() > 0) {
+                mViewHolder.msgTime.setText(DateUtil.getDateString(item.getDateCreate(), DateUtil.SHOW_TYPE_CALL_LOG));
+            } else {
                 mViewHolder.msgTime.setText("");
             }
 
-            if(item.getConfirm() == GroupNoticeHelper.SYSTEM_MESSAGE_NEED_REPLAY) {
+            if (item.getConfirm() == GroupNoticeHelper.SYSTEM_MESSAGE_NEED_REPLAY) {
 
                 // System information about the invitation to join the group
                 // or join the group needs to operate, Whether is it right? Read or unread,
@@ -198,7 +201,7 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
                 } else if (item.getConfirm() == GroupNoticeHelper.SYSTEM_MESSAGE_THROUGH) {
                     mViewHolder.resultShow.setText(R.string.str_system_message_operation_result_through);
 
-                } else{
+                } else {
                     mViewHolder.resultShow.setVisibility(View.GONE);
                 }
             }
@@ -209,7 +212,7 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
                 @Override
                 public void onClick(View v) {
                     //
-                    OperationGroupSystemMsg(true , item);
+                    OperationGroupSystemMsg(true, item);
                 }
             });
             mViewHolder.refuseBtn.setOnClickListener(new View.OnClickListener() {
@@ -228,28 +231,26 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
             setCursor(cursor);
             super.notifyDataSetChanged();
         }
-        
-        private  boolean isSuccess(ECError error) {
-            if(error.errorCode == SdkErrorCode.REQUEST_SUCCESS)  {
+
+        private boolean isSuccess(ECError error) {
+            if (error.errorCode == SdkErrorCode.REQUEST_SUCCESS) {
                 return true;
             }
             return false;
         }
-        
-        
-        
-        
-        public void operationGroupApplyOrInvite(boolean inviteAck ,String groupId , String member , ECAckType ackType , final OnAckGroupServiceListener listener) {
-            if(!inviteAck) {
-                ECDevice.getECGroupManager().ackJoinGroupRequest(groupId , member , ackType , new ECGroupManager.OnAckJoinGroupRequestListener() {
+
+
+        public void operationGroupApplyOrInvite(boolean inviteAck, String groupId, String member, ECAckType ackType, final OnAckGroupServiceListener listener) {
+            if (!inviteAck) {
+                ECDevice.getECGroupManager().ackJoinGroupRequest(groupId, member, ackType, new ECGroupManager.OnAckJoinGroupRequestListener() {
                     @Override
                     public void onAckJoinGroupRequestComplete(ECError error, String groupId, String member) {
-                        if(isSuccess(error)) {
+                        if (isSuccess(error)) {
 
-                            if(listener != null) {
+                            if (listener != null) {
                                 listener.onAckGroupService(true);
                             }
-                            return ;
+                            return;
                         }
                         ToastUtil.showMessage("操作失败");
                     }
@@ -258,19 +259,19 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
 
                     }
                 });
-                return ;
+                return;
             }
 
 
-            ECDevice.getECGroupManager().ackInviteJoinGroupRequest(groupId, ackType,member, new ECGroupManager.OnAckInviteJoinGroupRequestListener() {
+            ECDevice.getECGroupManager().ackInviteJoinGroupRequest(groupId, ackType, member, new ECGroupManager.OnAckInviteJoinGroupRequestListener() {
                 @Override
                 public void onAckInviteJoinGroupRequestComplete(ECError error, String groupId) {
-                    if(isSuccess(error)) {
+                    if (isSuccess(error)) {
 
-                        if(listener != null) {
+                        if (listener != null) {
                             listener.onAckGroupService(true);
                         }
-                        return ;
+                        return;
                     }
                     ToastUtil.showMessage("操作失败");
                 }
@@ -281,27 +282,24 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
             });
 
 
-        } 
-        
-        
-        
-        
+        }
 
 
         /**
          * 处理接受或者拒绝邀请
+         *
          * @param isAccept
          * @param imSystemMessage
          */
-        protected void OperationGroupSystemMsg(final boolean isAccept,final  DemoGroupNotice imSystemMessage) {
+        protected void OperationGroupSystemMsg(final boolean isAccept, final DemoGroupNotice imSystemMessage) {
             showProcessDialog(getString(R.string.login_posting_submit));
             synchronized (ECGroupNoticeActivity.class) {
 
                 boolean isInvite = imSystemMessage.getAuditType() == ECGroupNoticeMessage.ECGroupMessageType.INVITE.ordinal();
                 ECAckType ackType = isAccept ? ECAckType.AGREE : ECAckType.REJECT;
-                
-                
-                operationGroupApplyOrInvite(isInvite ,imSystemMessage.getGroupId(), isInvite?imSystemMessage.getAdmin():imSystemMessage.getMember(), ackType, new OnAckGroupServiceListener() {
+
+
+                operationGroupApplyOrInvite(isInvite, imSystemMessage.getGroupId(), isInvite ? imSystemMessage.getAdmin() : imSystemMessage.getMember(), ackType, new OnAckGroupServiceListener() {
                     public void onAckGroupService(boolean success) {
                         long rows = GroupNoticeSqlManager.updateNoticeOperation(imSystemMessage.getId(), isAccept);
                         notifyChange();
@@ -335,7 +333,7 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mAdapter != null) {
+        if (mAdapter != null) {
             mAdapter.closeCursor();
         }
         System.gc();
@@ -343,19 +341,18 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
 
     @Override
     public void onClick(View v) {
-        
-        
-        if(v.getId()==R.id.btn_left){
-        	hideSoftKeyboard();
+
+
+        if (v.getId() == R.id.btn_left) {
+            hideSoftKeyboard();
             finish();
-        	
-        }else if(v.getId()==R.id.text_right){
-        	GroupNoticeSqlManager.delSessions();
+
+        } else if (v.getId() == R.id.text_right) {
+            GroupNoticeSqlManager.delSessions();
             mAdapter.notifyChange();
         }
-        
-        
-        
+
+
     }
 
 
@@ -368,8 +365,8 @@ public class ECGroupNoticeActivity extends ECSuperActivity implements
      * 关闭对话框
      */
     private void dismissPostingDialog() {
-        if(mPostingdialog == null || !mPostingdialog.isShowing()) {
-            return ;
+        if (mPostingdialog == null || !mPostingdialog.isShowing()) {
+            return;
         }
         mPostingdialog.dismiss();
         mPostingdialog = null;

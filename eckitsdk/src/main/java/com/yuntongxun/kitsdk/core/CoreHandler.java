@@ -8,7 +8,7 @@ import android.os.Message;
 public class CoreHandler extends Handler {
 
     /**
-     *  self-propagation messaage what
+     * self-propagation messaage what
      */
     private static int HANDLER_WHAT;
     /**
@@ -22,12 +22,11 @@ public class CoreHandler extends Handler {
     private final HandlerCallbck mHandlerCallbck;
 
     /**
-     *
      * @param looper
      * @param callbck
      * @param handle
      */
-    public CoreHandler(Looper looper , HandlerCallbck callbck , boolean handle) {
+    public CoreHandler(Looper looper, HandlerCallbck callbck, boolean handle) {
         super(looper);
         mWhat = createWhat();
         mHandlerCallbck = callbck;
@@ -35,11 +34,10 @@ public class CoreHandler extends Handler {
     }
 
     /**
-     *
      * @param callbck
      * @param handle
      */
-    public CoreHandler(HandlerCallbck callbck , boolean handle) {
+    public CoreHandler(HandlerCallbck callbck, boolean handle) {
         mWhat = createWhat();
         mHandlerCallbck = callbck;
         mHandle = handle;
@@ -47,10 +45,11 @@ public class CoreHandler extends Handler {
 
     /**
      * Unique production news message what
+     *
      * @return
      */
     private static int createWhat() {
-        if(HANDLER_WHAT > 8192) {
+        if (HANDLER_WHAT > 8192) {
             HANDLER_WHAT = 0;
         }
         HANDLER_WHAT += 1;
@@ -61,7 +60,7 @@ public class CoreHandler extends Handler {
      * Remove any pending posts of messages with code 'what' that are in the
      * message queue.
      */
-    public void removeMessages(){
+    public void removeMessages() {
         removeMessages(mWhat);
     }
 
@@ -69,7 +68,7 @@ public class CoreHandler extends Handler {
      * Check if there are any pending posts of messages with code 'what' in
      * the message queue.
      */
-    public boolean hasMessages(){
+    public boolean hasMessages() {
         return hasMessages(mWhat);
     }
 
@@ -93,12 +92,12 @@ public class CoreHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
-        if(msg.what != mWhat && mHandlerCallbck == null) {
-            return ;
+        if (msg.what != mWhat && mHandlerCallbck == null) {
+            return;
         }
 
-        if(!mHandlerCallbck.dispatchMessage() || !mHandle) {
-            return ;
+        if (!mHandlerCallbck.dispatchMessage() || !mHandle) {
+            return;
         }
 
         sendEmptyMessageDelayed(mWhat, mDelayMillis);

@@ -32,373 +32,372 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppPanel extends LinearLayout implements
-		CCPFlipper.OnFlipperPageListener,
-		CCPFlipper.OnCCPFlipperMeasureListener {
+        CCPFlipper.OnFlipperPageListener,
+        CCPFlipper.OnCCPFlipperMeasureListener {
 
-	private static int APP_PANEL_HEIGHT_LANDSCAPE = 158;
-	private static int APP_PANEL_HEIGHT_PORTRAIT = 215;
+    private static int APP_PANEL_HEIGHT_LANDSCAPE = 158;
+    private static int APP_PANEL_HEIGHT_PORTRAIT = 215;
 
-	/**
-	 * The maximum number of rows of panel
-	 */
-	private static int APPPANEL_MAX_ROWS = 2;
+    /**
+     * The maximum number of rows of panel
+     */
+    private static int APPPANEL_MAX_ROWS = 2;
 
-	/**
-	 * The min number of rows of panel
-	 */
-	private static int APPPANEL_MIN_ROWS = 1;
+    /**
+     * The min number of rows of panel
+     */
+    private static int APPPANEL_MIN_ROWS = 1;
 
-	/**
-	 * The min number of column of panel
-	 */
-	private static int APPPANEL_MIN_COLUMN = 1;
+    /**
+     * The min number of column of panel
+     */
+    private static int APPPANEL_MIN_COLUMN = 1;
 
-	private Context mContext;
+    private Context mContext;
 
-	private WindowManager mWindowManager;
+    private WindowManager mWindowManager;
 
-	private OnAppPanelItemClickListener mAppPanelItemClickListener;
+    private OnAppPanelItemClickListener mAppPanelItemClickListener;
 
-	private CCPFlipper mFlipper;
-	private CCPDotView mDotView;
+    private CCPFlipper mFlipper;
+    private CCPDotView mDotView;
 
-	private LayoutParams mPanelLayoutParams;
+    private LayoutParams mPanelLayoutParams;
 
-	private List<AppGrid> mAppGrid;
+    private List<AppGrid> mAppGrid;
 
-	private int mAppPanelHeight = -1;
-	private int mDisplayWidth = 0;
-	private int mDisplayHeight = 0;
+    private int mAppPanelHeight = -1;
+    private int mDisplayWidth = 0;
+    private int mDisplayHeight = 0;
 
-	private int mGridWidth;
+    private int mGridWidth;
 
-	private int mGridHeight;
+    private int mGridHeight;
 
-	private int mCCPCapabilityItems = 7;
+    private int mCCPCapabilityItems = 7;
 
-	private boolean mAppPanelHeightChange = true;
+    private boolean mAppPanelHeightChange = true;
 
-	AppPanelControl mAppPanelControl;
+    AppPanelControl mAppPanelControl;
 
-	final AppGrid.OnCapabilityItemClickListener mCapabilityItemClickListener = new AppGrid.OnCapabilityItemClickListener() {
+    final AppGrid.OnCapabilityItemClickListener mCapabilityItemClickListener = new AppGrid.OnCapabilityItemClickListener() {
 
-		@Override
-		public void onPanleItemClick(int index, int capabilityId,
-				String capabilityName) {
-			if (mAppPanelItemClickListener == null) {
-				return;
-			}
+        @Override
+        public void onPanleItemClick(int index, int capabilityId,
+                                     String capabilityName) {
+            if (mAppPanelItemClickListener == null) {
+                return;
+            }
 
-			if (capabilityId == R.string.app_panel_pic) {
-				mAppPanelItemClickListener.OnSelectImageClick();
-				return;
+            if (capabilityId == R.string.app_panel_pic) {
+                mAppPanelItemClickListener.OnSelectImageClick();
+                return;
 
-			} else if (capabilityId == R.string.app_panel_tackpic) {
-				mAppPanelItemClickListener.OnTakingPictureClick();
-				return;
+            } else if (capabilityId == R.string.app_panel_tackpic) {
+                mAppPanelItemClickListener.OnTakingPictureClick();
+                return;
 
-			} else if (capabilityId == R.string.app_panel_file) {
-				mAppPanelItemClickListener.OnSelectFileClick();
-				return;
+            } else if (capabilityId == R.string.app_panel_file) {
+                mAppPanelItemClickListener.OnSelectFileClick();
+                return;
 
-			}
+            }
 
-			ECCustomChatPlusExtendProvider obj = ECKitCustomProviderManager
-					.getCustomChatPlusExtendProvider();
+            ECCustomChatPlusExtendProvider obj = ECKitCustomProviderManager
+                    .getCustomChatPlusExtendProvider();
 
-			if (obj != null) {
+            if (obj != null) {
 
-				boolean result = obj.onPlusExtendedItemClick(mContext,
-						capabilityName, index);
+                boolean result = obj.onPlusExtendedItemClick(mContext,
+                        capabilityName, index);
 
-				if (result) {
+                if (result) {
 
-					return;
-				}
+                    return;
+                }
 
-			}
+            }
 
-		}
-	};
+        }
+    };
 
-	public AppPanel(Context context) {
-		super(context);
-		this.mContext = context;
+    public AppPanel(Context context) {
+        super(context);
+        this.mContext = context;
 
-		initAppPanelControl();
-		initAppPanel();
-	}
+        initAppPanelControl();
+        initAppPanel();
+    }
 
-	public AppPanel(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		this.mContext = context;
+    public AppPanel(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.mContext = context;
 
-		initAppPanelControl();
-		initAppPanel();
-	}
+        initAppPanelControl();
+        initAppPanel();
+    }
 
-	/**
-	 * 
-	 */
-	private void initAppPanelControl() {
-		mAppPanelControl = new AppPanelControl();
+    /**
+     *
+     */
+    private void initAppPanelControl() {
+        mAppPanelControl = new AppPanelControl();
 //		mCCPCapabilityItems = mAppPanelControl.cap.length;
-	}
+    }
 
-	private void computeCapabilityCount() {
-		mCCPCapabilityItems = mAppPanelControl.getCapability().size();// 3
-	}
+    private void computeCapabilityCount() {
+        mCCPCapabilityItems = mAppPanelControl.getCapability().size();// 3
+    }
 
-	/**
-	 * 
-	 */
-	private void initAppPanel() {
-		mPanelLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.WRAP_CONTENT);
-		Display display = ((WindowManager) getContext().getSystemService(
-				Context.WINDOW_SERVICE)).getDefaultDisplay();
-		if (display.getWidth() < display.getHeight()) {
-			mDisplayWidth = display.getWidth();
-			mDisplayHeight = display.getHeight();
-		} else {
-			mDisplayWidth = display.getHeight();
-			mDisplayHeight = display.getWidth();
+    /**
+     *
+     */
+    private void initAppPanel() {
+        mPanelLayoutParams = new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.WRAP_CONTENT);
+        Display display = ((WindowManager) getContext().getSystemService(
+                Context.WINDOW_SERVICE)).getDefaultDisplay();
+        if (display.getWidth() < display.getHeight()) {
+            mDisplayWidth = display.getWidth();
+            mDisplayHeight = display.getHeight();
+        } else {
+            mDisplayWidth = display.getHeight();
+            mDisplayHeight = display.getWidth();
 
-		}
-		View.inflate(getContext(), R.layout.ytx_app_panel, this);
-		mFlipper = (CCPFlipper) findViewById(R.id.app_panel_flipper);
-		mDotView = (CCPDotView) findViewById(R.id.app_panel_dot);
+        }
+        View.inflate(getContext(), R.layout.ytx_app_panel, this);
+        mFlipper = (CCPFlipper) findViewById(R.id.app_panel_flipper);
+        mDotView = (CCPDotView) findViewById(R.id.app_panel_dot);
 
-		try {
+        try {
 
-			initFlipper();
+            initFlipper();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
-	public void refreshAppPanel() {
-		LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "AppPanel refleshed");
-		try {
+    public void refreshAppPanel() {
+        LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "AppPanel refleshed");
+        try {
 
-			int currentIndex = mFlipper.getCurrentIndex();
-			initAppGrid();
-			mFlipper.slipInto(currentIndex);
-			mDotView.setSelectedDot(currentIndex);
+            int currentIndex = mFlipper.getCurrentIndex();
+            initAppGrid();
+            mFlipper.slipInto(currentIndex);
+            mDotView.setSelectedDot(currentIndex);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * 
-	 * @param l
-	 */
-	public void setOnAppPanelItemClickListener(OnAppPanelItemClickListener l) {
-		mAppPanelItemClickListener = l;
-	}
+    /**
+     * @param l
+     */
+    public void setOnAppPanelItemClickListener(OnAppPanelItemClickListener l) {
+        mAppPanelItemClickListener = l;
+    }
 
-	private void initAppGrid() {
-		if (mGridWidth == 0 || mGridHeight == 0) {
-			return;
-		}
+    private void initAppGrid() {
+        if (mGridWidth == 0 || mGridHeight == 0) {
+            return;
+        }
 
-		mAppGrid = new ArrayList<AppGrid>();
-		mFlipper.removeAllViews();
+        mAppGrid = new ArrayList<AppGrid>();
+        mFlipper.removeAllViews();
 
-		int columnWidth = DensityUtil.getMetricsDensity(getContext(), 73.0F);
-		int rowsHeight = DensityUtil.getMetricsDensity(getContext(), 90.0F);
-		requestLayout();
+        int columnWidth = DensityUtil.getMetricsDensity(getContext(), 73.0F);
+        int rowsHeight = DensityUtil.getMetricsDensity(getContext(), 90.0F);
+        requestLayout();
 
-		int column = mGridWidth / columnWidth;
-		int rows = mGridHeight / rowsHeight;
+        int column = mGridWidth / columnWidth;
+        int rows = mGridHeight / rowsHeight;
 
-		if (rows > APPPANEL_MAX_ROWS) {
-			rows = APPPANEL_MAX_ROWS;
-		}
+        if (rows > APPPANEL_MAX_ROWS) {
+            rows = APPPANEL_MAX_ROWS;
+        }
 
-		int rowSpace = (mGridHeight - (rowsHeight * rows)) / (rows + 1);
-		LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "AppPanel gridWidth "
-				+ mGridWidth + " , gridHeight " + mGridHeight
-				+ " ,rows spacing " + rowSpace);
+        int rowSpace = (mGridHeight - (rowsHeight * rows)) / (rows + 1);
+        LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "AppPanel gridWidth "
+                + mGridWidth + " , gridHeight " + mGridHeight
+                + " ,rows spacing " + rowSpace);
 
-		if (column == 0) {
-			column = APPPANEL_MIN_COLUMN;
-		}
-		if (rows == 0) {
-			rows = APPPANEL_MIN_ROWS;
-		}
+        if (column == 0) {
+            column = APPPANEL_MIN_COLUMN;
+        }
+        if (rows == 0) {
+            rows = APPPANEL_MIN_ROWS;
+        }
 
-		int itemsPerPage = column * rows;
-		int pageCount = (int) Math.ceil((1 + mCCPCapabilityItems)
-				/ (itemsPerPage + 0.1));
+        int itemsPerPage = column * rows;
+        int pageCount = (int) Math.ceil((1 + mCCPCapabilityItems)
+                / (itemsPerPage + 0.1));
 
-		LogUtil.d(LogUtil.getLogUtilsTag(getClass()),
-				"initAppGrid, totalItemCount = " + mCCPCapabilityItems
-						+ ", itemsPerPage = " + itemsPerPage + ", pageCount = "
-						+ pageCount);
+        LogUtil.d(LogUtil.getLogUtilsTag(getClass()),
+                "initAppGrid, totalItemCount = " + mCCPCapabilityItems
+                        + ", itemsPerPage = " + itemsPerPage + ", pageCount = "
+                        + pageCount);
 
-		for (int i = 0; i < pageCount; i++) {
-			AppGrid appGrid = (AppGrid) inflate(getContext(),
-					R.layout.ytx_app_grid, null);
-			appGrid.setAppPanelItems(mAppPanelControl.getCapability());
-			appGrid.setAppPanelBase(i, mCCPCapabilityItems, itemsPerPage,
-					pageCount, column, mCCPCapabilityItems);
-			appGrid.setPanelVerticalSpacing(rowSpace);
-			mFlipper.setInterceptTouchEvent(true);
-			mFlipper.addView(appGrid, mPanelLayoutParams);
-			mAppGrid.add(appGrid);
-		}
+        for (int i = 0; i < pageCount; i++) {
+            AppGrid appGrid = (AppGrid) inflate(getContext(),
+                    R.layout.ytx_app_grid, null);
+            appGrid.setAppPanelItems(mAppPanelControl.getCapability());
+            appGrid.setAppPanelBase(i, mCCPCapabilityItems, itemsPerPage,
+                    pageCount, column, mCCPCapabilityItems);
+            appGrid.setPanelVerticalSpacing(rowSpace);
+            mFlipper.setInterceptTouchEvent(true);
+            mFlipper.addView(appGrid, mPanelLayoutParams);
+            mAppGrid.add(appGrid);
+        }
 
-		if (mAppGrid != null) {
-			for (AppGrid capability : mAppGrid) {
-				capability
-						.setOnCapabilityItemClickListener(mCapabilityItemClickListener);
-			}
-		}
+        if (mAppGrid != null) {
+            for (AppGrid capability : mAppGrid) {
+                capability
+                        .setOnCapabilityItemClickListener(mCapabilityItemClickListener);
+            }
+        }
 
-		if (mAppGrid.size() <= 0) {
-			mDotView.setVisibility(View.GONE);
-		} else {
-			mDotView.setVisibility(View.VISIBLE);
-			mDotView.setDotCount(mAppGrid.size());
-			int currentIndex = mFlipper.getCurrentIndex();
-			mFlipper.slipInto(currentIndex);
-			mDotView.setSelectedDot(currentIndex);
-		}
-		computeCapabilityCount();
-	}
+        if (mAppGrid.size() <= 0) {
+            mDotView.setVisibility(View.GONE);
+        } else {
+            mDotView.setVisibility(View.VISIBLE);
+            mDotView.setDotCount(mAppGrid.size());
+            int currentIndex = mFlipper.getCurrentIndex();
+            mFlipper.slipInto(currentIndex);
+            mDotView.setSelectedDot(currentIndex);
+        }
+        computeCapabilityCount();
+    }
 
-	/**
-	 * 
-	 */
-	private void initFlipper() {
-		LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "AppPanel initFlipper");
-		mFlipper.removeAllViews();
-		mFlipper.setOnFlipperListner(this);
-		mFlipper.setOnCCPFlipperMeasureListener(this);
+    /**
+     *
+     */
+    private void initFlipper() {
+        LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "AppPanel initFlipper");
+        mFlipper.removeAllViews();
+        mFlipper.setOnFlipperListner(this);
+        mFlipper.setOnCCPFlipperMeasureListener(this);
 
-		initFlipperRotateMe();
-	}
+        initFlipperRotateMe();
+    }
 
-	/**
-	 * Screen rotation change height
-	 */
-	public final void initFlipperRotateMe() {
-		if (mAppPanelHeightChange) {
-			mAppPanelHeightChange = false;
-			View panelDisplayView = findViewById(R.id.app_panel_display_view);
-			LayoutParams layoutParams = (LayoutParams) panelDisplayView
-					.getLayoutParams();
-			if (getWindowDisplayMode() != Configuration.ORIENTATION_LANDSCAPE) {
-				LogUtil.d(LogUtil.getLogUtilsTag(getClass()),
-						"initFlipper, mode portrait :"
-								+ APP_PANEL_HEIGHT_PORTRAIT);
+    /**
+     * Screen rotation change height
+     */
+    public final void initFlipperRotateMe() {
+        if (mAppPanelHeightChange) {
+            mAppPanelHeightChange = false;
+            View panelDisplayView = findViewById(R.id.app_panel_display_view);
+            LayoutParams layoutParams = (LayoutParams) panelDisplayView
+                    .getLayoutParams();
+            if (getWindowDisplayMode() != Configuration.ORIENTATION_LANDSCAPE) {
+                LogUtil.d(LogUtil.getLogUtilsTag(getClass()),
+                        "initFlipper, mode portrait :"
+                                + APP_PANEL_HEIGHT_PORTRAIT);
 
-				int panelHeight = DensityUtil.getMetricsDensity(getContext(),
-						APP_PANEL_HEIGHT_PORTRAIT);
-				if (mAppPanelHeight > 0) {
-					panelHeight = mAppPanelHeight;
-				}
-				layoutParams.width = mDisplayWidth;
-				layoutParams.height = panelHeight;
-			} else {
-				LogUtil.d(LogUtil.getLogUtilsTag(getClass()),
-						"initFlipper, mode landscape :"
-								+ APP_PANEL_HEIGHT_LANDSCAPE);
-				layoutParams.width = mDisplayHeight;
-				layoutParams.height = DensityUtil.getMetricsDensity(
-						getContext(), APP_PANEL_HEIGHT_LANDSCAPE);
-			}
-			panelDisplayView.setLayoutParams(layoutParams);
-		}
-	}
+                int panelHeight = DensityUtil.getMetricsDensity(getContext(),
+                        APP_PANEL_HEIGHT_PORTRAIT);
+                if (mAppPanelHeight > 0) {
+                    panelHeight = mAppPanelHeight;
+                }
+                layoutParams.width = mDisplayWidth;
+                layoutParams.height = panelHeight;
+            } else {
+                LogUtil.d(LogUtil.getLogUtilsTag(getClass()),
+                        "initFlipper, mode landscape :"
+                                + APP_PANEL_HEIGHT_LANDSCAPE);
+                layoutParams.width = mDisplayHeight;
+                layoutParams.height = DensityUtil.getMetricsDensity(
+                        getContext(), APP_PANEL_HEIGHT_LANDSCAPE);
+            }
+            panelDisplayView.setLayoutParams(layoutParams);
+        }
+    }
 
-	/**
-	 */
-	public boolean isPanelVisible() {
+    /**
+     */
+    public boolean isPanelVisible() {
 
-		return getVisibility() == View.VISIBLE;
-	}
+        return getVisibility() == View.VISIBLE;
+    }
 
-	private int getWindowDisplayMode() {
-		if (mWindowManager == null) {
-			mWindowManager = (WindowManager) mContext
-					.getSystemService(Context.WINDOW_SERVICE);
-		}
-		Display localDisplay = mWindowManager.getDefaultDisplay();
-		return localDisplay.getWidth() < localDisplay.getHeight() ? Configuration.ORIENTATION_PORTRAIT
-				: Configuration.ORIENTATION_LANDSCAPE;
-	}
+    private int getWindowDisplayMode() {
+        if (mWindowManager == null) {
+            mWindowManager = (WindowManager) mContext
+                    .getSystemService(Context.WINDOW_SERVICE);
+        }
+        Display localDisplay = mWindowManager.getDefaultDisplay();
+        return localDisplay.getWidth() < localDisplay.getHeight() ? Configuration.ORIENTATION_PORTRAIT
+                : Configuration.ORIENTATION_LANDSCAPE;
+    }
 
-	/**
-	 * Change the height of the panel
-	 * 
-	 * @param height
-	 */
-	public final void setPanelHeight(int height) {
-		if (mAppPanelHeight == height) {
-			return;
-		}
+    /**
+     * Change the height of the panel
+     *
+     * @param height
+     */
+    public final void setPanelHeight(int height) {
+        if (mAppPanelHeight == height) {
+            return;
+        }
 
-		mAppPanelHeight = height;
-		mAppPanelHeightChange = true;
-	}
+        mAppPanelHeight = height;
+        mAppPanelHeightChange = true;
+    }
 
-	@Override
-	public void onFlipperPage(int startIndex, int finalIndex) {
-		if (mDotView == null) {
-			return;
-		}
-		if (finalIndex > mDotView.getDotCount()) {
-			finalIndex = mDotView.getDotCount();
-		}
-		mDotView.setSelectedDot(finalIndex);
-	}
+    @Override
+    public void onFlipperPage(int startIndex, int finalIndex) {
+        if (mDotView == null) {
+            return;
+        }
+        if (finalIndex > mDotView.getDotCount()) {
+            finalIndex = mDotView.getDotCount();
+        }
+        mDotView.setSelectedDot(finalIndex);
+    }
 
-	@Override
-	protected void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		if ((newConfig.orientation != Configuration.ORIENTATION_PORTRAIT)
-				&& (newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE)) {
-			return;
-		}
-		LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "onConfigChanged:"
-				+ newConfig.orientation);
-		mFlipper.slipInto(0);
-	}
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if ((newConfig.orientation != Configuration.ORIENTATION_PORTRAIT)
+                && (newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE)) {
+            return;
+        }
+        LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "onConfigChanged:"
+                + newConfig.orientation);
+        mFlipper.slipInto(0);
+    }
 
-	@Override
-	public void onCCPFlipperMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "onMeasure width:"
-				+ widthMeasureSpec + " height:" + heightMeasureSpec
-				+ " isMeasured:" + mAppPanelHeightChange);
-		if (widthMeasureSpec == 0 || heightMeasureSpec == 0) {
-			LogUtil.d(LogUtil.getLogUtilsTag(getClass()),
-					"onMeasure, width or height is 0");
-			return;
-		}
+    @Override
+    public void onCCPFlipperMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "onMeasure width:"
+                + widthMeasureSpec + " height:" + heightMeasureSpec
+                + " isMeasured:" + mAppPanelHeightChange);
+        if (widthMeasureSpec == 0 || heightMeasureSpec == 0) {
+            LogUtil.d(LogUtil.getLogUtilsTag(getClass()),
+                    "onMeasure, width or height is 0");
+            return;
+        }
 
-		if (getWindowDisplayMode() == Configuration.ORIENTATION_LANDSCAPE) {
-			LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "landspace");
-		} else {
-			LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "portrait");
-		}
+        if (getWindowDisplayMode() == Configuration.ORIENTATION_LANDSCAPE) {
+            LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "landspace");
+        } else {
+            LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "portrait");
+        }
 
-		mGridWidth = widthMeasureSpec;
-		mGridHeight = heightMeasureSpec;
-		refreshAppPanel();
-	}
+        mGridWidth = widthMeasureSpec;
+        mGridHeight = heightMeasureSpec;
+        refreshAppPanel();
+    }
 
-	public interface OnAppPanelItemClickListener {
-		void OnTakingPictureClick();
+    public interface OnAppPanelItemClickListener {
+        void OnTakingPictureClick();
 
-		void OnSelectImageClick();
+        void OnSelectImageClick();
 
-		void OnSelectFileClick();
+        void OnSelectFileClick();
 
-	}
+    }
 }

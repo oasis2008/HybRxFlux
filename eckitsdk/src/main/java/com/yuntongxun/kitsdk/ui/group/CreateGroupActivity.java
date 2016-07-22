@@ -41,22 +41,31 @@ import com.yuntongxun.kitsdk.view.ECProgressDialog;
 
 /**
  * 群组创建功能
+ *
  * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-27
  * @version 4.0
+ * @date 2014-12-27
  */
 public class CreateGroupActivity extends ECSuperActivity implements
-        View.OnClickListener , ECGroupManager.OnCreateGroupListener , GroupMemberService.OnSynsGroupMemberListener{
+        View.OnClickListener, ECGroupManager.OnCreateGroupListener, GroupMemberService.OnSynsGroupMemberListener {
 
     private static final String TAG = "ECDemo.CreateGroupActivity";
     String[] stringArray = null;
-    /**群组名称*/
+    /**
+     * 群组名称
+     */
     private EditText mNameEdit;
-    /**群组公告*/
+    /**
+     * 群组公告
+     */
     private EditText mNoticeEdit;
-    /**创建按钮*/
+    /**
+     * 创建按钮
+     */
     private Button mCreateBtn;
-    /**创建的群组*/
+    /**
+     * 创建的群组
+     */
     private ECGroup group;
     private ECProgressDialog mPostingdialog;
     private Spinner mPermissionSpinner;
@@ -65,7 +74,8 @@ public class CreateGroupActivity extends ECSuperActivity implements
 
     final private TextWatcher textWatcher = new TextWatcher() {
 
-        private int fliteCounts = 20;;
+        private int fliteCounts = 20;
+        ;
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -80,12 +90,12 @@ public class CreateGroupActivity extends ECSuperActivity implements
         public void afterTextChanged(Editable s) {
             LogUtil.d(LogUtil.getLogUtilsTag(textWatcher.getClass()), "fliteCounts=" + fliteCounts);
             fliteCounts = fliteCounts(s);
-            if(fliteCounts < 0) {
+            if (fliteCounts < 0) {
                 fliteCounts = 0;
             }
-            if(checkNameEmpty()) {
+            if (checkNameEmpty()) {
                 mCreateBtn.setEnabled(true);
-                return ;
+                return;
             }
             mCreateBtn.setEnabled(false);
         }
@@ -115,8 +125,8 @@ public class CreateGroupActivity extends ECSuperActivity implements
      * 关闭对话框
      */
     private void dismissPostingDialog() {
-        if(mPostingdialog == null || !mPostingdialog.isShowing()) {
-            return ;
+        if (mPostingdialog == null || !mPostingdialog.isShowing()) {
+            return;
         }
         mPostingdialog.dismiss();
         mPostingdialog = null;
@@ -172,34 +182,34 @@ public class CreateGroupActivity extends ECSuperActivity implements
 
     @Override
     public void onClick(View v) {
-        
-        
-        if(v.getId()==R.id.btn_left){
-        	hideSoftKeyboard();
+
+
+        if (v.getId() == R.id.btn_left) {
+            hideSoftKeyboard();
             finish();
-        }else if(v.getId()==R.id.create){
-        	hideSoftKeyboard();
+        } else if (v.getId() == R.id.create) {
+            hideSoftKeyboard();
             showPermissionDialog();
         }
-        	
-        
+
+
     }
 
     private boolean showPermissionDialog() {
-        ECListDialog dialog = new ECListDialog(this ,stringArray , mPermissionModel);
+        ECListDialog dialog = new ECListDialog(this, stringArray, mPermissionModel);
         dialog.setOnDialogItemClickListener(new ECListDialog.OnDialogItemClickListener() {
             @Override
             public void onDialogItemClick(Dialog d, int position) {
-            	mPermissionModel = position;
+                mPermissionModel = position;
 //                initPermissionText();
-            	mPostingdialog = new ECProgressDialog(CreateGroupActivity.this, R.string.create_group_posting);
-				mPostingdialog.show();
-				ECGroupManager ecGroupManager = ECDevice.getECGroupManager();
-				if(!checkNameEmpty() || ecGroupManager == null) {
-				    return ;
-				}
-				// 调用API创建群组、处理创建群组接口回调
-				ecGroupManager.createGroup(getGroup(), CreateGroupActivity.this);
+                mPostingdialog = new ECProgressDialog(CreateGroupActivity.this, R.string.create_group_posting);
+                mPostingdialog.show();
+                ECGroupManager ecGroupManager = ECDevice.getECGroupManager();
+                if (!checkNameEmpty() || ecGroupManager == null) {
+                    return;
+                }
+                // 调用API创建群组、处理创建群组接口回调
+                ecGroupManager.createGroup(getGroup(), CreateGroupActivity.this);
             }
         });
         dialog.setTitle(R.string.str_group_permission_spinner);
@@ -214,10 +224,11 @@ public class CreateGroupActivity extends ECSuperActivity implements
 
     /**
      * 创建群组参数
+     *
      * @return
      */
     private ECGroup getGroup() {
-        ECGroup group =  new ECGroup();
+        ECGroup group = new ECGroup();
         // 设置群组名称
         group.setName(mNameEdit.getText().toString().trim());
         // 设置群组公告
@@ -257,36 +268,35 @@ public class CreateGroupActivity extends ECSuperActivity implements
         }
 
         String[] selectUser = data.getStringArrayExtra("Select_Conv_User");
-        if(selectUser != null && selectUser.length > 0) {
+        if (selectUser != null && selectUser.length > 0) {
             mPostingdialog = new ECProgressDialog(this, R.string.invite_join_group_posting);
             mPostingdialog.show();
-            GroupMemberService.inviteMembers(group.getGroupId(), "",ECGroupManager.InvitationMode.FORCE_PULL, selectUser);
+            GroupMemberService.inviteMembers(group.getGroupId(), "", ECGroupManager.InvitationMode.FORCE_PULL, selectUser);
         }
 
     }
 
 
-
-
     @Override
     public void onCreateGroupComplete(ECError error, ECGroup group) {
-        
-    	finish();
+
+        finish();
     }
 
     @Override
     public void onSynsGroupMember(String groupId) {
         dismissPostingDialog();
-        Intent intent = new Intent(CreateGroupActivity.this , ECChattingActivity.class);
+        Intent intent = new Intent(CreateGroupActivity.this, ECChattingActivity.class);
         intent.putExtra(ECChattingActivity.RECIPIENTS, groupId);
         intent.putExtra(ECChattingActivity.CONTACT_USER, group.getName());
         startActivity(intent);
         finish();
     }
 
-    final InputFilter filter = new InputFilter () {
+    final InputFilter filter = new InputFilter() {
 
         private int limit = 30;
+
         @Override
         public CharSequence filter(CharSequence source, int start, int end,
                                    Spanned dest, int dstart, int dend) {
@@ -295,7 +305,7 @@ public class CreateGroupActivity extends ECSuperActivity implements
                     + " dstart:" + dstart + " dend:" + dend);
             float count = calculateCounts(dest);
             int overplus = limit - Math.round(count) - (dend - dstart);
-            if(overplus <= 0) {
+            if (overplus <= 0) {
                 if ((Float.compare(count, (float) (limit - 0.5D)) == 0)
                         && (source.length() > 0)
                         && (!(DemoUtils.characterChinese(source.charAt(0))))) {
@@ -304,11 +314,11 @@ public class CreateGroupActivity extends ECSuperActivity implements
                 return "";
             }
 
-            if( overplus >= (end - start)) {
+            if (overplus >= (end - start)) {
                 return null;
             }
             int tepmCont = overplus + start;
-            if((Character.isHighSurrogate(source.charAt(tepmCont - 1))) && (--tepmCont == start)) {
+            if ((Character.isHighSurrogate(source.charAt(tepmCont - 1))) && (--tepmCont == start)) {
                 return "";
             }
             return source.subSequence(start, tepmCont);
@@ -318,7 +328,6 @@ public class CreateGroupActivity extends ECSuperActivity implements
 
 
     /**
-     *
      * @param text
      * @return
      */
@@ -329,15 +338,14 @@ public class CreateGroupActivity extends ECSuperActivity implements
     }
 
     /**
-     *
      * @param text
      * @return
      */
     public static float calculateCounts(CharSequence text) {
 
         float lengh = 0.0F;
-        for(int i = 0; i < text.length() ; i++) {
-            if(!DemoUtils.characterChinese(text.charAt(i))) {
+        for (int i = 0; i < text.length(); i++) {
+            if (!DemoUtils.characterChinese(text.charAt(i))) {
                 lengh += 1.0F;
             } else {
                 lengh += 0.5F;

@@ -28,47 +28,71 @@ import android.widget.TextView;
 import com.yuntongxun.eckitsdk.R;
 
 
-
 /**
  * 设置选项
+ *
  * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-27
  * @version 4.0
+ * @date 2014-12-27
  */
 public class SettingItem extends RelativeLayout {
 
-    /**切换按钮*/
+    /**
+     * 切换按钮
+     */
     public static final int ACCESSORY_TYPE_CHECKBOX = 2;
-    
-    /**箭头按钮*/
+
+    /**
+     * 箭头按钮
+     */
     public static final int ACCESSORY_TYPE_ARROW = 1;
-    
-    
-    /**radio按钮*/
+
+
+    /**
+     * radio按钮
+     */
     public static final int ACCESSORY_TYPE_RADIO = 3;
 
-    /**Item内容区域*/
+    /**
+     * Item内容区域
+     */
     private LinearLayout mContent;
-    /**标题View*/
+    /**
+     * 标题View
+     */
     private TextView mTitle;
-    /**概要View*/
+    /**
+     * 概要View
+     */
     private TextView mSummary;
-    /**切换View*/
+    /**
+     * 切换View
+     */
     private CheckedTextView mCheckedTextView;
     private TextView mNewUpdate;
-    /**分割线*/
+    /**
+     * 分割线
+     */
     private View mDividerView;
-    /**附加类型*/
+    /**
+     * 附加类型
+     */
     private int mAccessoryType;
-    /**是否显示分割线*/
+    /**
+     * 是否显示分割线
+     */
     private boolean mShowDivider;
-    /**标题*/
+    /**
+     * 标题
+     */
     private String mTitleText;
-    /**概要文字*/
+    /**
+     * 概要文字
+     */
     private String mSummaryText;
-    private int[] mInsetDrawableRect = {0,0,0,0};
+    private int[] mInsetDrawableRect = {0, 0, 0, 0};
 
-	private ImageView titleImg;
+    private ImageView titleImg;
 
     /**
      * @param context
@@ -89,8 +113,8 @@ public class SettingItem extends RelativeLayout {
         TypedArray localTypedArray = context.obtainStyledAttributes(attrs, R.styleable.setting_info);
         setTitleText(localTypedArray.getString(R.styleable.setting_info_item_titleText));
         setDetailText(localTypedArray.getString(R.styleable.setting_info_item_detailText));
-        setAccessoryType(localTypedArray.getInt(R.styleable.setting_info_item_accessoryType , 0));
-        setShowDivider(localTypedArray.getBoolean(R.styleable.setting_info_item_showDivider , true));
+        setAccessoryType(localTypedArray.getInt(R.styleable.setting_info_item_accessoryType, 0));
+        setShowDivider(localTypedArray.getBoolean(R.styleable.setting_info_item_showDivider, true));
         setAvatar(localTypedArray.getDrawable(R.styleable.setting_info_item_avatar));
         localTypedArray.recycle();
 
@@ -98,16 +122,16 @@ public class SettingItem extends RelativeLayout {
     }
 
 
-	private void setAvatar(Drawable drawable) {
-    	if(drawable == null){
-    		return;
-    	}
-    	titleImg.setVisibility(View.VISIBLE);
-    	titleImg.setImageDrawable(drawable);
-    	
-	}
+    private void setAvatar(Drawable drawable) {
+        if (drawable == null) {
+            return;
+        }
+        titleImg.setVisibility(View.VISIBLE);
+        titleImg.setImageDrawable(drawable);
 
-	/**
+    }
+
+    /**
      * @param showDivider
      */
     private void setShowDivider(boolean showDivider) {
@@ -115,42 +139,42 @@ public class SettingItem extends RelativeLayout {
         View dividerView = mDividerView;
         dividerView.setVisibility(mShowDivider ? View.VISIBLE : View.GONE);
     }
-    
-    public void showDivider(boolean showDivider){
-    	mDividerView.setVisibility(showDivider ? View.VISIBLE : View.GONE);
+
+    public void showDivider(boolean showDivider) {
+        mDividerView.setVisibility(showDivider ? View.VISIBLE : View.GONE);
     }
 
     /**
      * 设置标题信息
+     *
      * @param text
      */
     public void setTitleText(String text) {
         mTitleText = text;
-        if(text == null) {
+        if (text == null) {
             mTitle.setText("");
-            return ;
+            return;
         }
         mTitle.setText(mTitleText);
     }
 
     public void setCheckText(String text) {
-        if(text == null) {
+        if (text == null) {
             mCheckedTextView.setText("");
-            return ;
+            return;
         }
         mCheckedTextView.setText(text);
     }
 
     /**
      * @param text
-     *
      */
     public void setDetailText(String text) {
         mSummaryText = text;
-        if(text == null) {
+        if (text == null) {
             mSummary.setText("");
             mSummary.setVisibility(View.GONE);
-            return ;
+            return;
         }
         mSummary.setText(mSummaryText);
         mSummary.setVisibility(View.VISIBLE);
@@ -176,21 +200,21 @@ public class SettingItem extends RelativeLayout {
 
     /**
      * 是否显示版本更新
+     *
      * @param visibility
      */
     public void setNewUpdateVisibility(boolean visibility) {
-        if(mNewUpdate != null) {
-            mNewUpdate.setVisibility(visibility? View.VISIBLE:View.GONE);
+        if (mNewUpdate != null) {
+            mNewUpdate.setVisibility(visibility ? View.VISIBLE : View.GONE);
         }
     }
 
     /**
-     *
      * @return
      */
     private boolean isInsetDrawable() {
-        for(int i = 0; i < mInsetDrawableRect.length ; i++) {
-            if(mInsetDrawableRect[i] <= 0) {
+        for (int i = 0; i < mInsetDrawableRect.length; i++) {
+            if (mInsetDrawableRect[i] <= 0) {
                 continue;
             }
             return true;
@@ -199,48 +223,49 @@ public class SettingItem extends RelativeLayout {
     }
 
     /**
-     *
      * @param accessoryType
      */
     public void setAccessoryType(int accessoryType) {
-    	switch (accessoryType) {
-		case ACCESSORY_TYPE_CHECKBOX:
-            mAccessoryType = ACCESSORY_TYPE_CHECKBOX;
-            mCheckedTextView.setCheckMarkDrawable(getContext().getResources().getDrawable(R.drawable.switch_style));
-            mCheckedTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            setSettingBackground(0);
-			break;
-		case ACCESSORY_TYPE_ARROW:
-            mAccessoryType = ACCESSORY_TYPE_ARROW;
-            mCheckedTextView.setCheckMarkDrawable(getContext().getResources().getDrawable(R.drawable.enter));
-            mCheckedTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            setSettingBackground(0);
-			break;
-		case ACCESSORY_TYPE_RADIO:
-            mAccessoryType = ACCESSORY_TYPE_RADIO;
-            mCheckedTextView.setCheckMarkDrawable(getContext().getResources().getDrawable(R.drawable.choose_style));
-            mCheckedTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            setSettingBackground(0);
-			break;
-		default:
-			break;
-		}
+        switch (accessoryType) {
+            case ACCESSORY_TYPE_CHECKBOX:
+                mAccessoryType = ACCESSORY_TYPE_CHECKBOX;
+                mCheckedTextView.setCheckMarkDrawable(getContext().getResources().getDrawable(R.drawable.switch_style));
+                mCheckedTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                setSettingBackground(0);
+                break;
+            case ACCESSORY_TYPE_ARROW:
+                mAccessoryType = ACCESSORY_TYPE_ARROW;
+                mCheckedTextView.setCheckMarkDrawable(getContext().getResources().getDrawable(R.drawable.enter));
+                mCheckedTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                setSettingBackground(0);
+                break;
+            case ACCESSORY_TYPE_RADIO:
+                mAccessoryType = ACCESSORY_TYPE_RADIO;
+                mCheckedTextView.setCheckMarkDrawable(getContext().getResources().getDrawable(R.drawable.choose_style));
+                mCheckedTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                setSettingBackground(0);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
      * 返回切换按钮
+     *
      * @return
      */
-    public CheckedTextView getCheckedTextView(){
+    public CheckedTextView getCheckedTextView() {
         return mCheckedTextView;
     }
 
     /**
      * 是否处于选中状态
+     *
      * @return
      */
     public boolean isChecked() {
-        if(mAccessoryType == ACCESSORY_TYPE_CHECKBOX ||  mAccessoryType == ACCESSORY_TYPE_RADIO) {
+        if (mAccessoryType == ACCESSORY_TYPE_CHECKBOX || mAccessoryType == ACCESSORY_TYPE_RADIO) {
             return mCheckedTextView.isChecked();
         }
         return true;
@@ -248,19 +273,20 @@ public class SettingItem extends RelativeLayout {
 
     /**
      * 设置状态
+     *
      * @param checked
      */
     public void setChecked(boolean checked) {
-        if(mAccessoryType != ACCESSORY_TYPE_CHECKBOX &&  mAccessoryType != ACCESSORY_TYPE_RADIO) {
-            return ;
+        if (mAccessoryType != ACCESSORY_TYPE_CHECKBOX && mAccessoryType != ACCESSORY_TYPE_RADIO) {
+            return;
         }
         mCheckedTextView.setChecked(checked);
     }
 
 
     public void toggle() {
-        if(mAccessoryType != ACCESSORY_TYPE_CHECKBOX &&  mAccessoryType != ACCESSORY_TYPE_RADIO ) {
-            return ;
+        if (mAccessoryType != ACCESSORY_TYPE_CHECKBOX && mAccessoryType != ACCESSORY_TYPE_RADIO) {
+            return;
         }
         mCheckedTextView.toggle();
     }

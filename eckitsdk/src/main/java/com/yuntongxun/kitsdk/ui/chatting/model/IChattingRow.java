@@ -25,21 +25,22 @@ import com.yuntongxun.kitsdk.ui.chatting.holder.BaseHolder;
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2014</p>
  * <p>Company: Beijing Speedtong Information Technology Co.,Ltd</p>
+ *
  * @author Jorstin Chan
- * @date 2014-4-16
  * @version 1.0
+ * @date 2014-4-16
  */
 public interface IChattingRow {
 
     /**
      * Get a View that displays the data at the specified position in the data set
+     *
      * @param convertView
      * @return
      */
     View buildChatView(LayoutInflater inflater, View convertView);
 
     /**
-     *
      * @param context
      * @param detail
      */

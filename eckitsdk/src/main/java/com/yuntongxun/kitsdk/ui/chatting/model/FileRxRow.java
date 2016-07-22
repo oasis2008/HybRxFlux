@@ -18,11 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 
-
-
-
-
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.im.ECFileMessageBody;
@@ -32,16 +27,15 @@ import com.yuntongxun.kitsdk.ui.chatting.holder.FileRowViewHolder;
 import com.yuntongxun.kitsdk.ui.chatting.view.ChattingItemContainer;
 
 
+public class FileRxRow extends BaseChattingRow {
 
-public class FileRxRow extends BaseChattingRow{
+    public FileRxRow(int type) {
+        super(type);
+    }
 
-	public FileRxRow(int type) {
-		super(type);
-	}
-	
 
-	@Override
-	public View buildChatView(LayoutInflater inflater, View convertView) {
+    @Override
+    public View buildChatView(LayoutInflater inflater, View convertView) {
         //we have a don't have a converView so we'll have to create a new one
         if (convertView == null || convertView.getTag() == null) {
             convertView = new ChattingItemContainer(inflater, R.layout.ytx_chatting_item_file_from);
@@ -50,35 +44,35 @@ public class FileRxRow extends BaseChattingRow{
             FileRowViewHolder holder = new FileRowViewHolder(mRowType);
             convertView.setTag(holder.initBaseHolder(convertView, true));
         }
-		return convertView;
-	}
+        return convertView;
+    }
 
-	@Override
-	public void buildChattingData(final Context context, BaseHolder baseHolder,
-			ECMessage detail, int position) {
-		FileRowViewHolder holder = (FileRowViewHolder) baseHolder;
-		if(detail != null) {
+    @Override
+    public void buildChattingData(final Context context, BaseHolder baseHolder,
+                                  ECMessage detail, int position) {
+        FileRowViewHolder holder = (FileRowViewHolder) baseHolder;
+        if (detail != null) {
 
-			ECMessage msg = detail;
-			ECFileMessageBody body = (ECFileMessageBody) msg.getBody();
-			holder.contentTv.setText(body.getFileName());
-			ViewHolderTag holderTag = ViewHolderTag.createTag(detail, ViewHolderTag.TagType.TAG_VIEW_FILE, position);
-        	holder.contentTv.setTag(holderTag);
-        	holder.contentTv.setOnClickListener(((ECChattingActivity) context).getChattingAdapter().getOnClickListener());
-        	
+            ECMessage msg = detail;
+            ECFileMessageBody body = (ECFileMessageBody) msg.getBody();
+            holder.contentTv.setText(body.getFileName());
+            ViewHolderTag holderTag = ViewHolderTag.createTag(detail, ViewHolderTag.TagType.TAG_VIEW_FILE, position);
+            holder.contentTv.setTag(holderTag);
+            holder.contentTv.setOnClickListener(((ECChattingActivity) context).getChattingAdapter().getOnClickListener());
+
         }
-	}
-	
-	@Override
-	public int getChatViewType() {
-		return ChattingRowType.FILE_ROW_RECEIVED.ordinal();
-	}
+    }
 
-	@Override
-	public boolean onCreateRowContextMenu(ContextMenu contextMenu,
-			View targetView, ECMessage detail) {
+    @Override
+    public int getChatViewType() {
+        return ChattingRowType.FILE_ROW_RECEIVED.ordinal();
+    }
 
-		return false;
-	}
+    @Override
+    public boolean onCreateRowContextMenu(ContextMenu contextMenu,
+                                          View targetView, ECMessage detail) {
+
+        return false;
+    }
 
 }

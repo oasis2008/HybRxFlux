@@ -9,7 +9,8 @@
  *  An additional intellectual property rights grant can be found
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
- */package com.yuntongxun.kitsdk.utils;
+ */
+package com.yuntongxun.kitsdk.utils;
 
 import android.util.Log;
 
@@ -133,7 +134,7 @@ public class LogUtil {
         isDebug = flag;
     }
 
-    
+
     public static void printFile(InputStream is, String path) {
         FileOutputStream fos = null;
         byte[] temp = null;
@@ -191,7 +192,7 @@ public class LogUtil {
         }
     }
 
-    public static  String getLogUtilsTag(Class<? extends Object> clazz) {
+    public static String getLogUtilsTag(Class<? extends Object> clazz) {
         return LogUtil.TAG + "." + clazz.getSimpleName();
     }
 }

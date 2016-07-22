@@ -48,7 +48,6 @@ public class RxBus {
      * 此时Subject作为Observer接收到事件（onNext），
      * 然后会发射给所有订阅该Subject的订阅者。
      *
-     *
      * @param o 可以是RxAction或者RxStoreChange
      */
     public void send(Object o) {

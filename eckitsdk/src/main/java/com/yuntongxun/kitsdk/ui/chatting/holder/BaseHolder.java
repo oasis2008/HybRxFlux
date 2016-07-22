@@ -13,159 +13,157 @@
 package com.yuntongxun.kitsdk.ui.chatting.holder;
 
 
-
 import com.yuntongxun.eck
 tsdk.R
 
 import android.view.Vi
 w;
-imp rt android.widget.CheckBo
-;
-impo t android.widget.ImageView;
+        imp rt android.widget.CheckBo
+        ;
+        impo t android.widget.ImageView;
 import android.widget.ProgressB
 
-;
+        ;
 impo t android.widget.TextView;
 
 
-
 public class BaseHolder {
-	
-	/**
-	 * row type {@link ChattingRowType}
-	 */
-	protected int type;
 
-	/**
-	 * for upload message .
-	 */
-	protected ProgressBar progressBar;
-	protected ImageView chattingAvatar;
-	protected TextView chattingTime;
-	protected TextView chattingUser;
-	protected CheckBox checkBox;
-	/**
-	 * The file Im message transmission state, success or failure or sending
-	 * @see SQLiteManager#IMESSENGER_STATUS_SUCCEED
-	 * @see SQLiteManager#IMESSENGER_STATUS_SENT
-	 * @see SQLiteManager#IMESSENGER_STATUS_SENDING
-	 * @see SQLiteManager#IMESSENGER_STATUS_FAIL
-	 */
-	protected ImageView uploadState;
-	protected View baseView;
-	protected View clickAreaView;
-	protected View chattingMaskView;
-	
-	public BaseHolder(int type) {
-		this.type = type;
-	}
+    /**
+     * row type {@link ChattingRowType}
+     */
+    protected int type;
 
-	/**
-	 * @param baseView
-	 */
-	public BaseHolder(View baseView) {
-		super();
-		this.baseView = baseView;
-	}
-	
-	public void initBaseHolder(View baseView) {
-		this.baseView = baseView;
-		chattingTime = (TextView) baseView.findViewById(R.id.chatting_time_tv);
-		chattingAvatar = (ImageView) baseView.findViewById(R.id.chatting_avatar_iv);
-		clickAreaView = baseView.findViewById(R.id.chatting_click_area);
-		uploadState  = (ImageView) baseView.findViewById(R.id.chatting_state_iv);
-	}
-	
-	/**
-	 * 
-	 * @param edit
-	 */
-	public void setEditMode(boolean edit) {
-		int visibility = edit? View.VISIBLE:View.GONE;
-		if(checkBox != null && checkBox.getVisibility() != visibility) {
-			checkBox.setVisibility(visibility);
-		}
-		
-		if(chattingMaskView != null && chattingMaskView.getVisibility() != visibility) {
-			chattingMaskView.setVisibility(visibility);
-		}
-		
-	}
+    /**
+     * for upload message .
+     */
+    protected ProgressBar progressBar;
+    protected ImageView chattingAvatar;
+    protected TextView chattingTime;
+    protected TextView chattingUser;
+    protected CheckBox checkBox;
+    /**
+     * The file Im message transmission state, success or failure or sending
+     *
+     * @see SQLiteManager#IMESSENGER_STATUS_SUCCEED
+     * @see SQLiteManager#IMESSENGER_STATUS_SENT
+     * @see SQLiteManager#IMESSENGER_STATUS_SENDING
+     * @see SQLiteManager#IMESSENGER_STATUS_FAIL
+     */
+    protected ImageView uploadState;
+    protected View baseView;
+    protected View clickAreaView;
+    protected View chattingMaskView;
 
-	/**
-	 * @return the baseView
-	 */
-	public View getBaseView() {
-		return baseView;
-	}
+    public BaseHolder(int type) {
+        this.type = type;
+    }
 
-	/**
-	 * @return the type
-	 */
-	public int getType() {
-		return type;
-	}
+    /**
+     * @param baseView
+     */
+    public BaseHolder(View baseView) {
+        super();
+        this.baseView = baseView;
+    }
 
-	/**
-	 * @return the progressBar
-	 */
-	public ProgressBar getUploadProgressBar() {
-		return progressBar;
-	}
+    public void initBaseHolder(View baseView) {
+        this.baseView = baseView;
+        chattingTime = (TextView) baseView.findViewById(R.id.chatting_time_tv);
+        chattingAvatar = (ImageView) baseView.findViewById(R.id.chatting_avatar_iv);
+        clickAreaView = baseView.findViewById(R.id.chatting_click_area);
+        uploadState = (ImageView) baseView.findViewById(R.id.chatting_state_iv);
+    }
 
-	/**
-	 * @return the chattingAvatar
-	 */
-	public ImageView getChattingAvatar() {
-		return chattingAvatar;
-	}
+    /**
+     * @param edit
+     */
+    public void setEditMode(boolean edit) {
+        int visibility = edit ? View.VISIBLE : View.GONE;
+        if (checkBox != null && checkBox.getVisibility() != visibility) {
+            checkBox.setVisibility(visibility);
+        }
 
-	/**
-	 * @return the chattingTime
-	 */
-	public TextView getChattingTime() {
-		return chattingTime;
-	}
+        if (chattingMaskView != null && chattingMaskView.getVisibility() != visibility) {
+            chattingMaskView.setVisibility(visibility);
+        }
 
-	/**
-	 * @param chattingTime the chattingTime to set
-	 */
-	public void setChattingTime(TextView chattingTime) {
-		this.chattingTime = chattingTime;
-	}
+    }
 
-	/**
-	 * @return the chattingUser
-	 */
-	public TextView getChattingUser() {
-		return chattingUser;
-	}
+    /**
+     * @return the baseView
+     */
+    public View getBaseView() {
+        return baseView;
+    }
 
-	/**
-	 * @return the checkBox
-	 */
-	public CheckBox getCheckBox() {
-		return checkBox;
-	}
+    /**
+     * @return the type
+     */
+    public int getType() {
+        return type;
+    }
 
-	/**
-	 * @return the uploadState
-	 */
-	public ImageView getUploadState() {
-		return uploadState;
-	}
+    /**
+     * @return the progressBar
+     */
+    public ProgressBar getUploadProgressBar() {
+        return progressBar;
+    }
 
-	/**
-	 * @return the clickAreaView
-	 */
-	public View getClickAreaView() {
-		return clickAreaView;
-	}
+    /**
+     * @return the chattingAvatar
+     */
+    public ImageView getChattingAvatar() {
+        return chattingAvatar;
+    }
 
-	/**
-	 * @return the chattingMaskView
-	 */
-	public View getChattingMaskView() {
-		return chattingMaskView;
-	}
+    /**
+     * @return the chattingTime
+     */
+    public TextView getChattingTime() {
+        return chattingTime;
+    }
+
+    /**
+     * @param chattingTime the chattingTime to set
+     */
+    public void setChattingTime(TextView chattingTime) {
+        this.chattingTime = chattingTime;
+    }
+
+    /**
+     * @return the chattingUser
+     */
+    public TextView getChattingUser() {
+        return chattingUser;
+    }
+
+    /**
+     * @return the checkBox
+     */
+    public CheckBox getCheckBox() {
+        return checkBox;
+    }
+
+    /**
+     * @return the uploadState
+     */
+    public ImageView getUploadState() {
+        return uploadState;
+    }
+
+    /**
+     * @return the clickAreaView
+     */
+    public View getClickAreaView() {
+        return clickAreaView;
+    }
+
+    /**
+     * @return the chattingMaskView
+     */
+    public View getChattingMaskView() {
+        return chattingMaskView;
+    }
 }

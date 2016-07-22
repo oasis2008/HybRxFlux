@@ -17,15 +17,15 @@ import android.view.View;
  */
 public interface ECCustomConversationListActionProvider extends IBaseProvider {
 
-	boolean onCustomConversationItemClick(Context context,
-			ECConversation conversation);
+    boolean onCustomConversationItemClick(Context context,
+                                          ECConversation conversation);
 
-	boolean onCustonConversationLongClick(Context context,
-			ECConversation conversation);
+    boolean onCustonConversationLongClick(Context context,
+                                          ECConversation conversation);
 
-	boolean onCustomConversationMenuItemClick(Context context,
-			ECConversation conversation, int position);
+    boolean onCustomConversationMenuItemClick(Context context,
+                                              ECConversation conversation, int position);
 
-	boolean onCustomConversationListRightavigationBarClick(Context context);
+    boolean onCustomConversationListRightavigationBarClick(Context context);
 
 }

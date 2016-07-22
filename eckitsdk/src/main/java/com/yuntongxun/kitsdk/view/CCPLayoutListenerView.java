@@ -9,7 +9,8 @@
  *  An additional intellectual property rights grant can be found
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
- */package com.yuntongxun.kitsdk.view;
+ */
+package com.yuntongxun.kitsdk.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -28,6 +29,7 @@ public class CCPLayoutListenerView extends FrameLayout {
 
     private OnCCPViewLayoutListener mOnLayoutListener;
     private OnCCPViewSizeChangedListener mOnSizeChangedListener;
+
     /**
      * @param context
      */
@@ -46,7 +48,7 @@ public class CCPLayoutListenerView extends FrameLayout {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
-        if(this.mOnLayoutListener != null ) {
+        if (this.mOnLayoutListener != null) {
             this.mOnLayoutListener.onViewLayout();
         }
     }
@@ -70,11 +72,10 @@ public class CCPLayoutListenerView extends FrameLayout {
     }
 
 
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if(this.mOnSizeChangedListener != null ) {
+        if (this.mOnSizeChangedListener != null) {
             this.mOnSizeChangedListener.onSizeChanged(w, h, oldw, oldh);
         }
     }
@@ -94,7 +95,7 @@ public class CCPLayoutListenerView extends FrameLayout {
     }
 
     public interface OnCCPViewSizeChangedListener {
-        void onSizeChanged(int w, int h, int oldw, int oldh) ;
+        void onSizeChanged(int w, int h, int oldw, int oldh);
     }
 }
 

@@ -18,10 +18,8 @@ import android.view.View;
  */
 public interface ECCustomConversationListUIProvider extends IBaseProvider {
 
-	List<String> getCustomConversationItemLongClickMenu(Fragment f,
-			ECConversation conversation);
+    List<String> getCustomConversationItemLongClickMenu(Fragment f,
+                                                        ECConversation conversation);
 
-
-	
 
 }

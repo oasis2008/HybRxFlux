@@ -14,12 +14,13 @@ package com.yuntongxun.kitsdk.ui.chatting.model;
 
 /**
  * 会话Item
+ *
  * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-10
  * @version 4.0
+ * @date 2014-12-10
  */
 public class ConversationItem {
 
-	public CharSequence mUsername;
-	public CharSequence mTimeDescribe;
+    public CharSequence mUsername;
+    public CharSequence mTimeDescribe;
 }

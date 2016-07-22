@@ -50,10 +50,10 @@ public class FileStore extends RxStore implements FileStoreInterface {
                 upToken = action.get(Keys.UP_TOKEN);
                 break;
             case Actions.UPLOAD_ONE_FILE:
-                fileKey=action.get(Keys.FILE_KEY);
+                fileKey = action.get(Keys.FILE_KEY);
                 break;
             case Actions.UPLOAD_All_FILE:
-                fileKeyList=action.get(Keys.FILE_KEY_LIST);
+                fileKeyList = action.get(Keys.FILE_KEY_LIST);
             default: // IMPORTANT if we don't modify the store just ignore
                 return;
         }
@@ -66,7 +66,7 @@ public class FileStore extends RxStore implements FileStoreInterface {
     }
 
     @Override
-    public String getFileKey(){
+    public String getFileKey() {
         return fileKey;
     }
 

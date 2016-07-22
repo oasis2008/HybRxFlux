@@ -34,7 +34,7 @@ public class BaseDialog extends Dialog {
 		 */
         this.mWindow = this.getWindow();
         // WindowManager.LayoutParams lp = this.mWindow.getAttributes();
-		/*
+        /*
 		 * lp.x与lp.y表示相对于原始位置的偏移.
 		 * 当参数值包含Gravity.LEFT时,对话框出现在左边,所以lp.x就表示相对左边的偏移,负值忽略.
 		 * 当参数值包含Gravity.RIGHT时,对话框出现在右边,所以lp.x就表示相对右边的偏移,负值忽略.

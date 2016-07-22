@@ -9,7 +9,8 @@
  *  An additional intellectual property rights grant can be found
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
- */package com.yuntongxun.kitsdk.view;
+ */
+package com.yuntongxun.kitsdk.view;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,16 +28,17 @@ public class PhotoBitmapDrawable extends BitmapDrawable {
     private int mColor;
     private int mWidth;
     private boolean mStroke;
+
     /**
      * @param bitmap
      * @deprecated
      */
-    public PhotoBitmapDrawable(Bitmap bitmap , Bitmap mask , Paint paint) {
+    public PhotoBitmapDrawable(Bitmap bitmap, Bitmap mask, Paint paint) {
         super(bitmap);
         init(mask, paint);
     }
 
-    private void init(Bitmap mask , Paint paint){
+    private void init(Bitmap mask, Paint paint) {
         mPaint = paint;
         mMaskBitmap = mask;
         mRect = new Rect(0, 0, 0, 0);

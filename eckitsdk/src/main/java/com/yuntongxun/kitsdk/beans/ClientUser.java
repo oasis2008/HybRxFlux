@@ -23,13 +23,21 @@ public class ClientUser implements Parcelable {
         }
     };
 
-    /**用户注册V账号*/
+    /**
+     * 用户注册V账号
+     */
     private String userId;
-    /**用户昵称*/
+    /**
+     * 用户昵称
+     */
     private String userName = "";
-    /**用户注册Appkey*/
+    /**
+     * 用户注册Appkey
+     */
     private String appKey;
-    /**用户注册Token*/
+    /**
+     * 用户注册Token
+     */
     private String appToken;
     private String password;
     // 1男
@@ -38,7 +46,7 @@ public class ClientUser implements Parcelable {
     private int pVersion;
     private ECInitParams.LoginAuthType loginAuthType;
 
-    
+
     public int getpVersion() {
         return pVersion;
     }
@@ -131,15 +139,15 @@ public class ClientUser implements Parcelable {
     public String toString() {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userId" , userId);
-            jsonObject.put("userName" , userName);
-            jsonObject.put("appKey" , appKey);
-            jsonObject.put("appToken" , appToken);
-            jsonObject.put("inviteCode" , password);
-            jsonObject.put("sex" , sex);
-            jsonObject.put("birth" , birth);
-            jsonObject.put("pVersion" , pVersion);
-            jsonObject.put("loginAuthType" , loginAuthType!=null?loginAuthType.getAuthTypeValue():ECInitParams.LoginAuthType.NORMAL_AUTH);
+            jsonObject.put("userId", userId);
+            jsonObject.put("userName", userName);
+            jsonObject.put("appKey", appKey);
+            jsonObject.put("appToken", appToken);
+            jsonObject.put("inviteCode", password);
+            jsonObject.put("sex", sex);
+            jsonObject.put("birth", birth);
+            jsonObject.put("pVersion", pVersion);
+            jsonObject.put("loginAuthType", loginAuthType != null ? loginAuthType.getAuthTypeValue() : ECInitParams.LoginAuthType.NORMAL_AUTH);
             return jsonObject.toString();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -157,31 +165,31 @@ public class ClientUser implements Parcelable {
         JSONObject object = null;
         try {
             object = new JSONObject(input);
-            if(object.has("userId")) {
+            if (object.has("userId")) {
                 this.userId = object.getString("userId");
             }
-            if(object.has("userName")) {
+            if (object.has("userName")) {
                 this.userName = object.getString("userName");
             }
-            if(object.has("appKey")) {
+            if (object.has("appKey")) {
                 this.appKey = object.getString("appKey");
             }
-            if(object.has("appToken")) {
+            if (object.has("appToken")) {
                 this.appToken = object.getString("appToken");
             }
-            if(object.has("inviteCode")) {
+            if (object.has("inviteCode")) {
                 this.password = object.getString("inviteCode");
             }
-            if(object.has("sex")) {
+            if (object.has("sex")) {
                 this.sex = object.getInt("sex");
             }
-            if(object.has("birth")) {
+            if (object.has("birth")) {
                 this.birth = object.getLong("birth");
             }
-            if(object.has("pVersion")) {
+            if (object.has("pVersion")) {
                 this.pVersion = object.getInt("pVersion");
             }
-            if(object.has("loginAuthType")) {
+            if (object.has("loginAuthType")) {
                 this.loginAuthType = ECInitParams.LoginAuthType.NORMAL_AUTH;//.fromId(object.getInt("loginAuthType"));
             }
         } catch (JSONException e) {

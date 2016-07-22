@@ -19,11 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 
-
-
-
-
-
 import com.yuntongxun.eckitsdk.R;
 import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.im.ECFileMessageBody;
@@ -41,7 +36,7 @@ public class VoiceTxRow extends BaseChattingRow {
         super(type);
     }
 
-    
+
     @Override
     public View buildChatView(LayoutInflater inflater, View convertView) {
         //we have a don't have a converView so we'll have to create a new one
@@ -61,17 +56,17 @@ public class VoiceTxRow extends BaseChattingRow {
 
         final VoiceRowViewHolder holder = (VoiceRowViewHolder) baseHolder;
         holder.voiceAnim.setVoiceFrom(false);
-        if(detail != null) {
-            if(detail.getMsgStatus() == ECMessage.MessageStatus.SENDING) {
+        if (detail != null) {
+            if (detail.getMsgStatus() == ECMessage.MessageStatus.SENDING) {
                 holder.voiceSending.setVisibility(View.VISIBLE);
             } else {
                 holder.voiceSending.setVisibility(View.GONE);
             }
 
-            File file = new File(((ECFileMessageBody)detail.getBody()).getLocalUrl());
+            File file = new File(((ECFileMessageBody) detail.getBody()).getLocalUrl());
             long length = file.length();
 
-            VoiceRowViewHolder.initVoiceRow(holder, detail, position, (ECChattingActivity)context, false);
+            VoiceRowViewHolder.initVoiceRow(holder, detail, position, (ECChattingActivity) context, false);
             OnClickListener onClickListener = ((ECChattingActivity) context).getChattingAdapter().getOnClickListener();
             getMsgStateResId(position, holder, detail, onClickListener);
         }

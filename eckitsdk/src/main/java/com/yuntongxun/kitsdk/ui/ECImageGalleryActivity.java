@@ -36,9 +36,7 @@ import com.yuntongxun.kitsdk.utils.LogUtil;
 import java.io.File;
 
 
-
-public class ECImageGalleryActivity extends ECSuperActivity implements View.OnClickListener{
-
+public class ECImageGalleryActivity extends ECSuperActivity implements View.OnClickListener {
 
 
     private Bitmap mThumbnailBitmap;
@@ -71,21 +69,21 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
             if (null != mMsgEntry.getRemoteUrl() && !TextUtils.isEmpty(mMsgEntry.getRemoteUrl())) {// load
                 String saveName = DemoUtils.md5(mMsgEntry.getRemoteUrl()) + ".jpg";
                 LogUtil.d("this image saveName " + saveName);
-                if (new File(FileAccessor.getImagePathName() , saveName).exists())	{
+                if (new File(FileAccessor.getImagePathName(), saveName).exists()) {
                     System.gc();
-                    Drawable fromPath = Drawable.createFromPath(FileAccessor.getImagePathName()+"/"+saveName);
-                    if(fromPath == null){
+                    Drawable fromPath = Drawable.createFromPath(FileAccessor.getImagePathName() + "/" + saveName);
+                    if (fromPath == null) {
                         finish();
                     }
-                    if(mAsynImageDownload != null && mMsgEntry != null){
+                    if (mAsynImageDownload != null && mMsgEntry != null) {
                         mAsynImageDownload.removeKeyCache(mMsgEntry.getId());
                     }
                     LogUtil.d("loading from sdcard " + saveName + ".jpg");
-                    if(fromPath != null && mImageView != null){
+                    if (fromPath != null && mImageView != null) {
                         mImageView.setImageDrawable(fromPath);
                         mpProgressBar.setVisibility(View.GONE);
                     }
-                }else{
+                } else {
                     mpProgressBar.setVisibility(View.VISIBLE);
                 }
             }
@@ -117,11 +115,11 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
                         | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         mAsynImageDownload = ChattingAysnImageLoader.getInstance(this);
-        LogUtil.d(LogUtil.getLogUtilsTag(ECImageGalleryActivity.class) ,"load is  " + mAsynImageDownload.toString());
+        LogUtil.d(LogUtil.getLogUtilsTag(ECImageGalleryActivity.class), "load is  " + mAsynImageDownload.toString());
 
         Bundle mBundle = getIntent().getExtras();
         if (mBundle != null) {
-            Object o = mBundle .getParcelable(CHATTING_MESSAGE);
+            Object o = mBundle.getParcelable(CHATTING_MESSAGE);
             if (o != null && o instanceof ImageMsgInfoEntry) {
                 mMsgEntry = (ImageMsgInfoEntry) o;
             }
@@ -129,9 +127,9 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
 
         if (mMsgEntry == null) {
             finish();
-            return ;
+            return;
         }
-        if(mThumbnailBitmap == null){
+        if (mThumbnailBitmap == null) {
             mThumbnailBitmap = BitmapFactory.decodeFile(FileAccessor.getImagePathName() + "/" + mMsgEntry.getThumbnailurl());
         }
 
@@ -147,18 +145,17 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
     public void onBaseContentViewAttach(View contentView) {
         View activityLayoutView = getActivityLayoutView();
         ((ViewGroup) activityLayoutView.getParent()).removeView(activityLayoutView);
-        ((ViewGroup) getWindow().getDecorView()).addView(activityLayoutView , 1);
+        ((ViewGroup) getWindow().getDecorView()).addView(activityLayoutView, 1);
 
     }
 
     /**
-     *
      * @param request
      */
     private void requestStatusbars(boolean request) {
-        if(request) {
+        if (request) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            return ;
+            return;
         }
         LogUtil.d(LogUtil.getLogUtilsTag(getClass()), "request custom title");
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -166,13 +163,14 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
 
     /**
      * Full screen, hidden actionBar
+     *
      * @param visible
      */
     void setTitleFooterVisible(boolean visible) {
-        if(visible) {
+        if (visible) {
             requestStatusbars(false);
             showTitleView();
-            return ;
+            return;
         }
 
         requestStatusbars(true);
@@ -191,13 +189,12 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
         // 查看大图是否已经在本地
 
 
-
         mImageUrl = mMsgEntry.getPicurl();
         if (null != mImageUrl && !TextUtils.isEmpty(mImageUrl) && !mImageUrl.startsWith("http")) {// load
             Drawable drawable = null;
-            if (new File(FileAccessor.getImagePathName() , mImageUrl).exists()) {
+            if (new File(FileAccessor.getImagePathName(), mImageUrl).exists()) {
                 System.gc();
-                drawable = Drawable.createFromPath(FileAccessor.getImagePathName()+"/"+mImageUrl);
+                drawable = Drawable.createFromPath(FileAccessor.getImagePathName() + "/" + mImageUrl);
                 mThumbnailBitmap = BitmapFactory.decodeFile(FileAccessor.getImagePathName() + "/" + mMsgEntry.getThumbnailurl());
                 if (drawable == null) {
                     finish();
@@ -209,9 +206,9 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
             // 本地文件已经损坏
         } else {
             String thumbnailurl = mMsgEntry.getThumbnailurl();
-            if(new File(thumbnailurl).exists()) {
+            if (new File(thumbnailurl).exists()) {
                 mImageView.setImageBitmap(BitmapFactory.decodeFile(thumbnailurl));
-                return ;
+                return;
             }
             mImageView.setImageBitmap(mThumbnailBitmap);
             mAsynImageDownload.addTask(null, mMsgEntry, false);
@@ -225,7 +222,7 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
      */
     @Override
     protected void onResume() {
-        if(mAsynImageDownload != null){
+        if (mAsynImageDownload != null) {
             mAsynImageDownload.setCallBack(mChattingImageCallBack);
         }
         super.onResume();
@@ -234,10 +231,10 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mImageView != null && mImageView.getDrawable() != null ){
-            Bitmap bitmap = ((BitmapDrawable)mImageView.getDrawable()).getBitmap();
+        if (mImageView != null && mImageView.getDrawable() != null) {
+            Bitmap bitmap = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
             mImageView.setImageDrawable(null);
-            if(bitmap != null){
+            if (bitmap != null) {
                 bitmap.recycle();
                 bitmap = null;
             }
@@ -259,15 +256,14 @@ public class ECImageGalleryActivity extends ECSuperActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         mHandlerCallbck.sendEmptyMessageDelayed(1, 350L);
-        
-        
-        if(v.getId()==R.id.btn_left){
-        	 hideSoftKeyboard();
-             finish();
+
+
+        if (v.getId() == R.id.btn_left) {
+            hideSoftKeyboard();
+            finish();
         }
-        
-        
-        
+
+
     }
 
 

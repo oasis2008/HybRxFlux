@@ -11,6 +11,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 package com.yuntongxun.kitsdk.db;
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,15 +26,16 @@ import java.util.List;
 
 /**
  * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-18
  * @version 4.0
+ * @date 2014-12-18
  */
 public class GroupSqlManager extends AbstractSQLManager {
 
     Object mLock = new Object();
     private static GroupSqlManager sInstance;
+
     public static GroupSqlManager getInstance() {
-        if(sInstance == null) {
+        if (sInstance == null) {
             sInstance = new GroupSqlManager();
         }
         return sInstance;
@@ -42,16 +44,17 @@ public class GroupSqlManager extends AbstractSQLManager {
     private GroupSqlManager() {
 
     }
-    
+
     /**
      * 删除群组
+     *
      * @param groupId
      * @return
      */
     public static int delGroup(String groupId) {
         try {
             Intent intent = new Intent(IMessageSqlManager.ACTION_GROUP_DEL);
-            intent.putExtra("group_id" , groupId);
+            intent.putExtra("group_id", groupId);
             CCPAppManager.getContext().sendBroadcast(intent);
             return getInstance().sqliteDB().delete(DatabaseHelper.TABLES_NAME_GROUPS_2, "groupid = ?", new String[]{groupId});
         } catch (Exception e) {
@@ -62,11 +65,12 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 查询群组列表
+     *
      * @return
      */
     public static Cursor getGroupCursor() {
         try {
-            String sql = "select groupid, name, type, count ,permission ,joined from "+ DatabaseHelper.TABLES_NAME_GROUPS_2+" where joined =1 order by joined desc , create_date desc";
+            String sql = "select groupid, name, type, count ,permission ,joined from " + DatabaseHelper.TABLES_NAME_GROUPS_2 + " where joined =1 order by joined desc , create_date desc";
             return getInstance().sqliteDB().rawQuery(sql, null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,14 +82,16 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 查询加入的群组
+     *
      * @return
      */
     public static List<ECGroup> getJoinGroups() {
         ArrayList<ECGroup> mArrayList = new ArrayList<ECGroup>();
         try {
-            String sql = "select groupid, name from "+ DatabaseHelper.TABLES_NAME_GROUPS_2+" where joined=1 order by create_date desc";;
+            String sql = "select groupid, name from " + DatabaseHelper.TABLES_NAME_GROUPS_2 + " where joined=1 order by create_date desc";
+            ;
             Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
-            if(cursor != null && cursor.getCount() > 0) {
+            if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
                     ECGroup group = new ECGroup();
                     group.setGroupId(cursor.getString(0));
@@ -102,14 +108,15 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 判断是否加入
+     *
      * @param groupId
      * @return
      */
     public static boolean getJoinState(String groupId) {
-        String sql = "select groupid, joined from "+ DatabaseHelper.TABLES_NAME_GROUPS_2+" where groupId = '" + groupId + "'";
+        String sql = "select groupid, joined from " + DatabaseHelper.TABLES_NAME_GROUPS_2 + " where groupId = '" + groupId + "'";
         Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
-        if(cursor != null && cursor.getCount() > 0) {
-            if(cursor.moveToFirst()) {
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
                 int joind = cursor.getInt(1);
                 cursor.close();
                 cursor = null;
@@ -120,9 +127,9 @@ public class GroupSqlManager extends AbstractSQLManager {
     }
 
 
-
     /**
      * 批量更新群组
+     *
      * @param imGroups
      * @param joined
      * @throws android.database.SQLException
@@ -141,8 +148,8 @@ public class GroupSqlManager extends AbstractSQLManager {
                 // Batch processing operation
                 for (ECGroup imGroup : imGroups) {
                     try {
-                        long row = insertGroup(imGroup, joined == 1 , joined == -1);
-                        if(row != -1) {
+                        long row = insertGroup(imGroup, joined == 1, joined == -1);
+                        if (row != -1) {
                             rows.add(row);
                         }
                     } catch (Exception e) {
@@ -165,11 +172,12 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 更新群组到数据库
+     *
      * @param group
      * @param join
      */
-    public static long insertGroup(ECGroup group , boolean join , boolean ignoreJoin) {
-        if(group == null || TextUtils.isEmpty(group.getGroupId())) {
+    public static long insertGroup(ECGroup group, boolean join, boolean ignoreJoin) {
+        if (group == null || TextUtils.isEmpty(group.getGroupId())) {
             return -1L;
         }
         ContentValues values = null;
@@ -179,18 +187,18 @@ public class GroupSqlManager extends AbstractSQLManager {
             values.put(GroupColumn.GROUP_ID, group.getGroupId());
             values.put(GroupColumn.GROUP_NAME, group.getName());
             values.put(GroupColumn.GROUP_PERMISSION, group.getPermission().ordinal());
-            values.put(GroupColumn.GROUP_ISNOTICE, group.isNotice()?1:2);
+            values.put(GroupColumn.GROUP_ISNOTICE, group.isNotice() ? 1 : 2);
             values.put(GroupColumn.GROUP_TYPE, group.getGroupType());
-            if(!TextUtils.isEmpty(group.getOwner())) {
+            if (!TextUtils.isEmpty(group.getOwner())) {
                 values.put(GroupColumn.GROUP_OWNER, group.getOwner());
                 values.put(GroupColumn.GROUP_DECLARED, group.getDeclare());
             }
             values.put(GroupColumn.GROUP_DATE_CREATED, group.getDateCreated());
             values.put(GroupColumn.GROUP_MEMBER_COUNTS, group.getCount());
-            if(!ignoreJoin)
+            if (!ignoreJoin)
                 values.put(GroupColumn.GROUP_JOINED, join);
 
-            if(isExitGroup(group.getGroupId())) {
+            if (isExitGroup(group.getGroupId())) {
                 return getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_GROUPS_2, values, "groupid = ?", new String[]{group.getGroupId()});
             }
             long rowId = getInstance().sqliteDB().insert(DatabaseHelper.TABLES_NAME_GROUPS_2, null, values);
@@ -209,14 +217,15 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 群组是否存在
+     *
      * @param groupId
      * @return
      */
     public static boolean isExitGroup(String groupId) {
-        String sql = "select groupid from "+ DatabaseHelper.TABLES_NAME_GROUPS_2+" where groupid ='" + groupId + "'";
+        String sql = "select groupid from " + DatabaseHelper.TABLES_NAME_GROUPS_2 + " where groupid ='" + groupId + "'";
         try {
             Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
-            if(cursor != null && cursor.getCount() > 0) {
+            if (cursor != null && cursor.getCount() > 0) {
                 return true;
             }
         } catch (Exception e) {
@@ -227,21 +236,22 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     public static void checkGroup(String contactid) {
 
-        if(!isExitGroup(contactid)) {
+        if (!isExitGroup(contactid)) {
             ECGroup group = new ECGroup();
             group.setGroupId(contactid);
             group.setName(contactid);
-            insertGroup(group , true , false);
+            insertGroup(group, true, false);
         }
     }
 
     /**
      * 更新群组信息
+     *
      * @param group
      * @return
      */
     public static long updateGroup(ECGroup group) {
-        if(group == null || TextUtils.isEmpty(group.getGroupId())) {
+        if (group == null || TextUtils.isEmpty(group.getGroupId())) {
             return -1L;
         }
         ContentValues values = null;
@@ -272,6 +282,7 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 更新加入状态
+     *
      * @param groupId
      * @return
      */
@@ -281,14 +292,15 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 更新群组加入状态
+     *
      * @param groupId
      * @param join
      * @return
      */
-    public static int updateJoinStatus(String groupId , boolean join) {
+    public static int updateJoinStatus(String groupId, boolean join) {
         try {
             ContentValues values = new ContentValues();
-            values.put(GroupColumn.GROUP_JOINED, join ? 1:0);
+            values.put(GroupColumn.GROUP_JOINED, join ? 1 : 0);
             return getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_GROUPS_2, values, "groupid = ?", new String[]{groupId});
         } catch (Exception e) {
             e.printStackTrace();
@@ -299,6 +311,7 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 清空所有群组
+     *
      * @return
      */
     public static int delALLGroup() {
@@ -312,6 +325,7 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 查询所有的groupId;
+     *
      * @return
      */
     public static List<String> getAllGroupId() {
@@ -320,10 +334,10 @@ public class GroupSqlManager extends AbstractSQLManager {
         try {
             String sql = "select groupid from " + DatabaseHelper.TABLES_NAME_GROUPS_2;
             cursor = getInstance().sqliteDB().rawQuery(sql, null);
-            if(cursor.getCount() > 0) {
+            if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
                     String groupid = cursor.getString(0);
-                    if(TextUtils.isEmpty(groupid)) {
+                    if (TextUtils.isEmpty(groupid)) {
                         continue;
                     }
                     groupsId.add(groupid);
@@ -332,7 +346,7 @@ public class GroupSqlManager extends AbstractSQLManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(cursor != null) {
+            if (cursor != null) {
                 cursor.close();
                 cursor = null;
             }
@@ -343,6 +357,7 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 根据加入的状态查询群组
+     *
      * @param joined
      * @return
      */
@@ -350,12 +365,12 @@ public class GroupSqlManager extends AbstractSQLManager {
         ArrayList<String> groupsId = new ArrayList<String>();
         Cursor cursor = null;
         try {
-            String sql = "select groupid from "+ DatabaseHelper.TABLES_NAME_GROUPS_2 +" where joined = " + (joined?1:0);
+            String sql = "select groupid from " + DatabaseHelper.TABLES_NAME_GROUPS_2 + " where joined = " + (joined ? 1 : 0);
             cursor = getInstance().sqliteDB().rawQuery(sql, null);
-            if(cursor.getCount() > 0) {
+            if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
                     String groupid = cursor.getString(0);
-                    if(TextUtils.isEmpty(groupid)) {
+                    if (TextUtils.isEmpty(groupid)) {
                         continue;
                     }
                     groupsId.add(groupid);
@@ -364,7 +379,7 @@ public class GroupSqlManager extends AbstractSQLManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(cursor != null) {
+            if (cursor != null) {
                 cursor.close();
                 cursor = null;
             }
@@ -375,14 +390,15 @@ public class GroupSqlManager extends AbstractSQLManager {
 
     /**
      * 查询群组详情
+     *
      * @param groupId
      * @return
      */
     public static ECGroup getECGroup(String groupId) {
         try {
-            String sql = "select name, type, count ,permission ,joined ,declared ,owner , isnotice from "+ DatabaseHelper.TABLES_NAME_GROUPS_2+" where groupid = '" + groupId + "'";
+            String sql = "select name, type, count ,permission ,joined ,declared ,owner , isnotice from " + DatabaseHelper.TABLES_NAME_GROUPS_2 + " where groupid = '" + groupId + "'";
             Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
-            if(cursor != null && cursor.getCount() > 0) {
+            if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 ECGroup group = new ECGroup();
                 group.setGroupId(groupId);
@@ -404,9 +420,9 @@ public class GroupSqlManager extends AbstractSQLManager {
     public static boolean isNeedApply(String groupId) {
         boolean joind = false;
         try {
-            String sql = "select joined from "+ DatabaseHelper.TABLES_NAME_GROUPS_2+" where groupid = '" + groupId + "'";
+            String sql = "select joined from " + DatabaseHelper.TABLES_NAME_GROUPS_2 + " where groupid = '" + groupId + "'";
             Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
-            if(cursor != null && cursor.getCount() > 0) {
+            if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 joind = cursor.getInt(0) == 1;
             }
@@ -438,15 +454,16 @@ public class GroupSqlManager extends AbstractSQLManager {
         sInstance = null;
     }
 
-    public static long updateGroupNofity(int ordinal , String groupid) {
+    public static long updateGroupNofity(int ordinal, String groupid) {
         // 群组免打扰
         ContentValues values = new ContentValues();
-        values.put(GroupColumn.GROUP_ISNOTICE , ordinal);
-        return getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_GROUPS_2 , values, " groupid='" + groupid + "'" , null);
+        values.put(GroupColumn.GROUP_ISNOTICE, ordinal);
+        return getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_GROUPS_2, values, " groupid='" + groupid + "'", null);
     }
 
     /**
      * 群组是否免打扰
+     *
      * @param groupId
      * @return
      */
@@ -454,8 +471,8 @@ public class GroupSqlManager extends AbstractSQLManager {
         String sql = "select isnotice from " + DatabaseHelper.TABLES_NAME_GROUPS_2 + " where groupid='" + groupId + "'";
         Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
         boolean isNotify = true;
-        if(cursor != null && cursor.getCount() > 0) {
-            if(cursor.moveToFirst()) {
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
                 isNotify = !(cursor.getInt(0) == 2);
             }
             cursor.close();

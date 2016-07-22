@@ -39,18 +39,22 @@ import com.yuntongxun.kitsdk.view.CCPFragment;
 
 /**
  * 群组界面
+ *
  * @author 容联•云通讯
- * @date 2014-12-4
  * @version 4.0
+ * @date 2014-12-4
  */
-public class GroupListFragment extends CCPFragment implements GroupService.Callback{
+public class GroupListFragment extends CCPFragment implements GroupService.Callback {
 
-    /**群组列表*/
+    /**
+     * 群组列表
+     */
     private ListView mListView;
-    /**群组列表信息适配器*/
+    /**
+     * 群组列表信息适配器
+     */
     private GroupAdapter mGroupAdapter;
-    
-    
+
 
     /**
      * 群组列表点击事件
@@ -60,18 +64,17 @@ public class GroupListFragment extends CCPFragment implements GroupService.Callb
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
-            if(mGroupAdapter != null) {
+            if (mGroupAdapter != null) {
                 DemoGroup dGroup = mGroupAdapter.getItem(position);
-                if(dGroup.isJoin()) {
-                    CCPAppManager.startChattingAction(getActivity() , dGroup.getGroupId() , dGroup.getName());
-                    return ;
+                if (dGroup.isJoin()) {
+                    CCPAppManager.startChattingAction(getActivity(), dGroup.getGroupId(), dGroup.getName());
+                    return;
                 }
             }
         }
 
     };
 
-   
 
     @Override
     protected int getLayoutId() {
@@ -83,7 +86,7 @@ public class GroupListFragment extends CCPFragment implements GroupService.Callb
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(mListView != null) {
+        if (mListView != null) {
             mListView.setAdapter(null);
         }
         mListView = (ListView) findViewById(R.id.group_list);
@@ -95,17 +98,12 @@ public class GroupListFragment extends CCPFragment implements GroupService.Callb
 
         findViewById(R.id.loading_tips_area).setVisibility(View.GONE);
 
-        registerReceiver(new String[]{getActivity().getPackageName() + ".inited" ,IMessageSqlManager.ACTION_GROUP_DEL});
-    
-    
-        
-    
-    
-    
+        registerReceiver(new String[]{getActivity().getPackageName() + ".inited", IMessageSqlManager.ACTION_GROUP_DEL});
+
+
     }
-    
-    
-    
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -125,7 +123,7 @@ public class GroupListFragment extends CCPFragment implements GroupService.Callb
     @Override
     protected void handleReceiver(Context context, Intent intent) {
         super.handleReceiver(context, intent);
-        if(intent.getAction().equals(new String[]{getActivity().getPackageName()+".inited"})){
+        if (intent.getAction().equals(new String[]{getActivity().getPackageName() + ".inited"})) {
             GroupService.syncGroup(this);
         } else if (IMessageSqlManager.ACTION_GROUP_DEL.equals(intent.getAction())) {
             onSyncGroup();
@@ -138,6 +136,7 @@ public class GroupListFragment extends CCPFragment implements GroupService.Callb
 
     public class GroupAdapter extends CCPListAdapter<DemoGroup> {
         int padding;
+
         /**
          * @param ctx
          */
@@ -150,8 +149,8 @@ public class GroupListFragment extends CCPFragment implements GroupService.Callb
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = null;
             ViewHolder mViewHolder = null;
-            if(convertView == null || convertView.getTag() == null) {
-                view = View.inflate(mContext , R.layout.group_item, null);
+            if (convertView == null || convertView.getTag() == null) {
+                view = View.inflate(mContext, R.layout.group_item, null);
 
                 mViewHolder = new ViewHolder();
                 mViewHolder.groupitem_avatar_iv = (ImageView) view.findViewById(R.id.groupitem_avatar_iv);
@@ -165,15 +164,15 @@ public class GroupListFragment extends CCPFragment implements GroupService.Callb
             }
 
             DemoGroup group = getItem(position);
-            if(group != null) {
-               
-                    mViewHolder.groupitem_avatar_iv.setImageResource(R.drawable.group_head);
-                    mViewHolder.groupitem_avatar_iv.setPadding(0, 0, 0, 0);
-                
+            if (group != null) {
+
+                mViewHolder.groupitem_avatar_iv.setImageResource(R.drawable.group_head);
+                mViewHolder.groupitem_avatar_iv.setPadding(0, 0, 0, 0);
+
                 mViewHolder.group_name.setText(TextUtils.isEmpty(group.getName()) ? group.getGroupId() : group.getName());
                 mViewHolder.group_id.setText(getString(R.string.str_group_id_fmt, DemoUtils.getGroupShortId(group.getGroupId())));
-                mViewHolder.join_state.setText(group.isJoin() ?"已加入" :"");
-                mViewHolder.join_state.setVisibility(group.isJoin()? View.VISIBLE:View.GONE);
+                mViewHolder.join_state.setText(group.isJoin() ? "已加入" : "");
+                mViewHolder.join_state.setVisibility(group.isJoin() ? View.VISIBLE : View.GONE);
             }
 
             return view;

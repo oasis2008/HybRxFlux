@@ -9,21 +9,21 @@ import com.yuntongxun.kitsdk.ui.ECConversationListActivity;
  */
 public enum ECCustomProviderEnum {
 
-	CHATTING_PROVIDER(ECChattingActivity.class.getSimpleName()), CONVERSATION_PROVIDER(
-			ECConversationListActivity.class.getSimpleName());
+    CHATTING_PROVIDER(ECChattingActivity.class.getSimpleName()), CONVERSATION_PROVIDER(
+            ECConversationListActivity.class.getSimpleName());
 
-	private String name;
+    private String name;
 
-	private ECCustomProviderEnum(String name) {
-		this.name = name;
-	}
+    private ECCustomProviderEnum(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

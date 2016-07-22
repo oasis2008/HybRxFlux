@@ -28,62 +28,61 @@ import com.yuntongxun.kitsdk.ui.chatting.holder.FileRowViewHolder;
 import com.yuntongxun.kitsdk.ui.chatting.view.ChattingItemContainer;
 
 
-
 public class FileTxRow extends BaseChattingRow {
 
-	public FileTxRow(int type) {
-		super(type);
-	}
-	
-	@Override
-	public View buildChatView(LayoutInflater inflater, View convertView) {
+    public FileTxRow(int type) {
+        super(type);
+    }
+
+    @Override
+    public View buildChatView(LayoutInflater inflater, View convertView) {
         //we have a don't have a converView so we'll have to create a new one
         if (convertView == null || convertView.getTag() == null) {
-        	convertView = new ChattingItemContainer(inflater, R.layout.ytx_chatting_item_file_to);
+            convertView = new ChattingItemContainer(inflater, R.layout.ytx_chatting_item_file_to);
 
             //use the view holder pattern to save of already looked up subviews
-        	FileRowViewHolder holder = new FileRowViewHolder(mRowType);
+            FileRowViewHolder holder = new FileRowViewHolder(mRowType);
             convertView.setTag(holder.initBaseHolder(convertView, false));
-        } 
-		return convertView;
-	}
-	
-	
-	@Override
-	public void buildChattingData(Context context, BaseHolder baseHolder,
-			ECMessage detail, int position) {
-		
-		FileRowViewHolder holder = (FileRowViewHolder) baseHolder;
-		if(detail != null) {
-			ECMessage message = detail;
-			String userData = message.getUserData();
-			ECFileMessageBody fileBody = (ECFileMessageBody) message.getBody();
-			if(TextUtils.isEmpty(userData)) {
-				holder.contentTv.setText(fileBody.getFileName());
-			} else {
-				String fileName = userData.substring(userData.indexOf("fileName=") + "fileName=".length(), userData.length());
-				holder.contentTv.setText(fileName);
-			}
-			OnClickListener onClickListener = ((ECChattingActivity) context).getChattingAdapter().getOnClickListener();
-			ViewHolderTag holderTag = ViewHolderTag.createTag(detail, ViewHolderTag.TagType.TAG_VIEW_FILE, position);
-        	holder.contentTv.setTag(holderTag);
-        	holder.contentTv.setOnClickListener(onClickListener);
-        	getMsgStateResId(position, holder, detail, onClickListener);
-        	
-		}
-	}
+        }
+        return convertView;
+    }
 
-	@Override
-	public int getChatViewType() {
 
-		return ChattingRowType.FILE_ROW_TRANSMIT.ordinal();
-	}
+    @Override
+    public void buildChattingData(Context context, BaseHolder baseHolder,
+                                  ECMessage detail, int position) {
 
-	@Override
-	public boolean onCreateRowContextMenu(ContextMenu contextMenu,
-			View targetView, ECMessage detail) {
+        FileRowViewHolder holder = (FileRowViewHolder) baseHolder;
+        if (detail != null) {
+            ECMessage message = detail;
+            String userData = message.getUserData();
+            ECFileMessageBody fileBody = (ECFileMessageBody) message.getBody();
+            if (TextUtils.isEmpty(userData)) {
+                holder.contentTv.setText(fileBody.getFileName());
+            } else {
+                String fileName = userData.substring(userData.indexOf("fileName=") + "fileName=".length(), userData.length());
+                holder.contentTv.setText(fileName);
+            }
+            OnClickListener onClickListener = ((ECChattingActivity) context).getChattingAdapter().getOnClickListener();
+            ViewHolderTag holderTag = ViewHolderTag.createTag(detail, ViewHolderTag.TagType.TAG_VIEW_FILE, position);
+            holder.contentTv.setTag(holderTag);
+            holder.contentTv.setOnClickListener(onClickListener);
+            getMsgStateResId(position, holder, detail, onClickListener);
 
-		return false;
-	}
+        }
+    }
+
+    @Override
+    public int getChatViewType() {
+
+        return ChattingRowType.FILE_ROW_TRANSMIT.ordinal();
+    }
+
+    @Override
+    public boolean onCreateRowContextMenu(ContextMenu contextMenu,
+                                          View targetView, ECMessage detail) {
+
+        return false;
+    }
 
 }

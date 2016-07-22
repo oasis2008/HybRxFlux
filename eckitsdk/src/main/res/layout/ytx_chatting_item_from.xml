@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright (c) 2013 The CCP project authors. All Rights Reserved.
  
    Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
@@ -13,14 +12,14 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ChattingUIContent"
-    android:layout_below="@+id/chatting_time_tv" >
+    android:layout_below="@+id/chatting_time_tv">
 
     <include layout="@layout/ytx_chatting_item_avatar_from" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/chatting_user_tv"

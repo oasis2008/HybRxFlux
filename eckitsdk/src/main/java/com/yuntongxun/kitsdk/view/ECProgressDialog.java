@@ -24,12 +24,12 @@ import android.widget.TextView;
 import com.yuntongxun.eckitsdk.R;
 
 
-
 /**
  * 网络访问对话框
+ *
  * @author Jorstin Chan@容联•云通讯
- * @date 2015-1-4
  * @version 4.0
+ * @date 2015-1-4
  */
 public class ECProgressDialog extends Dialog {
 
@@ -42,7 +42,7 @@ public class ECProgressDialog extends Dialog {
 
         @Override
         public void onCancel(DialogInterface dialog) {
-            if(mAsyncTask != null) {
+            if (mAsyncTask != null) {
                 mAsyncTask.cancel(true);
             }
         }
@@ -52,11 +52,11 @@ public class ECProgressDialog extends Dialog {
      * @param context
      */
     public ECProgressDialog(Context context) {
-        super(context , R.style.Theme_Light_CustomDialog_Blue);
+        super(context, R.style.Theme_Light_CustomDialog_Blue);
         mAsyncTask = null;
         setCancelable(true);
         setContentView(R.layout.ytx_common_loading_diloag);
-        mTextView = (TextView)findViewById(R.id.textview);
+        mTextView = (TextView) findViewById(R.id.textview);
         mTextView.setText(R.string.loading_press);
         mImageView = findViewById(R.id.imageview);
         setOnCancelListener(mCancelListener);
@@ -66,35 +66,37 @@ public class ECProgressDialog extends Dialog {
      * @param context
      * @param resid
      */
-    public ECProgressDialog(Context context , int resid) {
+    public ECProgressDialog(Context context, int resid) {
         this(context);
         mTextView.setText(resid);
     }
 
-    public ECProgressDialog(Context context , CharSequence text) {
+    public ECProgressDialog(Context context, CharSequence text) {
         this(context);
         mTextView.setText(text);
     }
 
-    public ECProgressDialog(Context context , AsyncTask asyncTask) {
+    public ECProgressDialog(Context context, AsyncTask asyncTask) {
         this(context);
         mAsyncTask = asyncTask;
     }
 
-    public ECProgressDialog(Context context , CharSequence text , AsyncTask asyncTask) {
-        this(context , text);
+    public ECProgressDialog(Context context, CharSequence text, AsyncTask asyncTask) {
+        this(context, text);
         mAsyncTask = asyncTask;
     }
 
     /**
      * 设置对话框显示文本
+     *
      * @param text
      */
     public final void setPressText(CharSequence text) {
         mTextView.setText(text);
     }
+
     public final void setPressText(int resId) {
-    	mTextView.setText(resId);
+        mTextView.setText(resId);
     }
 
     public final void dismiss() {
@@ -104,7 +106,7 @@ public class ECProgressDialog extends Dialog {
 
     public final void show() {
         super.show();
-        Animation loadAnimation = AnimationUtils.loadAnimation(getContext() ,R.anim.ytx_loading);
+        Animation loadAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.ytx_loading);
         mImageView.startAnimation(loadAnimation);
     }
 }

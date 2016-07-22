@@ -11,7 +11,7 @@ public interface Keys {
     String SHOP = "shop";
     String SHOP_LIST = "shop_list";
 
-    String STATUS_LOGOUT="status_logout";
+    String STATUS_LOGOUT = "status_logout";
 
 
     String LONGITUDE = "longitude";
@@ -27,13 +27,6 @@ public interface Keys {
     String LOCAL_PATH = "local_path";
     String FILE_KEY = "file_key";
     String FILE_KEY_LIST = "file_key_list";
-
-
-
-
-
-
-
 
 
     String PART_NAME_HEAD_IMAGE = "huyingbao";

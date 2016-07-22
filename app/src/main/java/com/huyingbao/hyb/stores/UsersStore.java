@@ -77,7 +77,7 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
                 bdLocation = action.get(Keys.LOCATION);
                 break;
             case Actions.UPDATE_USER:
-                mUser=action.get(Keys.USER);
+                mUser = action.get(Keys.USER);
                 //保存当前登录用户信息
                 HybApp.getInstance().getLocalSorageUtils().setUser(GsonHelper.toJson(mUser));
             default: // IMPORTANT if we don't modify the store just ignore

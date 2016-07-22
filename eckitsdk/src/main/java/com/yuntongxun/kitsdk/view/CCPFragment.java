@@ -34,18 +34,29 @@ import com.yuntongxun.kitsdk.utils.DensityUtil;
  * 应用页面View基类，每个View 必须要继承与该类并实现相应的方法
  * Created by Jorstin on 2015/3/18.
  */
-public abstract  class CCPFragment extends Fragment {
+public abstract class CCPFragment extends Fragment {
 
-    /**自定义页面根布局，获取页面改变之后的大小值*/
+    /**
+     * 自定义页面根布局，获取页面改变之后的大小值
+     */
     private View mLayoutListenerView;
-    /**页面内容装载器,加载页面的标题（如果设置）和主界面*/
+    /**
+     * 页面内容装载器,加载页面的标题（如果设置）和主界面
+     */
     private LinearLayout mCCProotView;
-    /**根据getLayoutId()加载所得的页面布局*/
+    /**
+     * 根据getLayoutId()加载所得的页面布局
+     */
     private ViewGroup mContentView;
-    /**广播拦截器*/
+    /**
+     * 广播拦截器
+     */
     private InternalReceiver internalReceiver;
-    /**当前页面是否可以销毁*/
-    private boolean isFinish = false;;
+    /**
+     * 当前页面是否可以销毁
+     */
+    private boolean isFinish = false;
+    ;
 
     final Handler mSupperHandler = new Handler() {
 
@@ -61,12 +72,12 @@ public abstract  class CCPFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(mLayoutListenerView == null) {
+        if (mLayoutListenerView == null) {
             mLayoutListenerView = inflater.inflate(R.layout.ytx_ccp_fragment, null);
-            mCCProotView  = (LinearLayout) mLayoutListenerView.findViewById(R.id.ccp_root_view);
-            if(getTitleLayoutId() != -1) {
+            mCCProotView = (LinearLayout) mLayoutListenerView.findViewById(R.id.ccp_root_view);
+            if (getTitleLayoutId() != -1) {
                 // 加载页面的标题（如果不需要使用ActionBar）可以使用自定义的页面标题布局
-                mCCProotView.addView(inflater.inflate(getTitleLayoutId() , null),
+                mCCProotView.addView(inflater.inflate(getTitleLayoutId(), null),
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         DensityUtil.getMetricsDensity(getActivity(), 50.0F));
 
@@ -80,8 +91,8 @@ public abstract  class CCPFragment extends Fragment {
             }
         }
 
-        ViewGroup  mViewRoot = (ViewGroup) mLayoutListenerView.getParent();
-        if(mViewRoot != null) {
+        ViewGroup mViewRoot = (ViewGroup) mLayoutListenerView.getParent();
+        if (mViewRoot != null) {
             mViewRoot.removeView(mLayoutListenerView);
         }
 
@@ -100,12 +111,13 @@ public abstract  class CCPFragment extends Fragment {
 
     /**
      * 处理按钮按下事件
+     *
      * @param keyCode
      * @param event
      * @return
      */
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if((event.getKeyCode() == KeyEvent.KEYCODE_BACK)
+        if ((event.getKeyCode() == KeyEvent.KEYCODE_BACK)
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
             finish();
             return true;
@@ -116,6 +128,7 @@ public abstract  class CCPFragment extends Fragment {
     /**
      * 注册广播Action，子类如果需要监听广播可以调用
      * 该方法传入相应事件的Action
+     *
      * @param actionArray
      */
     protected final void registerReceiver(String[] actionArray) {
@@ -136,6 +149,7 @@ public abstract  class CCPFragment extends Fragment {
 
     /**
      * 返回一个Handler 主线程
+     *
      * @return
      */
     public android.os.Handler getSupperHandler() {
@@ -146,10 +160,10 @@ public abstract  class CCPFragment extends Fragment {
      * 重载页面关闭方法
      */
     public void finish() {
-        if(getActivity() == null) {
+        if (getActivity() == null) {
             return;
         }
-        if(isFinish) {
+        if (isFinish) {
             getActivity().finish();
             return;
         }
@@ -166,18 +180,19 @@ public abstract  class CCPFragment extends Fragment {
     public void onPause() {
         super.onPause();
     }
-    
+
     @Override
     public void onDestroy() {
-    	super.onDestroy();
+        super.onDestroy();
         try {
-        	getActivity().unregisterReceiver(internalReceiver);
+            getActivity().unregisterReceiver(internalReceiver);
         } catch (Exception e) {
         }
     }
 
     /**
      * 查找	View
+     *
      * @param paramInt
      * @return
      */
@@ -188,6 +203,7 @@ public abstract  class CCPFragment extends Fragment {
     /**
      * 如果子界面需要拦截处理注册的广播
      * 需要实现该方法
+     *
      * @param context
      * @param intent
      */
@@ -197,12 +213,14 @@ public abstract  class CCPFragment extends Fragment {
 
     /**
      * 每个页面需要实现该方法返回一个该页面所对应的资源ID
+     *
      * @return 页面资源ID
      */
     protected abstract int getLayoutId();
 
     /**
      * 如果需要自定义页面标题，则需要重载该方法
+     *
      * @return
      */
     public int getTitleLayoutId() {
@@ -211,18 +229,19 @@ public abstract  class CCPFragment extends Fragment {
 
     /**
      * 自定义应用全局广播处理器，方便全局拦截广播并进行分发
+     *
      * @author 容联•云通讯
-     * @date 2014-12-4
      * @version 4.0
+     * @date 2014-12-4
      */
     private class InternalReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent == null || intent.getAction() == null) {
-                return ;
+            if (intent == null || intent.getAction() == null) {
+                return;
             }
-            
+
             handleReceiver(context, intent);
         }
 

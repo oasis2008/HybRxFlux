@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright (c) 2013 The CCP project authors. All Rights Reserved.
  
    Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
@@ -15,7 +14,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/album_ui_bg"
-    android:keepScreenOn="true" >
+    android:keepScreenOn="true">
 
     <ImageView
         android:id="@+id/image_photo"
@@ -33,11 +32,12 @@
         android:textColor="@color/white"
         android:textSize="24.0sp"
         android:visibility="gone" />
-	<ProgressBar 
-	    android:id="@+id/footLoading"
-	    android:layout_width="wrap_content"
+
+    <ProgressBar
+        android:id="@+id/footLoading"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center"/>
+        android:gravity="center" />
 
 </RelativeLayout>

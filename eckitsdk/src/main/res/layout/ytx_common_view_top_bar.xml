@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 Copyright (c) 2015 The CCP project authors. All Rights Reserved.
 
 Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
@@ -12,19 +11,21 @@ in the file PATENTS.  All contributing project authors may
 be found in the AUTHORS file in the root of the source tree.
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/common_top_wrapper"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/topbar_content_height"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        android:background="@drawable/actionbar_background" >
+        android:background="@drawable/actionbar_background">
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:minWidth="@dimen/btn_topbar_layout_minwidth" >
+            android:minWidth="@dimen/btn_topbar_layout_minwidth">
 
             <ImageView
                 android:id="@+id/btn_left"
@@ -61,7 +62,7 @@ be found in the AUTHORS file in the root of the source tree.
             android:layout_height="fill_parent"
             android:layout_weight="1.0"
             android:gravity="center_vertical"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/btn_middle"
@@ -95,7 +96,7 @@ be found in the AUTHORS file in the root of the source tree.
             android:id="@+id/top_right"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:minWidth="@dimen/btn_topbar_layout_minwidth" >
+            android:minWidth="@dimen/btn_topbar_layout_minwidth">
 
             <RelativeLayout
                 android:id="@+id/top_progressbar"
@@ -103,7 +104,7 @@ be found in the AUTHORS file in the root of the source tree.
                 android:layout_height="fill_parent"
                 android:layout_gravity="right|center"
                 android:minWidth="@dimen/btn_topbar_minwidth"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <ProgressBar
                     style="?android:attr/progressBarStyleSmall"

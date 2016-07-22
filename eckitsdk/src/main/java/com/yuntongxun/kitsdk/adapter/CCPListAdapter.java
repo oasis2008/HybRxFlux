@@ -9,7 +9,8 @@
  *  An additional intellectual property rights grant can be found
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
- */package com.yuntongxun.kitsdk.adapter;
+ */
+package com.yuntongxun.kitsdk.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -28,25 +29,38 @@ import java.util.Map;
  */
 public abstract class CCPListAdapter<T> extends BaseAdapter implements OnMessageChange {
 
-    /**数据Cursor*/
+    /**
+     * 数据Cursor
+     */
     private Cursor mCursor;
-    /**数据缓存*/
-    private Map<Integer, T> mData ;
-    /**适配器使用数据类型*/
+    /**
+     * 数据缓存
+     */
+    private Map<Integer, T> mData;
+    /**
+     * 适配器使用数据类型
+     */
     protected T t;
-    /**上下文对象*/
+    /**
+     * 上下文对象
+     */
     protected Context mContext;
-    /**数据总数*/
+    /**
+     * 数据总数
+     */
     protected int mCount;
-    /**数据改变回调接口*/
+    /**
+     * 数据改变回调接口
+     */
     protected OnCursorChangeListener mOnCursorChangeListener;
 
     /**
      * 构造方法
+     *
      * @param ctx
      * @param t
      */
-    public CCPListAdapter(Context ctx , T t) {
+    public CCPListAdapter(Context ctx, T t) {
         mContext = ctx;
         this.t = t;
         this.mCount = -1;
@@ -58,18 +72,19 @@ public abstract class CCPListAdapter<T> extends BaseAdapter implements OnMessage
     }
 
     public void initCache() {
-        if(mData != null) {
-            return ;
+        if (mData != null) {
+            return;
         }
         mData = new HashMap<Integer, T>();
     }
 
     /**
      * 返回一个数据类型Cursor
+     *
      * @return
      */
     protected Cursor getCursor() {
-        if(mCursor == null) {
+        if (mCursor == null) {
             initCursor();
             Assert.assertNotNull(mCursor);
         }
@@ -88,10 +103,10 @@ public abstract class CCPListAdapter<T> extends BaseAdapter implements OnMessage
      * 关闭数据库
      */
     public void closeCursor() {
-        if(mData != null) {
+        if (mData != null) {
             mData.clear();
         }
-        if(mCursor != null) {
+        if (mCursor != null) {
             mCursor.close();
         }
         mCount = -1;
@@ -99,7 +114,7 @@ public abstract class CCPListAdapter<T> extends BaseAdapter implements OnMessage
 
     @Override
     public int getCount() {
-        if(mCount < 0) {
+        if (mCount < 0) {
             mCount = getCursor().getCount();
         }
         return mCount;
@@ -107,16 +122,16 @@ public abstract class CCPListAdapter<T> extends BaseAdapter implements OnMessage
 
     @Override
     public T getItem(int position) {
-        if(position < 0 || !getCursor().moveToPosition(position)) {
+        if (position < 0 || !getCursor().moveToPosition(position)) {
             return null;
         }
 
-        if(mData == null) {
+        if (mData == null) {
             return getItem(this.t, getCursor());
         }
 
         T _t = mData.get(Integer.valueOf(position));
-        if(_t == null) {
+        if (_t == null) {
             _t = getItem(null, getCursor());
         }
         mData.put(Integer.valueOf(position), _t);
@@ -132,23 +147,23 @@ public abstract class CCPListAdapter<T> extends BaseAdapter implements OnMessage
 
     @Override
     public void onChanged(String sessionId) {
-        if(mOnCursorChangeListener != null) {
+        if (mOnCursorChangeListener != null) {
             mOnCursorChangeListener.onCursorChangeBefore();
         }
         closeCursor();
         notifyChange();
 
-        if(mOnCursorChangeListener == null) {
-            return ;
+        if (mOnCursorChangeListener == null) {
+            return;
         }
         mOnCursorChangeListener.onCursorChangeAfter();
     }
 
     public abstract void notifyChange();
+
     public abstract void initCursor();
 
-    public abstract T getItem(T t , Cursor cursor);
-
+    public abstract T getItem(T t, Cursor cursor);
 
 
     public interface OnListAdapterCallBackListener {
@@ -158,6 +173,7 @@ public abstract class CCPListAdapter<T> extends BaseAdapter implements OnMessage
 
     public interface OnCursorChangeListener {
         void onCursorChangeBefore();
+
         void onCursorChangeAfter();
     }
 }

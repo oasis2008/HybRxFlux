@@ -31,25 +31,36 @@ import java.util.Iterator;
 import java.util.List;
 
 
-
 public class ECAlertDialog extends Dialog implements View.OnClickListener {
 
     public static final String TAG = "ECDemo.ECAlertDialog";
-    /**左边按钮*/
+    /**
+     * 左边按钮
+     */
     public static final int BUTTON_NEGATIVE = 0;
-    /**中间按钮*/
+    /**
+     * 中间按钮
+     */
     public static final int BUTTON_NEUTRAL = 1;
-    /**右边按钮*/
+    /**
+     * 右边按钮
+     */
     public static final int BUTTON_POSITIVE = 2;
     private boolean mDismiss = true;
     private boolean mCancelable = true;
     private boolean mCanceledOnTouchOutside = false;
     private List<Button> mButtons;
-    /**对话框标题*/
+    /**
+     * 对话框标题
+     */
     private View mLayoutTitle;
-    /**对话框内容*/
+    /**
+     * 对话框内容
+     */
     private ViewGroup mLayoutContent;
-    /**对话框按钮*/
+    /**
+     * 对话框按钮
+     */
     private View mLayoutButton;
 
     /**
@@ -87,8 +98,8 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
         setTitle(R.string.dialog_title_alert);
     }
 
-    public static ECAlertDialog buildAlert(Context ctx, int message,int button , OnClickListener listener) {
-        return buildAlert(ctx, ctx.getString(message) , ctx.getString(button), listener);
+    public static ECAlertDialog buildAlert(Context ctx, int message, int button, OnClickListener listener) {
+        return buildAlert(ctx, ctx.getString(message), ctx.getString(button), listener);
     }
 
     public static ECAlertDialog buildAlert(Context ctx, int resId, OnClickListener listener) {
@@ -121,10 +132,11 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
 
     /**
      * 创建对话框
-     * @param ctx 上下文
-     * @param message 对话框内容
-     * @param leftBtnText 取消按钮文本
-     * @param rightText 确定按钮文本
+     *
+     * @param ctx                   上下文
+     * @param message               对话框内容
+     * @param leftBtnText           取消按钮文本
+     * @param rightText             确定按钮文本
      * @param negativeClickListener
      * @param positive
      * @return
@@ -142,13 +154,14 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
 
     /**
      * 创建只有一个按钮的对话框
+     *
      * @param ctx
      * @param message
      * @param text
      * @param positive
      * @return
      */
-    public static ECAlertDialog buildAlert(Context ctx, CharSequence message,CharSequence text,
+    public static ECAlertDialog buildAlert(Context ctx, CharSequence message, CharSequence text,
                                            OnClickListener positive) {
         ECAlertDialog dialog = new ECAlertDialog(ctx);
         dialog.setMessage(message);
@@ -156,18 +169,17 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
         return dialog;
     }
 
-    public static ECAlertDialog buildPositiveAlert(Context ctx , int resId , OnClickListener listener) {
+    public static ECAlertDialog buildPositiveAlert(Context ctx, int resId, OnClickListener listener) {
         return buildPositiveAlert(ctx, ctx.getString(resId), listener);
     }
 
     /**
-     *
      * @param ctx
      * @param message
      * @param listener
      * @return
      */
-    public static ECAlertDialog buildPositiveAlert(Context ctx , CharSequence message , OnClickListener listener) {
+    public static ECAlertDialog buildPositiveAlert(Context ctx, CharSequence message, OnClickListener listener) {
         ECAlertDialog dialog = new ECAlertDialog(ctx);
         dialog.setMessage(message);
         dialog.setButton(BUTTON_POSITIVE, ctx.getString(R.string.dialog_btn_confim), listener);
@@ -176,23 +188,25 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
 
     /**
      * 设置对话框按钮
+     *
      * @param id
      * @param resId
      * @param listener
      * @return
      */
-    public Button setButton(int id , int resId , OnClickListener listener) {
+    public Button setButton(int id, int resId, OnClickListener listener) {
         return setButton(resId, getContext().getString(resId), listener);
     }
 
     /**
      * 设置按钮
-     * @param id 按钮号
-     * @param text 按钮显示文本
+     *
+     * @param id       按钮号
+     * @param text     按钮显示文本
      * @param listener
      * @return
      */
-    public Button setButton(int id , CharSequence text , OnClickListener listener) {
+    public Button setButton(int id, CharSequence text, OnClickListener listener) {
         Button button = mButtons.get(id);
         button.setText(text);
         button.setVisibility(View.VISIBLE);
@@ -201,7 +215,7 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
         return button;
     }
 
-    public final ECAlertDialog setButtonTag(int id , OnClickListener listener) {
+    public final ECAlertDialog setButtonTag(int id, OnClickListener listener) {
         Button button = mButtons.get(id);
         button.setTag(listener);
         return this;
@@ -213,18 +227,20 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
 
     /**
      * 设置对话框显示文本
+     *
      * @param text
      */
     public final void setMessage(CharSequence text) {
-        ((TextView)findViewById(R.id.dialog_tv_message)).setText(text);
+        ((TextView) findViewById(R.id.dialog_tv_message)).setText(text);
     }
 
     public final void setTitleNormalColor() {
-        ((TextView)findViewById(R.id.dialog_tv_title)).setTextColor(getContext().getResources().getColor(R.color.text_content));
+        ((TextView) findViewById(R.id.dialog_tv_title)).setTextColor(getContext().getResources().getColor(R.color.text_content));
     }
 
     /**
      * 设置标题是否可见
+     *
      * @param visibility
      */
     public final void setTitleVisibility(int visibility) {
@@ -233,6 +249,7 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
 
     /**
      * 设置内容显示区域
+     *
      * @param left
      * @param top
      * @param right
@@ -268,13 +285,12 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
     }
 
     /**
-     *
      * @param view
      * @return
      */
     private int getViewLocation(View view) {
-        for(int i = 0 ; i < mButtons.size() ; i ++) {
-            if(mButtons.get(i) == view) {
+        for (int i = 0; i < mButtons.size(); i++) {
+            if (mButtons.get(i) == view) {
                 return i;
             }
         }
@@ -284,12 +300,12 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         OnClickListener clickListener = (OnClickListener) v.getTag();
-        if(clickListener != null) {
+        if (clickListener != null) {
             clickListener.onClick(this, getViewLocation(v));
         }
-        if(mDismiss) {
+        if (mDismiss) {
             dismiss();
-            return ;
+            return;
         }
         // mDismiss = true;
     }
@@ -307,7 +323,7 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         LogUtil.d(TAG, "onTouchEvent");
-        if(mCancelable && mCanceledOnTouchOutside && event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (mCancelable && mCanceledOnTouchOutside && event.getAction() == MotionEvent.ACTION_DOWN) {
             cancel();
             return true;
         }
@@ -364,7 +380,7 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
         Iterator<Button> iterator = mButtons.iterator();
         while (iterator.hasNext()) {
             Button button = iterator.next();
-            if(button.getVisibility() != View.VISIBLE) {
+            if (button.getVisibility() != View.VISIBLE) {
                 continue;
             }
             ++i;
@@ -375,12 +391,12 @@ public class ECAlertDialog extends Dialog implements View.OnClickListener {
         }
         if (i == 2) {
             btn.setSelected(true);
-            ((ViewGroup.MarginLayoutParams)(this.mButtons.get(0)).getLayoutParams()).rightMargin = 1;
+            ((ViewGroup.MarginLayoutParams) (this.mButtons.get(0)).getLayoutParams()).rightMargin = 1;
         }
-        if (i == 3)  {
+        if (i == 3) {
             btn.setSelected(true);
-            ((ViewGroup.MarginLayoutParams)(this.mButtons.get(2)).getLayoutParams()).leftMargin = 1;
-            ((ViewGroup.MarginLayoutParams)(this.mButtons.get(0)).getLayoutParams()).rightMargin = 1;
+            ((ViewGroup.MarginLayoutParams) (this.mButtons.get(2)).getLayoutParams()).leftMargin = 1;
+            ((ViewGroup.MarginLayoutParams) (this.mButtons.get(0)).getLayoutParams()).rightMargin = 1;
         }
 
     }

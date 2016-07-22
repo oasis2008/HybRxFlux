@@ -39,7 +39,7 @@ import com.yuntongxun.kitsdk.utils.ResourceHelper;
 
 public class ImageTxRow extends BaseChattingRow {
 
-    public ImageTxRow(int type){
+    public ImageTxRow(int type) {
         super(type);
     }
 
@@ -63,15 +63,15 @@ public class ImageTxRow extends BaseChattingRow {
         ImageRowViewHolder holder = (ImageRowViewHolder) baseHolder;
         ECFileMessageBody body = (ECFileMessageBody) detail.getBody();
         String userData = detail.getUserData();
-        if(TextUtils.isEmpty(userData)) {
-            return ;
+        if (TextUtils.isEmpty(userData)) {
+            return;
         }
         int start = userData.indexOf("THUMBNAIL://");
-        if(start != -1) {
+        if (start != -1) {
             String thumbnail = userData.substring(start);
             // holder.chattingContentIv.setImageBitmap(ImgInfoSqlManager.getInstance().getThumbBitmap(thumbnail, 2));
             ImgInfo imgInfo = ImgInfoSqlManager.getInstance().getImgInfo(detail.getMsgId());
-            if(imgInfo != null && !TextUtils.isEmpty(imgInfo.getBigImgPath())) {
+            if (imgInfo != null && !TextUtils.isEmpty(imgInfo.getBigImgPath())) {
 
                 String uri = "file://" + FileAccessor.getImagePathName() + "/" + imgInfo.getBigImgPath();
                 ImageLoader.getInstance().displayImage(uri, holder.chattingContentIv, DemoUtils.getChatDisplayImageOptions());
@@ -82,18 +82,18 @@ public class ImageTxRow extends BaseChattingRow {
         int startWidth = userData.indexOf("outWidth://");
         int startHeight = userData.indexOf(",outHeight://");
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) holder.chattingContentIv.getLayoutParams();
-        if(startWidth != -1 && startHeight != -1 && start != -1) {
-            int imageMinWidth = /*DemoUtils.getImageMinWidth(context)*/ ResourceHelper.fromDPToPix(context , 100);
+        if (startWidth != -1 && startHeight != -1 && start != -1) {
+            int imageMinWidth = /*DemoUtils.getImageMinWidth(context)*/ ResourceHelper.fromDPToPix(context, 100);
             int width = DemoUtils.getInt(userData.substring(startWidth + "outWidth://".length(), startHeight), imageMinWidth);
-            int height = DemoUtils.getInt(userData.substring(startHeight + ",outHeight://".length(), start - 1) , imageMinWidth);
+            int height = DemoUtils.getInt(userData.substring(startHeight + ",outHeight://".length(), start - 1), imageMinWidth);
             holder.chattingContentIv.setMinimumWidth(imageMinWidth);
             params.width = imageMinWidth;
-            int _height = height * imageMinWidth /width;
-            if(_height > ResourceHelper.fromDPToPix(context , 230)) {
-                _height = ResourceHelper.fromDPToPix(context , 230);
+            int _height = height * imageMinWidth / width;
+            if (_height > ResourceHelper.fromDPToPix(context, 230)) {
+                _height = ResourceHelper.fromDPToPix(context, 230);
                 holder.chattingContentIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             }
-            if(width != 0) {
+            if (width != 0) {
                 holder.chattingContentIv.setMinimumHeight(_height);
                 params.height = _height;
             } else {
@@ -102,7 +102,7 @@ public class ImageTxRow extends BaseChattingRow {
             }
             holder.chattingContentIv.setLayoutParams(params);
         }
-        ViewHolderTag holderTag = ViewHolderTag.createTag(detail, ViewHolderTag.TagType.TAG_VIEW_PICTURE ,position);
+        ViewHolderTag holderTag = ViewHolderTag.createTag(detail, ViewHolderTag.TagType.TAG_VIEW_PICTURE, position);
         OnClickListener onClickListener = ((ECChattingActivity) context).getChattingAdapter().getOnClickListener();
         holder.chattingContentIv.setTag(holderTag);
         holder.chattingContentIv.setOnClickListener(onClickListener);

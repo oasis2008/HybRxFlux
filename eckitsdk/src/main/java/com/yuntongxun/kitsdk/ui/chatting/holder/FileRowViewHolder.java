@@ -18,49 +18,49 @@ tsdk.R
 
 import android.view.Vi
 w;
-imp rt android.widget.CheckBo
-;
-impo t android.widget.ImageView;
+        imp rt android.widget.CheckBo
+        ;
+        impo t android.widget.ImageView;
 import android.widget.ProgressB
 
-;
+        ;
 impo t android.widget.TextView;
-
 
 
 /**
  * @author 容联•云通讯
- * @date 2014-12-9
  * @version 4.0
+ * @date 2014-12-9
  */
 public class FileRowViewHolder extends BaseHolder {
 
-	public TextView contentTv;
-	/**
-	 * @param type
-	 */
-	public FileRowViewHolder(int type) {
-		super(type);
+    public TextView contentTv;
 
-	}
-	
-	public BaseHolder initBaseHolder(View baseView , boolean receive) {
-		super.initBaseHolder(baseView);
-		
-		chattingTime = (TextView) baseView.findViewById(R.id.chatting_time_tv);
-		chattingUser = ((TextView) baseView.findViewById(R.id.chatting_user_tv));
-		checkBox = ((CheckBox) baseView.findViewById(R.id.chatting_checkbox));
-		chattingMaskView = baseView.findViewById(R.id.chatting_maskview);
-		uploadState = ((ImageView) baseView.findViewById(R.id.chatting_state_iv));
-		contentTv = ((TextView) baseView.findViewById(R.id.chatting_content_itv));
-		if(receive) {
-			type = 3;
-			return this;
-		}
-		
-		progressBar = (ProgressBar) baseView.findViewById(R.id.uploading_pb);
-		type = 4;
-		return this;
-	}
+    /**
+     * @param type
+     */
+    public FileRowViewHolder(int type) {
+        super(type);
+
+    }
+
+    public BaseHolder initBaseHolder(View baseView, boolean receive) {
+        super.initBaseHolder(baseView);
+
+        chattingTime = (TextView) baseView.findViewById(R.id.chatting_time_tv);
+        chattingUser = ((TextView) baseView.findViewById(R.id.chatting_user_tv));
+        checkBox = ((CheckBox) baseView.findViewById(R.id.chatting_checkbox));
+        chattingMaskView = baseView.findViewById(R.id.chatting_maskview);
+        uploadState = ((ImageView) baseView.findViewById(R.id.chatting_state_iv));
+        contentTv = ((TextView) baseView.findViewById(R.id.chatting_content_itv));
+        if (receive) {
+            type = 3;
+            return this;
+        }
+
+        progressBar = (ProgressBar) baseView.findViewById(R.id.uploading_pb);
+        type = 4;
+        return this;
+    }
 
 }

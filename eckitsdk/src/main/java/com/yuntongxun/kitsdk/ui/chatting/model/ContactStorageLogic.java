@@ -14,10 +14,10 @@ package com.yuntongxun.kitsdk.ui.chatting.model;
 
 /**
  * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-10
  * @version 4.0
+ * @date 2014-12-10
  */
 public class ContactStorageLogic {
 
-	
+
 }

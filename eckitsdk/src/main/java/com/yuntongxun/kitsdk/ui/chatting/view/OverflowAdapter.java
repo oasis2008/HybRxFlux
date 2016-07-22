@@ -14,19 +14,26 @@ import com.yuntongxun.kitsdk.adapter.CommAdapter;
 public class OverflowAdapter extends CommAdapter {
 
     private Context mContext;
-    /**布局加载器*/
+    /**
+     * 布局加载器
+     */
     private LayoutInflater mLayoutInflater;
-    /**下拉菜单*/
+    /**
+     * 下拉菜单
+     */
     private OverflowHelper mHelper;
-    /**下拉菜单需要显示的数据*/
+    /**
+     * 下拉菜单需要显示的数据
+     */
     private OverflowItem[] mItems;
 
     /**
      * 构造方法
+     *
      * @param helper
      * @param ctx
      */
-    public OverflowAdapter(OverflowHelper helper , Context ctx) {
+    public OverflowAdapter(OverflowHelper helper, Context ctx) {
         mHelper = helper;
         mContext = ctx;
         mLayoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -34,6 +41,7 @@ public class OverflowAdapter extends CommAdapter {
 
     /**
      * 创建一个新的View 并且设置隐藏
+     *
      * @return
      */
     private View createView() {
@@ -44,20 +52,22 @@ public class OverflowAdapter extends CommAdapter {
 
     /**
      * 设置下拉菜单选项图标是否可见
+     *
      * @param imageView 图标
      * @param visible
      */
-    private void setViewVisibility(ImageView imageView ,boolean visible) {
-        imageView.setVisibility(visible?View.VISIBLE:View.GONE);
+    private void setViewVisibility(ImageView imageView, boolean visible) {
+        imageView.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     /**
      * 设置当前Item是否可用
+     *
      * @param enabled
      * @param textView
      * @param parent
      */
-    private void setItemEnabled(boolean enabled , TextView textView , ViewGroup parent){
+    private void setItemEnabled(boolean enabled, TextView textView, ViewGroup parent) {
       /*  if(enabled) {
             textView.setTextColor(mHelper.getNormalColor());
             setViewPadding(parent, R.drawable.common_popup_menu_item);
@@ -69,18 +79,19 @@ public class OverflowAdapter extends CommAdapter {
 
     /**
      * 设置菜单显示的数据
+     *
      * @param items
      */
     public void setOverflowItem(OverflowItem[] items) {
-        if(items == null || items.length <= 0) {
-            return ;
+        if (items == null || items.length <= 0) {
+            return;
         }
         this.mItems = items;
     }
 
     @Override
     public int getCount() {
-        if(mItems == null) {
+        if (mItems == null) {
             return 0;
         }
         return mItems.length;
@@ -88,7 +99,7 @@ public class OverflowAdapter extends CommAdapter {
 
     @Override
     public Object getItem(int position) {
-        if(mItems == null || mItems.length <= position)  	{
+        if (mItems == null || mItems.length <= position) {
             return null;
         }
         return mItems[position];
@@ -102,12 +113,12 @@ public class OverflowAdapter extends CommAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(isNullorLinearLayout(convertView)) {
-            if(!isPositionNullData(position)) {
+        if (isNullorLinearLayout(convertView)) {
+            if (!isPositionNullData(position)) {
                 convertView = null;
             }
         }
-        if(!isPositionNullData(position)) {
+        if (!isPositionNullData(position)) {
             return super.getView(position, convertView, parent);
         }
         return createView();
@@ -117,6 +128,7 @@ public class OverflowAdapter extends CommAdapter {
 
     /**
      * 初始化Holder
+     *
      * @param convertView
      */
     private void findViewId(View convertView) {
@@ -141,14 +153,14 @@ public class OverflowAdapter extends CommAdapter {
         OverflowItem overflowItem = mItems[position];
         ViewHolder holder = (ViewHolder) convertView.getTag();
         holder.title.setText(overflowItem.title);
-        if(overflowItem.getIcon() > 0) {
+        if (overflowItem.getIcon() > 0) {
             holder.icon.setImageResource(overflowItem.getIcon());
         }
-        if(position == 0){
-        	convertView.setBackgroundResource(R.drawable.group_chat_pop_menu_selector);
-        } else if(position == getCount()-1){
-        	convertView.setBackgroundResource(R.drawable.vedio_meeting_pop_menu_selector);
-        } else{
+        if (position == 0) {
+            convertView.setBackgroundResource(R.drawable.group_chat_pop_menu_selector);
+        } else if (position == getCount() - 1) {
+            convertView.setBackgroundResource(R.drawable.vedio_meeting_pop_menu_selector);
+        } else {
 //        	convertView.setBackgroundResource(R.drawable.voice_meeting_pop_menu_selector);
         }
         setViewVisibility(holder.point, false);
@@ -157,6 +169,7 @@ public class OverflowAdapter extends CommAdapter {
 
     /**
      * 当前位置显示的数据是否为空
+     *
      * @param position
      * @return
      */
@@ -166,6 +179,7 @@ public class OverflowAdapter extends CommAdapter {
 
     /**
      * 布局是否为空或者为LinearLayout
+     *
      * @param convertView
      * @return
      */
@@ -175,6 +189,7 @@ public class OverflowAdapter extends CommAdapter {
 
     /**
      * 调整位置Padding
+     *
      * @param parent
      * @param background
      */
@@ -189,13 +204,21 @@ public class OverflowAdapter extends CommAdapter {
     }
 
     public class ViewHolder {
-        /**图标*/
+        /**
+         * 图标
+         */
         public ImageView icon = null;
-        /**标题*/
+        /**
+         * 标题
+         */
         public TextView title = null;
-        /**跟布局*/
+        /**
+         * 跟布局
+         */
         public ViewGroup root = null;
-        /**是否有更新*/
+        /**
+         * 是否有更新
+         */
         public ImageView point = null;
     }
 

@@ -4,10 +4,10 @@ import com.yuntongxun.kitsdk.ut
 ls.Den ityUtil;
 
 import android.c
-ntent. ontext;
+ntent.ontext;
 import and
 
-id.uti .AttributeSet;
+id.uti.AttributeSet;
 import android.view.View;
 
 public class PopupMenuListView extends SuperListView {
@@ -40,25 +40,26 @@ public class PopupMenuListView extends SuperListView {
 
     /**
      * 计算宽度
+     *
      * @return
      */
     private int measureWidth() {
         int maxWidth = 0;
         View convertView = null;
-        for(int i = 0 ; i < getAdapter().getCount() ; i ++) {
+        for (int i = 0; i < getAdapter().getCount(); i++) {
             convertView = getAdapter().getView(i, convertView, this);
-            if(convertView == null) {
+            if (convertView == null) {
                 continue;
             }
             convertView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-            if(convertView.getMeasuredWidth() <= maxWidth) {
+            if (convertView.getMeasuredWidth() <= maxWidth) {
                 continue;
             }
             maxWidth = convertView.getMeasuredWidth();
         }
 
         int max = DensityUtil.dip2px(112.0F);
-        if(maxWidth < max) {
+        if (maxWidth < max) {
             maxWidth = max;
         }
         return maxWidth;

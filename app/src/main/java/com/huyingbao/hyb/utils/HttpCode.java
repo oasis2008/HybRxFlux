@@ -11,7 +11,7 @@ public class HttpCode {
      * @param httpCode
      * @return
      */
-    public static String   getHttpCodeInfo(int httpCode) {
+    public static String getHttpCodeInfo(int httpCode) {
         switch (httpCode) {
             case 410:
                 return "账户禁用!";

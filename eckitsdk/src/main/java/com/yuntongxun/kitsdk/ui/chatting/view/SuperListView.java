@@ -2,34 +2,34 @@ package com.yuntongxun.kitsdk.ui.chatting.view;
 
 import com.yuntongxun.eckitsdk.R;
 im
-ort co .yuntongxun.kitsdk.utils
-DemoUt ls;
+        ort co.yuntongxun.kitsdk.utils
+        DemoUt ls;
 import com.yuntongxu
-.kitsd .utils.LogUtil;
+        .kitsd.utils.LogUtil;
 
 
-mport  ndroid.annotation.T
-rgetAp ;
+mport ndroid.annotation.T
+        rgetAp;
 import android.c
-ntent. ontext;
+ntent.ontext;
 import andr
 id.gra hics.Canvas;
 import androi
-.os.Bu ld;
+        .os.Bu ld;
 import android
 os.Han ler;
 import android.os.Loop
 r;
-imp rt android.os.Message;
-impo
-t andr id.util.AttributeSet;
-im
+        imp rt android.os.Message;
+        impo
+        t andr id.util.AttributeSet;
+        im
 
-rt and oid.view.View;
+        rt and oid.view.View;
 import andr
 id.wid et.AbsListView;
 import android.widget.
-istAda ter;
+        istAda ter;
 import android.widget.ListView;
 
 public class SuperListView extends ListView {
@@ -47,14 +47,14 @@ public class SuperListView extends ListView {
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
-            if(scrollState == OnScrollListener.SCROLL_STATE_IDLE && mMeasureByItems) {
-                return ;
+            if (scrollState == OnScrollListener.SCROLL_STATE_IDLE && mMeasureByItems) {
+                return;
             }
             mHandler.removeMessages(MSG_WAHT);
             Message msg = mHandler.obtainMessage(MSG_WAHT);
             mHandler.sendMessageDelayed(msg, 50L);
-            if(mScrollListener == null) {
-                return ;
+            if (mScrollListener == null) {
+                return;
             }
             mScrollListener.onSuperScrollStateChanged(view, scrollState);
         }
@@ -62,8 +62,8 @@ public class SuperListView extends ListView {
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem,
                              int visibleItemCount, int totalItemCount) {
-            if(mScrollListener == null) {
-                return ;
+            if (mScrollListener == null) {
+                return;
             }
             mScrollListener.onSuperScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
         }
@@ -74,7 +74,7 @@ public class SuperListView extends ListView {
      * @param context
      */
     public SuperListView(Context context) {
-        this(context , null);
+        this(context, null);
         initSuperListView();
     }
 
@@ -101,8 +101,8 @@ public class SuperListView extends ListView {
         setOnScrollListener(mOnScrollListener);
         setOnTouchListener(null);
 
-        if(DemoUtils.getSdkint() < Build.VERSION_CODES.HONEYCOMB) {
-            return ;
+        if (DemoUtils.getSdkint() < Build.VERSION_CODES.HONEYCOMB) {
+            return;
         }
 
         // 去掉模糊边缘
@@ -115,15 +115,15 @@ public class SuperListView extends ListView {
 
     private int measureHeight(int measureSpec) {
         int mode = View.MeasureSpec.getMode(measureSpec);
-        if(mode == View.MeasureSpec.AT_MOST) {
+        if (mode == View.MeasureSpec.AT_MOST) {
             return View.MeasureSpec.makeMeasureSpec(measureSpec, mode);
         } else if (mode == View.MeasureSpec.EXACTLY) {
             ListAdapter adapter = getAdapter();
-            if(adapter == null) {
+            if (adapter == null) {
                 measureSpec = 0;
             } else {
                 int result = 0;
-                for(int i = 0 ; i < adapter.getCount() ; i++) {
+                for (int i = 0; i < adapter.getCount(); i++) {
                     View contentView = adapter.getView(i, null, null);
                     contentView.measure(0, 0);
                     result += contentView.getMeasuredHeight();
@@ -145,7 +145,7 @@ public class SuperListView extends ListView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if(mMeasureByItems) {
+        if (mMeasureByItems) {
             widthMeasureSpec = measureWidth(widthMeasureSpec);
             heightMeasureSpec = measureHeight(heightMeasureSpec);
         }
@@ -172,6 +172,7 @@ public class SuperListView extends ListView {
     public interface OnSuperListViewScrollListener {
         /**
          * 滑动状态改变
+         *
          * @param view
          * @param scrollState
          */
@@ -179,6 +180,7 @@ public class SuperListView extends ListView {
 
         /**
          * 当前滑动过程中
+         *
          * @param view
          * @param firstVisibleItem
          * @param visibleItemCount

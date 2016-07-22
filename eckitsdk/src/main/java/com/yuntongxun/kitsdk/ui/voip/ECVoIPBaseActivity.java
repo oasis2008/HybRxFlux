@@ -19,39 +19,65 @@ import com.yuntongxun.kitsdk.utils.ECNotificationManager;
  * Created by Jorstin on 2015/7/3.
  */
 public abstract class ECVoIPBaseActivity extends ECSuperActivity
-        implements VoIPCallHelper.OnCallEventNotifyListener , ECCallControlUILayout.OnCallControlDelegate{
+        implements VoIPCallHelper.OnCallEventNotifyListener, ECCallControlUILayout.OnCallControlDelegate {
 
     private static final String TAG = "ECSDK_Demo.ECVoIPBaseActivity";
 
-    /**昵称*/
+    /**
+     * 昵称
+     */
     public static final String EXTRA_CALL_NAME = "con.yuntongxun.ecdemo.VoIP_CALL_NAME";
-    /**通话号码*/
+    /**
+     * 通话号码
+     */
     public static final String EXTRA_CALL_NUMBER = "con.yuntongxun.ecdemo.VoIP_CALL_NUMBER";
-    /**呼入方或者呼出方*/
+    /**
+     * 呼入方或者呼出方
+     */
     public static final String EXTRA_OUTGOING_CALL = "con.yuntongxun.ecdemo.VoIP_OUTGOING_CALL";
-    /**VoIP呼叫*/
+    /**
+     * VoIP呼叫
+     */
     public static final String ACTION_VOICE_CALL = "con.yuntongxun.ecdemo.intent.ACTION_VOICE_CALL";
-    /**Video呼叫*/
+    /**
+     * Video呼叫
+     */
     public static final String ACTION_VIDEO_CALL = "con.yuntongxun.ecdemo.intent.ACTION_VIDEO_CALL";
     public static final String EXTRA_CALL_FROM = "con.yuntongxun.ecdemo.VoIP_CALL_FROM";
     public static final String ACTION_CALLBACK_CALL = "con.yuntongxun.ecdemo.intent.ACTION_VIDEO_CALLBACK";
 
-    /**通话昵称*/
+    /**
+     * 通话昵称
+     */
     protected String mCallName;
-    /**通话号码*/
+    /**
+     * 通话号码
+     */
     protected String mCallNumber;
     protected String mPhoneNumber;
-    /**是否来电*/
+    /**
+     * 是否来电
+     */
     protected boolean mIncomingCall = false;
-    /**呼叫唯一标识号*/
+    /**
+     * 呼叫唯一标识号
+     */
     protected String mCallId;
-    /**VoIP呼叫类型（音视频）*/
+    /**
+     * VoIP呼叫类型（音视频）
+     */
     protected ECVoIPCallManager.CallType mCallType;
-    /**通话号码*/
+    /**
+     * 通话号码
+     */
     protected String mCallFrom;
-    /**透传号码参数*/
+    /**
+     * 透传号码参数
+     */
     private static final String KEY_TEL = "tel";
-    /**透传名称参数*/
+    /**
+     * 透传名称参数
+     */
     private static final String KEY_NAME = "nickname";
     protected ECCallHeadUILayout mCallHeaderView;
     protected ECCallControlUILayout mCallControlUIView;
@@ -64,7 +90,7 @@ public abstract class ECVoIPBaseActivity extends ECSuperActivity
         mIncomingCall = !(getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
         mCallType = (ECVoIPCallManager.CallType) getIntent().getSerializableExtra(ECDevice.CALLTYPE);
 
-        if(mIncomingCall) {
+        if (mIncomingCall) {
             // 透传信息
             String[] infos = getIntent().getExtras().getStringArray(ECDevice.REMOTE);
             if (infos != null && infos.length > 0) {
@@ -77,18 +103,18 @@ public abstract class ECVoIPBaseActivity extends ECSuperActivity
                 }
             }
         }
-        
-        if(!VoIPCallHelper.mHandlerVideoCall && mCallType == ECVoIPCallManager.CallType.VIDEO) {
+
+        if (!VoIPCallHelper.mHandlerVideoCall && mCallType == ECVoIPCallManager.CallType.VIDEO) {
             VoIPCallHelper.mHandlerVideoCall = true;
-            Intent mVideoIntent = new Intent(this , VideoCallInActivity.class);
+            Intent mVideoIntent = new Intent(this, VideoCallInActivity.class);
             mVideoIntent.putExtras(getIntent().getExtras());
-            mVideoIntent.putExtra(VoIPCallActivity.EXTRA_OUTGOING_CALL , false);
+            mVideoIntent.putExtra(VoIPCallActivity.EXTRA_OUTGOING_CALL, false);
             startActivity(mVideoIntent);
             super.finish();
             return;
         }
 
-        if(mCallType == null) {
+        if (mCallType == null) {
             mCallType = ECVoIPCallManager.CallType.VOICE;
         }
 
@@ -98,6 +124,7 @@ public abstract class ECVoIPBaseActivity extends ECSuperActivity
 
     /**
      * 收到的VoIP通话事件通知是否与当前通话界面相符
+     *
      * @return 是否正在进行的VoIP通话
      */
     protected boolean isEqualsCall(String callId) {
@@ -106,6 +133,7 @@ public abstract class ECVoIPBaseActivity extends ECSuperActivity
 
     /**
      * 是否需要做界面更新
+     *
      * @param callId
      * @return
      */
@@ -131,14 +159,14 @@ public abstract class ECVoIPBaseActivity extends ECSuperActivity
     protected void onStop() {
         super.onStop();
         VoIPCallHelper.setOnCallEventNotifyListener(null);
-        if(VoIPCallHelper.isHoldingCall()) {
+        if (VoIPCallHelper.isHoldingCall()) {
             ECNotificationManager.showCallingNotification(mCallType);
         }
     }
 
     @Override
     public void onViewAccept(ECCallControlUILayout controlPanelView, ImageButton view) {
-        if(controlPanelView != null) {
+        if (controlPanelView != null) {
             controlPanelView.setControlEnable(false);
         }
         VoIPCallHelper.acceptCall(mCallId);
@@ -146,7 +174,7 @@ public abstract class ECVoIPBaseActivity extends ECSuperActivity
 
     @Override
     public void onViewRelease(ECCallControlUILayout controlPanelView, ImageButton view) {
-        if(controlPanelView != null) {
+        if (controlPanelView != null) {
             controlPanelView.setControlEnable(false);
         }
         VoIPCallHelper.releaseCall(mCallId);
@@ -154,7 +182,7 @@ public abstract class ECVoIPBaseActivity extends ECSuperActivity
 
     @Override
     public void onViewReject(ECCallControlUILayout controlPanelView, ImageButton view) {
-        if(controlPanelView != null) {
+        if (controlPanelView != null) {
             controlPanelView.setControlEnable(false);
         }
         VoIPCallHelper.rejectCall(mCallId);
@@ -163,22 +191,22 @@ public abstract class ECVoIPBaseActivity extends ECSuperActivity
     @Override
     public void finish() {
         //if(VoIPCallHelper.isHoldingCall()) {
-            ECHandlerHelper.postDelayedRunnOnUI(new Runnable() {
-                @Override
-                public void run() {
-                    ECVoIPBaseActivity.super.finish();
-                }
-            } , 3000);
+        ECHandlerHelper.postDelayedRunnOnUI(new Runnable() {
+            @Override
+            public void run() {
+                ECVoIPBaseActivity.super.finish();
+            }
+        }, 3000);
         //}
         //super.finish();
     }
-    
+
     @Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			// do nothing.
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            // do nothing.
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

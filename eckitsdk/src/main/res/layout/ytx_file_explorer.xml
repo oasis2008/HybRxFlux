@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright (c) 2013 The CCP project authors. All Rights Reserved.
  
    Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
@@ -13,14 +12,14 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/NavPage"
-    android:background="@color/white" >
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/control_tab"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/SmallListHeight"
         android:visibility="gone"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0.0dip"
@@ -28,7 +27,7 @@
             android:visibility="gone"
             android:layout_weight="1.0"
             android:background="@drawable/tab_item_bg"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/root_tab"
@@ -52,7 +51,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1.0"
             android:background="@drawable/tab_item_bg"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/sdcard_tab"

@@ -34,17 +34,15 @@ import com.yuntongxun.kitsdk.utils.DemoUtils;
 
 
 /**
- * 
  * @author luhuashan
- * 会话列表界面适配器
- *
+ *         会话列表界面适配器
  */
-public class ConversationAdapter extends CCPListAdapter <ECConversation> {
+public class ConversationAdapter extends CCPListAdapter<ECConversation> {
 
     private OnListAdapterCallBackListener mCallBackListener;
     int padding;
-    
-    public ConversationAdapter(Context ctx , OnListAdapterCallBackListener listener) {
+
+    public ConversationAdapter(Context ctx, OnListAdapterCallBackListener listener) {
         super(ctx, new ECConversation());
         mCallBackListener = listener;
         padding = ctx.getResources().getDimensionPixelSize(R.dimen.OneDPPadding);
@@ -55,38 +53,39 @@ public class ConversationAdapter extends CCPListAdapter <ECConversation> {
     public ECConversation getItem(ECConversation t, Cursor cursor) {
         ECConversation conversation = new ECConversation();
         conversation.setCursor(cursor);
-        
-        if(conversation.getSessionId().equals("10089")){
-        	conversation.setUsername("系统通知");
-        	return conversation;
+
+        if (conversation.getSessionId().equals("10089")) {
+            conversation.setUsername("系统通知");
+            return conversation;
         }
 
-        if(conversation.getUsername() != null && conversation.getUsername().endsWith("@priategroup.com")) {
-        	
-            
+        if (conversation.getUsername() != null && conversation.getUsername().endsWith("@priategroup.com")) {
+
+
             conversation.setUsername(conversation.getSessionId());//??
-        } else if(conversation.getUsername() != null && conversation.getUsername().toUpperCase().startsWith("G")){
-        	if(GroupSqlManager.getECGroup(conversation.getUsername())!=null){
-        		conversation.setUsername(GroupSqlManager.getECGroup(conversation.getUsername()).getName());
-        	}else{
-        		conversation.setUsername("未知");
-        	}
+        } else if (conversation.getUsername() != null && conversation.getUsername().toUpperCase().startsWith("G")) {
+            if (GroupSqlManager.getECGroup(conversation.getUsername()) != null) {
+                conversation.setUsername(GroupSqlManager.getECGroup(conversation.getUsername()).getName());
+            } else {
+                conversation.setUsername("未知");
+            }
         } else {
-        	conversation.setUsername(conversation.getSessionId());
+            conversation.setUsername(conversation.getSessionId());
         }
         return conversation;
     }
 
     /**
      * 会话时间
+     *
      * @param conversation
      * @return
      */
     protected final CharSequence getConversationTime(ECConversation conversation) {
-        if(conversation.getSendStatus() == ECMessage.MessageStatus.SENDING.ordinal()) {
+        if (conversation.getSendStatus() == ECMessage.MessageStatus.SENDING.ordinal()) {
             return mContext.getString(R.string.conv_msg_sending);
         }
-        if(conversation.getDateTime() <= 0) {
+        if (conversation.getDateTime() <= 0) {
             return "";
         }
         return DateUtil.getDateString(conversation.getDateTime(),
@@ -95,23 +94,24 @@ public class ConversationAdapter extends CCPListAdapter <ECConversation> {
 
     /**
      * 根据消息类型返回相应的主题描述
+     *
      * @param conversation
      * @return
      */
     protected final CharSequence getConversationSnippet(ECConversation conversation) {
-        if(conversation == null) {
+        if (conversation == null) {
             return "";
         }
-        if(GroupNoticeSqlManager.CONTACT_ID.equals(conversation.getSessionId())) {
+        if (GroupNoticeSqlManager.CONTACT_ID.equals(conversation.getSessionId())) {
             return GroupNoticeHelper.getNoticeContent(conversation.getContent());
         }
-        if(conversation.getMsgType() == ECMessage.Type.VOICE.ordinal()) {
+        if (conversation.getMsgType() == ECMessage.Type.VOICE.ordinal()) {
             return mContext.getString(R.string.app_voice);
-        } else if(conversation.getMsgType() == ECMessage.Type.FILE.ordinal()) {
+        } else if (conversation.getMsgType() == ECMessage.Type.FILE.ordinal()) {
             return mContext.getString(R.string.app_file);
-        } else if(conversation.getMsgType() == ECMessage.Type.IMAGE.ordinal()) {
+        } else if (conversation.getMsgType() == ECMessage.Type.IMAGE.ordinal()) {
             return mContext.getString(R.string.app_pic);
-        } else if(conversation.getMsgType() == ECMessage.Type.VIDEO.ordinal()) {
+        } else if (conversation.getMsgType() == ECMessage.Type.VIDEO.ordinal()) {
             return mContext.getString(R.string.app_video);
         }
         return conversation.getContent();
@@ -119,12 +119,13 @@ public class ConversationAdapter extends CCPListAdapter <ECConversation> {
 
     /**
      * 根据消息发送状态处理
+     *
      * @param context
      * @param conversation
      * @return
      */
-    public static Drawable getChattingSnippentCompoundDrawables(Context context ,ECConversation conversation) {
-        if(conversation.getSendStatus() == ECMessage.MessageStatus.FAILED.ordinal()) {
+    public static Drawable getChattingSnippentCompoundDrawables(Context context, ECConversation conversation) {
+        if (conversation.getSendStatus() == ECMessage.MessageStatus.FAILED.ordinal()) {
             return DemoUtils.getDrawables(context, R.drawable.msg_state_failed);
         } else if (conversation.getSendStatus() == ECMessage.MessageStatus.SENDING.ordinal()) {
             return DemoUtils.getDrawables(context, R.drawable.msg_state_sending);
@@ -138,8 +139,8 @@ public class ConversationAdapter extends CCPListAdapter <ECConversation> {
 
         View view;
         ViewHolder mViewHolder;
-        if(convertView == null || convertView.getTag() == null) {
-            view = View.inflate(mContext , R.layout.ytx_conversation_item, null);
+        if (convertView == null || convertView.getTag() == null) {
+            view = View.inflate(mContext, R.layout.ytx_conversation_item, null);
 
             mViewHolder = new ViewHolder();
             mViewHolder.user_avatar = (ImageView) view.findViewById(R.id.avatar_iv);
@@ -156,8 +157,8 @@ public class ConversationAdapter extends CCPListAdapter <ECConversation> {
         }
 
         ECConversation conversation = getItem(position);
-        if(conversation != null) {
-            if(TextUtils.isEmpty(conversation.getUsername())) {
+        if (conversation != null) {
+            if (TextUtils.isEmpty(conversation.getUsername())) {
                 mViewHolder.nickname_tv.setText(conversation.getSessionId());
             } else {
                 mViewHolder.nickname_tv.setText(conversation.getUsername());
@@ -169,13 +170,13 @@ public class ConversationAdapter extends CCPListAdapter <ECConversation> {
             mViewHolder.tipcnt_tv.setVisibility(conversation.getUnreadCount() == 0 ? View.GONE : View.VISIBLE);
             mViewHolder.image_input_text.setVisibility(View.GONE);
             mViewHolder.update_time_tv.setText(getConversationTime(conversation));
-            if(conversation.getSessionId().toUpperCase().startsWith("G")) {
-            	mViewHolder.user_avatar.setImageResource(R.drawable.group_head);
+            if (conversation.getSessionId().toUpperCase().startsWith("G")) {
+                mViewHolder.user_avatar.setImageResource(R.drawable.group_head);
 
 
             } else {
                 mViewHolder.user_avatar.setImageResource(R.drawable.default_avatar);
-                if(conversation.getSessionId().equals(GroupNoticeSqlManager.CONTACT_ID)) {
+                if (conversation.getSessionId().equals(GroupNoticeSqlManager.CONTACT_ID)) {
                 } else {
                 }
             }
@@ -201,7 +202,7 @@ public class ConversationAdapter extends CCPListAdapter <ECConversation> {
 
     @Override
     public void notifyChange() {
-        if(mCallBackListener != null) {
+        if (mCallBackListener != null) {
             mCallBackListener.OnListAdapterCallBack();
         }
         Cursor cursor = ConversationSqlManager.getConversationCursor();

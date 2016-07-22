@@ -36,18 +36,28 @@ import java.util.List;
 
 public class IMessageSqlManager extends AbstractSQLManager {
 
-    /**消息未读状态--未读*/
+    /**
+     * 消息未读状态--未读
+     */
     static final public int IMESSENGER_TYPE_UNREAD = 0;
-    /**消息未读状态--已读*/
+    /**
+     * 消息未读状态--已读
+     */
     static final public int IMESSENGER_TYPE_READ = 1;
 
     static final public int IMESSENGER_BOX_TYPE_ALL = 0;
-    /**信箱类型--收件箱*/
+    /**
+     * 信箱类型--收件箱
+     */
     static final public int IMESSENGER_BOX_TYPE_INBOX = 1;
     static final public int IMESSENGER_BOX_TYPE_SENT = 2;
-    /**信箱类型--草稿箱*/
+    /**
+     * 信箱类型--草稿箱
+     */
     static final public int IMESSENGER_BOX_TYPE_DRAFT = 3;
-    /**信箱类型--发件箱*/
+    /**
+     * 信箱类型--发件箱
+     */
     static final public int IMESSENGER_BOX_TYPE_OUTBOX = 4;
     static final public int IMESSENGER_BOX_TYPE_FAILED = 5;
     static final public int IMESSENGER_BOX_TYPE_QUEUED = 6;
@@ -92,6 +102,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 更新消息到本地数据库
+     *
      * @param message 消息
      * @param boxType 消息保存的信箱类型
      * @return 更新的消息ID
@@ -102,7 +113,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
         try {
             if (!TextUtils.isEmpty(message.getSessionId())) {
                 String contactIds = message.getSessionId();
-                if(contactIds.toUpperCase().startsWith("G")) {
+                if (contactIds.toUpperCase().startsWith("G")) {
                     GroupSqlManager.checkGroup(contactIds);
                 }
 //                checkContact(message.getForm());??
@@ -123,19 +134,19 @@ public class IMessageSqlManager extends AbstractSQLManager {
                     ContentValues values = new ContentValues();
                     if (boxType == IMESSENGER_BOX_TYPE_DRAFT) {
                         try { // 草稿箱只保存文本
-                            values.put(IMessageColumn.OWN_THREAD_ID,ownThreadId);
-                            values.put(IMessageColumn.sender,message.getForm());
-                            values.put(IMessageColumn.MESSAGE_ID,message.getMsgId());
-                            values.put(IMessageColumn.MESSAGE_TYPE,message.getType().ordinal());
-                            values.put(IMessageColumn.SEND_STATUS,message.getMsgStatus().ordinal());
+                            values.put(IMessageColumn.OWN_THREAD_ID, ownThreadId);
+                            values.put(IMessageColumn.sender, message.getForm());
+                            values.put(IMessageColumn.MESSAGE_ID, message.getMsgId());
+                            values.put(IMessageColumn.MESSAGE_TYPE, message.getType().ordinal());
+                            values.put(IMessageColumn.SEND_STATUS, message.getMsgStatus().ordinal());
                             values.put(IMessageColumn.READ_STATUS, isread);
                             values.put(IMessageColumn.BOX_TYPE, boxType);
-                            values.put(IMessageColumn.BODY, ((ECTextMessageBody)message.getBody()).getMessage());
-                            values.put(IMessageColumn.USER_DATA,message.getUserData());
-                            values.put(IMessageColumn.RECEIVE_DATE ,System.currentTimeMillis());
-                            values.put(IMessageColumn.CREATE_DATE,message.getMsgTime());
+                            values.put(IMessageColumn.BODY, ((ECTextMessageBody) message.getBody()).getMessage());
+                            values.put(IMessageColumn.USER_DATA, message.getUserData());
+                            values.put(IMessageColumn.RECEIVE_DATE, System.currentTimeMillis());
+                            values.put(IMessageColumn.CREATE_DATE, message.getMsgTime());
 
-                            row = getInstance().sqliteDB().insertOrThrow(DatabaseHelper.TABLES_NAME_IM_MESSAGE,null, values);
+                            row = getInstance().sqliteDB().insertOrThrow(DatabaseHelper.TABLES_NAME_IM_MESSAGE, null, values);
                         } catch (SQLException e) {
                             LogUtil.e(TAG + " " + e.toString());
                         } finally {
@@ -143,19 +154,19 @@ public class IMessageSqlManager extends AbstractSQLManager {
                         }
                     } else {
                         try {
-                            values.put(IMessageColumn.OWN_THREAD_ID,ownThreadId);
-                            values.put(IMessageColumn.MESSAGE_ID,message.getMsgId());
-                            values.put(IMessageColumn.SEND_STATUS,message.getMsgStatus().ordinal());
+                            values.put(IMessageColumn.OWN_THREAD_ID, ownThreadId);
+                            values.put(IMessageColumn.MESSAGE_ID, message.getMsgId());
+                            values.put(IMessageColumn.SEND_STATUS, message.getMsgStatus().ordinal());
                             values.put(IMessageColumn.READ_STATUS, isread);
                             values.put(IMessageColumn.BOX_TYPE, boxType);
                             // values.put(IMessageColumn.VERSION, message.getVersion());
-                            values.put(IMessageColumn.USER_DATA,message.getUserData());
-                            values.put(IMessageColumn.RECEIVE_DATE,System.currentTimeMillis());
-                            values.put(IMessageColumn.CREATE_DATE,message.getMsgTime());
-                            values.put(IMessageColumn.sender,message.getForm());
-                            values.put(IMessageColumn.MESSAGE_TYPE,message.getType().ordinal());
-                            putValues(message ,values);
-                            LogUtil.d(TAG , "[insertIMessage] " + values.toString() );
+                            values.put(IMessageColumn.USER_DATA, message.getUserData());
+                            values.put(IMessageColumn.RECEIVE_DATE, System.currentTimeMillis());
+                            values.put(IMessageColumn.CREATE_DATE, message.getMsgTime());
+                            values.put(IMessageColumn.sender, message.getForm());
+                            values.put(IMessageColumn.MESSAGE_TYPE, message.getType().ordinal());
+                            putValues(message, values);
+                            LogUtil.d(TAG, "[insertIMessage] " + values.toString());
                             row = getInstance().sqliteDB().insertOrThrow(
                                     DatabaseHelper.TABLES_NAME_IM_MESSAGE,
                                     null, values);
@@ -176,16 +187,16 @@ public class IMessageSqlManager extends AbstractSQLManager {
     }
 
     /**
-     *
      * @return
      */
     public static int getMaxVersion() {
-        String sql = "select max(version) as maxVersion from " + DatabaseHelper.TABLES_NAME_IM_MESSAGE ;
-        Cursor cursor = getInstance().sqliteDB().rawQuery(sql , null);
-        if(cursor != null && cursor.getCount() > 0) {
-            if(cursor.moveToFirst()) {
+        String sql = "select max(version) as maxVersion from " + DatabaseHelper.TABLES_NAME_IM_MESSAGE;
+        Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
                 int maxVersion = cursor.getInt(cursor.getColumnIndex("maxVersion"));
-                cursor.close();;
+                cursor.close();
+                ;
                 return maxVersion;
             }
         }
@@ -195,9 +206,9 @@ public class IMessageSqlManager extends AbstractSQLManager {
     public static ECMessage getLastECMessage() {
         int maxVersion = getMaxVersion();
         String sql = "select im_message.* ,im_thread.sessionId from im_message ,im_thread where version = " + maxVersion + " and im_message.sid=im_thread.id";
-        Cursor cursor = getInstance().sqliteDB().rawQuery(sql , null);
-        if(cursor != null && cursor.getCount() > 0) {
-            if(cursor.moveToFirst()) {
+        Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
                 ECMessage ecMessage = packageMessage(cursor);
                 String sessionid = cursor.getString(cursor.getColumnIndexOrThrow(IThreadColumn.THREAD_ID));
                 ecMessage.setSessionId(sessionid);
@@ -212,6 +223,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 更新消息的状态
+     *
      * @param msgId
      * @param sendStatu
      * @return
@@ -222,11 +234,12 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 更新文件的下载状态
+     *
      * @param msg
      * @return
      */
     public static int updateIMessageDownload(ECMessage msg) {
-        if(msg == null || TextUtils.isEmpty(msg.getMsgId())) {
+        if (msg == null || TextUtils.isEmpty(msg.getMsgId())) {
             return -1;
         }
         int row = -1;
@@ -257,7 +270,8 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 设置Im消息发送状态
-     * @param msgId 消息ID
+     *
+     * @param msgId     消息ID
      * @param sendStatu 发送状态
      * @return
      */
@@ -288,12 +302,13 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 根据不同的消息类型将数据保存到数据库
+     *
      * @param message
      * @param values
      */
     private static void putValues(ECMessage message, ContentValues values) {
-        if(message.getType() == ECMessage.Type.TXT) {
-            values.put(IMessageColumn.BODY, ((ECTextMessageBody)message.getBody()).getMessage());
+        if (message.getType() == ECMessage.Type.TXT) {
+            values.put(IMessageColumn.BODY, ((ECTextMessageBody) message.getBody()).getMessage());
         } else {
             ECFileMessageBody body = (ECFileMessageBody) message.getBody();
             values.put(IMessageColumn.FILE_PATH, body.getLocalUrl());
@@ -307,13 +322,12 @@ public class IMessageSqlManager extends AbstractSQLManager {
     }
 
     /**
-     *
      * @param threadId
      * @param lastTime
      * @return
      */
-    public static  ArrayList<ECMessage> queryIMessageListAfter(long threadId,
-                                                               String lastTime) {
+    public static ArrayList<ECMessage> queryIMessageListAfter(long threadId,
+                                                              String lastTime) {
         ArrayList<ECMessage> al = null;
         Cursor cursor = null;
         StringBuffer sb = new StringBuffer();
@@ -350,13 +364,13 @@ public class IMessageSqlManager extends AbstractSQLManager {
                     int sendStatus = cursor.getInt(cursor.getColumnIndexOrThrow(IMessageColumn.SEND_STATUS));
 
                     ECMessage ecMessage = null;
-                    if(msgType == ECMessage.Type.TXT.ordinal()) {
+                    if (msgType == ECMessage.Type.TXT.ordinal()) {
                         String content = cursor.getString(cursor.getColumnIndexOrThrow(IMessageColumn.BODY));
                         ecMessage = ECMessage.createECMessage(ECMessage.Type.TXT);
                         ECTextMessageBody textBody = new ECTextMessageBody(content);
                         ecMessage.setBody(textBody);
                     } else {
-						
+
                     }
                     ecMessage.setId(id);
                     ecMessage.setForm(sender);
@@ -380,29 +394,29 @@ public class IMessageSqlManager extends AbstractSQLManager {
     }
 
     public static void deleteChattingMessage(long sessionId) {
-        while(true) {
+        while (true) {
             ArrayList<ECMessage> iMessageList = IMessageSqlManager.queryIMessageList(sessionId, 50, null);
-            if(iMessageList != null && !iMessageList.isEmpty()) {
-                for(ECMessage detail : iMessageList) {
+            if (iMessageList != null && !iMessageList.isEmpty()) {
+                for (ECMessage detail : iMessageList) {
                     delSingleMsg(detail.getMsgId());
                 }
                 continue;
             }
-            return ;
+            return;
         }
     }
 
     public static void _deleteChattingMessage(long sessionId) {
         ArrayList<ECMessage> iMessageList = IMessageSqlManager.queryIMessageList(sessionId, 0, null);
-        if(iMessageList != null && !iMessageList.isEmpty()) {
+        if (iMessageList != null && !iMessageList.isEmpty()) {
             ArrayList<String> fileList = new ArrayList<String>();
-            for(ECMessage detail : iMessageList) {
-                if(detail.getType() != ECMessage.Type.TXT) {
+            for (ECMessage detail : iMessageList) {
+                if (detail.getType() != ECMessage.Type.TXT) {
                     ECFileMessageBody body = (ECFileMessageBody) detail.getBody();
-                    if(!TextUtils.isEmpty(body.getLocalUrl())) {
-                        if(body.getLocalUrl().startsWith("THUMBNAIL://")){
+                    if (!TextUtils.isEmpty(body.getLocalUrl())) {
+                        if (body.getLocalUrl().startsWith("THUMBNAIL://")) {
                             ImgInfo imgInfo = ImgInfoSqlManager.getInstance().getImgInfo(detail.getMsgId());
-                            if(imgInfo != null) {
+                            if (imgInfo != null) {
                                 ImgInfoSqlManager.getInstance().delImgInfo(imgInfo.getMsglocalid());
                                 if (TextUtils.isEmpty(FileAccessor.getImagePathName() + "/" + imgInfo.getThumbImgPath())) {
                                     continue;
@@ -416,7 +430,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
                         } else if (detail.getUserData() != null && detail.getUserData().indexOf("THUMBNAIL://") != -1) {
                             String userData = detail.getUserData();
                             int start = userData.indexOf("THUMBNAIL://");
-                            if(start != -1) {
+                            if (start != -1) {
                                 String thumbnail = userData.substring(start);
                                 fileList.add(ImgInfoSqlManager.getInstance().getThumbUrlAndDel(thumbnail));
                             }
@@ -427,7 +441,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
                 }
             }
             int rows = IMessageSqlManager.deleteMulitMsgs(iMessageList);
-            if(rows > 0 && !fileList.isEmpty()) {
+            if (rows > 0 && !fileList.isEmpty()) {
                 FileAccessor.delFiles(fileList);
             }
         }
@@ -435,45 +449,45 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     public static void delSingleMsg(String id) {
         ECMessage msg = getMsg(id);
-        if(msg == null) {
-            return ;
+        if (msg == null) {
+            return;
         }
         delMessage(id);
-        if(msg.getType() != ECMessage.Type.TXT) {
+        if (msg.getType() != ECMessage.Type.TXT) {
             ArrayList<String> fileList = new ArrayList<String>();
             ECFileMessageBody body = (ECFileMessageBody) msg.getBody();
-            if(!TextUtils.isEmpty(body.getLocalUrl())) {
-                if(body.getLocalUrl().startsWith("THUMBNAIL://")){
+            if (!TextUtils.isEmpty(body.getLocalUrl())) {
+                if (body.getLocalUrl().startsWith("THUMBNAIL://")) {
                     ImgInfo imgInfo = ImgInfoSqlManager.getInstance().getImgInfo(msg.getMsgId());
-                    if(imgInfo != null) {
+                    if (imgInfo != null) {
                         ImgInfoSqlManager.getInstance().delImgInfo(imgInfo.getMsglocalid());
-                        if(TextUtils.isEmpty(FileAccessor.getImagePathName()+"/"+imgInfo.getThumbImgPath())) {
-                            return ;
+                        if (TextUtils.isEmpty(FileAccessor.getImagePathName() + "/" + imgInfo.getThumbImgPath())) {
+                            return;
                         }
-                        if(!new File(FileAccessor.getImagePathName()+"/"+imgInfo.getThumbImgPath()).exists()) {
-                            return ;
+                        if (!new File(FileAccessor.getImagePathName() + "/" + imgInfo.getThumbImgPath()).exists()) {
+                            return;
                         }
-                        fileList.add(FileAccessor.getImagePathName()+"/"+imgInfo.getBigImgPath());
-                        fileList.add(FileAccessor.getImagePathName()+"/"+imgInfo.getThumbImgPath());
+                        fileList.add(FileAccessor.getImagePathName() + "/" + imgInfo.getBigImgPath());
+                        fileList.add(FileAccessor.getImagePathName() + "/" + imgInfo.getThumbImgPath());
 
                     }
 
                 } else if (msg.getUserData() != null && msg.getUserData().indexOf("THUMBNAIL://") != -1) {
                     String userData = msg.getUserData();
                     int start = userData.indexOf("THUMBNAIL://");
-                    if(start != -1) {
+                    if (start != -1) {
                         String thumbnail = userData.substring(start + "THUMBNAIL://".length());
                         ImgInfo imgInfo = ImgInfoSqlManager.getInstance().getImgInfo(thumbnail);
-                        if(imgInfo != null) {
+                        if (imgInfo != null) {
                             ImgInfoSqlManager.getInstance().delImgInfo(imgInfo.getMsglocalid());
-                            if(TextUtils.isEmpty(FileAccessor.getImagePathName()+"/"+imgInfo.getThumbImgPath())) {
-                                return ;
+                            if (TextUtils.isEmpty(FileAccessor.getImagePathName() + "/" + imgInfo.getThumbImgPath())) {
+                                return;
                             }
-                            if(!new File(FileAccessor.getImagePathName()+"/"+imgInfo.getThumbImgPath()).exists()) {
-                                return ;
+                            if (!new File(FileAccessor.getImagePathName() + "/" + imgInfo.getThumbImgPath()).exists()) {
+                                return;
                             }
-                            fileList.add(FileAccessor.getImagePathName()+"/"+imgInfo.getBigImgPath());
-                            fileList.add(FileAccessor.getImagePathName()+"/"+imgInfo.getThumbImgPath());
+                            fileList.add(FileAccessor.getImagePathName() + "/" + imgInfo.getBigImgPath());
+                            fileList.add(FileAccessor.getImagePathName() + "/" + imgInfo.getThumbImgPath());
 
                         }
                     }
@@ -492,6 +506,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 删除会话
+     *
      * @param contactId
      */
     public static void deleteChattingMessage(String contactId) {
@@ -502,6 +517,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * IM分页查询
+     *
      * @param num
      * @param lastTime
      * @return
@@ -525,7 +541,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
             cursor = getInstance().sqliteDB().query(false,
                     DatabaseHelper.TABLES_NAME_IM_MESSAGE, null, sb.toString(),
                     null, null, null, IMessageColumn.RECEIVE_DATE + " desc",
-                    num==0?null:String.valueOf(num));
+                    num == 0 ? null : String.valueOf(num));
             if (cursor != null) {
                 if (cursor.getCount() == 0) {
                     return null;
@@ -555,6 +571,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * IM分页查询
+     *
      * @param num
      * @param version
      * @return
@@ -577,7 +594,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
             cursor = getInstance().sqliteDB().query(false,
                     DatabaseHelper.TABLES_NAME_IM_MESSAGE, null, sb.toString(),
                     null, null, null, IMessageColumn.RECEIVE_DATE + " desc",
-                    num==0?null:String.valueOf(num));
+                    num == 0 ? null : String.valueOf(num));
             if (cursor != null) {
                 if (cursor.getCount() == 0) {
                     return null;
@@ -607,6 +624,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 组装消息
+     *
      * @param cursor
      * @return
      */
@@ -624,7 +642,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
         int sendStatus = cursor.getInt(cursor.getColumnIndexOrThrow(IMessageColumn.SEND_STATUS));
 
         ECMessage ecMessage = ECMessage.createECMessage(ECMessage.Type.NONE);
-        if(msgType == ECMessage.Type.TXT.ordinal()) {
+        if (msgType == ECMessage.Type.TXT.ordinal()) {
             String content = cursor.getString(cursor.getColumnIndexOrThrow(IMessageColumn.BODY));
             ecMessage.setType(ECMessage.Type.TXT);
             ECTextMessageBody textBody = new ECTextMessageBody(content);
@@ -642,7 +660,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
                 voiceBody.setDuration(duration);
             } else if (msgType == ECMessage.Type.IMAGE.ordinal() || msgType == ECMessage.Type.FILE.ordinal()) {
                 ECFileMessageBody fileBody = new ECFileMessageBody();
-                if(msgType == ECMessage.Type.FILE.ordinal()) {
+                if (msgType == ECMessage.Type.FILE.ordinal()) {
                     ecMessage.setType(ECMessage.Type.FILE);
                 } else {
                     fileBody = new ECImageMessageBody();
@@ -662,14 +680,14 @@ public class IMessageSqlManager extends AbstractSQLManager {
         ecMessage.setMsgTime(createDate);
         ecMessage.setUserData(userData);
         ecMessage.setVersion(version);
-        if(sendStatus == ECMessage.MessageStatus.SENDING.ordinal()) {
+        if (sendStatus == ECMessage.MessageStatus.SENDING.ordinal()) {
             ecMessage.setMsgStatus(ECMessage.MessageStatus.SENDING);
-        } else if(sendStatus == ECMessage.MessageStatus.RECEIVE.ordinal() || sendStatus == 4) {
+        } else if (sendStatus == ECMessage.MessageStatus.RECEIVE.ordinal() || sendStatus == 4) {
             // sendStatus == 4 兼容以前版本
             ecMessage.setMsgStatus(ECMessage.MessageStatus.RECEIVE);
-        } else if(sendStatus == ECMessage.MessageStatus.SUCCESS.ordinal()) {
+        } else if (sendStatus == ECMessage.MessageStatus.SUCCESS.ordinal()) {
             ecMessage.setMsgStatus(ECMessage.MessageStatus.SUCCESS);
-        } else if(sendStatus == ECMessage.MessageStatus.FAILED.ordinal()) {
+        } else if (sendStatus == ECMessage.MessageStatus.FAILED.ordinal()) {
             ecMessage.setMsgStatus(ECMessage.MessageStatus.FAILED);
         }
         ecMessage.setDirection(getMessageDirect(boxType));
@@ -678,9 +696,9 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     public static long deleteAllBySession(String sessionId) {
         long l = ConversationSqlManager.querySessionIdForBySessionId(sessionId);
-        if(l > 0) {
+        if (l > 0) {
             CCPAppManager.getContext().sendBroadcast(new Intent(ACTION_SESSION_DEL));
-            return getInstance().sqliteDB().delete(DatabaseHelper.TABLES_NAME_IM_MESSAGE , IMessageColumn.OWN_THREAD_ID + " = " + l , null);
+            return getInstance().sqliteDB().delete(DatabaseHelper.TABLES_NAME_IM_MESSAGE, IMessageColumn.OWN_THREAD_ID + " = " + l, null);
         }
         return -1;
     }
@@ -691,11 +709,12 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 返回消息的类型，发送、接收、草稿
+     *
      * @param type 消息类型
      * @return
      */
     public static ECMessage.Direction getMessageDirect(int type) {
-        if(type == ECMessage.Direction.SEND.ordinal()) {
+        if (type == ECMessage.Direction.SEND.ordinal()) {
             return ECMessage.Direction.SEND;
         } else if (type == ECMessage.Direction.RECEIVE.ordinal()) {
             return ECMessage.Direction.RECEIVE;
@@ -706,14 +725,15 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 根据会话ID查询会话消息的数据量
+     *
      * @param threadId 当前会话ID
      * @return 会话总数
      */
     public static int getTotalCount(long threadId) {
-        String sql = "SELECT COUNT(*) FROM " + DatabaseHelper.TABLES_NAME_IM_MESSAGE + " WHERE " + "sid" + "=" + threadId ;
+        String sql = "SELECT COUNT(*) FROM " + DatabaseHelper.TABLES_NAME_IM_MESSAGE + " WHERE " + "sid" + "=" + threadId;
         Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
         int count = 0;
-        if(cursor.moveToLast()) {
+        if (cursor.moveToLast()) {
             count = cursor.getInt(0);
         }
         cursor.close();
@@ -726,7 +746,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     public static int deleteMulitMsgs(List<ECMessage> msgs) {
         List<Long> rowIds = new ArrayList<Long>();
-        for(ECMessage detail : msgs) {
+        for (ECMessage detail : msgs) {
             rowIds.add(detail.getId());
         }
 
@@ -734,21 +754,20 @@ public class IMessageSqlManager extends AbstractSQLManager {
     }
 
     /**
-     *
      * @param rowIds
      * @return
      */
     public static int deleteMulitMsg(List<Long> rowIds) {
-        if(rowIds == null || rowIds.isEmpty()) {
+        if (rowIds == null || rowIds.isEmpty()) {
             LogUtil.d(TAG, "ignore delete , rowIds empty");
             return 0;
         }
 
         StringBuilder where = new StringBuilder(IMessageColumn.ID + " IN (");
         int lenght = where.length();
-        for(long rowId : rowIds) {
+        for (long rowId : rowIds) {
 
-            if(where.length() > lenght) {
+            if (where.length() > lenght) {
                 where.append(",");
             }
             where.append(rowId);
@@ -759,7 +778,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
         int row = 0;
         try {
-            row = getInstance().sqliteDB().delete(DatabaseHelper.TABLES_NAME_IM_MESSAGE,where.toString(), null);
+            row = getInstance().sqliteDB().delete(DatabaseHelper.TABLES_NAME_IM_MESSAGE, where.toString(), null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -768,11 +787,12 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 分页加载查询数据
+     *
      * @param threadId
      * @param limit
      * @return
      */
-    public static Cursor getCursor(long threadId , int limit) {
+    public static Cursor getCursor(long threadId, int limit) {
         String sql = "SELECT * FROM " + DatabaseHelper.TABLES_NAME_IM_MESSAGE
                 + " WHERE " + "sid" + "= " + threadId + " ORDER BY "
                 + "serverTime" + " ASC LIMIT " + limit + " offset "
@@ -785,6 +805,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 查询会话所有的图片
+     *
      * @param session
      * @return
      */
@@ -792,7 +813,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
         String sql = "select msgid from " + DatabaseHelper.TABLES_NAME_IM_MESSAGE + " where " + IMessageColumn.OWN_THREAD_ID + " = " + session + " and msgType=" + ECMessage.Type.IMAGE.ordinal();
         Cursor cursor = getInstance().sqliteDB().rawQuery(sql, null);
         List<String> msgids = null;
-        if(cursor != null && cursor.getCount() > 0) {
+        if (cursor != null && cursor.getCount() > 0) {
             msgids = new ArrayList<String>();
             while (cursor.moveToNext()) {
                 msgids.add(cursor.getString(0));
@@ -809,7 +830,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
      */
     public static int qureyAllSessionUnreadCount() {
         int count = 0;
-         String[] columnsList = { "sum(" + IThreadColumn.UNREAD_COUNT + ")" };
+        String[] columnsList = {"sum(" + IThreadColumn.UNREAD_COUNT + ")"};
         Cursor cursor = null;
         try {
             cursor = getInstance().sqliteDB().query(DatabaseHelper.TABLES_NAME_IM_SESSION,
@@ -837,7 +858,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
         int count = 0;
         Cursor cursor = null;
         try {
-            cursor = getInstance().sqliteDB().rawQuery(sql , null);
+            cursor = getInstance().sqliteDB().rawQuery(sql, null);
             if (cursor != null && cursor.getCount() > 0) {
                 if (cursor.moveToFirst()) {
                     count = cursor.getInt(cursor.getColumnIndex("sum("
@@ -856,6 +877,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 通过联系着查找会话ID
+     *
      * @param contactId
      * @return
      */
@@ -888,13 +910,14 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 消息重发
+     *
      * @param rowid
      * @param detail
      * @return
      */
-    public static int changeResendMsg(long rowid , ECMessage detail) {
+    public static int changeResendMsg(long rowid, ECMessage detail) {
 
-        if(detail == null || TextUtils.isEmpty(detail.getMsgId()) || rowid == -1) {
+        if (detail == null || TextUtils.isEmpty(detail.getMsgId()) || rowid == -1) {
             return -1;
         }
 
@@ -905,7 +928,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
             values.put(IMessageColumn.MESSAGE_ID, detail.getMsgId());
             values.put(IMessageColumn.SEND_STATUS, detail.getMsgStatus().ordinal());
             values.put(IMessageColumn.USER_DATA, detail.getUserData());
-            return getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_IM_MESSAGE, values, where,null);
+            return getInstance().sqliteDB().update(DatabaseHelper.TABLES_NAME_IM_MESSAGE, values, where, null);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -926,7 +949,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
      */
     public static int qureyIMCountForSession(long threadId) {
         int count = 0;
-        String[] columnsList = { "count(*)" };
+        String[] columnsList = {"count(*)"};
         String where = IMessageColumn.OWN_THREAD_ID + " = " + threadId
                 + " and " + IMessageColumn.BOX_TYPE + " != 3";
         Cursor cursor = null;
@@ -951,11 +974,12 @@ public class IMessageSqlManager extends AbstractSQLManager {
 
     /**
      * 查询下载失败的图片消息
+     *
      * @return
      */
     public static List<ECMessage> getDowndFailMsg() {
         String sql = "select * from " + DatabaseHelper.TABLES_NAME_IM_MESSAGE +
-                " where msgType="+ ECMessage.Type.IMAGE.ordinal() +" and box_type=2 and userData is null";
+                " where msgType=" + ECMessage.Type.IMAGE.ordinal() + " and box_type=2 and userData is null";
         Cursor cursor = null;
 
         List<ECMessage> al = null;
@@ -988,7 +1012,7 @@ public class IMessageSqlManager extends AbstractSQLManager {
         String sql = "select * from " + DatabaseHelper.TABLES_NAME_IM_MESSAGE + " where msgid = '" + id + "'";
         Cursor cursor = null;
         try {
-            cursor = getInstance().sqliteDB().rawQuery(sql , null);
+            cursor = getInstance().sqliteDB().rawQuery(sql, null);
             if (cursor != null && cursor.getCount() > 0) {
                 if (cursor.moveToFirst()) {
                     return packageMessage(cursor);

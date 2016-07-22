@@ -26,144 +26,144 @@ import com.yuntongxun.kitsdk.utils.LogUtil;
 
 public class ECDeviceKit {
 
-	protected static ECDeviceKit sInstance;
+    protected static ECDeviceKit sInstance;
 
-	private static String userId;
-	private static ECInitParams mInitParams;
-	private ECInitParams.LoginMode mMode = ECInitParams.LoginMode.FORCE_LOGIN;
+    private static String userId;
+    private static ECInitParams mInitParams;
+    private ECInitParams.LoginMode mMode = ECInitParams.LoginMode.FORCE_LOGIN;
 
-	private static Context mContext;
+    private static Context mContext;
 
-	public static ECDeviceKit getInstance() {
-		if (sInstance == null) {
-			synchronized (ECDeviceKit.class) {
-				sInstance = new ECDeviceKit();
+    public static ECDeviceKit getInstance() {
+        if (sInstance == null) {
+            synchronized (ECDeviceKit.class) {
+                sInstance = new ECDeviceKit();
 
-			}
-		}
+            }
+        }
 
-		return sInstance;
-	}
+        return sInstance;
+    }
 
-	private ECDeviceKit() {
+    private ECDeviceKit() {
 
-	}
+    }
 
-	public static Context getmContext() {
-		return mContext;
-	}
+    public static Context getmContext() {
+        return mContext;
+    }
 
-	public static void setmContext(Context mContext) {
-		ECDeviceKit.mContext = mContext;
-	}
+    public static void setmContext(Context mContext) {
+        ECDeviceKit.mContext = mContext;
+    }
 
-	/**
-	 * 
-	 * @param user
-	 * @param context
-	 * @param l
-	 */
-	public static void init(String user, Context context, OnInitSDKListener l) {
-		try {
-			userId = user;
-			FileAccessor.initFileAccess();
-			CCPAppManager.setContext(context);
-			setmContext(context);
+    /**
+     * @param user
+     * @param context
+     * @param l
+     */
+    public static void init(String user, Context context, OnInitSDKListener l) {
+        try {
+            userId = user;
+            FileAccessor.initFileAccess();
+            CCPAppManager.setContext(context);
+            setmContext(context);
 
-			initSql();
-		} catch (Exception e) {
+            initSql();
+        } catch (Exception e) {
 
-			LogUtil.e("please check your sdcard is mounted");
-		}
+            LogUtil.e("please check your sdcard is mounted");
+        }
 
-		ECKitSDKCoreRouteManager.init(context, l);
+        ECKitSDKCoreRouteManager.init(context, l);
 
-	}
+    }
 
-	public static IMKitManager getIMKitManager() {
+    public static IMKitManager getIMKitManager() {
 
-		return IMKitManager.getInstance();
-	}
-	public static VoipKitManager getVoipKitManager() {
-		
-		return VoipKitManager.getInstance();
-	}
+        return IMKitManager.getInstance();
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public static VoipKitManager getVoipKitManager() {
 
-	public static void login(ECAuthParameters initParams, OnConnectSDKListener l) {
+        return VoipKitManager.getInstance();
+    }
 
-		if (initParams == null) {
-			LogUtil.e("initparams cannot be null,please check it");
-			return;
-		}
+    public String getUserId() {
+        return userId;
+    }
 
-		ECKitSDKCoreRouteManager.setOnConnectSDKListener(l);
+    public static void login(ECAuthParameters initParams, OnConnectSDKListener l) {
 
-		if (mInitParams == null || mInitParams.getInitParams() == null
-				|| mInitParams.getInitParams().isEmpty()) {
-			mInitParams = ECInitParams.createParams();
-		}
-		mInitParams.reset();
-		// 如：VoIP账号/手机号码/..
-		mInitParams.setUserid(initParams.getUserId());
-		// appkey
-		mInitParams.setAppKey(initParams.getAppKey());
-		mInitParams.setToken(initParams.getAppToken());
-		mInitParams.setMode(initParams.getLoginMode());
-		// 如果有密码（VoIP密码，对应的登陆验证模式是）
-		// ECInitParams.LoginAuthType.PASSWORD_AUTH
-		if (!TextUtils.isEmpty(initParams.getPwd())) {
-			mInitParams.setPwd(initParams.getPwd());
-		}
+        if (initParams == null) {
+            LogUtil.e("initparams cannot be null,please check it");
+            return;
+        }
 
-		// 设置登陆验证模式（是否验证密码/如VoIP方式登陆）
-		if (initParams.getLoginType() != null) {
-			mInitParams.setAuthType(initParams.getLoginType());
-		}
-		mInitParams.setOnChatReceiveListener(IMChattingHelper.getInstance());
-		mInitParams.setOnDeviceConnectListener(ECKitSDKCoreRouteManager
-				.getInstance());
-		
-		
+        ECKitSDKCoreRouteManager.setOnConnectSDKListener(l);
+
+        if (mInitParams == null || mInitParams.getInitParams() == null
+                || mInitParams.getInitParams().isEmpty()) {
+            mInitParams = ECInitParams.createParams();
+        }
+        mInitParams.reset();
+        // 如：VoIP账号/手机号码/..
+        mInitParams.setUserid(initParams.getUserId());
+        // appkey
+        mInitParams.setAppKey(initParams.getAppKey());
+        mInitParams.setToken(initParams.getAppToken());
+        mInitParams.setMode(initParams.getLoginMode());
+        // 如果有密码（VoIP密码，对应的登陆验证模式是）
+        // ECInitParams.LoginAuthType.PASSWORD_AUTH
+        if (!TextUtils.isEmpty(initParams.getPwd())) {
+            mInitParams.setPwd(initParams.getPwd());
+        }
+
+        // 设置登陆验证模式（是否验证密码/如VoIP方式登陆）
+        if (initParams.getLoginType() != null) {
+            mInitParams.setAuthType(initParams.getLoginType());
+        }
+        mInitParams.setOnChatReceiveListener(IMChattingHelper.getInstance());
+        mInitParams.setOnDeviceConnectListener(ECKitSDKCoreRouteManager
+                .getInstance());
+
+
         Intent intent = new Intent(getInstance().mContext, VoIPCallActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity( getInstance().mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getInstance().mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mInitParams.setPendingIntent(pendingIntent);
 
 
-		ECDevice.login(mInitParams);
-	}
+        ECDevice.login(mInitParams);
+    }
 
-	public static void logout(OnLogoutSDKListener l) {
+    public static void logout(OnLogoutSDKListener l) {
 
-		ECKitSDKCoreRouteManager.logout();
-		release();
-	}
+        ECKitSDKCoreRouteManager.logout();
+        release();
+    }
 
-	public static void unInitial() {
+    public static void unInitial() {
 
-		release();
-		ECDevice.unInitial();
-	}
+        release();
+        ECDevice.unInitial();
+    }
 
-	public static void release() {
-		IMChattingHelper.getInstance().destory();
-		ECKitCustomProviderManager.release();
-		ConversationSqlManager.reset();
-		GroupNoticeSqlManager.reset();
-		GroupSqlManager.reset();
-		IMessageSqlManager.reset();
-		ImgInfoSqlManager.reset();
+    public static void release() {
+        IMChattingHelper.getInstance().destory();
+        ECKitCustomProviderManager.release();
+        ConversationSqlManager.reset();
+        GroupNoticeSqlManager.reset();
+        GroupSqlManager.reset();
+        IMessageSqlManager.reset();
+        ImgInfoSqlManager.reset();
 
-	}
+    }
 
-	public static void initSql() {
+    public static void initSql() {
 
-		ConversationSqlManager.getInstance();
-		GroupNoticeSqlManager.getInstance();
-		GroupSqlManager.getInstance();
-	}
+        ConversationSqlManager.getInstance();
+        GroupNoticeSqlManager.getInstance();
+        GroupSqlManager.getInstance();
+    }
 
 }

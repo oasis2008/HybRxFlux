@@ -30,104 +30,100 @@ import java.util.HashMap;
 
 public abstract class BaseChattingRow implements IChattingRow {
 
-	public static final String TAG = LogUtil
-			.getLogUtilsTag(BaseChattingRow.class);
-	private HashMap<String, String> hashMap = new HashMap<String, String>();
-	int mRowType;
+    public static final String TAG = LogUtil
+            .getLogUtilsTag(BaseChattingRow.class);
+    private HashMap<String, String> hashMap = new HashMap<String, String>();
+    int mRowType;
 
-	public BaseChattingRow(int type) {
-		mRowType = type;
-	}
+    public BaseChattingRow(int type) {
+        mRowType = type;
+    }
 
-	/**
-	 * 处理消息的发送状态设置
-	 * 
-	 * @param position
-	 *            消息的列表所在位置
-	 * @param holder
-	 *            消息ViewHolder
-	 * @param l
-	 */
-	protected static void getMsgStateResId(int position, BaseHolder holder,
-			ECMessage msg, View.OnClickListener l) {
-		if (msg != null && msg.getDirection() == ECMessage.Direction.SEND) {
-			ECMessage.MessageStatus msgStatus = msg.getMsgStatus();
-			if (msgStatus == ECMessage.MessageStatus.FAILED) {
-				holder.getUploadState().setImageResource(
-						R.drawable.ytx_msg_state_failed_resend);
-				holder.getUploadState().setVisibility(View.VISIBLE);
-				if (holder.getUploadProgressBar() != null) {
-					holder.getUploadProgressBar().setVisibility(View.GONE);
-				}
-			} else if (msgStatus == ECMessage.MessageStatus.SUCCESS
-					|| msgStatus == ECMessage.MessageStatus.RECEIVE) {
-				holder.getUploadState().setImageResource(0);
-				holder.getUploadState().setVisibility(View.GONE);
-				if (holder.getUploadProgressBar() != null) {
-					holder.getUploadProgressBar().setVisibility(View.GONE);
-				}
+    /**
+     * 处理消息的发送状态设置
+     *
+     * @param position 消息的列表所在位置
+     * @param holder   消息ViewHolder
+     * @param l
+     */
+    protected static void getMsgStateResId(int position, BaseHolder holder,
+                                           ECMessage msg, View.OnClickListener l) {
+        if (msg != null && msg.getDirection() == ECMessage.Direction.SEND) {
+            ECMessage.MessageStatus msgStatus = msg.getMsgStatus();
+            if (msgStatus == ECMessage.MessageStatus.FAILED) {
+                holder.getUploadState().setImageResource(
+                        R.drawable.ytx_msg_state_failed_resend);
+                holder.getUploadState().setVisibility(View.VISIBLE);
+                if (holder.getUploadProgressBar() != null) {
+                    holder.getUploadProgressBar().setVisibility(View.GONE);
+                }
+            } else if (msgStatus == ECMessage.MessageStatus.SUCCESS
+                    || msgStatus == ECMessage.MessageStatus.RECEIVE) {
+                holder.getUploadState().setImageResource(0);
+                holder.getUploadState().setVisibility(View.GONE);
+                if (holder.getUploadProgressBar() != null) {
+                    holder.getUploadProgressBar().setVisibility(View.GONE);
+                }
 
-			} else if (msgStatus == ECMessage.MessageStatus.SENDING) {
-				holder.getUploadState().setImageResource(0);
-				holder.getUploadState().setVisibility(View.GONE);
-				if (holder.getUploadProgressBar() != null) {
-					holder.getUploadProgressBar().setVisibility(View.VISIBLE);
-				}
+            } else if (msgStatus == ECMessage.MessageStatus.SENDING) {
+                holder.getUploadState().setImageResource(0);
+                holder.getUploadState().setVisibility(View.GONE);
+                if (holder.getUploadProgressBar() != null) {
+                    holder.getUploadProgressBar().setVisibility(View.VISIBLE);
+                }
 
-			} else {
-				if (holder.getUploadProgressBar() != null) {
-					holder.getUploadProgressBar().setVisibility(View.GONE);
-				}
-				LogUtil.d(TAG, "getMsgStateResId: not found this state");
-			}
+            } else {
+                if (holder.getUploadProgressBar() != null) {
+                    holder.getUploadProgressBar().setVisibility(View.GONE);
+                }
+                LogUtil.d(TAG, "getMsgStateResId: not found this state");
+            }
 
-			ViewHolderTag holderTag = ViewHolderTag.createTag(msg,
-					ViewHolderTag.TagType.TAG_RESEND_MSG, position);
-			holder.getUploadState().setTag(holderTag);
-			holder.getUploadState().setOnClickListener(l);
-		}
-	}
+            ViewHolderTag holderTag = ViewHolderTag.createTag(msg,
+                    ViewHolderTag.TagType.TAG_RESEND_MSG, position);
+            holder.getUploadState().setTag(holderTag);
+            holder.getUploadState().setOnClickListener(l);
+        }
+    }
 
-	/**
-	 *
-	 * @param contextMenu
-	 * @param targetView
-	 * @param detail
-	 * @return
-	 */
-	public abstract boolean onCreateRowContextMenu(ContextMenu contextMenu,
-			View targetView, ECMessage detail);
+    /**
+     * @param contextMenu
+     * @param targetView
+     * @param detail
+     * @return
+     */
+    public abstract boolean onCreateRowContextMenu(ContextMenu contextMenu,
+                                                   View targetView, ECMessage detail);
 
-	/**
-	 *
-	 * @param baseHolder
-	 * @param displayName
-	 */
-	public static void setDisplayName(BaseHolder baseHolder, String displayName) {
-		if (baseHolder == null || baseHolder.getChattingUser() == null) {
-			return;
-		}
-		System.out.println(displayName);
-		if (TextUtils.isEmpty(displayName)) {
-			baseHolder.getChattingUser().setVisibility(View.GONE);
-			return;
-		}
+    /**
+     * @param baseHolder
+     * @param displayName
+     */
+    public static void setDisplayName(BaseHolder baseHolder, String displayName) {
+        if (baseHolder == null || baseHolder.getChattingUser() == null) {
+            return;
+        }
+        System.out.println(displayName);
+        if (TextUtils.isEmpty(displayName)) {
+            baseHolder.getChattingUser().setVisibility(View.GONE);
+            return;
+        }
 
-		baseHolder.getChattingUser().setText(displayName);
-		baseHolder.getChattingUser().setVisibility(View.VISIBLE);
-	}
+        baseHolder.getChattingUser().setText(displayName);
+        baseHolder.getChattingUser().setVisibility(View.VISIBLE);
+    }
 
-	protected abstract void buildChattingData(Context context,
-			BaseHolder baseHolder, ECMessage detail, int position);
+    protected abstract void buildChattingData(Context context,
+                                              BaseHolder baseHolder, ECMessage detail, int position);
 
-	public void buildChattingBaseData(Context context, BaseHolder baseHolder,
-			ECMessage detail, int position) {
+    public void buildChattingBaseData(Context context, BaseHolder baseHolder,
+                                      ECMessage detail, int position) {
 
-		// 处理其他使用逻辑
-		buildChattingData(context, baseHolder, detail, position);
-		setContactPhoto(baseHolder, detail);
-		if (((ECChattingActivity) context).isPeerChat()
-				&& detail.getDirection() == ECMessage.Direction.RECEIVE) {//群组昵称修改处
+        // 处理其他使用逻辑
+        buildChattingData(context, baseHolder, detail, position);
+        setContactPhoto(baseHolder, detail);
+        if (((ECChattingActivity) context).isPeerChat()
+                && detail.getDirection() == ECMessage.Direction.RECEIVE) {//群组昵称修改处
 
 //			ECContacts contact = ContactSqlManager.getContact(detail.getForm());
 //			if (contact != null) {
@@ -138,63 +134,62 @@ public abstract class BaseChattingRow implements IChattingRow {
 //			} else {
 //				setDisplayName(baseHolder, detail.getForm());
 //			}
-			setDisplayName(baseHolder,
-					detail.getForm());
-		}
-		setContactPhotoClickListener(context, baseHolder, detail);
-	}
+            setDisplayName(baseHolder,
+                    detail.getForm());
+        }
+        setContactPhotoClickListener(context, baseHolder, detail);
+    }
 
-	private void setContactPhotoClickListener(final Context context,
-			BaseHolder baseHolder, final ECMessage detail) {
-		if (baseHolder.getChattingAvatar() != null && detail != null) {
-			baseHolder.getChattingAvatar().setOnClickListener(
-					new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
+    private void setContactPhotoClickListener(final Context context,
+                                              BaseHolder baseHolder, final ECMessage detail) {
+        if (baseHolder.getChattingAvatar() != null && detail != null) {
+            baseHolder.getChattingAvatar().setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-							ECCustomChatActionProvider obj = ECKitCustomProviderManager
-									.getCustomChatActionProvider();
+                            ECCustomChatActionProvider obj = ECKitCustomProviderManager
+                                    .getCustomChatActionProvider();
 
-							if (obj != null
-									) {
+                            if (obj != null
+                                    ) {
 
-								
-								
-							boolean result=	obj.onMessagePortRaitClick(context, detail);
-							if(result){
-								return;
-							}
-							}
 
-						}
-					});
-		}
-	}
+                                boolean result = obj.onMessagePortRaitClick(context, detail);
+                                if (result) {
+                                    return;
+                                }
+                            }
 
-	/**
-	 * 添加用户头像
-	 * 
-	 * @param baseHolder
-	 * @param detail
-	 */
-	private void setContactPhoto(BaseHolder baseHolder, ECMessage detail) {
-		if (baseHolder.getChattingAvatar() != null) {
-			try {
-				if (TextUtils.isEmpty(detail.getForm())) {
-					return;
-				}
-				String userUin = "";
-				if (hashMap.containsKey(detail.getForm())) {
-					userUin = hashMap.get(detail.getForm());
-				} else {
-					// userUin = ContactSqlManager.getContact(detail.getForm())
-					// .getRemark();？？
-				}
-				// baseHolder.getChattingAvatar().setImageBitmap(
-				// ContactLogic.getPhoto(null));？？
-			} catch (Exception e) {
-			}
-		}
-	}
+                        }
+                    });
+        }
+    }
+
+    /**
+     * 添加用户头像
+     *
+     * @param baseHolder
+     * @param detail
+     */
+    private void setContactPhoto(BaseHolder baseHolder, ECMessage detail) {
+        if (baseHolder.getChattingAvatar() != null) {
+            try {
+                if (TextUtils.isEmpty(detail.getForm())) {
+                    return;
+                }
+                String userUin = "";
+                if (hashMap.containsKey(detail.getForm())) {
+                    userUin = hashMap.get(detail.getForm());
+                } else {
+                    // userUin = ContactSqlManager.getContact(detail.getForm())
+                    // .getRemark();？？
+                }
+                // baseHolder.getChattingAvatar().setImageBitmap(
+                // ContactLogic.getPhoto(null));？？
+            } catch (Exception e) {
+            }
+        }
+    }
 
 }

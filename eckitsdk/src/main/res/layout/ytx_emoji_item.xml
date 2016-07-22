@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright (c) 2013 The CCP project authors. All Rights Reserved.
  
    Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
@@ -14,7 +13,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center" >
+    android:gravity="center">
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -23,7 +22,7 @@
         android:background="@drawable/ytx_smiley_item_bg2"
         android:clickable="false"
         android:focusable="false"
-        android:focusableInTouchMode="false" >
+        android:focusableInTouchMode="false">
 
         <ImageView
             android:id="@+id/emoji_id"

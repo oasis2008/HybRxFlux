@@ -20,12 +20,9 @@ import com.yuntongxun.kitsdk.view.CCPActivityBase;
 import com.yuntongxun.kitsdk.view.TopBarView;
 
 
-
-
-
 public abstract class ECSuperActivity extends FragmentActivity {
-	
-	protected static final Object CODE_OK = "000000";
+
+    protected static final Object CODE_OK = "000000";
     private static final String TAG = ECSuperActivity.class.getSimpleName();
     /**
      * 初始化应用ActionBar
@@ -36,8 +33,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
      */
     private InternalReceiver internalReceiver;
 
-   
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,16 +41,17 @@ public abstract class ECSuperActivity extends FragmentActivity {
         mBaseActivity.init(getBaseContext(), this);
         onActivityInit();
     }
+
     private KeyguardManager.KeyguardLock mKeyguardLock = null;
     private KeyguardManager mKeyguardManager = null;
     private PowerManager.WakeLock mWakeLock;
-    
+
     protected void initProwerManager() {
         mWakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(
-                PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP , "CALL_ACTIVITY#" + super.getClass().getName());
+                PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "CALL_ACTIVITY#" + super.getClass().getName());
         mKeyguardManager = ((KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE));
     }
-    
+
     /**
      * 释放资源
      */
@@ -72,6 +69,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
             LogUtil.e(TAG, e.toString());
         }
     }
+
     /**
      * 唤醒屏幕资源
      */
@@ -104,6 +102,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
     /**
      * The sub Activity implement, set the Ui Layout
+     *
      * @return
      */
     protected abstract int getLayoutId();
@@ -114,15 +113,16 @@ public abstract class ECSuperActivity extends FragmentActivity {
     /**
      * 如果子界面需要拦截处理注册的广播
      * 需要实现该方法
+     *
      * @param context
      * @param intent
      */
     protected void handleReceiver(Context context, Intent intent) {
         // 广播处理
-        if(intent == null ) {
-            return ;
+        if (intent == null) {
+            return;
         }
-        if(ECKitConstant.ACTION_KICK_OFF.equals(intent.getAction())) {
+        if (ECKitConstant.ACTION_KICK_OFF.equals(intent.getAction())) {
             finish();
         }
     }
@@ -151,7 +151,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
         // HSCoreService
         super.onResume();
         mBaseActivity.onResume();
-        
+
     }
 
 
@@ -162,7 +162,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-       
+
         super.onDestroy();
         mBaseActivity.onDestroy();
         try {
@@ -174,7 +174,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(mBaseActivity.onKeyDown(keyCode, event)) {
+        if (mBaseActivity.onKeyDown(keyCode, event)) {
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -183,7 +183,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if(mBaseActivity.onKeyUp(keyCode, event)) {
+        if (mBaseActivity.onKeyUp(keyCode, event)) {
             return true;
         }
         return super.onKeyUp(keyCode, event);
@@ -197,10 +197,11 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
     /**
      * 跳转
+     *
      * @param clazz
      * @param intent
      */
-    protected void startCCPActivity(Class<? extends Activity> clazz , Intent intent) {
+    protected void startCCPActivity(Class<? extends Activity> clazz, Intent intent) {
         intent.setClass(this, clazz);
         startActivity(intent);
     }
@@ -211,15 +212,15 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent == null || intent.getAction() == null ) {
-                return ;
+            if (intent == null || intent.getAction() == null) {
+                return;
             }
             handleReceiver(context, intent);
         }
     }
 
     public Activity getActivitContext() {
-        if(getParent() != null) {
+        if (getParent() != null) {
             return getParent();
         }
         return null;
@@ -231,6 +232,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
     /**
      * 设置ActionBar标题
+     *
      * @param resid
      */
     public void setActionBarTitle(int resid) {
@@ -239,6 +241,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
     /**
      * 设置ActionBar标题
+     *
      * @param text
      */
     public void setActionBarTitle(CharSequence text) {
@@ -247,6 +250,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
     /**
      * 返回ActionBar 标题
+     *
      * @return
      */
     public final CharSequence getActionBarTitle() {
@@ -255,6 +259,7 @@ public abstract class ECSuperActivity extends FragmentActivity {
 
     /**
      * #getLayoutId()
+     *
      * @return
      */
     public View getActivityLayoutView() {
@@ -274,11 +279,6 @@ public abstract class ECSuperActivity extends FragmentActivity {
     public final void hideTitleView() {
         mBaseActivity.hideTitleView();
     }
-    
-    
-    
-	
-	
-	
-	
+
+
 }

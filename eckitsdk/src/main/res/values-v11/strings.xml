@@ -42,8 +42,8 @@
     <string name="app_panel_file">文件</string>
     <string name="app_panel_p2pvideo">视频通话</string>
     <string name="app_panel_talkroom">对讲</string>
-	<string name="app_voice_meeting">语音会议</string>
-	<string name="app_vedio_meeting">视频会议</string>
+    <string name="app_voice_meeting">语音会议</string>
+    <string name="app_vedio_meeting">视频会议</string>
     <string name="app_panel_call">通话</string>
     <string name="fmt_time_length">%d\"</string>
     <string name="login_account_hint">请输入云通讯注册邮箱/手机</string>
@@ -71,7 +71,7 @@
     <string name="main_plus_groupchat">创建群组</string>
     <string name="main_plus_chatroom">语音会议</string>
     <string name="main_plus_videoroom">视频会议</string>
-   <!--  <string name="main_plus_querygroup">查找群组</string> -->
+    <!--  <string name="main_plus_querygroup">查找群组</string> -->
     <string name="main_plus_settings">设置</string>
     <string name="main_title_select_account">选择登陆帐号</string>
     <string name="str_group_name_hint">群组名称</string>
@@ -147,7 +147,7 @@
     <string name="update_posting">正在更新通讯录，请稍候</string>
     <string name="request_loading">请稍候</string>
     <string name="post_check_update">正在获取最新版本信息...</string>
-    <string name="post_latest_version">已是最新版本</string> 
+    <string name="post_latest_version">已是最新版本</string>
     <string name="get_update_information_failed">获取服务器更新信息失败</string>
     <string name="download_the_update">正在下载更新</string>
     <string name="download_failed">下载新版本失败</string>
@@ -249,131 +249,131 @@
     <string name="pull_to_refresh_enb_pull_label">下拉更新通讯录</string>
     <string name="pull_to_refresh_release_label">松开刷新</string>
     <string name="pull_to_refresh_refreshing_label">正在刷新...</string>
-    
-    
+
+
     <string name="str_register">免费注册</string>
-	<string name="str_write_phonenum">填写手机号</string>
+    <string name="str_write_phonenum">填写手机号</string>
     <string name="str_country_area">国家或地区</string>
-	<string name="str_forget_psw">忘记密码?</string>
-	<string name="str_register_des">点击“注册”按钮，表示您阅读并同意</string>
-	<string name="str_rongxin_useinfo">《容信使用协议》</string>
-	<string name="str_rongxin_use">容信使用协议</string>
-	<string name="str_url_agreement">http://123.57.204.169:6020/law/service.html</string>
-	<string name="str_recommend_friend">推荐给朋友</string>
-	<string name="str_common_setting">设置</string>
-	<string name="str_contact_backup">通讯录备份与恢复</string>
-	<string name="str_no_disturb">勿扰模式</string>
-	<string name="str_about_us">关于我们</string>
-	<string name="str_feedback">意见反馈</string>
-	<string name="str_base_info">基本信息</string>
-	<string name="str_head_portrait">头像</string>
-	<string name="str_nick">姓名</string>
-	<string name="str_mobile">手机号</string>
-	<string name="str_email">邮箱</string>
-	<string name="str_gender">性别</string>
-	<string name="str_signature">个性签名</string>
-	<string name="str_modify_pwd">修改密码</string>
-	<string name="str_find_pwd">找回密码</string>
-	<string name="str_write_verify_code">填写验证码</string>
-	<string name="str_back">返回</string>
-	<string name="str_enterprise_information">企业信息</string>
-	<string name="str_enterprise_name">公司名称</string>
-	<string name="str_department">部门</string>
-	<string name="str_position">职位</string>
-	<string name="str_feed_back_hint">请输入您的宝贵意见</string>
-	<string name="str_commit_feedback">提交</string>
-	<string name="str_back_in">可输入%d字</string>
-	<string name="str_back_word">字</string>
-	<string name="str_erweima">扫描二维码即可下载</string>
-	<string name="str_sharepreference">分享至</string>
-	<string name="sharepreference_body">我正在使用"容信"，是包含IM聊天、免费电话、音视频会议等功能的一款加密的企业即时通讯APP，不用担心您的隐私会泄露，赶快去安装试试吧！https://www.baidu.com</string>
-	<string name="str_grade">去评分</string>
-	<string name="str_welcome_page">欢迎页</string>
-	<string name="str_help">使用帮助</string>
-	<string name="str_version_update">版本更新</string>
+    <string name="str_forget_psw">忘记密码?</string>
+    <string name="str_register_des">点击“注册”按钮，表示您阅读并同意</string>
+    <string name="str_rongxin_useinfo">《容信使用协议》</string>
+    <string name="str_rongxin_use">容信使用协议</string>
+    <string name="str_url_agreement">http://123.57.204.169:6020/law/service.html</string>
+    <string name="str_recommend_friend">推荐给朋友</string>
+    <string name="str_common_setting">设置</string>
+    <string name="str_contact_backup">通讯录备份与恢复</string>
+    <string name="str_no_disturb">勿扰模式</string>
+    <string name="str_about_us">关于我们</string>
+    <string name="str_feedback">意见反馈</string>
+    <string name="str_base_info">基本信息</string>
+    <string name="str_head_portrait">头像</string>
+    <string name="str_nick">姓名</string>
+    <string name="str_mobile">手机号</string>
+    <string name="str_email">邮箱</string>
+    <string name="str_gender">性别</string>
+    <string name="str_signature">个性签名</string>
+    <string name="str_modify_pwd">修改密码</string>
+    <string name="str_find_pwd">找回密码</string>
+    <string name="str_write_verify_code">填写验证码</string>
+    <string name="str_back">返回</string>
+    <string name="str_enterprise_information">企业信息</string>
+    <string name="str_enterprise_name">公司名称</string>
+    <string name="str_department">部门</string>
+    <string name="str_position">职位</string>
+    <string name="str_feed_back_hint">请输入您的宝贵意见</string>
+    <string name="str_commit_feedback">提交</string>
+    <string name="str_back_in">可输入%d字</string>
+    <string name="str_back_word">字</string>
+    <string name="str_erweima">扫描二维码即可下载</string>
+    <string name="str_sharepreference">分享至</string>
+    <string name="sharepreference_body">我正在使用"容信"，是包含IM聊天、免费电话、音视频会议等功能的一款加密的企业即时通讯APP，不用担心您的隐私会泄露，赶快去安装试试吧！https://www.baidu.com</string>
+    <string name="str_grade">去评分</string>
+    <string name="str_welcome_page">欢迎页</string>
+    <string name="str_help">使用帮助</string>
+    <string name="str_version_update">版本更新</string>
 	    <string name="app_copyright">"Copyright © 2015 yuntongxun.
 All Rights Reserved."</string>
-	<string name="str_account">帐号</string>
-	<string name="str_account_info">个人资料</string>
-	<string name="str_use_headset">使用听筒播放语音</string>
-	<string name="str_auto_receive_callback">自动接听回拨</string>
-	<string name="update_contact">更新通讯录</string>
-	<string name="str_clear">清空聊天</string>
-	<string name="fmt_delcontactmsg_confirm">确定删除聊天记录吗?</string>
-	<string name="str_choose_call_way">手动选择拨打方式</string>
-	<string name="str_auto_call_direct">自动直拨</string>
-	<string name="str_auto_call_back">自动回拨</string>
-	<string name="str_show_notify">接收新消息通知</string>
-	<string name="str_audio">声音</string>
-	<string name="str_vibrate">振动</string>
-	<string name="str_notify_audio">新消息提示音</string>
-	<string name="str_notify_period">后台消息提醒时段</string>
-	<string name="str_no_disturb_mode_des">开启后，在设定时间段内无新消息提示</string>
-	<string name="str_start_time">开始时间</string>
-	<string name="str_end_time">结束时间</string>
-	<string name="str_save">保存</string>
-	<string name="str_male">男</string>
-	<string name="str_female">女</string>
-	
-	<string name="str_input_old_pwd">输入当前密码</string>
-	<string name="str_input_new_pwd">请输新密码(6-16位数字或字母)</string>
-	<string name="str_input_confirm_pwd">请输确认密码</string>
-	
-	<string name="str_previous_step">上一步</string>
-	<string name="str_next_step">下一步</string>
-	<string name="str_send_verify_code">已发送短信验证码到</string>
-	<string name="str_no_receive_verifycode">没收到验证码？</string>
-	<string name="str_try_audio_verify">试试语音验证码</string>
-	<string name="str_input_verify_code">请输入验证码</string>
-	<string name="str_set_new_pwd">输入新密码</string>
-	
-	<string name="address_enteprise_title">企业</string>
-	<string name="enterprise_architecture">企业架构</string>
-	<string name="enterprise_architecture_count">企业架构(%d)</string>
-	<string name="enterprise_all_contacts">企业通讯录</string>
-	<string name="enterprise_all_contacts_count">企业通讯录(%d)</string>
-	<string name="enterprise_count">(%d)</string>
-	<string name="total_contact_count">共有%d个联系人</string>
-	<string name="enterprise_at_metting">召开会议</string>
-	<string name="enterprise_audio_conference">语音会议</string>
-	<string name="enterprise_video_conference">视频会议</string>
-	
-	<string name="menu_item_mygroup">我的群组</string>
-	<string name="menu_item_mygroup_count">我的群组(%d)</string>
-	<string name="menu_item_group_count">群组(%d)</string>
-	<string name="find_friends_by_other">手机联系人</string>
-	<string name="find_friends_by_other_way">手机联系人(%d)</string>
-	<string name="search_contact">搜索联系人</string>
-	<string name="person_center">个人中心</string>
-	
-	<string name="app_sms">短信</string>
-	<string name="app_conmusicate">在线聊天</string>
-	<string name="edit_contact">编辑联系人</string>
-	<string name="delete_contact">删除联系人</string>
-	<string name="fmt_delcontact_confirm">确定删除该联系人吗？</string>
-	<string name="contact_default_type">自定义</string>
-	<string name="news_notify">新消息通知</string>
-	<string name="top_chat">置顶聊天</string>
-	<string name="allow_other_add">允许成员添加其他人</string>
-	
-	<string name="whats_new_title">云通讯，是一个生活方式</string>
-	<string name="whats_new_title_1">"商业应用令人担忧的数据安全问题"</string>
+    <string name="str_account">帐号</string>
+    <string name="str_account_info">个人资料</string>
+    <string name="str_use_headset">使用听筒播放语音</string>
+    <string name="str_auto_receive_callback">自动接听回拨</string>
+    <string name="update_contact">更新通讯录</string>
+    <string name="str_clear">清空聊天</string>
+    <string name="fmt_delcontactmsg_confirm">确定删除聊天记录吗?</string>
+    <string name="str_choose_call_way">手动选择拨打方式</string>
+    <string name="str_auto_call_direct">自动直拨</string>
+    <string name="str_auto_call_back">自动回拨</string>
+    <string name="str_show_notify">接收新消息通知</string>
+    <string name="str_audio">声音</string>
+    <string name="str_vibrate">振动</string>
+    <string name="str_notify_audio">新消息提示音</string>
+    <string name="str_notify_period">后台消息提醒时段</string>
+    <string name="str_no_disturb_mode_des">开启后，在设定时间段内无新消息提示</string>
+    <string name="str_start_time">开始时间</string>
+    <string name="str_end_time">结束时间</string>
+    <string name="str_save">保存</string>
+    <string name="str_male">男</string>
+    <string name="str_female">女</string>
+
+    <string name="str_input_old_pwd">输入当前密码</string>
+    <string name="str_input_new_pwd">请输新密码(6-16位数字或字母)</string>
+    <string name="str_input_confirm_pwd">请输确认密码</string>
+
+    <string name="str_previous_step">上一步</string>
+    <string name="str_next_step">下一步</string>
+    <string name="str_send_verify_code">已发送短信验证码到</string>
+    <string name="str_no_receive_verifycode">没收到验证码？</string>
+    <string name="str_try_audio_verify">试试语音验证码</string>
+    <string name="str_input_verify_code">请输入验证码</string>
+    <string name="str_set_new_pwd">输入新密码</string>
+
+    <string name="address_enteprise_title">企业</string>
+    <string name="enterprise_architecture">企业架构</string>
+    <string name="enterprise_architecture_count">企业架构(%d)</string>
+    <string name="enterprise_all_contacts">企业通讯录</string>
+    <string name="enterprise_all_contacts_count">企业通讯录(%d)</string>
+    <string name="enterprise_count">(%d)</string>
+    <string name="total_contact_count">共有%d个联系人</string>
+    <string name="enterprise_at_metting">召开会议</string>
+    <string name="enterprise_audio_conference">语音会议</string>
+    <string name="enterprise_video_conference">视频会议</string>
+
+    <string name="menu_item_mygroup">我的群组</string>
+    <string name="menu_item_mygroup_count">我的群组(%d)</string>
+    <string name="menu_item_group_count">群组(%d)</string>
+    <string name="find_friends_by_other">手机联系人</string>
+    <string name="find_friends_by_other_way">手机联系人(%d)</string>
+    <string name="search_contact">搜索联系人</string>
+    <string name="person_center">个人中心</string>
+
+    <string name="app_sms">短信</string>
+    <string name="app_conmusicate">在线聊天</string>
+    <string name="edit_contact">编辑联系人</string>
+    <string name="delete_contact">删除联系人</string>
+    <string name="fmt_delcontact_confirm">确定删除该联系人吗？</string>
+    <string name="contact_default_type">自定义</string>
+    <string name="news_notify">新消息通知</string>
+    <string name="top_chat">置顶聊天</string>
+    <string name="allow_other_add">允许成员添加其他人</string>
+
+    <string name="whats_new_title">云通讯，是一个生活方式</string>
+    <string name="whats_new_title_1">"商业应用令人担忧的数据安全问题"</string>
     <string name="whats_new_title_2">"来电打造企业私有平台"</string>
     <string name="whats_new_title_3">"国密算法加密传输、安全存储"</string>
     <string name="whats_new_title_4">"电话、短信、会议全加密"</string>
-    
+
     <string name="whatsnew_start">立即开启</string>
     <string name="str_enterprise_contact">企业通讯录</string>
     <string name="enterprise_contact_empty">暂无企业通讯录联系人</string>
     <string name="regist_params_error">注册参数错误，请检查</string>
-    
-	<string name="picture">图片</string>
+
+    <string name="picture">图片</string>
     <string name="take_photo">拍照</string>
 
-    
+
     <string name="enterprise_group_empty">暂无企业通讯录</string>
     <string name="current_network_unreachable">当前网络不可用</string>
-    
+
     <string name="update_getting_updatepack">正在下载安装包...</string>
     <string name="app_downloading">下载中...</string>
     <string name="cancel_download">确定要停止下载？</string>
@@ -387,25 +387,25 @@ All Rights Reserved."</string>
     <string name="update_now">下载安装</string>
     <string name="app_download_finish">下载完成</string>
     <!-- voip -->
-	<string name="input_filter">号码不能为空!</string>
-	<string name="cancle_dial_mode">取消</string>
+    <string name="input_filter">号码不能为空!</string>
+    <string name="cancle_dial_mode">取消</string>
     <string name="free_dial_mode">语音聊天</string>
     <string name="direct_dial_mode">网络直拨</string>
     <string name="back_dial_mode">回拨电话</string>
-	<string name="common_dial">普通电话</string>
-	<string name="toast_call_phone_error">您手机的拨号权限受到限制，请打开</string>
-	<string name="voip_net_unavailable">当前网络不可用，请检查你的网络设置</string>
-	<string name="network_dial_number_format">请拨打正确的手机号或带有区号的座机电话。</string>
-	<string name="sdk_init_title">网络电话正在初始化，请您稍等&#8230;</string>
-	<string name="back_dial_dialog_body">使用回拨方式会先有一个电话拨打到您的手机，需要您接听后才能呼叫到对方。</string>
-	<string name="iknow">知道了</string>
-	<string name="reselect_dial">返回选择</string>
-	<string name="net_warning">非3G/wifi网络，为保证通话质量请设置网络或选用网络回拨呼叫。</string>
-	<string name="dial_continue_title">继续拨打</string>
-	<string name="direct_dial_dialog_body">使用网络直拨呼叫对方,不扣手机通讯费。</string>
-	<string name="no_support_sip">呼叫号码不合法！</string>
-	
-	 <string name="ec_app_title_chatroom">语音群聊</string>
+    <string name="common_dial">普通电话</string>
+    <string name="toast_call_phone_error">您手机的拨号权限受到限制，请打开</string>
+    <string name="voip_net_unavailable">当前网络不可用，请检查你的网络设置</string>
+    <string name="network_dial_number_format">请拨打正确的手机号或带有区号的座机电话。</string>
+    <string name="sdk_init_title">网络电话正在初始化，请您稍等&#8230;</string>
+    <string name="back_dial_dialog_body">使用回拨方式会先有一个电话拨打到您的手机，需要您接听后才能呼叫到对方。</string>
+    <string name="iknow">知道了</string>
+    <string name="reselect_dial">返回选择</string>
+    <string name="net_warning">非3G/wifi网络，为保证通话质量请设置网络或选用网络回拨呼叫。</string>
+    <string name="dial_continue_title">继续拨打</string>
+    <string name="direct_dial_dialog_body">使用网络直拨呼叫对方,不扣手机通讯费。</string>
+    <string name="no_support_sip">呼叫号码不合法！</string>
+
+    <string name="ec_app_title_chatroom">语音群聊</string>
     <string name="ec_app_title_inter_phone">实时对讲</string>
     <string name="ec_empty_inter_phone">暂无实时对讲房间</string>
     <string name="ec_empty_voice_meeting">暂无语音群聊房间</string>
@@ -451,7 +451,7 @@ All Rights Reserved."</string>
     <string name="dialog_message_be_dissmiss_chatroom">抱歉，该房间已被创建者解散，点击确定以退出 </string>
     <string name="dialog_title_be_kick_chatroom">您已被请出房间 </string>
     <string name="dialog_message_be_kick_chatroom">抱歉,您被创建者请出房间了,点击确定以退出 </string>
-    <string name="current_meeting_voice" formatted="false" >当前处于%1$s会议中</string>
+    <string name="current_meeting_voice" formatted="false">当前处于%1$s会议中</string>
     <string name="current_meeting_tips">会议正在进行中</string>
     <string name="str_chatroom_kick">%s被踢出房间</string>
     <string name="str_chatroom_exit">%s退出房间</string>
@@ -479,57 +479,57 @@ All Rights Reserved."</string>
     <string name="app_title_right_button">邀请</string>
     <string name="toast_confno_Illegal">会议号不合法</string>
     <string name="regbymobile_reg_mobile_format_err_msg">你输入的不是一个有效的手机号码</string>
-     <string name="cancel">取消</string>
-	
-	<string name="ec_voip_calling_refuse">对方拒绝您的呼叫请求</string>
-	<string name="ec_voip_calling_notfound">对方不在线，请稍后重试</string>
-	<string name="ec_voip_calling_timeout">呼叫超时，请稍后再拨</string>
-	<string name="ec_voip_calling_no_answer">无人应答，请稍后再拨</string>
-	<string name="ec_voip_calling_busy">对方正忙，请稍后再拨</string>
-	<string name="ec_voip_call_error">媒体协商失败</string>
-	<string name="ec_voip_call_fail_connection_failed_auth">第三方鉴权地址连接失败</string>
-	<string name="ec_voip_call_fail_not_find_appid">第三方应用ID未找到</string>
-	<string name="ec_voip_call_fail_not_online_only_call">第三方未上线应用仅限呼叫已配置测试号码</string>
-	<string name="ec_voip_call_auth_failed">第三方鉴权失败，子账号余额不足</string>
-	<string name="ec_meeting_not_exist">会议号已解散或不存在</string>
-	<string name="ec_meeting_pass_error">会议号密码验证失败</string>
-	<string name="ec_voip_call_fail_no_pay_account">第三方主账号余额不足</string>
-	<string name="ec_voip_call_fail">呼叫失败，请稍后重试&#8230;</string>
-	<string name="voip_call_nums" formatted="false">(%d)</string>
-	<string name="talk_room_network_failed">服务繁忙，请稍后再试</string>
-	
-	<string name="mainui_menu_addnewcontact">新建联系人</string>
-	<string name="mainui_menu_sms">发送信息</string>
-	
-	<string name="str_introduce_back_call">回拨电话（双向收费-通话质量优秀）：一方发起通话请求后，平台会分别向双方拨打落地电话</string>
-	<string name="str_introduce_direct_call">网络直拨（单项收费-通话质量良好）：一方为app端经IP网络发起，呼叫给另一方落地手机、座机的通话方式</string>
-	<string name="str_introduce_free_call">语音聊天（免费-通话质量一般）：基于网络对网络的电话</string>
-	<string name="str_introduce_common_call">普通电话：直接拨打对方手机号</string>
-	<string name="str_introduce_call">您可根据自身网络情况进行选择通话方式</string>
-	
-	<string name="menu_item_call">呼叫</string>
-	<string name="menu_item_view_contact">查看联系人</string>
-	<string name="menu_item_add_contact">添加到联系人</string>
-	<string name="menu_item_del_record">删除本条记录</string>
-	<string name="main_conversation_longclick_markRead">标为已读</string>
-	<string name="main_conversation_longclick_setUnRead">标为未读</string>
-	
-	<string name="ec_call_number_error">呼叫的号码错误</string>
-	<string name="ec_app_err_disconnect_server_tip">无法连接服务器，请稍后再试</string>
-	<string name="ec_voip_call_connecting_server">正在连接服务器&#8230;</string>
-	<string name="ec_voip_call_connect">正在呼叫对方，请稍后&#8230;</string>
-	<string name="ec_voip_calling_wait">等待对方接听&#8230;</string>
-	<string name="ec_voip_calling_finish">通话结束</string>
-	<string name="ec_voip_call_back_success">回拨呼叫成功，请注意接听系统来电!</string>
-	
-	<string name="str_tips_wait_invited">正在等待对方接受邀请&#8230;</string>
-	<string name="vedio_switch">音视频切换</string>
-	<string name="str_call_status" formatted="false">延迟时间%d（毫秒）丢包率:%d</string>
-	<string name="str_video_call_stop">结束视频通话</string>
-	<string name="str_video_call_begin">开始视频通话</string>
-	<string name="str_video_btn_call_end">结束</string>
-	<string name="str_video_bottom_time" formatted="false">与%1$s视频通话中\t</string>
-	<string name="camera_switch_front">切换至前置摄像头</string>
+    <string name="cancel">取消</string>
+
+    <string name="ec_voip_calling_refuse">对方拒绝您的呼叫请求</string>
+    <string name="ec_voip_calling_notfound">对方不在线，请稍后重试</string>
+    <string name="ec_voip_calling_timeout">呼叫超时，请稍后再拨</string>
+    <string name="ec_voip_calling_no_answer">无人应答，请稍后再拨</string>
+    <string name="ec_voip_calling_busy">对方正忙，请稍后再拨</string>
+    <string name="ec_voip_call_error">媒体协商失败</string>
+    <string name="ec_voip_call_fail_connection_failed_auth">第三方鉴权地址连接失败</string>
+    <string name="ec_voip_call_fail_not_find_appid">第三方应用ID未找到</string>
+    <string name="ec_voip_call_fail_not_online_only_call">第三方未上线应用仅限呼叫已配置测试号码</string>
+    <string name="ec_voip_call_auth_failed">第三方鉴权失败，子账号余额不足</string>
+    <string name="ec_meeting_not_exist">会议号已解散或不存在</string>
+    <string name="ec_meeting_pass_error">会议号密码验证失败</string>
+    <string name="ec_voip_call_fail_no_pay_account">第三方主账号余额不足</string>
+    <string name="ec_voip_call_fail">呼叫失败，请稍后重试&#8230;</string>
+    <string name="voip_call_nums" formatted="false">(%d)</string>
+    <string name="talk_room_network_failed">服务繁忙，请稍后再试</string>
+
+    <string name="mainui_menu_addnewcontact">新建联系人</string>
+    <string name="mainui_menu_sms">发送信息</string>
+
+    <string name="str_introduce_back_call">回拨电话（双向收费-通话质量优秀）：一方发起通话请求后，平台会分别向双方拨打落地电话</string>
+    <string name="str_introduce_direct_call">网络直拨（单项收费-通话质量良好）：一方为app端经IP网络发起，呼叫给另一方落地手机、座机的通话方式</string>
+    <string name="str_introduce_free_call">语音聊天（免费-通话质量一般）：基于网络对网络的电话</string>
+    <string name="str_introduce_common_call">普通电话：直接拨打对方手机号</string>
+    <string name="str_introduce_call">您可根据自身网络情况进行选择通话方式</string>
+
+    <string name="menu_item_call">呼叫</string>
+    <string name="menu_item_view_contact">查看联系人</string>
+    <string name="menu_item_add_contact">添加到联系人</string>
+    <string name="menu_item_del_record">删除本条记录</string>
+    <string name="main_conversation_longclick_markRead">标为已读</string>
+    <string name="main_conversation_longclick_setUnRead">标为未读</string>
+
+    <string name="ec_call_number_error">呼叫的号码错误</string>
+    <string name="ec_app_err_disconnect_server_tip">无法连接服务器，请稍后再试</string>
+    <string name="ec_voip_call_connecting_server">正在连接服务器&#8230;</string>
+    <string name="ec_voip_call_connect">正在呼叫对方，请稍后&#8230;</string>
+    <string name="ec_voip_calling_wait">等待对方接听&#8230;</string>
+    <string name="ec_voip_calling_finish">通话结束</string>
+    <string name="ec_voip_call_back_success">回拨呼叫成功，请注意接听系统来电!</string>
+
+    <string name="str_tips_wait_invited">正在等待对方接受邀请&#8230;</string>
+    <string name="vedio_switch">音视频切换</string>
+    <string name="str_call_status" formatted="false">延迟时间%d（毫秒）丢包率:%d</string>
+    <string name="str_video_call_stop">结束视频通话</string>
+    <string name="str_video_call_begin">开始视频通话</string>
+    <string name="str_video_btn_call_end">结束</string>
+    <string name="str_video_bottom_time" formatted="false">与%1$s视频通话中\t</string>
+    <string name="camera_switch_front">切换至前置摄像头</string>
     <string name="camera_switch_back">切换至后置摄像头</string>
     <string name="str_vedio_call_in" formatted="false">来自%1$s的视频\t</string>
 
@@ -539,6 +539,6 @@ All Rights Reserved."</string>
 
     <string name="hint_search_selectcontact">搜索或邀请陌生号码</string>
     <string name="select_all">全选</string>
-	
+
 
 </resources>

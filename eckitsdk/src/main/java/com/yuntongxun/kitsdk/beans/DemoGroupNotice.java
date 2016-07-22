@@ -6,8 +6,7 @@ import android.database.Cursor;
 import com.yuntongxun.kitsdk.utils.DemoUtils;
 
 
-
-public class DemoGroupNotice{
+public class DemoGroupNotice {
 
     private String id;
     private String sender;
@@ -23,7 +22,6 @@ public class DemoGroupNotice{
     private String nickName;
     private String content;
     private int isRead;
-
 
 
     public String getContent() {
@@ -43,9 +41,9 @@ public class DemoGroupNotice{
     }
 
     public DemoGroupNotice() {
-        
+
     }
-    
+
     public DemoGroupNotice(int type) {
         setId(DemoUtils.md5(System.currentTimeMillis() + ""));
         setAuditType(type);
@@ -88,103 +86,103 @@ public class DemoGroupNotice{
     public String toString() {
         return "DemoGroupNotice{" +
                 "content='" + content + '\'' +
-                ", isRead=" + isRead + super.toString()+
+                ", isRead=" + isRead + super.toString() +
                 '}';
     }
 
-        public String getId() {
-            return id;
-        }
+    public String getId() {
+        return id;
+    }
 
-        public void setId(String id) {
-            this.id = id;
-        }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-        public String getSender() {
-            return sender;
-        }
+    public String getSender() {
+        return sender;
+    }
 
-        public void setSender(String sender) {
-            this.sender = sender;
-        }
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
 
-        public long getDateCreate() {
-            return dateCreate;
-        }
+    public long getDateCreate() {
+        return dateCreate;
+    }
 
-        public void setDateCreate(long dateCreate) {
-            this.dateCreate = dateCreate;
-        }
+    public void setDateCreate(long dateCreate) {
+        this.dateCreate = dateCreate;
+    }
 
-        public String getAdmin() {
-            return admin;
-        }
+    public String getAdmin() {
+        return admin;
+    }
 
-        public void setAdmin(String admin) {
-            this.admin = admin;
-        }
+    public void setAdmin(String admin) {
+        this.admin = admin;
+    }
 
-        public int getAuditType() {
-            return auditType;
-        }
+    public int getAuditType() {
+        return auditType;
+    }
 
-        public void setAuditType(int auditType) {
-            this.auditType = auditType;
-        }
+    public void setAuditType(int auditType) {
+        this.auditType = auditType;
+    }
 
-        public int getConfirm() {
-            return confirm;
-        }
+    public int getConfirm() {
+        return confirm;
+    }
 
-        public void setConfirm(int confirm) {
-            this.confirm = confirm;
-        }
+    public void setConfirm(int confirm) {
+        this.confirm = confirm;
+    }
 
-        public int getVersion() {
-            return version;
-        }
+    public int getVersion() {
+        return version;
+    }
 
-        public void setVersion(int version) {
-            this.version = version;
-        }
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
-        public String getDeclared() {
-            return declared;
-        }
+    public String getDeclared() {
+        return declared;
+    }
 
-        public void setDeclared(String declared) {
-            this.declared = declared;
-        }
+    public void setDeclared(String declared) {
+        this.declared = declared;
+    }
 
-        public String getGroupId() {
-            return groupId;
-        }
+    public String getGroupId() {
+        return groupId;
+    }
 
-        public void setGroupId(String groupId) {
-            this.groupId = groupId;
-        }
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
 
-        public String getGroupName() {
-            return groupName;
-        }
+    public String getGroupName() {
+        return groupName;
+    }
 
-        public void setGroupName(String groupName) {
-            this.groupName = groupName;
-        }
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
-        public String getMember() {
-            return member;
-        }
+    public String getMember() {
+        return member;
+    }
 
-        public void setMember(String member) {
-            this.member = member;
-        }
+    public void setMember(String member) {
+        this.member = member;
+    }
 
-        public String getNickName() {
-            return nickName;
-        }
+    public String getNickName() {
+        return nickName;
+    }
 
-        public void setNickName(String nickName) {
-            this.nickName = nickName;
-        }
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 }

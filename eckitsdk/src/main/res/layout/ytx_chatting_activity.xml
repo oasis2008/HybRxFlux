@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright (c) 2013 The CCP project authors. All Rights Reserved.
  
    Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
@@ -17,17 +16,18 @@
     android:background="#E4E3E3"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/chatting_content"
         android:layout_width="fill_parent"
         android:layout_height="0.0dip"
-        android:layout_weight="1.0" >
+        android:layout_weight="1.0">
+
         <com.yuntongxun.kitsdk.ui.chatting.listview.ECPullDownView
             android:id="@+id/chatting_pull_down_view"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent">
 
             <ListView
                 android:id="@+id/chatting_history_lv"
@@ -47,6 +47,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+
         <com.yuntongxun.kitsdk.ui.chatting.view.CCPChattingFooter2
             android:id="@+id/nav_footer"
             android:layout_width="fill_parent"

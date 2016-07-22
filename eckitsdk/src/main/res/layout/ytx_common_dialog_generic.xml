@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright (c) 2013 The CCP project authors. All Rights Reserved.
  
    Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
@@ -17,7 +16,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:paddingLeft="35.0dip"
-    android:paddingRight="35.0dip" >
+    android:paddingRight="35.0dip">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -27,13 +26,13 @@
         android:background="@drawable/ytx_bg_dialog_window"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0.0dip"
             android:layout_weight="1.0"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/dialog_layout_title"
@@ -41,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/dialog_padding"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <com.yuntongxun.kitsdk.ui.chatting.view.CCPTextView
                     android:id="@+id/dialog_tv_title"
@@ -61,18 +60,18 @@
                 android:orientation="vertical"
                 android:paddingBottom="25.0dip"
                 android:paddingLeft="@dimen/dialog_padding"
-                android:paddingRight="@dimen/dialog_padding" >
+                android:paddingRight="@dimen/dialog_padding">
 
                 <ScrollView
                     style="@style/Style_Scrollable"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="vertical" >
+                    android:scrollbars="vertical">
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical" >
+                        android:orientation="vertical">
 
                         <com.yuntongxun.kitsdk.ui.chatting.view.CCPTextView
                             android:id="@+id/dialog_tv_message"
@@ -93,7 +92,7 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingTop="1.0px"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/dilaog_button1"

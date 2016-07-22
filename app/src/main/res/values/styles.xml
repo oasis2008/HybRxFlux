@@ -117,8 +117,7 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="EditInfoStyle" parent="EditStyle">
-    </style>
+    <style name="EditInfoStyle" parent="EditStyle"></style>
 
     <style name="EditPasswordStyle" parent="EditStyle">
         <item name="android:inputType">textPassword</item>

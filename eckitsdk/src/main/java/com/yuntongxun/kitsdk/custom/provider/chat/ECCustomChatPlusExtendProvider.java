@@ -12,10 +12,10 @@ import com.yuntongxun.kitsdk.custom.provider.IBaseProvider;
  */
 public interface ECCustomChatPlusExtendProvider extends IBaseProvider {
 
-	String[] getCustomPlusTitleArray(Context context);
+    String[] getCustomPlusTitleArray(Context context);
 
-	int[] getCustomPlusDrawableArray(Context context);
+    int[] getCustomPlusDrawableArray(Context context);
 
-	boolean onPlusExtendedItemClick(Context context, String title, int index);
+    boolean onPlusExtendedItemClick(Context context, String title, int index);
 
 }

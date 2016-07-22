@@ -15,8 +15,6 @@ package com.yuntongxun.kitsdk.ui.chatting.model;
 import android.database.Cursor;
 
 
-
-
 public class ECConversation {
 
     private String sessionId;
@@ -26,12 +24,14 @@ public class ECConversation {
     private int unreadCount;
     private String content;
     private String username;
+
     /**
      * @return the sessionId
      */
     public String getSessionId() {
         return sessionId;
     }
+
     /**
      * @param sessionId the sessionId to set
      */
@@ -45,66 +45,77 @@ public class ECConversation {
     public int getMsgType() {
         return msgType;
     }
+
     /**
      * @param msgType the msgType to set
      */
     public void setMsgType(int msgType) {
         this.msgType = msgType;
     }
+
     /**
      * @return the dateTime
      */
     public long getDateTime() {
         return dateTime;
     }
+
     /**
      * @param dateTime the dateTime to set
      */
     public void setDateTime(long dateTime) {
         this.dateTime = dateTime;
     }
+
     /**
      * @return the sendStatus
      */
     public int getSendStatus() {
         return sendStatus;
     }
+
     /**
      * @param sendStatus the sendStatus to set
      */
     public void setSendStatus(int sendStatus) {
         this.sendStatus = sendStatus;
     }
+
     /**
      * @return the unreadCount
      */
     public int getUnreadCount() {
         return unreadCount;
     }
+
     /**
      * @param unreadCount the unreadCount to set
      */
     public void setUnreadCount(int unreadCount) {
         this.unreadCount = unreadCount;
     }
+
     /**
      * @return the content
      */
     public String getContent() {
         return content;
     }
+
     /**
      * @param content the content to set
      */
     public void setContent(String content) {
         this.content = content;
     }
+
     /**
      * @return the username
      */
     public String getUsername() {
         return username;
     }
+
     /**
      * @param username the username to set
      */
@@ -121,19 +132,19 @@ public class ECConversation {
         this.content = cursor.getString(5);
         this.username = cursor.getString(6);
 
-        if(this.username == null && !this.sessionId.startsWith("G")) {
+        if (this.username == null && !this.sessionId.startsWith("G")) {
 
-                username = sessionId;
+            username = sessionId;
         }
     }
-	@Override
-	public String toString() {
-		return "Conversation [sessionId=" + sessionId + ", msgType=" + msgType
-				+ ", dateTime=" + dateTime + ", sendStatus=" + sendStatus
-				+ ", unreadCount=" + unreadCount + ", content=" + content
-				+ ", username=" + username + "]";
-	}
-    
-    
+
+    @Override
+    public String toString() {
+        return "Conversation [sessionId=" + sessionId + ", msgType=" + msgType
+                + ", dateTime=" + dateTime + ", sendStatus=" + sendStatus
+                + ", unreadCount=" + unreadCount + ", content=" + content
+                + ", username=" + username + "]";
+    }
+
 
 }

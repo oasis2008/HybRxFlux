@@ -8,11 +8,12 @@ public class GroupInfoActivity extends ECSuperActivity {
     public final static String GROUP_ID = "group_id";
     public static final String EXTRA_RELOAD = "com.yuntongxun.ecdemo_reload";
     public static final String EXTRA_QUEIT = "com.yuntongxun.ecdemo_quit";
-	@Override
-	protected int getLayoutId() {
 
-		return 0;
-	}
+    @Override
+    protected int getLayoutId() {
 
-    
+        return 0;
+    }
+
+
 }

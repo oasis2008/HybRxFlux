@@ -66,7 +66,7 @@ public class CCPEditText extends EditText {
     @Override
     public boolean onTextContextMenuItem(int id) {
         boolean onTextContextMenuItem = super.onTextContextMenuItem(id);
-        if(id == android.R.id.paste) {
+        if (id == android.R.id.paste) {
             // Gets the position of the cursor
             int selectionStart = getSelectionStart();
             setText(EmoticonUtil.emoji2CharSequence(getContext(), getText().toString(), (int) getTextSize(), false));
@@ -87,9 +87,9 @@ public class CCPEditText extends EditText {
     }
 
 
-    public int getTextSelection(String text , int position) {
+    public int getTextSelection(String text, int position) {
 
-        if(TextUtils.isEmpty(text)){
+        if (TextUtils.isEmpty(text)) {
             return position;
         }
         return 0;
