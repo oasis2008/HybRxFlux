@@ -42,6 +42,24 @@ public abstract class BaseFragment extends Fragment {
     private View mRootView;
     private ProgressBar loadingProgress;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //初始化注入器
+        mFragmentComponent = DaggerFragmentComponent.builder()
+                .fragmentModule(new FragmentModule(this))
+                .applicationComponent(ApplicationComponent.Instance.get())
+                .build();
+        //注入Injector
+        initInjector();
+        //注册view
+        if (this instanceof RxViewDispatch) {
+            RxViewDispatch viewDispatch = (RxViewDispatch) this;
+            viewDispatch.onRxViewRegistered();
+            rxFlux.getDispatcher().subscribeRxView(viewDispatch);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,13 +69,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        //初始化注入器
-        mFragmentComponent = DaggerFragmentComponent.builder()
-                .fragmentModule(new FragmentModule(this))
-                .applicationComponent(ApplicationComponent.Instance.get())
-                .build();
-        //注入Injector
-        initInjector();
+        //注册rxstore
         registerRxStore();
         //绑定view
         ButterKnife.bind(this, view);
@@ -86,20 +98,15 @@ public abstract class BaseFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         if (this instanceof RxViewDispatch) {
+            //解除view注册
             rxFlux.getDispatcher().unsubscribeRxView((RxViewDispatch) this);
         }
     }
 
     protected abstract void initInjector();
 
-    /**
-     * @return
-     */
     protected abstract int getLayoutId();
 
-    /**
-     * @param savedInstanceState
-     */
     protected abstract void afterCreate(Bundle savedInstanceState);
 
     /**
@@ -115,9 +122,9 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
+     * 注册RxStore
      * 因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
      * 调用getRxStoreListToRegister,注册RxStore,只能手动注册
-     * 注册RxStore
      */
     private void registerRxStore() {
         if (this instanceof RxViewDispatch) {

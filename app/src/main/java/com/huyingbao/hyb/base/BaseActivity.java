@@ -65,33 +65,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         afterCreate(savedInstanceState);
     }
 
-    protected void initActionBar(String title, boolean backAble) {
-        //设置toobar
-        setSupportActionBar(toolbar);
-        //设置标题
-        toolbar.setTitle(title == null ? getTitle() : title);
-        //设置返回按钮
-        if (backAble) {
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null || backAble) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
-        }
-    }
-
-    protected void initActionBar() {
-        this.initActionBar(null, true);
-    }
-
 
     @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        if (fragment instanceof RxViewDispatch) {
-            RxViewDispatch viewDispatch = (RxViewDispatch) fragment;
-            viewDispatch.onRxViewRegistered();
-            rxFlux.getDispatcher().subscribeRxView(viewDispatch);
-        }
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 
     /**
@@ -113,17 +91,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract void afterCreate(Bundle savedInstanceState);
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-    }
-
-    protected void startActivity(Class<?> cls) {
-        Intent intent = new Intent(this, cls);
-        startActivity(intent);
-    }
-
     /**
      * 是否显示进度条
      *
@@ -135,5 +102,41 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         loadingProgress.setVisibility(show ? View.VISIBLE : View.GONE);
     }
+
+    /**
+     * @param title    actionbar 的title
+     * @param backAble 是否显示可返回图标
+     */
+    protected void initActionBar(String title, boolean backAble) {
+        //设置toobar
+        setSupportActionBar(toolbar);
+        //设置标题
+        toolbar.setTitle(title == null ? getTitle() : title);
+        //设置返回按钮
+        if (backAble) {
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null || backAble) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
+        }
+    }
+
+    /**
+     * 默认可返回的,使用默认的title
+     */
+    protected void initActionBar() {
+        this.initActionBar(null, true);
+    }
+
+    /**
+     * 启动activity
+     *
+     * @param cls
+     */
+    protected void startActivity(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
+    }
+
 
 }
