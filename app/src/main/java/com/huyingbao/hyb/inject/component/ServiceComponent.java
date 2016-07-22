@@ -19,6 +19,4 @@ public interface ServiceComponent {
     @ContextLife("Application")
     Context getApplicationContext();
 
-    LocalStorageUtils getLocalStorageUtils();
-
 }

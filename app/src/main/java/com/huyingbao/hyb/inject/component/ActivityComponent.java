@@ -19,13 +19,11 @@ import com.huyingbao.hyb.ui.user.UserSendMessageAty;
 import dagger.Component;
 
 /**
- * Created by yuyidong on 15/11/22.
  * 两个Component间有依赖关系，那么它们不能使用相同的Scope
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class})
 public interface ActivityComponent {
-
     @ContextLife("Activity")
     Context getActivityContext();
 
