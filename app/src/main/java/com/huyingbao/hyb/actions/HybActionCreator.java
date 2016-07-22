@@ -167,50 +167,53 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 }, throwable -> postError(action, throwable)));
     }
 
+    BehaviorSubject<Shop> cache;
+
     @Override
-    public void getBelongShop(BehaviorSubject<Shop> cache) {
+    public void getBelongShop() {
         final RxAction action = newRxAction(GET_BELONG_SHOP);
-//        if (hasRxAction(action)) return;
-//        addRxAction(action, subscribeData(cache, status -> {
-//            action.getData().put(Keys.STATUS_LOGOUT, status);
-//            postRxAction(action);
-//        }, throwable -> postError(action, throwable)));
+        if (hasRxAction(action)) return;
+        addRxAction(action, subscribeData(
+                shop -> {
+                    action.getData().put(Keys.SHOP, shop);
+                    postRxAction(action);
+                },
+                throwable -> postError(action, throwable)));
     }
 
-//    public Subscription subscribeData(final BehaviorSubject<Shop> cache, Action1<? super Shop> onNext, Action1<Throwable> onError) {
-//        if (cache == null) {
-//            final BehaviorSubject<Shop> cache1 = BehaviorSubject.create();
-//            Observable.create(new Observable.OnSubscribe<Shop>() {
-//                @Override
-//                public void call(Subscriber<? super Shop> subscriber) {
-//                    String shopString = localStorageUtils.getShop();
-//                    if (shopString == null || shopString.isEmpty()) {
-//                        loadFromNetwork(cache1);
-//                    } else {
-//                        try {
-//                            Shop shop = GsonHelper.fromJson(shopString, new TypeToken<Shop>() {
-//                            }.getType());
-//                            subscriber.onNext(shop);
-//                        } catch (JSONException e) {
-//                            subscriber.onError(e);
-//                        }
-//                    }
-//                }
-//            }).subscribeOn(Schedulers.io()).subscribe(cache);
-//        }
-//        return cache.observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, onError);
-//    }
+    public Subscription subscribeData(Action1<? super Shop> onNext, Action1<Throwable> onError) {
+        if (cache == null) {
+            cache = BehaviorSubject.create();
+            Observable.create(new Observable.OnSubscribe<Shop>() {
+                @Override
+                public void call(Subscriber<? super Shop> subscriber) {
+                    String shopString = localStorageUtils.getShop();
+                    if (shopString == null || shopString.isEmpty()) {
+                        loadFromNetwork();
+                    } else {
+                        try {
+                            Shop shop = GsonHelper.fromJson(shopString, new TypeToken<Shop>() {
+                            }.getType());
+                            subscriber.onNext(shop);
+                        } catch (JSONException e) {
+                            subscriber.onError(e);
+                        }
+                    }
+                }
+            }).subscribeOn(Schedulers.io()).subscribe(cache);
+        }
+        return cache.observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, onError);
+    }
 
-    private void loadFromNetwork(BehaviorSubject<Shop> cache) {
-//        hybApi.getBelongShop()
-//                .doOnNext(shop -> {
-//                    localStorageUtils.setShop(GsonHelper.toJson(shop));
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(shop -> cache.onNext(shop)
-//                        , throwable -> throwable.printStackTrace());
-
+    private void loadFromNetwork() {
+        hybApi.getBelongShop()
+                .doOnNext(shop -> {
+                    localStorageUtils.setShop(GsonHelper.toJson(shop));
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(shop -> cache.onNext(shop)
+                        , throwable -> throwable.printStackTrace());
     }
 
     @Override

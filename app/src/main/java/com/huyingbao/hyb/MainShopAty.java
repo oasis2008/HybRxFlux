@@ -115,8 +115,7 @@ public class MainShopAty extends BaseActivity
         tabs.setupWithViewPager(mViewPager);
         recover(savedInstanceState);
 
-        BehaviorSubject<Shop> cache = null;
-//        hybActionCreator.getBelongShop(cache);
+        hybActionCreator.getBelongShop();
     }
 
     /**
