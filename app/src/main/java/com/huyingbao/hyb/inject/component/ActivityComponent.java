@@ -3,6 +3,7 @@ package com.huyingbao.hyb.inject.component;
 import android.app.Activity;
 import android.content.Context;
 
+import com.huyingbao.hyb.LoadingAty;
 import com.huyingbao.hyb.MainAty;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.inject.module.ActivityModule;
@@ -12,6 +13,7 @@ import com.huyingbao.hyb.ui.login.LoginAty;
 import com.huyingbao.hyb.ui.login.RegisterAty;
 import com.huyingbao.hyb.ui.shop.RegisterShopAty;
 import com.huyingbao.hyb.ui.shop.ShopDetailAty;
+import com.huyingbao.hyb.ui.user.UserInfoAty;
 import com.huyingbao.hyb.ui.user.UserSendMessageAty;
 
 import dagger.Component;
@@ -41,14 +43,18 @@ public interface ActivityComponent {
 
     void inject(LoginAty loginAty);
 
-    void inject(MainAty mainAty);
-
     void inject(UserSendMessageAty userSendMessageAty);
-
-    void inject(RegisterAty registerAty);
 
     void inject(RegisterShopAty registerShopAty);
 
     void inject(ShopDetailAty shopDetailAty);
+
+    void inject(LoadingAty loadingAty);
+
+    void inject(MainAty mainAty);
+
+    void inject(RegisterAty registerAty);
+
+    void inject(UserInfoAty userInfoAty);
 
 }

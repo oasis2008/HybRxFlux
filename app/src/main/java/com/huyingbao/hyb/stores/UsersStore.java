@@ -23,7 +23,7 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
      */
     public static final String STORE_ID = "UsersStore";
 
-    private static UsersStore instance;
+//    private static UsersStore instance;
 
     /**
      * store 中存储的user
@@ -38,10 +38,10 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
         super(dispatcher);
     }
 
-    public static synchronized UsersStore get(Dispatcher dispatcher) {
-        if (instance == null) instance = new UsersStore(dispatcher);
-        return instance;
-    }
+//    public static synchronized UsersStore get(Dispatcher dispatcher) {
+//        if (instance == null) instance = new UsersStore(dispatcher);
+//        return instance;
+//    }
 
     /**
      * This callback will get all the actions, each store must react on the types he want and do

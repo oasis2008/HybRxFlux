@@ -19,6 +19,8 @@ import com.huyingbao.hyb.stores.UsersStore;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -38,8 +40,8 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     @Bind(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
-
-    private UsersStore usersStore;
+    @Inject
+    UsersStore usersStore;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -65,7 +67,7 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         usersStore.register();
     }
 

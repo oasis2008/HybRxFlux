@@ -37,6 +37,8 @@ import com.huyingbao.hyb.ui.user.UserSendMessageAty;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -67,7 +69,8 @@ public class MainAty extends BaseActivity
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private FragmentManager mFragmentManager;
 
-    private UsersStore usersStore;
+    @Inject
+    UsersStore usersStore;
 
     @Override
     public void initInjector() {
@@ -347,7 +350,7 @@ public class MainAty extends BaseActivity
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(usersStore);
     }
 

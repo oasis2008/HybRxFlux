@@ -31,6 +31,8 @@ import com.huyingbao.hyb.utils.HttpCode;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 import retrofit2.adapter.rxjava.HttpException;
@@ -46,7 +48,8 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private ShopStore shopStore;
-    private UsersStore usersStore;
+    @Inject
+    UsersStore usersStore;
     private ShopListAdapter adapter;
 
     @Bind(R.id.recycler_view)
@@ -165,7 +168,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         shopStore = ShopStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(usersStore, shopStore);
     }

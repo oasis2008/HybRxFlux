@@ -30,6 +30,8 @@ import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -43,7 +45,8 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     private String headImg;
     private FileStore fileStore;
     private String fileKey;
-    private UsersStore usersStore;
+    @Inject
+    UsersStore usersStore;
     private HybUser user;
 
     @Override
@@ -140,7 +143,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     @Override
     public List<RxStore> getRxStoreListToRegister() {
         fileStore = FileStore.get(getRxFlux().getDispatcher());
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(fileStore, usersStore);
     }
 

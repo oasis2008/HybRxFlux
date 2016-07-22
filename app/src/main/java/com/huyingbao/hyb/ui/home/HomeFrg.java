@@ -20,6 +20,8 @@ import com.huyingbao.hyb.stores.UsersStore;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -39,7 +41,8 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
     @Bind(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
-    private UsersStore usersStore;
+    @Inject
+    UsersStore usersStore;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -67,7 +70,7 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
     protected void afterCreate(Bundle savedInstanceState) {
         //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
         //调用getRxStoreListToRegister,注册rxstore,只能手动注册
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         usersStore.register();
     }
 

@@ -31,6 +31,8 @@ import com.huyingbao.hyb.utils.HttpCode;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
@@ -46,7 +48,8 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
 
     private int mShopTyep = 0;
     private ShopStore shopStore;
-    private UsersStore usersStore;
+    @Inject
+    UsersStore usersStore;
     private double mLatitude;
     private double mLongitude;
 
@@ -165,7 +168,7 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     @Override
     public List<RxStore> getRxStoreListToRegister() {
         shopStore = ShopStore.get(getRxFlux().getDispatcher());
-        usersStore = UsersStore.get(getRxFlux().getDispatcher());
+//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(shopStore, usersStore);
     }
 
