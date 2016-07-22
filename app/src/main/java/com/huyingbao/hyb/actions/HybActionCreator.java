@@ -1,5 +1,8 @@
 package com.huyingbao.hyb.actions;
 
+import android.support.annotation.NonNull;
+
+import com.google.gson.reflect.TypeToken;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
@@ -12,12 +15,15 @@ import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.utils.CommonUtils;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
+import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +32,13 @@ import javax.inject.Inject;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+import rx.subjects.BehaviorSubject;
 
 
 /**
@@ -38,7 +48,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     @Inject
     HybApi hybApi;
     @Inject
-    LocalStorageUtils mLocalStorageUtils;
+    LocalStorageUtils localStorageUtils;
 
     /**
      * If you want to give more things to the constructor like API or Preferences or any other
@@ -49,21 +59,14 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         ApplicationComponent.Instance.get().inject(this);
     }
 
-
-    private HybApi getApi() {
-        return hybApi;
-    }
-
-
     @Override
     public void login(HybUser user) {
-        user.setChannelId(mLocalStorageUtils.getChannelId());
+        user.setChannelId(localStorageUtils.getChannelId());
         user.setChannelType(3);
         //创建RxAction,传入键值对参数
         final RxAction action = newRxAction(LOGIN, Keys.USER, user);
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .login(user)
+        addRxAction(action, hybApi.login(user)
                 // 指定 subscribe() 发生在 IO 线程(事件产生的线程)
                 .subscribeOn(Schedulers.io())
                 // 指定 Subscriber 的回调发生在主线程(事件消费的线程)
@@ -86,8 +89,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void logout() {
         final RxAction action = newRxAction(LOGOUT);
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .logout()
+        addRxAction(action, hybApi.logout()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(status -> {
@@ -98,6 +100,18 @@ public class HybActionCreator extends RxActionCreator implements Actions {
 
     @Override
     public void getUserByUuid(String uuid) {
+        final RxAction action = newRxAction(GET_USER_BY_UUID, Keys.UUID, uuid);
+        if (hasRxAction(action)) return;
+        addRxAction(action, hybApi.getUserByUuid(uuid)
+                .doOnNext(hybUser -> {
+
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(status -> {
+                    action.getData().put(Keys.STATUS_LOGOUT, status);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
 
     }
 
@@ -106,8 +120,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void updateUser(String user) {
         final RxAction action = newRxAction(UPDATE_USER);
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .updateUser(user)
+        addRxAction(action, hybApi.updateUser(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userRes -> {
@@ -130,8 +143,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         //调用接口之后,得到对应的数据userResponse,传入keys.user
         final RxAction action = newRxAction(REGISTER_USER, Keys.USER, user);
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .registerUser(user)
+        addRxAction(action, hybApi.registerUser(user)
                 // 指定 subscribe() 发生在 IO 线程
                 .subscribeOn(Schedulers.io())
                 // 指定 Subscriber 的回调发生在主线程
@@ -146,8 +158,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void registerShop(Shop shop) {
         final RxAction action = newRxAction(REGISTER_SHOP, Keys.SHOP, shop);
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .registerShop(shop)
+        addRxAction(action, hybApi.registerShop(shop)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(shopResponse -> {
@@ -157,7 +168,48 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
-    public void getBelongShop() {
+    public void getBelongShop(BehaviorSubject<Shop> cache) {
+        final RxAction action = newRxAction(GET_BELONG_SHOP);
+//        if (hasRxAction(action)) return;
+//        addRxAction(action, subscribeData(cache, status -> {
+//            action.getData().put(Keys.STATUS_LOGOUT, status);
+//            postRxAction(action);
+//        }, throwable -> postError(action, throwable)));
+    }
+
+//    public Subscription subscribeData(final BehaviorSubject<Shop> cache, Action1<? super Shop> onNext, Action1<Throwable> onError) {
+//        if (cache == null) {
+//            final BehaviorSubject<Shop> cache1 = BehaviorSubject.create();
+//            Observable.create(new Observable.OnSubscribe<Shop>() {
+//                @Override
+//                public void call(Subscriber<? super Shop> subscriber) {
+//                    String shopString = localStorageUtils.getShop();
+//                    if (shopString == null || shopString.isEmpty()) {
+//                        loadFromNetwork(cache1);
+//                    } else {
+//                        try {
+//                            Shop shop = GsonHelper.fromJson(shopString, new TypeToken<Shop>() {
+//                            }.getType());
+//                            subscriber.onNext(shop);
+//                        } catch (JSONException e) {
+//                            subscriber.onError(e);
+//                        }
+//                    }
+//                }
+//            }).subscribeOn(Schedulers.io()).subscribe(cache);
+//        }
+//        return cache.observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, onError);
+//    }
+
+    private void loadFromNetwork(BehaviorSubject<Shop> cache) {
+//        hybApi.getBelongShop()
+//                .doOnNext(shop -> {
+//                    localStorageUtils.setShop(GsonHelper.toJson(shop));
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(shop -> cache.onNext(shop)
+//                        , throwable -> throwable.printStackTrace());
 
     }
 
@@ -175,8 +227,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void getNearbyShopList(double longitude, double latitude, int radius, int shopType) {
         final RxAction action = newRxAction(GET_NEARBY_SHOP, Keys.LONGITUDE, longitude, Keys.LATITUDE, latitude, Keys.RADIUS, radius, Keys.SHOP_TYPE, shopType);
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .getShopByLocation(longitude, latitude, radius, shopType)
+        addRxAction(action, hybApi.getShopByLocation(longitude, latitude, radius, shopType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(shopListResponse -> {
@@ -194,8 +245,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void getProductByShop(int shopId, int status) {
         final RxAction action = newRxAction(GET_PRODUCT_BY_SHOP, Keys.SHOP_ID, shopId, Keys.PRODUCT_STATUS, status);
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .getEnableProductByShopCode(shopId, status)
+        addRxAction(action, hybApi.getEnableProductByShopCode(shopId, status)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(products -> {
@@ -213,8 +263,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void getUpToken(String partName) {
         final RxAction action = newRxAction(GET_UP_TOKEN, Keys.PART_NAME, partName);
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .getUpToken(partName)
+        addRxAction(action, hybApi.getUpToken(partName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(products -> {
@@ -261,8 +310,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void uploadOneFile(LocalFile localFile, String partName) {
         final RxAction action = newRxAction(UPLOAD_ONE_FILE);
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .getUpToken(partName)// 返回 Observable<String>，在上传时时请求token，并在响应后发送 token
+        addRxAction(action, hybApi.getUpToken(partName)// 返回 Observable<String>，在上传时时请求token，并在响应后发送 token
                 .flatMap(token -> getUploadObservable(localFile, token, partName))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -284,8 +332,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(UPLOAD_All_FILE);
         final String[] mToken = new String[1];
         if (hasRxAction(action)) return;
-        addRxAction(action, getApi()
-                .getUpToken(partName)// 返回 Observable<String>，在上传时时请求token，并在响应后发送 token
+        addRxAction(action, hybApi.getUpToken(partName)// 返回 Observable<String>，在上传时时请求token，并在响应后发送 token
                 .flatMap(token -> {
                     mToken[0] = token;
                     return Observable.from(list);

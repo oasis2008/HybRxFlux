@@ -10,6 +10,7 @@ public interface Keys {
     String LOCATION = "location";
     String SHOP = "shop";
     String SHOP_LIST = "shop_list";
+    String UUID = "uuid";
 
     String STATUS_LOGOUT = "status_logout";
 

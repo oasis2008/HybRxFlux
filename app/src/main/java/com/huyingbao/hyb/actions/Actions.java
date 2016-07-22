@@ -8,6 +8,8 @@ import com.huyingbao.hyb.model.Shop;
 
 import java.util.List;
 
+import rx.subjects.BehaviorSubject;
+
 public interface Actions {
 
     /**
@@ -54,7 +56,7 @@ public interface Actions {
 
     void registerShop(Shop shop);
 
-    void getBelongShop();
+    void getBelongShop(BehaviorSubject<Shop> cache);
 
     void updateShop(Shop shop);
 
