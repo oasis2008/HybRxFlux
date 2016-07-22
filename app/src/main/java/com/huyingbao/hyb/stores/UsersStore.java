@@ -56,6 +56,7 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
                 break;
             case Actions.LOGOUT:
                 mUser = null;
+                HybApp.setUser(null);
                 HybApp.getInstance().getLocalSorageUtils().setLogin(false);
                 HybApp.getInstance().getLocalSorageUtils().setUser(null);
                 //停止百度推送

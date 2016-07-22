@@ -136,4 +136,8 @@ public class HybApp extends Application {
         }
         return mUser;
     }
+
+    public static void setUser(HybUser user){
+        mUser=user;
+    }
 }
