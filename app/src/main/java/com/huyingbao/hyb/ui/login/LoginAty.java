@@ -190,7 +190,6 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(usersStore);
     }
 
