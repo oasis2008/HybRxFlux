@@ -46,8 +46,8 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
-
-    private ShopStore shopStore;
+    @Inject
+    ShopStore shopStore;
     @Inject
     UsersStore usersStore;
     private ShopListAdapter adapter;
@@ -168,8 +168,6 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
-        shopStore = ShopStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(usersStore, shopStore);
     }
 

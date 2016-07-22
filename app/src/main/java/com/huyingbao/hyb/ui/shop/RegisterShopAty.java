@@ -47,7 +47,8 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     ScrollView svForm;
 
     private int mShopTyep = 0;
-    private ShopStore shopStore;
+    @Inject
+    ShopStore shopStore;
     @Inject
     UsersStore usersStore;
     private double mLatitude;
@@ -167,8 +168,6 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        shopStore = ShopStore.get(getRxFlux().getDispatcher());
-//        usersStore = UsersStore.get(getRxFlux().getDispatcher());
         return Arrays.asList(shopStore, usersStore);
     }
 

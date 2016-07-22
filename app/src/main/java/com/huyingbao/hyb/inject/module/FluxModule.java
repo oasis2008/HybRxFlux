@@ -5,6 +5,7 @@ import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.util.LogLevel;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
+import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 
 import javax.inject.Singleton;
@@ -40,5 +41,12 @@ public class FluxModule {
     public UsersStore provideUsersStore(RxFlux rxFlux) {
         UsersStore usersStore = new UsersStore(rxFlux.getDispatcher());
         return usersStore;
+    }
+
+    @Singleton
+    @Provides
+    public ShopStore provideShopStore(RxFlux rxFlux) {
+        ShopStore shopStore = new ShopStore(rxFlux.getDispatcher());
+        return shopStore;
     }
 }

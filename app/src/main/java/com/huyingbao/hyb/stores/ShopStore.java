@@ -14,17 +14,11 @@ public class ShopStore extends RxStore implements ShopStoreInterface {
 
     public static final String STORE_ID = "ShopStore";
 
-    private static ShopStore instance;
     private Shop mShop;
     private ArrayList<Shop> mShopList;
 
-    private ShopStore(Dispatcher dispatcher) {
+    public ShopStore(Dispatcher dispatcher) {
         super(dispatcher);
-    }
-
-    public static synchronized ShopStore get(Dispatcher dispatcher) {
-        if (instance == null) instance = new ShopStore(dispatcher);
-        return instance;
     }
 
     @Override
