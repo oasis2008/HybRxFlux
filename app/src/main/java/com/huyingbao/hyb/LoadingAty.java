@@ -17,12 +17,16 @@ public class LoadingAty extends BaseActivity {
     private final Runnable mHandleActionRunnable = new Runnable() {
         public void run() {
             if (mLocalStorageUtils.isFirstTime() || !mLocalStorageUtils.isLogin() || HybApp.getUser() == null) {
-                finish();
                 startActivity(LoginAty.class);
+                finish();
                 return;
             }
-            finish();
-            startActivity(MainAty.class);
+            if(HybApp.getUser().getType()==0){
+                startActivity(MainAty.class);
+            }else{
+                startActivity(MainShopAty.class);
+            }
+           finish();
 
         }
     };

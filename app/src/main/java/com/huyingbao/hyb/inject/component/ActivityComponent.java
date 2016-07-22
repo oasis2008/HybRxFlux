@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.huyingbao.hyb.LoadingAty;
 import com.huyingbao.hyb.MainAty;
+import com.huyingbao.hyb.MainShopAty;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.inject.module.ActivityModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
@@ -50,6 +51,8 @@ public interface ActivityComponent {
     void inject(LoadingAty loadingAty);
 
     void inject(MainAty mainAty);
+
+    void inject(MainShopAty mainShopAty);
 
     void inject(RegisterAty registerAty);
 

@@ -19,6 +19,7 @@ public class RxBus {
     private static RxBus instance;
 
     /**
+     * Subject可以当作中间件来传递数据
      * PublishSubject只会把在订阅发生的时间点之后来自原始Observable的数据发射给观察者
      * Subject同时充当了Observer和Observable的角色，Subject是非线程安全的，
      * 要避免该问题，需要将 Subject转换为一个 SerializedSubject ，

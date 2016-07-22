@@ -47,6 +47,7 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
         switch (action.getType()) {
             case Actions.LOGIN:
                 mUser = action.get(Keys.USER);
+                HybApp.setUser(mUser);
                 //保存登录状态
                 HybApp.getInstance().getLocalSorageUtils().setLogin(true);
                 //保存当前登录用户信息
