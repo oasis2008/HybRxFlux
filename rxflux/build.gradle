@@ -39,7 +39,7 @@ dependencies {
     compile "com.android.support:support-v4:${rootProject.ext.supportVersion}"
 
     compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'io.reactivex:rxjava:1.1.5'
+    compile 'io.reactivex:rxjava:1.1.7'
 
 //    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
 //    compile "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"

@@ -4,8 +4,8 @@ import com.google.gson.GsonBuilder;
 import com.huyingbao.hyb.BuildConfig;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.core.HybApi;
+import com.huyingbao.hyb.core.HybCacheApi;
 import com.huyingbao.hyb.core.PersistentCookieStore;
-import com.huyingbao.hyb.utils.NetUtils;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
@@ -17,8 +17,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Cache;
-import okhttp3.CacheControl;
+import io.rx_cache.internal.RxCache;
+import io.victoralbertos.jolyglot.GsonSpeaker;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
@@ -26,7 +26,6 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,6 +33,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class HybApiModule {
     private static final String BASE_URL = BuildConfig.DEBUG ? "http://52.79.131.9:1337" : "http://api.huyingbao.cc";
+
+    @Singleton//添加@Singleton标明该方法产生只产生一个实例
+    @Provides
+    public HybCacheApi provideCacheApi() {
+        File cacheFile = new File(HybApp.getInstance().getCacheDir(), "hybNetCache");
+        //persistence设置为缓存文件路径cacheDir,using设置成你所定义的接口类class
+        HybCacheApi hybCacheApi = new RxCache.Builder()
+                .persistence(cacheFile, new GsonSpeaker())
+                .using(HybCacheApi.class);
+        return hybCacheApi;
+    }
+
 
     /**
      * 创建一个HybApi的实现类单例对象
@@ -62,50 +73,50 @@ public class HybApiModule {
     @Singleton//添加@Singleton标明该方法产生只产生一个实例
     @Provides
     public OkHttpClient provideClient(CookieJar cookieJar) {
-        //云端响应头拦截器，用来配置缓存策略
-        Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
-            Request request = chain.request();
-            if(!NetUtils.hasNetwork()){
-                request = request.newBuilder()
-                        .cacheControl(CacheControl.FORCE_CACHE)
-                        .build();
-                Logger.w("no network");
-            }
-            Response originalResponse = chain.proceed(request);
-            if(NetUtils.hasNetwork()){
-                //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
-                String cacheControl = request.cacheControl().toString();
-                return originalResponse.newBuilder()
-                        .header("Cache-Control", cacheControl)
-                        .removeHeader("Pragma")
-                        .build();
-            }else{
-                return originalResponse.newBuilder()
-                        .header("Cache-Control", "public, only-if-cached, max-stale=2419200")
-                        .removeHeader("Pragma")
-                        .build();
-            }
-        };
-        //缓存设置
-        File cacheFile = new File(HybApp.getInstance().getCacheDir(), "hybNetCache");
-        Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
+//        //云端响应头拦截器，用来配置缓存策略
+//        Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
+//            Request request = chain.request();
+//            if(!NetUtils.hasNetwork()){
+//                request = request.newBuilder()
+//                        .cacheControl(CacheControl.FORCE_CACHE)
+//                        .build();
+//                Logger.w("no network");
+//            }
+//            Response originalResponse = chain.proceed(request);
+//            if(NetUtils.hasNetwork()){
+//                //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
+//                String cacheControl = request.cacheControl().toString();
+//                return originalResponse.newBuilder()
+//                        .header("Cache-Control", cacheControl)
+//                        .removeHeader("Pragma")
+//                        .build();
+//            }else{
+//                return originalResponse.newBuilder()
+//                        .header("Cache-Control", "public, only-if-cached, max-stale=2419200")
+//                        .removeHeader("Pragma")
+//                        .build();
+//            }
+//        };
+//        //缓存设置
+//        File cacheFile = new File(HybApp.getInstance().getCacheDir(), "hybNetCache");
+//        Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
         //日志拦截器单例对象,用于OkHttp层对日志进行处理
 //        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 //        interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         Interceptor LoggingInterceptor = chain -> {
             Request request = chain.request();
             long t1 = System.nanoTime();
-            Logger.i(String.format("Sending request %s on %s%n%s", request.url(),  chain.connection(), request.headers()));
+            Logger.e(String.format("发送请求 %s on %s%n%s", request.url(), chain.connection(), request.headers()));
             Response response = chain.proceed(request);
             long t2 = System.nanoTime();
-            Logger.i(String.format("Received response for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+            Logger.e(String.format("接收请求 for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
             return response;
         };
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(LoggingInterceptor)
-                .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+//                .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
                 .cookieJar(cookieJar)
-                .cache(cache)
+//                .cache(cache)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build();
         return client;

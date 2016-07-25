@@ -1,13 +1,12 @@
 package com.huyingbao.hyb.actions;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.reflect.TypeToken;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 import com.huyingbao.hyb.core.HybApi;
+import com.huyingbao.hyb.core.HybCacheApi;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.LocalFile;
@@ -23,7 +22,6 @@ import com.qiniu.android.storage.UploadManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +30,6 @@ import javax.inject.Inject;
 import retrofit2.Response;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -47,6 +44,8 @@ import rx.subjects.BehaviorSubject;
 public class HybActionCreator extends RxActionCreator implements Actions {
     @Inject
     HybApi hybApi;
+    @Inject
+    HybCacheApi hybCacheApi;
     @Inject
     LocalStorageUtils localStorageUtils;
 
@@ -238,6 +237,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                     postRxAction(action);
                 }, throwable -> postError(action, throwable)));
     }
+
 
     @Override
     public void addProduct(Product product) {

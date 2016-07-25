@@ -18,6 +18,8 @@ import com.huyingbao.hyb.inject.module.ApplicationModule;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
+import com.orhanobut.logger.LogLevel;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 
@@ -54,6 +56,7 @@ public class HybApp extends Application {
         intantce = this;
         ApplicationComponent.Instance.get().inject(this);
         initLocationClient();
+        Logger.init("Hyb").hideThreadInfo().logLevel(LogLevel.FULL);
     }
 
     /**
