@@ -24,7 +24,7 @@ public class ApplicationModule {
         mApplication = application;
     }
 
-    @Provides// TODO 添加@Singleton标明该方法产生只产生一个实例
+    @Provides//添加@Singleton标明该方法产生只产生一个实例
     @Singleton
     @ContextLife("Application")
     public Context provideContext() {
