@@ -25,7 +25,7 @@
         <item name="overlapAnchor">false</item>
         <item name="android:popupBackground">?attr/colorPrimary</item>
         <item name="android:dropDownWidth">14dip</item>
-        <item name="android:dropDownHorizontalOffset">-160dip</item>
+        <item name="android:dropDownHorizontalOffset">-155dip</item>
         <item name="android:dropDownVerticalOffset">4dip</item>
         <!--<item name="android:dropDownItemStyle">@style/OverflowMenuItemStyle</item>-->
         <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
