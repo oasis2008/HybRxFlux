@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -175,9 +176,29 @@ public class MainAty extends BaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_aty, menu);
-        return true;
+//        getMenuInflater().inflate(R.menu.main_aty, menu);
+//        return true;
+
+//        menu.add("探索")
+//                .setIcon(R.drawable.ic_menu_camera)
+//                .setOnMenuItemClickListener(item -> false)
+//                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//        menu.add("消息")
+//                .setIcon(R.drawable.ic_menu_camera)
+//                .setOnMenuItemClickListener(item -> false)
+//                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//        return super.onCreateOptionsMenu(menu);
+
+        SubMenu subMenu = menu.addSubMenu("");
+        subMenu.add("探索")
+                .setIcon(R.drawable.ic_menu_camera)
+                .setOnMenuItemClickListener(item -> false);
+        subMenu.add("消息")
+                .setIcon(R.drawable.ic_menu_camera)
+                .setOnMenuItemClickListener(item -> false);
+        MenuItem item = subMenu.getItem();
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
