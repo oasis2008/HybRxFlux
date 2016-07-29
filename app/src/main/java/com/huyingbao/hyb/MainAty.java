@@ -92,7 +92,7 @@ public class MainAty extends BaseActivity
         //右侧导航视图
         navView.setNavigationItemSelectedListener(this);
 
-        //初始化左侧导航
+        //初始化右侧导航
         initNavView();
 
         //初始化fragment数组
