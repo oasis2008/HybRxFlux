@@ -95,11 +95,6 @@ dependencies {
     compile 'com.github.orhanobut:logger:1.12'
     //Apache Commons IO
     compile 'commons-io:commons-io:2.5'
-    //rxCache
-    compile "com.github.VictorAlbertos.RxCache:core:1.5.9"
-    //rxCache To use Gson
-    compile 'com.github.VictorAlbertos.Jolyglot:gson:0.0.2'
-
     compile project(':rxflux')
 }
 //    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
