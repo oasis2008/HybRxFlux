@@ -2,10 +2,11 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                  xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  xmlns:tools="http://schemas.android.com/tools"
+                                                 android:id="@+id/root_coordinator"
                                                  style="@style/CoordinatorStyle"
-                                                 tools:context="com.huyingbao.hyb.ui.user.UserInfoAty">
+                                                 tools:context="com.huyingbao.hyb.ui.shop.ProductAddAty">
 
-    <include layout="@layout/include_tool_bar" />
+    <include layout="@layout/include_tool_bar"/>
 
     <ScrollView
         style="@style/ScrollviewStyle"
@@ -17,25 +18,25 @@
                 android:id="@+id/iv_head"
                 style="@style/ImageHeadStyle"
                 android:layout_gravity="center_horizontal"
-                tools:src="@mipmap/ic_launcher" />
+                tools:src="@mipmap/ic_launcher"/>
 
             <LinearLayout style="@style/LinearContantHorizontalStyle">
 
                 <TextView
                     style="@style/TextInfoTitleStyle"
-                    android:text="@string/user_name" />
+                    android:text="@string/user_name"/>
 
                 <EditText
-                    android:id="@+id/et_user_name"
+                    android:id="@+id/et_product_name"
                     style="@style/EditInfoStyle"
-                    tools:text="@string/user_name" />
+                    tools:text="@string/user_name"/>
 
             </LinearLayout>
 
             <Button
                 android:id="@+id/bt_ok"
                 style="@style/ButtonStyle"
-                android:text="@string/action_ok" />
+                android:text="@string/action_ok"/>
 
         </LinearLayout>
     </ScrollView>

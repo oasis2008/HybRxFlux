@@ -31,6 +31,8 @@ public class ProdcutStore extends RxStore implements ProductStoreInterface {
             case Actions.GET_PRODUCT_BY_SHOP:
                 mProductList = action.get(Keys.PRODUCT_LIST);
                 break;
+            case Actions.ADD_PRODUCT:
+                break;
             default://若是接收到的action中type不是需要处理的type,则直接返回,不调用postChange()
                 return;
         }
