@@ -274,10 +274,7 @@ public class MainShopAty extends BaseActivity
                     mFragments[position] = ContactsFrg.newInstance(position);
                     break;
                 case 1:
-                    Bundle arguments = new Bundle();
-                    arguments.putSerializable(Keys.SHOP, HybApp.getShop());
                     mFragments[position] = ProductListFrg.newInstance();
-                    mFragments[position].setArguments(arguments);
                     break;
                 case 2:
                     mFragments[position] = ContactsFrg.newInstance(position);

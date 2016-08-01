@@ -10,6 +10,7 @@ import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
@@ -62,8 +63,10 @@ public class ProductListFrg extends BaseFragment implements RxViewDispatch, Prod
     protected void afterCreate(Bundle savedInstanceState) {
         if (getArguments().containsKey(Keys.SHOP)) {
             mShop = (Shop) getArguments().getSerializable(Keys.SHOP);
-            hybActionCreator.getProductByShop(mShop.getShopId(), 0);
+        }else {
+            mShop= HybApp.getShop();
         }
+        hybActionCreator.getProductByShop(mShop.getShopId(), 0);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ProductListAdapter();

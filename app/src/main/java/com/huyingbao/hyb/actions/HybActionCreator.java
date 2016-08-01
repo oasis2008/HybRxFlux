@@ -11,6 +11,7 @@ import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
 import com.huyingbao.hyb.model.LocalFile;
+import com.huyingbao.hyb.model.MsgFromUser;
 import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.utils.CommonUtils;
@@ -261,6 +262,37 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(products -> {
                     action.getData().put(Keys.PRODUCT_LIST, products);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
+    @Override
+    public void getAllProduct(int belongShop, int status) {
+
+    }
+
+    @Override
+    public void sendMessageByRadius(MsgFromUser msgFromUser) {
+        final RxAction action = newRxAction(SEND_MESSAGE_BY_RADIUS, Keys.MSG_FROM_USER, msgFromUser);
+        if (hasRxAction(action)) return;
+        addRxAction(action, hybApi.sendMessageByRadius(msgFromUser)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(sendStatus -> {
+                    action.getData().put(Keys.STATUS, sendStatus);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
+    }
+
+    @Override
+    public void getUserMessage(int belongUser) {
+        final RxAction action = newRxAction(GET_USER_MESSAGE, Keys.ID, belongUser);
+        if (hasRxAction(action)) return;
+        addRxAction(action, hybApi.getUserMessage(belongUser)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(msgFromUserList -> {
+                    action.getData().put(Keys.MSG_FROM_USER_LIST, msgFromUserList);
                     postRxAction(action);
                 }, throwable -> postError(action, throwable)));
     }

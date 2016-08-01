@@ -34,4 +34,9 @@ public interface Keys {
 
 
     String PRODUCT = "product";
+    String MSG_FROM_USER = "msg_from_user";
+    String MSG_FROM_USER_LIST = "msg_from_user_list";
+
+    String STATUS="status";
+
 }

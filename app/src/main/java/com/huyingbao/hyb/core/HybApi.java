@@ -2,6 +2,7 @@ package com.huyingbao.hyb.core;
 
 
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.model.MsgFromUser;
 import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 
@@ -75,7 +76,7 @@ public interface HybApi {
     Observable<HybUser> updateUser(@Field("user") String user);
 
     /**
-     * 更新用户密码
+     * 重置用户密码
      *
      * @param oldPassword
      * @param newPassword
@@ -173,15 +174,47 @@ public interface HybApi {
     Observable<ArrayList<Product>> updateProduct(@Field("product") String product);
 
     /**
-     * 顾客获取店铺中所有的商品
+     * 顾客获取店铺中所有的商品,可能不让看
      *
      * @param belongShop 店铺id
      * @param status
      * @return
      */
     @FormUrlEncoded
-    @POST("/getEnableProductByShopCode")
+    @POST("/getEnableProductByShopCode?sort=createdAt DESC&limit=7")
     Observable<ArrayList<Product>> getEnableProductByShopCode(@Field("belongShop") int belongShop, @Field("status") int status);
 
+    /**
+     * 店长获取店铺中所有的商品,需要是店长身份
+     *
+     * @param belongShop 店铺id
+     * @param status
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/getAllProductByShopId?sort=createdAt DESC&limit=7")
+    Observable<ArrayList<Product>> getAllProductByShopId(@Field("belongShop") int belongShop, @Field("status") int status);
 
+
+
+
+
+    /**
+     * 顾客发送消息
+     *
+     * @param msgFromUser 消息
+     * @return
+     */
+    @POST("/msgFromUser/sendMessageByRadius")
+    Observable<Boolean> sendMessageByRadius(@Body MsgFromUser msgFromUser);
+
+    /**
+     * 顾客获取发送的消息
+     *
+     * @param belongUser
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/getUserMessage?sort=createdAt ASC&limit=5098")
+    Observable<ArrayList<MsgFromUser>> getUserMessage(@Field("belongUser") int belongUser);
 }
