@@ -241,7 +241,15 @@ public class HybActionCreator extends RxActionCreator implements Actions {
 
     @Override
     public void addProduct(Product product) {
-
+        final RxAction action = newRxAction(ADD_PRODUCT, Keys.PRODUCT, product);
+        if (hasRxAction(action)) return;
+        addRxAction(action, hybApi.addProduct(product)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(product1 -> {
+                    action.getData().put(Keys.PRODUCT, product1);
+                    postRxAction(action);
+                }, throwable -> postError(action, throwable)));
     }
 
     @Override

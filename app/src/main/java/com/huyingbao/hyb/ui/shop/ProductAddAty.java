@@ -5,9 +5,14 @@ import android.os.Bundle;
 
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.base.BaseActivity;
+import com.huyingbao.hyb.stores.ProdcutStore;
+
+import javax.inject.Inject;
 
 public class ProductAddAty extends BaseActivity {
 
+    @Inject
+    ProdcutStore prodcutStore;
 
     @Override
     public void initInjector() {

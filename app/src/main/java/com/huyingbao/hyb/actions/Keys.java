@@ -5,6 +5,8 @@ package com.huyingbao.hyb.actions;
  * 可能是参数,可能是返回结果
  */
 public interface Keys {
+    String PART_NAME_HEAD_IMAGE = "huyingbao";
+    String URL_HEAD_IMAGE = "http://7xwebb.com1.z0.glb.clouddn.com/";
     String USER = "user";
     String ID = "id";
     String LOCATION = "location";
@@ -30,6 +32,6 @@ public interface Keys {
     String FILE_KEY_LIST = "file_key_list";
 
 
-    String PART_NAME_HEAD_IMAGE = "huyingbao";
-    String URL_HEAD_IMAGE = "http://7xwebb.com1.z0.glb.clouddn.com/";
+
+    String PRODUCT = "product";
 }

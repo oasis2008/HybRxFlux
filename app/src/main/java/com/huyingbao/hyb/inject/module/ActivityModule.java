@@ -6,7 +6,9 @@ import android.content.Context;
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerActivity;
+import com.huyingbao.hyb.inject.scope.PerFragment;
 import com.huyingbao.hyb.stores.FileStore;
+import com.huyingbao.hyb.stores.ProdcutStore;
 
 import dagger.Module;
 import dagger.Provides;
@@ -36,5 +38,11 @@ public class ActivityModule {
     @PerActivity
     public FileStore provideFileStore(RxFlux rxFlux) {
         return new FileStore(rxFlux.getDispatcher());
+    }
+
+    @Provides
+    @PerActivity
+    public ProdcutStore provideLocalProdcutStore(RxFlux rxFlux) {
+        return new ProdcutStore(rxFlux.getDispatcher());
     }
 }
