@@ -7,6 +7,12 @@ package com.huyingbao.hyb.actions;
 public interface Keys {
     String PART_NAME_HEAD_IMAGE = "huyingbao";
     String URL_HEAD_IMAGE = "http://7xwebb.com1.z0.glb.clouddn.com/";
+
+
+
+    String[] PRODUCT_TYPE = {"上衣","裤子","衬衣"};
+    String[] PRODUCT_COLOR = {"白色","黑色","红色","蓝色","黄色","卡其色","灰色","粉色"};
+
     String USER = "user";
     String ID = "id";
     String LOCATION = "location";

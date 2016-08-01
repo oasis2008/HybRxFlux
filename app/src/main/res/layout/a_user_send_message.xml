@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/CoordinatorStyle"
-    tools:context="com.huyingbao.hyb.ui.user.UserSendMessageAty">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:id="@+id/root_coordinator"
+                                                 style="@style/CoordinatorStyle"
+                                                 tools:context="com.huyingbao.hyb.ui.user.UserSendMessageAty">
 
-    <include layout="@layout/include_tool_bar" />
+    <include layout="@layout/include_tool_bar"/>
 
     <LinearLayout
         style="@style/LinearStyle"
@@ -16,14 +17,14 @@
             android:layout_width="fill_parent"
             android:layout_height="311dp"
             android:layout_gravity="top"
-            android:background="#fff8f8f8" />
+            android:background="#fff8f8f8"/>
 
         <Button
             android:id="@+id/bt_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
-            android:text="呼应" />
+            android:text="呼应"/>
 
     </LinearLayout>
 

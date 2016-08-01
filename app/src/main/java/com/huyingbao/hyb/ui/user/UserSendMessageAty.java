@@ -1,34 +1,54 @@
 package com.huyingbao.hyb.ui.user;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hardsoftstudio.rxflux.action.RxError;
+import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
+import com.hardsoftstudio.rxflux.store.RxStore;
+import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.hyb.HybApp;
+import com.huyingbao.hyb.MainAty;
 import com.huyingbao.hyb.R;
+import com.huyingbao.hyb.actions.Actions;
+import com.huyingbao.hyb.actions.HybActionCreator;
+import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
+import com.huyingbao.hyb.model.MsgFromUser;
+import com.huyingbao.hyb.stores.MsgStore;
+import com.huyingbao.hyb.stores.ShopStore;
+import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.widget.KeywordsFlow;
 
+import java.security.Key;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
-public class UserSendMessageAty extends BaseActivity {
+public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
     @Bind(R.id.kf_tag)
     KeywordsFlow kfTag;
+    @Bind(R.id.root_coordinator)
+    CoordinatorLayout rootCoordinator;
+    @Inject
+    MsgStore msgStore;
+    @Inject
+    UsersStore usersStore;
+    private double mLatitude;
+    private double mLongitude;
+    private StringBuffer content= new StringBuffer();
 
-    public String[] keywords = {"QQ", "安sdfsdf全", "APK",
-            "GFW", "铅笔",//
-            "短信", "桌面", "安全", "平板", "雅诗烂",//
-            "Base", "笔记本", "SPY", "安全", "捕鱼",//
-            "清理", "地图", "导航", "闹钟", "主题",//
-            "通讯录", "播放器", "CSDN", "安全", "联系",//
-            "美女", "天气", "4743", "戴尔", "联想",//
-            "欧朋", "浏览器", "愤怒小鸟", "优酷", "网易",//
-            "土豆", "油水", "网游App", "互联网", "日历",//
-            "脸部", "谷歌", "导航", "中国", "苹果",//
-            "失败", "摩托", "魅族", "小米"};
 
     @Override
     public void initInjector() {
@@ -46,9 +66,31 @@ public class UserSendMessageAty extends BaseActivity {
         initFlowView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLoadingFrame(true);
+        HybApp.getInstance().startLocation();
+    }
+
     @OnClick(R.id.bt_send)
     public void onClick() {
+        if (mLatitude == 0 || mLongitude == 0) {
+            Snackbar.make(rootCoordinator, "请开启定位!", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("重试", v -> {
+                        setLoadingFrame(true);
+                        HybApp.getInstance().startLocation();
+                    })
+                    .show();
+            return;
+        }
 
+        MsgFromUser msgFromUser = new MsgFromUser();
+        msgFromUser.setConten(content.toString());
+        msgFromUser.setType(1);
+        msgFromUser.setLongitude(mLongitude);
+        msgFromUser.setLatitude(mLatitude);
+        hybActionCreator.sendMessageByRadius(msgFromUser);
     }
 
     /**
@@ -56,13 +98,13 @@ public class UserSendMessageAty extends BaseActivity {
      */
     private void initFlowView() {
         kfTag.setDuration(800l);
-        feedKeywordsFlow(kfTag, keywords);
+        feedKeywordsFlow(kfTag, Keys.PRODUCT_TYPE);
         kfTag.go2Show(KeywordsFlow.ANIMATION_IN);
         kfTag.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String text = ((TextView) v).getText().toString();
-                Toast.makeText(mContext, "点击了View:" + text, Toast.LENGTH_SHORT).show();
+                content = content.append(text);
                 setChange(text);
             }
         });
@@ -75,10 +117,14 @@ public class UserSendMessageAty extends BaseActivity {
      * @param arr
      */
     private static void feedKeywordsFlow(KeywordsFlow keywordsFlow, String[] arr) {
-        Random random = new Random();
-        for (int i = 0; i < KeywordsFlow.MAX; i++) {
-            int ran = random.nextInt(arr.length);
-            String tmp = arr[ran];
+//        Random random = new Random();
+//        for (int i = 0; i < KeywordsFlow.MAX; i++) {
+//            int ran = random.nextInt(arr.length);
+//            String tmp = arr[ran];
+//            keywordsFlow.feedKeyword(tmp);
+//        }
+        for (int i = 0; i < arr.length; i++) {
+            String tmp = arr[i];
             keywordsFlow.feedKeyword(tmp);
         }
     }
@@ -90,7 +136,55 @@ public class UserSendMessageAty extends BaseActivity {
      */
     private void setChange(String keyword) {
         kfTag.rubKeywords();
-        feedKeywordsFlow(kfTag, keywords);
+        feedKeywordsFlow(kfTag, Keys.PRODUCT_COLOR);
         kfTag.go2Show(KeywordsFlow.ANIMATION_OUT);
+    }
+
+    @Override
+    public void onRxStoreChanged(@NonNull RxStoreChange change) {
+        switch (change.getStoreId()) {
+            case UsersStore.STORE_ID:
+                switch (change.getRxAction().getType()) {
+                    case Actions.A_GET_LOCATION:
+                        setLoadingFrame(false);
+                        mLatitude = usersStore.getBDLocation().getLatitude();
+                        mLongitude = usersStore.getBDLocation().getLongitude();
+                        break;
+                }
+                break;
+            case MsgStore.STORE_ID:
+                switch (change.getRxAction().getType()) {
+                    case Actions.SEND_MESSAGE_BY_RADIUS:
+                        msgStore.getSendStatus();
+                        break;
+                }
+        }
+    }
+
+    @Override
+    public void onRxError(@NonNull RxError error) {
+
+    }
+
+    @Override
+    public void onRxViewRegistered() {
+
+    }
+
+    @Override
+    public void onRxViewUnRegistered() {
+
+    }
+
+    @Nullable
+    @Override
+    public List<RxStore> getRxStoreListToRegister() {
+        return Arrays.asList(msgStore);
+    }
+
+    @Nullable
+    @Override
+    public List<RxStore> getRxStoreListToUnRegister() {
+        return Arrays.asList(msgStore);
     }
 }

@@ -8,6 +8,7 @@ import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerActivity;
 import com.huyingbao.hyb.inject.scope.PerFragment;
 import com.huyingbao.hyb.stores.FileStore;
+import com.huyingbao.hyb.stores.MsgStore;
 import com.huyingbao.hyb.stores.ProdcutStore;
 
 import dagger.Module;
@@ -42,7 +43,13 @@ public class ActivityModule {
 
     @Provides
     @PerActivity
-    public ProdcutStore provideLocalProdcutStore(RxFlux rxFlux) {
+    public ProdcutStore provideProdcutStore(RxFlux rxFlux) {
         return new ProdcutStore(rxFlux.getDispatcher());
+    }
+
+    @Provides
+    @PerActivity
+    public MsgStore providMsgStore(RxFlux rxFlux) {
+        return new MsgStore(rxFlux.getDispatcher());
     }
 }
