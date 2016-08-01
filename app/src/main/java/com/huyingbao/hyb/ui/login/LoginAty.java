@@ -145,7 +145,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                 switch (change.getRxAction().getType()) {
                     case Actions.LOGIN:
                         showProgress(false);
-                        if(HybApp.getUser().getStatus()==0){
+                        if(HybApp.getUser().getType()==0){
                             startActivity(MainAty.class);
                             finish();
                         }else{

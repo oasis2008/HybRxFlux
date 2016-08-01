@@ -26,15 +26,13 @@ public class ShopStore extends RxStore implements ShopStoreInterface {
     @Override
     public void onRxAction(RxAction action) {
         switch (action.getType()) {
-            case Actions.REGISTER_SHOP:
-                mShop = action.get(Keys.SHOP);
-                break;
             case Actions.GET_NEARBY_SHOP:
                 mShopList = action.get(Keys.SHOP_LIST);
                 break;
             case Actions.A_TO_SHOP_INFO:
                 mShop = action.get(Keys.SHOP);
                 break;
+            case Actions.REGISTER_SHOP:
             case Actions.GET_BELONG_SHOP:
                 mShop=action.get(Keys.SHOP);
                 HybApp.setShop(mShop);
