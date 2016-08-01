@@ -34,6 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class HybApiModule {
     private static final String BASE_URL = BuildConfig.DEBUG ? "http://52.79.131.9:1337" : "http://api.huyingbao.cc";
+//    private static final String BASE_URL = BuildConfig.DEBUG ? "http://192.168.0.46:1337" : "http://api.huyingbao.cc";
 
     /**
      * 创建一个HybApi的实现类单例对象
@@ -95,11 +96,14 @@ public class HybApiModule {
         Interceptor LoggingInterceptor = chain -> {
             Request request = chain.request();
             long t1 = System.nanoTime();
-            Logger.e(String.format("发送请求 %s on %s%n%s", request.url(), chain.connection(), request.headers()));
+//            Logger.e(String.format("发送请求 %s on %s%n%s", request.url(), chain.connection(), request.headers()));
             Response response = chain.proceed(request);
             long t2 = System.nanoTime();
-            Logger.e(String.format("接收请求 for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
-            return response;
+            okhttp3.MediaType mediaType = response.body().contentType();
+            String content = response.body().string();
+            Logger.e(String.format("接收请求 for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, content));
+            return response.newBuilder().body(okhttp3.ResponseBody.create(mediaType, content))
+                    .build();
         };
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(LoggingInterceptor)

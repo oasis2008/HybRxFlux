@@ -272,7 +272,7 @@ public class MainShopAty extends BaseActivity
             }
             switch (position) {
                 case 0:
-                    mFragments[position] = ShopListBearbyFrg.newInstance(position);
+                    mFragments[position] = ContactsFrg.newInstance(position);
                     break;
                 case 1:
                     mFragments[position] = ContactsFrg.newInstance(position);
@@ -325,6 +325,13 @@ public class MainShopAty extends BaseActivity
                         break;
                 }
                 break;
+            case ShopStore.STORE_ID:
+                switch (change.getRxAction().getType()){
+                    case Actions.GET_BELONG_SHOP:
+                        toolbar.setTitle(shopStore.getShop().getShopName());
+                        break;
+                }
+                break;
         }
     }
 
@@ -357,7 +364,7 @@ public class MainShopAty extends BaseActivity
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        return Arrays.asList(usersStore);
+        return Arrays.asList(usersStore,shopStore);
     }
 
     /**
