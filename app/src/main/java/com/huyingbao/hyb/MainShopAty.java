@@ -26,12 +26,14 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.actions.Actions;
+import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.login.LoginAty;
+import com.huyingbao.hyb.ui.shop.ProductListFrg;
 import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 import com.huyingbao.hyb.ui.user.UserInfoAty;
 import com.huyingbao.hyb.ui.user.UserSendMessageAty;
@@ -89,7 +91,7 @@ public class MainShopAty extends BaseActivity
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        initActionBar(null, false);
+        toolbar.setTitle(HybApp.getShop().getShopName());
         //侧滑菜单控件
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -115,7 +117,7 @@ public class MainShopAty extends BaseActivity
         tabs.setupWithViewPager(mViewPager);
         recover(savedInstanceState);
 
-        hybActionCreator.getBelongShop();
+
     }
 
     /**
@@ -133,12 +135,7 @@ public class MainShopAty extends BaseActivity
         Glide.with(HybApp.getInstance()).load(HybApp.getUser().getHeadImg())
                 .centerCrop().placeholder(R.mipmap.ic_launcher).crossFade()
                 .into(nHeaderIvUserHeadImg);
-        nHeaderLlUserInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(UserInfoAty.class);
-            }
-        });
+        nHeaderLlUserInfo.setOnClickListener(v -> startActivity(UserInfoAty.class));
     }
 
     /**
@@ -275,7 +272,10 @@ public class MainShopAty extends BaseActivity
                     mFragments[position] = ContactsFrg.newInstance(position);
                     break;
                 case 1:
-                    mFragments[position] = ContactsFrg.newInstance(position);
+                    Bundle arguments = new Bundle();
+                    arguments.putSerializable(Keys.SHOP, HybApp.getShop());
+                    mFragments[position] = ProductListFrg.newInstance();
+                    mFragments[position].setArguments(arguments);
                     break;
                 case 2:
                     mFragments[position] = ContactsFrg.newInstance(position);
@@ -300,11 +300,11 @@ public class MainShopAty extends BaseActivity
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "我的回应";
                 case 1:
-                    return "SECTION 2";
+                    return "店铺商品";
                 case 2:
-                    return "SECTION 3";
+                    return "其他";
                 case 3:
                     return "SECTION 3";
                 case 4:
@@ -322,13 +322,6 @@ public class MainShopAty extends BaseActivity
                     case Actions.LOGOUT:
                         startActivity(LoginAty.class);
                         finish();
-                        break;
-                }
-                break;
-            case ShopStore.STORE_ID:
-                switch (change.getRxAction().getType()){
-                    case Actions.GET_BELONG_SHOP:
-                        toolbar.setTitle(shopStore.getShop().getShopName());
                         break;
                 }
                 break;
@@ -364,7 +357,7 @@ public class MainShopAty extends BaseActivity
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        return Arrays.asList(usersStore,shopStore);
+        return Arrays.asList(usersStore, shopStore);
     }
 
     /**

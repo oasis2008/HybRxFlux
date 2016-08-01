@@ -30,6 +30,7 @@ import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.HttpCode;
 import com.huyingbao.hyb.utils.StringUtils;
@@ -65,6 +66,8 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
 
     @Inject
     UsersStore usersStore;
+    @Inject
+    ShopStore shopStore;
 
     @Override
     public void initInjector() {
@@ -144,9 +147,17 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                         showProgress(false);
                         if(HybApp.getUser().getStatus()==0){
                             startActivity(MainAty.class);
+                            finish();
                         }else{
-                            startActivity(MainShopAty.class);
+                            hybActionCreator.getBelongShop();
                         }
+                        break;
+                }
+                break;
+            case ShopStore.STORE_ID:
+                switch (change.getRxAction().getType()){
+                    case Actions.GET_BELONG_SHOP:
+                        startActivity(MainShopAty.class);
                         finish();
                         break;
                 }
@@ -196,7 +207,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        return Arrays.asList(usersStore);
+        return Arrays.asList(usersStore,shopStore);
     }
 
     @Nullable

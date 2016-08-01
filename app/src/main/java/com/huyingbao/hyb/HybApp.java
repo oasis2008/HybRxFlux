@@ -16,6 +16,7 @@ import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.inject.component.DaggerApplicationComponent;
 import com.huyingbao.hyb.inject.module.ApplicationModule;
 import com.huyingbao.hyb.model.HybUser;
+import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
 import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 import com.orhanobut.logger.LogLevel;
@@ -26,6 +27,7 @@ import org.json.JSONException;
 import javax.inject.Inject;
 
 public class HybApp extends Application {
+
     @Inject
     HybActionCreator hybActionCreator;
     @Inject
@@ -41,6 +43,7 @@ public class HybApp extends Application {
 
     private static HybApp intantce;
     private static HybUser mUser;
+    private static Shop mShop;
 
     public static HybApp getInstance() {
         if (intantce == null) {
@@ -142,5 +145,22 @@ public class HybApp extends Application {
 
     public static void setUser(HybUser user){
         mUser=user;
+    }
+
+    public static Shop getShop() {
+        if (mShop != null) {
+            return mShop;
+        }
+        try {
+            mShop = GsonHelper.fromJson(intantce.getLocalSorageUtils().getShop(), new TypeToken<Shop>() {
+            }.getType());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return mShop;
+    }
+
+    public static void setShop(Shop shop){
+        mShop=shop;
     }
 }

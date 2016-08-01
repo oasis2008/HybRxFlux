@@ -4,9 +4,11 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.model.Shop;
+import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,9 @@ public class ShopStore extends RxStore implements ShopStoreInterface {
                 break;
             case Actions.GET_BELONG_SHOP:
                 mShop=action.get(Keys.SHOP);
+                HybApp.setShop(mShop);
+                //保存当前登录用户所属店铺
+                HybApp.getInstance().getLocalSorageUtils().setShop(GsonHelper.toJson(mShop));
                 break;
             default://若是接收到的action中type不是需要处理的type,则直接返回,不调用postChange()
                 return;
