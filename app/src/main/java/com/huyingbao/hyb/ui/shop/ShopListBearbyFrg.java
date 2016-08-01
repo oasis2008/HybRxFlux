@@ -23,6 +23,7 @@ import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.adapter.ShopListAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
+import com.huyingbao.hyb.inject.scope.PerFragment;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
@@ -48,6 +49,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     private static final String ARG_SECTION_NUMBER = "section_number";
     @Inject
     ShopStore shopStore;
+    @PerFragment
     @Inject
     UsersStore usersStore;
     private ShopListAdapter adapter;
@@ -86,8 +88,6 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     protected void afterCreate(Bundle savedInstanceState) {
         //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
         //调用getRxStoreListToRegister,注册rxstore,只能手动注册
-
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ShopListAdapter();

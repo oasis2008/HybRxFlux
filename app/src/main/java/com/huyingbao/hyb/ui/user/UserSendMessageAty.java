@@ -20,6 +20,7 @@ import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
+import com.huyingbao.hyb.inject.scope.PerActivity;
 import com.huyingbao.hyb.model.MsgFromUser;
 import com.huyingbao.hyb.stores.MsgStore;
 import com.huyingbao.hyb.stores.ShopStore;
@@ -43,6 +44,7 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
     CoordinatorLayout rootCoordinator;
     @Inject
     MsgStore msgStore;
+    @PerActivity
     @Inject
     UsersStore usersStore;
     private double mLatitude;
@@ -75,6 +77,7 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
 
     @OnClick(R.id.bt_send)
     public void onClick() {
+        HybApp.getInstance().startLocation();
         if (mLatitude == 0 || mLongitude == 0) {
             Snackbar.make(rootCoordinator, "请开启定位!", Snackbar.LENGTH_INDEFINITE)
                     .setAction("重试", v -> {

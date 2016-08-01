@@ -52,12 +52,7 @@ public abstract class BaseFragment extends Fragment {
                 .build();
         //注入Injector
         initInjector();
-        //注册view
-        if (this instanceof RxViewDispatch) {
-            RxViewDispatch viewDispatch = (RxViewDispatch) this;
-            viewDispatch.onRxViewRegistered();
-            rxFlux.getDispatcher().subscribeRxView(viewDispatch);
-        }
+
     }
 
     @Nullable
@@ -67,16 +62,49 @@ public abstract class BaseFragment extends Fragment {
         return mRootView;
     }
 
+    /**
+     * 注册RxStore
+     * 因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
+     * 调用getRxStoreListToRegister,注册RxStore,只能手动注册
+     */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         //注册rxstore
-        registerRxStore();
+        if (this instanceof RxViewDispatch) {
+            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToRegister();
+            if (rxStoreList != null) {
+                for (RxStore rxStore : rxStoreList) {
+                    rxStore.register();
+                }
+            }
+        }
         //绑定view
         ButterKnife.bind(this, view);
         //绑定view之后运行
         super.onViewCreated(view, savedInstanceState);
         //view创建之后的操作
         afterCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //注册view
+        if (this instanceof RxViewDispatch) {
+            RxViewDispatch viewDispatch = (RxViewDispatch) this;
+            rxFlux.getDispatcher().subscribeRxView( (RxViewDispatch) this);
+            ((RxViewDispatch) this).onRxViewRegistered();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //解除view注册
+        if (this instanceof RxViewDispatch) {
+            rxFlux.getDispatcher().unsubscribeRxView((RxViewDispatch) this);
+            ((RxViewDispatch) this).onRxViewUnRegistered();
+        }
     }
 
     @Override
@@ -91,15 +119,6 @@ public abstract class BaseFragment extends Fragment {
                     rxStore.unregister();
                 }
             }
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (this instanceof RxViewDispatch) {
-            //解除view注册
-            rxFlux.getDispatcher().unsubscribeRxView((RxViewDispatch) this);
         }
     }
 
@@ -119,22 +138,6 @@ public abstract class BaseFragment extends Fragment {
             loadingProgress = ViewUtils.createProgressBar((Activity) mContext, null);
         }
         loadingProgress.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    /**
-     * 注册RxStore
-     * 因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
-     * 调用getRxStoreListToRegister,注册RxStore,只能手动注册
-     */
-    private void registerRxStore() {
-        if (this instanceof RxViewDispatch) {
-            List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToRegister();
-            if (rxStoreList != null) {
-                for (RxStore rxStore : rxStoreList) {
-                    rxStore.register();
-                }
-            }
-        }
     }
 
 }
