@@ -65,7 +65,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-
+        initActionBar();
         etUserName.setText(HybApp.getUser().getUserName());
         Glide.with(HybApp.getInstance()).load(HybApp.getUser().getHeadImg())
                 .centerCrop().placeholder(R.mipmap.ic_launcher).crossFade()
