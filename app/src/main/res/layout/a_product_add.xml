@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 style="@style/CoordinatorStyle"
+                                                 tools:context="com.huyingbao.hyb.ui.user.UserInfoAty">
+
+    <include layout="@layout/include_tool_bar" />
+
+    <ScrollView
+        style="@style/ScrollviewStyle"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout style="@style/LinearContantStyle">
+
+            <ImageView
+                android:id="@+id/iv_head"
+                style="@style/ImageHeadStyle"
+                android:layout_gravity="center_horizontal"
+                tools:src="@mipmap/ic_launcher" />
+
+            <LinearLayout style="@style/LinearContantHorizontalStyle">
+
+                <TextView
+                    style="@style/TextInfoTitleStyle"
+                    android:text="@string/user_name" />
+
+                <EditText
+                    android:id="@+id/et_user_name"
+                    style="@style/EditInfoStyle"
+                    tools:text="@string/user_name" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_ok"
+                style="@style/ButtonStyle"
+                android:text="@string/action_ok" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

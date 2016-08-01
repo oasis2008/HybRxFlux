@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huyingbao.hyb">
+          package="com.huyingbao.hyb">
 
     <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <!-- 用于读取手机当前的状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- 访问网络，网络定位需要上网 -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!-- SD卡读取权限，用户写入离线定位数据 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <!-- 开机自启 -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <!-- 操作设置 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <!-- 富媒体需要声明的权限 -->
-    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
 
     <application
         android:name=".HybApp"
@@ -42,72 +42,20 @@
         <!-- 百度地图key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="qj06uzGwzhigefqCMXQyuIoWEa0QB6Fn" />
+            android:value="qj06uzGwzhigefqCMXQyuIoWEa0QB6Fn"/>
         <!-- Glide使用okhttp3加载 -->
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-            android:value="GlideModule" />
+            android:value="GlideModule"/>
         <!-- 百度推送key -->
         <meta-data
             android:name="baidu_push_api_key"
-            android:value="3LBl1NYTW4o5Ilol0smZijVA" />
-
-        <activity
-            android:name=".LoadingAty"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_loading_aty"
-            android:theme="@style/FullscreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.login.LoginAty"
-            android:label="@string/action_sign_in" />
-        <activity
-            android:name=".ui.login.RegisterAty"
-            android:label="@string/title_activity_register_aty"
-            android:parentActivityName=".ui.login.LoginAty" />
-        <activity
-            android:name=".ui.shop.RegisterShopAty"
-            android:label="@string/title_activity_register_shop"
-            android:parentActivityName=".ui.login.RegisterAty" />
-        <activity
-            android:name=".MainAty"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".MainShopAty"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".ui.shop.ShopDetailAty"
-            android:label="@string/title_activity_shop_details"
-            android:parentActivityName=".MainAty" />
-        <activity
-            android:name=".ui.setting.SettingAty"
-            android:label="@string/title_activity_setting_aty"
-            android:parentActivityName=".MainAty">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.huyingbao.hyb.MainAty" />
-        </activity>
-
-        <activity
-            android:name=".ui.user.UserInfoAty"
-            android:label="@string/title_activity_user_info"
-            android:parentActivityName=".MainAty" />
-        <activity
-            android:name=".ui.user.UserSendMessageAty"
-            android:label="@string/title_activity_send_message"
-            android:parentActivityName=".MainAty" />
-        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
-
+            android:value="3LBl1NYTW4o5Ilol0smZijVA"/>
         <!-- 百度地图定位服务 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" />
+            android:process=":remote"/>
 
         <!-- 百度推送push service start -->
         <!-- 用于接收系统消息以保证PushService正常运行 -->
@@ -116,26 +64,26 @@
             <intent-filter>
 
                 <!-- 接收push消息 -->
-                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE"/>
                 <!-- 接收bind、setTags等method的返回结果 -->
-                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE"/>
                 <!-- 接收通知点击事件，和通知自定义内容 -->
-                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK"/>
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
             android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
-                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW"/>
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK"/>
                 <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
-                <action android:name="android.intent.action.MEDIA_MOUNTED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
             </intent-filter>
         </receiver>
         <!-- Push服务接收客户端发送的各种请求 -->
@@ -143,13 +91,13 @@
             android:name="com.baidu.android.pushservice.RegistrationReceiver"
             android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.METHOD" />
-                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+                <action android:name="com.baidu.android.pushservice.action.METHOD"/>
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
 
-                <data android:scheme="package" />
+                <data android:scheme="package"/>
             </intent-filter>
         </receiver>
 
@@ -158,15 +106,69 @@
             android:exported="true"
             android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
             </intent-filter>
         </service>
         <!-- 4.4版本新增的CommandService声明，提升小米和魅族手机上的实际推送到达率 -->
         <service
             android:name="com.baidu.android.pushservice.CommandService"
-            android:exported="true" />
+            android:exported="true"/>
         <!-- 百度推送push结束 -->
 
+
+        <activity
+            android:name=".LoadingAty"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_loading_aty"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.login.LoginAty"
+            android:label="@string/action_sign_in"/>
+        <activity
+            android:name=".ui.login.RegisterAty"
+            android:label="@string/title_activity_register_aty"
+            android:parentActivityName=".ui.login.LoginAty"/>
+        <activity
+            android:name=".ui.shop.RegisterShopAty"
+            android:label="@string/title_activity_register_shop"
+            android:parentActivityName=".ui.login.RegisterAty"/>
+        <activity
+            android:name=".MainAty"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".MainShopAty"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ui.shop.ShopDetailAty"
+            android:label="@string/title_activity_shop_details"
+            android:parentActivityName=".MainAty"/>
+        <activity
+            android:name=".ui.setting.SettingAty"
+            android:label="@string/title_activity_setting_aty"
+            android:parentActivityName=".MainAty">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.huyingbao.hyb.MainAty"/>
+        </activity>
+        <activity
+            android:name=".ui.user.UserInfoAty"
+            android:label="@string/title_activity_user_info"
+            android:parentActivityName=".MainAty"/>
+        <activity
+            android:name=".ui.user.UserSendMessageAty"
+            android:label="@string/title_activity_send_message"
+            android:parentActivityName=".MainAty"/>
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity"/>
+        <activity
+            android:name=".ui.shop.ProductAddAty"
+            android:label="@string/title_activity_product_add"
+            android:parentActivityName=".MainShopAty"/>
     </application>
 
 </manifest>

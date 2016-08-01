@@ -10,6 +10,7 @@
     <string name="title_activity_setting_aty">设置</string>
     <string name="title_activity_send_message">呼</string>
     <string name="title_activity_user_info">个人信息</string>
+    <string name="title_activity_product_add">添加商品</string>
 
     <string name="navigation_drawer_open">打开导航</string>
     <string name="navigation_drawer_close">关闭导航</string>

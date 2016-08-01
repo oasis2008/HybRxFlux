@@ -28,11 +28,13 @@ import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
+import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.login.LoginAty;
+import com.huyingbao.hyb.ui.shop.ProductAddAty;
 import com.huyingbao.hyb.ui.shop.ProductListFrg;
 import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 import com.huyingbao.hyb.ui.user.UserInfoAty;
@@ -234,7 +236,7 @@ public class MainShopAty extends BaseActivity
             case R.id.tabs:
                 break;
             case R.id.fab:
-                startActivity(UserSendMessageAty.class);
+                startActivity(ProductAddAty.class);
                 break;
             case R.id.a_main_nvMain:
                 break;

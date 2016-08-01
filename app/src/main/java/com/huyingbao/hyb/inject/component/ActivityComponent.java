@@ -12,6 +12,8 @@ import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerActivity;
 import com.huyingbao.hyb.ui.login.LoginAty;
 import com.huyingbao.hyb.ui.login.RegisterAty;
+import com.huyingbao.hyb.ui.shop.ProductAddAty;
+import com.huyingbao.hyb.ui.shop.ProductListFrg;
 import com.huyingbao.hyb.ui.shop.RegisterShopAty;
 import com.huyingbao.hyb.ui.shop.ShopDetailAty;
 import com.huyingbao.hyb.ui.user.UserInfoAty;
@@ -57,5 +59,7 @@ public interface ActivityComponent {
     void inject(RegisterAty registerAty);
 
     void inject(UserInfoAty userInfoAty);
+
+    void inject(ProductAddAty productAddAty);
 
 }
