@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_coordinator"
-    style="@style/CoordinatorStyle"
-    tools:context=".ui.home.HomeFrg">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:id="@+id/root_coordinator"
+                                                 style="@style/CoordinatorStyle"
+                                                 tools:context=".ui.home.HomeFrg">
 
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -20,7 +20,7 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
-                style="@style/RecyclerViewStyle" />
+                style="@style/RecyclerViewStyle"/>
 
 
         </RelativeLayout>

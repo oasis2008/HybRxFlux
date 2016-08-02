@@ -286,19 +286,19 @@ public class MainAty extends BaseActivity
             }
             switch (position) {
                 case 0:
-                    mFragments[position] = ShopListBearbyFrg.newInstance(position);
+                    mFragments[position] = ContactsFrg.newInstance();
                     break;
                 case 1:
-                    mFragments[position] = ContactsFrg.newInstance(position);
+                    mFragments[position] = ContactsFrg.newInstance();
                     break;
                 case 2:
-                    mFragments[position] = ContactsFrg.newInstance(position);
+                    mFragments[position] = ShopListBearbyFrg.newInstance(position);
                     break;
                 case 3:
-                    mFragments[position] = ContactsFrg.newInstance(position);
+                    mFragments[position] = ContactsFrg.newInstance();
                     break;
                 case 4:
-                    mFragments[position] = ContactsFrg.newInstance(position);
+                    mFragments[position] = ContactsFrg.newInstance();
                     break;
             }
             return mFragments[position];
@@ -314,11 +314,11 @@ public class MainAty extends BaseActivity
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "呼";
                 case 1:
-                    return "SECTION 2";
+                    return "应";
                 case 2:
-                    return "SECTION 3";
+                    return "望";
                 case 3:
                     return "SECTION 3";
                 case 4:

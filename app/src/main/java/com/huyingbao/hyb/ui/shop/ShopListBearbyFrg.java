@@ -42,11 +42,6 @@ import retrofit2.adapter.rxjava.HttpException;
  * Created by Administrator on 2016/5/6.
  */
 public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, ShopListAdapter.OnShopClicked {
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    private static final String ARG_SECTION_NUMBER = "section_number";
     @Inject
     ShopStore shopStore;
     @PerFragment
@@ -62,15 +57,8 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     CoordinatorLayout rootCoordinator;
 
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    public static ShopListBearbyFrg newInstance(int sectionNumber) {
+    public static ShopListBearbyFrg newInstance() {
         ShopListBearbyFrg fragment = new ShopListBearbyFrg();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -86,12 +74,11 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        //因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
-        //调用getRxStoreListToRegister,注册rxstore,只能手动注册
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ShopListAdapter();
         adapter.setOnShopClickCallBack(this);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         getNearbyShopList();
