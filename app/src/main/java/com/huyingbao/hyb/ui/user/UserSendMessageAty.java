@@ -90,7 +90,7 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
         }
 
         MsgFromUser msgFromUser = new MsgFromUser();
-        msgFromUser.setConten(content.toString());
+        msgFromUser.setContent(content.toString());
         msgFromUser.setLongitude(mLongitude);
         msgFromUser.setLatitude(mLatitude);
         msgFromUser.setRadius(1000);

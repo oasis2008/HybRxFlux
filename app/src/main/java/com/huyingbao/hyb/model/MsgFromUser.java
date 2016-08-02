@@ -12,7 +12,7 @@ public class MsgFromUser {
      * latitude : 31.9849
      * radius : 1234
      * type : 0
-     * conten : 要一件红色的裤子
+     * content : 要一件红色的裤子
      * contenType : 0
      * status : 0
      * createdAt : 2016-08-01T08:09:00.000Z
@@ -25,7 +25,7 @@ public class MsgFromUser {
     private double latitude;
     private int radius;
     private int type;
-    private String conten;
+    private String content;
     private int contenType;
     private int status;
     private String createdAt;
@@ -55,9 +55,9 @@ public class MsgFromUser {
 
     public void setType(int type) { this.type = type;}
 
-    public String getConten() { return conten;}
+    public String getContent() { return content;}
 
-    public void setConten(String conten) { this.conten = conten;}
+    public void setContent(String content) { this.content = content;}
 
     public int getContenType() { return contenType;}
 
