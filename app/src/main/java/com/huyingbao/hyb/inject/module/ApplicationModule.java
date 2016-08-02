@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import javax.inject.Singleton;
 
@@ -36,5 +37,14 @@ public class ApplicationModule {
     public LocalStorageUtils provideLocalStorageUtils() {
         return LocalStorageUtils.getInstance(mApplication.getApplicationContext());
     }
+
+    @Provides
+    @Singleton
+    public RxPermissions provideRxPermissions() {
+        RxPermissions rxPermissions = RxPermissions.getInstance(mApplication.getApplicationContext());
+        rxPermissions.setLogging(true);
+        return rxPermissions;
+    }
+
 
 }

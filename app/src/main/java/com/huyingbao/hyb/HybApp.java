@@ -1,5 +1,6 @@
 package com.huyingbao.hyb;
 
+import android.*;
 import android.app.Application;
 
 import com.baidu.location.BDLocation;
@@ -21,6 +22,7 @@ import com.huyingbao.hyb.utils.LocalStorageUtils;
 import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.json.JSONException;
 
@@ -32,6 +34,8 @@ public class HybApp extends Application {
     HybActionCreator hybActionCreator;
     @Inject
     RxFlux rxFlux;
+    @Inject
+    RxPermissions rxPermissions;
     @Inject
     LocalStorageUtils mLocalStorageUtils;
     /**
@@ -108,14 +112,20 @@ public class HybApp extends Application {
      * 开始定位
      */
     public void startLocation() {
-        //百度定位Client,使用的时候使用一次就重新生成一次
-        mLocationClient = new LocationClient(getApplicationContext());
-        //设置配置参数
-        mLocationClient.setLocOption(mLocationClientOption);
-        //注册位置监听器
-        mLocationClient.registerLocationListener(mBDLocationListener);
-        //开始定位
-        mLocationClient.start();
+        rxPermissions
+                .request(android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe(granted -> {
+                    if (granted) {
+                        //百度定位Client,使用的时候使用一次就重新生成一次
+                        mLocationClient = new LocationClient(getApplicationContext());
+                        //设置配置参数
+                        mLocationClient.setLocOption(mLocationClientOption);
+                        //注册位置监听器
+                        mLocationClient.registerLocationListener(mBDLocationListener);
+                        //开始定位
+                        mLocationClient.start();
+                    }
+                });
     }
 
     public LocalStorageUtils getLocalSorageUtils() {

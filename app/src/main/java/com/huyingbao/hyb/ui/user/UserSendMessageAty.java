@@ -1,5 +1,6 @@
 package com.huyingbao.hyb.ui.user;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ import com.huyingbao.hyb.stores.MsgStore;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.widget.KeywordsFlow;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.security.Key;
 import java.util.Arrays;
@@ -49,7 +51,7 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
     UsersStore usersStore;
     private double mLatitude;
     private double mLongitude;
-    private StringBuffer content= new StringBuffer();
+    private StringBuffer content = new StringBuffer();
 
 
     @Override
@@ -77,7 +79,6 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
 
     @OnClick(R.id.bt_send)
     public void onClick() {
-        HybApp.getInstance().startLocation();
         if (mLatitude == 0 || mLongitude == 0) {
             Snackbar.make(rootCoordinator, "请开启定位!", Snackbar.LENGTH_INDEFINITE)
                     .setAction("重试", v -> {

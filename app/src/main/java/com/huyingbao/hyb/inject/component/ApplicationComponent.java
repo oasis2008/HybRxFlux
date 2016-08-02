@@ -11,6 +11,7 @@ import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import javax.inject.Singleton;
 
@@ -38,6 +39,8 @@ public interface ApplicationComponent {
     LocalStorageUtils getLocalStorageUtils();
 
     RxFlux getRxFlux();
+
+    RxPermissions getRxPermissions();
 
     HybActionCreator getHybActionCreator();
 
