@@ -91,9 +91,9 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
 
         MsgFromUser msgFromUser = new MsgFromUser();
         msgFromUser.setConten(content.toString());
-        msgFromUser.setType(1);
         msgFromUser.setLongitude(mLongitude);
         msgFromUser.setLatitude(mLatitude);
+        msgFromUser.setRadius(1000);
         hybActionCreator.sendMessageByRadius(msgFromUser);
     }
 
