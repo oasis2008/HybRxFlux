@@ -12,7 +12,7 @@ import com.huyingbao.hyb.model.Product;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
@@ -78,13 +78,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.description)
+        @BindView(R.id.description)
         public TextView descView;
-        @Bind(R.id.id)
+        @BindView(R.id.id)
         public TextView idView;
-        @Bind(R.id.name)
+        @BindView(R.id.name)
         TextView nameView;
-        @Bind(R.id.imageView)
+        @BindView(R.id.imageView)
         ImageView imageView;
 
         public ViewHolder(View itemView) {

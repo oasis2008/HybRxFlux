@@ -25,7 +25,7 @@ public interface FragmentComponent {
 
     Activity getActivity();
 
-    void inject(BaseFragment baseFragment);
+//    void inject(BaseFragment baseFragment);
 
     void inject(HomeFrg homeFrg);
 

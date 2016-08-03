@@ -22,18 +22,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/5/6.
  */
 public class ContactsFrg extends BaseFragment implements RxViewDispatch {
-    @Bind(R.id.recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.root)
+    @BindView(R.id.root)
     RelativeLayout root;
-    @Bind(R.id.root_coordinator)
+    @BindView(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
     @Inject

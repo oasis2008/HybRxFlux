@@ -40,7 +40,7 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
-    void inject(BaseActivity baseActivity);
+//    void inject(BaseActivity baseActivity);
 
     void inject(LoginAty loginAty);
 

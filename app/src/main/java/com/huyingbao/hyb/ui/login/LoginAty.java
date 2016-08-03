@@ -40,7 +40,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.adapter.rxjava.HttpException;
 
@@ -49,19 +49,19 @@ import retrofit2.adapter.rxjava.HttpException;
  */
 public class LoginAty extends BaseActivity implements RxViewDispatch {
 
-    @Bind(R.id.email)
+    @BindView(R.id.email)
     AutoCompleteTextView mEmailView;
-    @Bind(R.id.password)
+    @BindView(R.id.password)
     EditText mPasswordView;
-    @Bind(R.id.btn_sign_in)
+    @BindView(R.id.btn_sign_in)
     Button emailSignInButton;
-    @Bind(R.id.btn_register)
+    @BindView(R.id.btn_register)
     Button emailRegisterButton;
-    @Bind(R.id.email_login_form)
+    @BindView(R.id.email_login_form)
     LinearLayout emailLoginForm;
-    @Bind(R.id.login_form)
+    @BindView(R.id.login_form)
     ScrollView mLoginFormView;
-    @Bind(R.id.root_coordinator)
+    @BindView(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
     @Inject

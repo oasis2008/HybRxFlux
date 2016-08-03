@@ -37,25 +37,25 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.adapter.rxjava.HttpException;
 
 public class RegisterAty extends BaseActivity implements RxViewDispatch {
 
-    @Bind(R.id.email)
+    @BindView(R.id.email)
     AutoCompleteTextView mEmailView;
-    @Bind(R.id.password)
+    @BindView(R.id.password)
     EditText mPasswordView;
-    @Bind(R.id.email_login_form)
+    @BindView(R.id.email_login_form)
     LinearLayout emailLoginForm;
-    @Bind(R.id.login_form)
+    @BindView(R.id.login_form)
     ScrollView mLoginFormView;
-    @Bind(R.id.btn_register)
+    @BindView(R.id.btn_register)
     Button emailRegisterButton;
-    @Bind(R.id.root_coordinator)
+    @BindView(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
-    @Bind(R.id.btn_register_shop)
+    @BindView(R.id.btn_register_shop)
     Button btnRegisterShop;
     @Inject
     UsersStore usersStore;

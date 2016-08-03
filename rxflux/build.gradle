@@ -38,11 +38,8 @@ android {
 dependencies {
     compile "com.android.support:support-v4:${rootProject.ext.supportVersion}"
 
-    compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'io.reactivex:rxjava:1.1.7'
-
-//    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
-//    compile "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.8'
 
     apt "com.google.dagger:dagger-compiler:${rootProject.ext.dagger}" //指定注解处理器
     compile "com.google.dagger:dagger:${rootProject.ext.dagger}"  //dagger公用api
@@ -51,6 +48,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.10.17"
 }
+
+//    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
+//    compile "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"
 
 
 

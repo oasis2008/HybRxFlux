@@ -31,15 +31,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.iv_head)
+    @BindView(R.id.iv_head)
     ImageView ivHead;
-    @Bind(R.id.et_user_name)
+    @BindView(R.id.et_user_name)
     EditText etUserName;
     private String headImg;
 

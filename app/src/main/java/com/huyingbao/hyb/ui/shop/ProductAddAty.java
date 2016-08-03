@@ -28,7 +28,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -36,11 +36,11 @@ public class ProductAddAty extends BaseActivity implements RxViewDispatch{
 
     @Inject
     ProdcutStore prodcutStore;
-    @Bind(R.id.iv_head)
+    @BindView(R.id.iv_head)
     ImageView ivHead;
-    @Bind(R.id.et_product_name)
+    @BindView(R.id.et_product_name)
     EditText etProductName;
-    @Bind(R.id.root_coordinator)
+    @BindView(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
     @Override

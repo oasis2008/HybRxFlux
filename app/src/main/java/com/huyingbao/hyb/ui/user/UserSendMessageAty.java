@@ -36,13 +36,13 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
-    @Bind(R.id.kf_tag)
+    @BindView(R.id.kf_tag)
     KeywordsFlow kfTag;
-    @Bind(R.id.root_coordinator)
+    @BindView(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
     @Inject
     MsgStore msgStore;

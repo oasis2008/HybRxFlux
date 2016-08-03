@@ -40,7 +40,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainAty extends BaseActivity
@@ -51,15 +51,15 @@ public class MainAty extends BaseActivity
      */
     private static final int COUNT_FRAGMENT = 3;
 
-    @Bind(R.id.container)
+    @BindView(R.id.container)
     ViewPager mViewPager;
-    @Bind(R.id.tabs)
+    @BindView(R.id.tabs)
     TabLayout tabs;
-    @Bind(R.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton fab;
-    @Bind(R.id.a_main_nvMain)
+    @BindView(R.id.a_main_nvMain)
     NavigationView navView;
-    @Bind(R.id.a_main_dlMain)
+    @BindView(R.id.a_main_dlMain)
     DrawerLayout drawerLayout;
 
     /**

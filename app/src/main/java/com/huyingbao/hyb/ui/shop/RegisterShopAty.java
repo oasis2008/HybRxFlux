@@ -33,17 +33,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 import retrofit2.adapter.rxjava.HttpException;
 
 public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
-    @Bind(R.id.et_shop_name)
+    @BindView(R.id.et_shop_name)
     EditText etShopName;
-    @Bind(R.id.root_coordinator)
+    @BindView(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
-    @Bind(R.id.sv_form)
+    @BindView(R.id.sv_form)
     ScrollView svForm;
 
     private int mShopTyep = 0;

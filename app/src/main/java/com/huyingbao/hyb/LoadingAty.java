@@ -9,7 +9,7 @@ import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.push.BaiduPushBase;
 import com.huyingbao.hyb.ui.login.LoginAty;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class LoadingAty extends BaseActivity {
     private static final int DELAY_ACTION = 300;
@@ -30,7 +30,7 @@ public class LoadingAty extends BaseActivity {
 
         }
     };
-    @Bind(R.id.fullscreen_content)
+    @BindView(R.id.fullscreen_content)
     TextView fullscreenContent;
 
     @Override

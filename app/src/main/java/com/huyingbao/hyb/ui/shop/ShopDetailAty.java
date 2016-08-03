@@ -24,21 +24,21 @@ import com.huyingbao.hyb.model.Shop;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ShopDetailAty extends BaseActivity implements RxViewDispatch {
-    @Bind(R.id.toolbar_layout)
+    @BindView(R.id.toolbar_layout)
     CollapsingToolbarLayout toolbarLayout;
-    @Bind(R.id.app_bar)
+    @BindView(R.id.app_bar)
     AppBarLayout appBar;
-    @Bind(R.id.item_detail_container)
+    @BindView(R.id.item_detail_container)
     NestedScrollView itemDetailContainer;
-    @Bind(R.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton fab;
-    @Bind(R.id.iv_header)
+    @BindView(R.id.iv_header)
     ImageView ivHeader;
-    @Bind(R.id.tv_source)
+    @BindView(R.id.tv_source)
     TextView tvSource;
     private Shop mShop;
 

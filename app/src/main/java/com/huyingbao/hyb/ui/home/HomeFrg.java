@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -35,11 +35,11 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
-    @Bind(R.id.recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.root)
+    @BindView(R.id.root)
     RelativeLayout root;
-    @Bind(R.id.root_coordinator)
+    @BindView(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
     @Inject

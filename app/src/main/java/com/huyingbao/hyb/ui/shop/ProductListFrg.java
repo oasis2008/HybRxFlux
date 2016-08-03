@@ -25,11 +25,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class ProductListFrg extends BaseFragment implements RxViewDispatch, ProductListAdapter.OnProductClicked {
 
-    @Bind(R.id.recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     private Shop mShop;
 

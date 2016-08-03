@@ -27,6 +27,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     @Inject
@@ -41,6 +42,7 @@ public abstract class BaseFragment extends Fragment {
     protected FragmentComponent mFragmentComponent;
     private View mRootView;
     private ProgressBar loadingProgress;
+    private Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -79,7 +81,7 @@ public abstract class BaseFragment extends Fragment {
             }
         }
         //绑定view
-        ButterKnife.bind(this, view);
+        unbinder=ButterKnife.bind(this, view);
         //绑定view之后运行
         super.onViewCreated(view, savedInstanceState);
         //view创建之后的操作
@@ -110,7 +112,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
         //解除RxStore注册
         if (this instanceof RxViewDispatch) {
             List<RxStore> rxStoreList = ((RxViewDispatch) this).getRxStoreListToUnRegister();
