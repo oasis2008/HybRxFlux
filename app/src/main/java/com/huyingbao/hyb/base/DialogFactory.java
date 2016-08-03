@@ -25,7 +25,7 @@ public class DialogFactory {
      * @return
      */
     public static BaseDialog createBottomDialog(Context context) {
-        BaseDialog dialog = (BaseDialog) createDialog(context);
+        BaseDialog dialog = createDialog(context);
         dialog.setAnimations(R.style.AnimBottomStyle);
         dialog.setGravity(Gravity.BOTTOM);
         return dialog;
