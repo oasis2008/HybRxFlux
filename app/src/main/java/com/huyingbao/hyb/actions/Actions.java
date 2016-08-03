@@ -76,7 +76,7 @@ public interface Actions {
 
     void sendMessageByRadius(MsgFromUser msgFromUser);
 
-    void getUserMessage(int belongUser);
+    void getUserMessage(int belongUser,int skip);
 
 
     void uploadOneFile(LocalFile localFile, String partName);

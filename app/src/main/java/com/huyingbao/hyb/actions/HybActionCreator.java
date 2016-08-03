@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -281,10 +282,10 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
-    public void getUserMessage(int belongUser) {
-        final RxAction action = newRxAction(GET_USER_MESSAGE, Keys.ID, belongUser);
+    public void getUserMessage(int belongUser,int skip) {
+        final RxAction action = newRxAction(GET_USER_MESSAGE, Keys.ID, belongUser,Keys.SKIP,skip);
         if (hasRxAction(action)) return;
-        addRxAction(action, hybApi.getUserMessage(belongUser)
+        addRxAction(action, hybApi.getUserMessage(belongUser,skip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(msgFromUserList -> {

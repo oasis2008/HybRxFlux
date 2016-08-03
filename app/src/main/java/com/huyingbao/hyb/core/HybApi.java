@@ -7,6 +7,7 @@ import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -14,6 +15,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 
@@ -212,6 +215,7 @@ public interface HybApi {
      * @return
      */
     @FormUrlEncoded
-    @POST("/getUserMessage?sort=createdAt ASC&limit=5098")
-    Observable<ArrayList<MsgFromUser>> getUserMessage(@Field("belongUser") int belongUser);
+    @POST("/getUserMessage?sort=createdAt ASC&limit=10")
+    Observable<ArrayList<MsgFromUser>> getUserMessage(@Field("belongUser") int belongUser, @Query("skip") int skip);
+
 }

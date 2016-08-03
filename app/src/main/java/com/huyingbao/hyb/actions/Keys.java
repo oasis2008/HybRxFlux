@@ -12,6 +12,7 @@ public interface Keys {
     String[] PRODUCT_TYPE = {"上衣", "裤子", "衬衣"};
     String[] PRODUCT_COLOR = {"白色", "黑色", "红色", "蓝色", "黄色", "卡其色", "灰色", "粉色"};
 
+    String SKIP = "skip";
     String USER = "user";
     String ID = "id";
     String LOCATION = "location";
@@ -42,5 +43,6 @@ public interface Keys {
     String MSG_FROM_USER_LIST = "msg_from_user_list";
 
     String STATUS = "status";
+
 
 }

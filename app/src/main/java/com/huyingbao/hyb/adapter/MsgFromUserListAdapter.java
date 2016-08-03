@@ -18,7 +18,7 @@ public class MsgFromUserListAdapter extends BaseQuickAdapter<MsgFromUser> {
     @Override
     protected void convert(BaseViewHolder baseViewHolder, MsgFromUser msgFromUser) {
         baseViewHolder
-                .setText(R.id.tv_content, msgFromUser.getContent())
+                .setText(R.id.tv_type, msgFromUser.getContent())
                 .setText(R.id.tv_time, msgFromUser.getCreatedAt());
     }
 }
