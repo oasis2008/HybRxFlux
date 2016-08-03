@@ -271,19 +271,19 @@ public class MainShopAty extends BaseActivity
             }
             switch (position) {
                 case 0:
-                    mFragments[position] = ContactsFrg.newInstance(position);
+                    mFragments[position] = ContactsFrg.newInstance();
                     break;
                 case 1:
                     mFragments[position] = ProductListFrg.newInstance();
                     break;
                 case 2:
-                    mFragments[position] = ContactsFrg.newInstance(position);
+                    mFragments[position] = ContactsFrg.newInstance();
                     break;
                 case 3:
-                    mFragments[position] = ContactsFrg.newInstance(position);
+                    mFragments[position] = ContactsFrg.newInstance();
                     break;
                 case 4:
-                    mFragments[position] = ContactsFrg.newInstance(position);
+                    mFragments[position] = ContactsFrg.newInstance();
                     break;
             }
             return mFragments[position];

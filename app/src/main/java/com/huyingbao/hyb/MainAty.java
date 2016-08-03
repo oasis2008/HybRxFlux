@@ -292,7 +292,7 @@ public class MainAty extends BaseActivity
                     mFragments[position] = ContactsFrg.newInstance();
                     break;
                 case 2:
-                    mFragments[position] = ShopListBearbyFrg.newInstance(position);
+                    mFragments[position] = ShopListBearbyFrg.newInstance();
                     break;
                 case 3:
                     mFragments[position] = ContactsFrg.newInstance();
