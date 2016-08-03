@@ -5,6 +5,8 @@ import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.util.LogLevel;
 import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
+import com.huyingbao.hyb.inject.scope.PerActivity;
+import com.huyingbao.hyb.stores.MsgStore;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 
@@ -52,5 +54,11 @@ public class FluxModule {
     public ShopStore provideShopStore(RxFlux rxFlux) {
         ShopStore shopStore = new ShopStore(rxFlux.getDispatcher());
         return shopStore;
+    }
+
+    @Provides
+    @Singleton
+    public MsgStore providMsgStore(RxFlux rxFlux) {
+        return new MsgStore(rxFlux.getDispatcher());
     }
 }

@@ -108,7 +108,8 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
     compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
-
+    //公用recycleview adapter
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.8'
     compile project(':rxflux')
 }
 //    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"

@@ -46,9 +46,4 @@ public class ActivityModule {
         return new ProdcutStore(rxFlux.getDispatcher());
     }
 
-    @Provides
-    @PerActivity
-    public MsgStore providMsgStore(RxFlux rxFlux) {
-        return new MsgStore(rxFlux.getDispatcher());
-    }
 }

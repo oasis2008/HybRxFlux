@@ -181,6 +181,6 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {
-        return Arrays.asList(msgStore);
+        return null;
     }
 }

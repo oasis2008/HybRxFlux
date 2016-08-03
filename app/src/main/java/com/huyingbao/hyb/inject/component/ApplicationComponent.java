@@ -8,6 +8,7 @@ import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.inject.module.ApplicationModule;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
+import com.huyingbao.hyb.stores.MsgStore;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.LocalStorageUtils;
@@ -47,6 +48,8 @@ public interface ApplicationComponent {
     UsersStore getUsersStore();
 
     ShopStore getShopStore();
+
+    MsgStore getMsgStore();
 
     /**
      * 2:添加注入方法,一般使用inject做为方法名，方法参数为对应的Container
