@@ -9,9 +9,8 @@ public interface Keys {
     String URL_HEAD_IMAGE = "http://7xwebb.com1.z0.glb.clouddn.com/";
 
 
-
-    String[] PRODUCT_TYPE = {"上衣","裤子","衬衣"};
-    String[] PRODUCT_COLOR = {"白色","黑色","红色","蓝色","黄色","卡其色","灰色","粉色"};
+    String[] PRODUCT_TYPE = {"上衣", "裤子", "衬衣"};
+    String[] PRODUCT_COLOR = {"白色", "黑色", "红色", "蓝色", "黄色", "卡其色", "灰色", "粉色"};
 
     String USER = "user";
     String ID = "id";
@@ -38,11 +37,10 @@ public interface Keys {
     String FILE_KEY_LIST = "file_key_list";
 
 
-
     String PRODUCT = "product";
     String MSG_FROM_USER = "msg_from_user";
     String MSG_FROM_USER_LIST = "msg_from_user_list";
 
-    String STATUS="status";
+    String STATUS = "status";
 
 }

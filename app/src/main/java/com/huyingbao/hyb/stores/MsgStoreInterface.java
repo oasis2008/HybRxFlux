@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface MsgStoreInterface {
     boolean getSendStatus();
+
     List<MsgFromUser> getMsgFromUserList();
 }

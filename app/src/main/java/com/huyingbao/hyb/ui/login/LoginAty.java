@@ -145,17 +145,17 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                 switch (change.getRxAction().getType()) {
                     case Actions.LOGIN:
                         showProgress(false);
-                        if(HybApp.getUser().getType()==0){
+                        if (HybApp.getUser().getType() == 0) {
                             startActivity(MainAty.class);
                             finish();
-                        }else{
+                        } else {
                             hybActionCreator.getBelongShop();
                         }
                         break;
                 }
                 break;
             case ShopStore.STORE_ID:
-                switch (change.getRxAction().getType()){
+                switch (change.getRxAction().getType()) {
                     case Actions.GET_BELONG_SHOP:
                         startActivity(MainShopAty.class);
                         finish();
@@ -207,7 +207,7 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        return Arrays.asList(usersStore,shopStore);
+        return Arrays.asList(usersStore, shopStore);
     }
 
     @Nullable

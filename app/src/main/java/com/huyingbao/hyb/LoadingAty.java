@@ -21,12 +21,12 @@ public class LoadingAty extends BaseActivity {
                 finish();
                 return;
             }
-            if(HybApp.getUser().getType()==0){
+            if (HybApp.getUser().getType() == 0) {
                 startActivity(MainAty.class);
-            }else{
+            } else {
                 startActivity(MainShopAty.class);
             }
-           finish();
+            finish();
 
         }
     };

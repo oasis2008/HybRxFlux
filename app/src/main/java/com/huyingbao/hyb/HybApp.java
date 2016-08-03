@@ -152,8 +152,8 @@ public class HybApp extends Application {
         return mUser;
     }
 
-    public static void setUser(HybUser user){
-        mUser=user;
+    public static void setUser(HybUser user) {
+        mUser = user;
     }
 
     public static Shop getShop() {
@@ -169,7 +169,7 @@ public class HybApp extends Application {
         return mShop;
     }
 
-    public static void setShop(Shop shop){
-        mShop=shop;
+    public static void setShop(Shop shop) {
+        mShop = shop;
     }
 }

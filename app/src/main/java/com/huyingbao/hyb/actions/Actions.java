@@ -31,10 +31,9 @@ public interface Actions {
     String GET_PRODUCT_BY_UUID = "get_product_by_uuid";
     String UPDATE_PRODUCT = "update_product";
     String GET_PRODUCT_BY_SHOP = "get_product_by_shop";
-    String GET_ALL_PRODUCT="get_all_product";
-    String SEND_MESSAGE_BY_RADIUS="send_message_by_radius";
-    String GET_USER_MESSAGE="get_user_message";
-
+    String GET_ALL_PRODUCT = "get_all_product";
+    String SEND_MESSAGE_BY_RADIUS = "send_message_by_radius";
+    String GET_USER_MESSAGE = "get_user_message";
 
 
     String UPLOAD_ONE_FILE = "upload_one_file";
@@ -73,13 +72,11 @@ public interface Actions {
 
     void getProductByShop(int shopId, int status);
 
-    void getAllProduct(int belongShop,int status);
+    void getAllProduct(int belongShop, int status);
 
     void sendMessageByRadius(MsgFromUser msgFromUser);
 
     void getUserMessage(int belongUser);
-
-
 
 
     void uploadOneFile(LocalFile localFile, String partName);

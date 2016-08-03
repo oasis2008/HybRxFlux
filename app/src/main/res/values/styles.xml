@@ -34,7 +34,8 @@
         <item name="android:dropDownVerticalOffset">4dip</item>
         <!--<item name="android:dropDownItemStyle">@style/OverflowMenuItemStyle</item>-->
         <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
-        <item name="android:actionOverflowButtonStyle">?android:attr/actionOverflowButtonStyle</item>
+        <item name="android:actionOverflowButtonStyle">?android:attr/actionOverflowButtonStyle
+        </item>
     </style>
 
 
@@ -49,6 +50,7 @@
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
     </style>
+
     <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">?android:textColorSecondary</item>
@@ -57,12 +59,12 @@
 
 
     <!--<style name="OverflowMenuItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">-->
-        <!--<item name="android:layout_toLeftOf">@android:id/icon2</item>-->
-        <!--<item name="android:layout_toRightOf">@android:id/icon2</item>-->
-        <!--<item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.DropDownItem</item>-->
-        <!--<item name="android:paddingLeft">1dp</item>-->
-        <!--<item name="android:paddingRight">1dp</item>-->
-        <!--<item name="android:gravity">center_vertical</item>-->
+    <!--<item name="android:layout_toLeftOf">@android:id/icon2</item>-->
+    <!--<item name="android:layout_toRightOf">@android:id/icon2</item>-->
+    <!--<item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.DropDownItem</item>-->
+    <!--<item name="android:paddingLeft">1dp</item>-->
+    <!--<item name="android:paddingRight">1dp</item>-->
+    <!--<item name="android:gravity">center_vertical</item>-->
     <!--</style>-->
 
 

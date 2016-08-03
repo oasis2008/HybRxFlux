@@ -81,7 +81,7 @@ public abstract class BaseFragment extends Fragment {
             }
         }
         //绑定view
-        unbinder=ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         //绑定view之后运行
         super.onViewCreated(view, savedInstanceState);
         //view创建之后的操作
@@ -94,7 +94,7 @@ public abstract class BaseFragment extends Fragment {
         //注册view
         if (this instanceof RxViewDispatch) {
             RxViewDispatch viewDispatch = (RxViewDispatch) this;
-            rxFlux.getDispatcher().subscribeRxView( (RxViewDispatch) this);
+            rxFlux.getDispatcher().subscribeRxView((RxViewDispatch) this);
             ((RxViewDispatch) this).onRxViewRegistered();
         }
     }

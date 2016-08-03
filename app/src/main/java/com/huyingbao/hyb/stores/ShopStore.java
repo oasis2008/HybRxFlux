@@ -34,7 +34,7 @@ public class ShopStore extends RxStore implements ShopStoreInterface {
                 break;
             case Actions.REGISTER_SHOP:
             case Actions.GET_BELONG_SHOP:
-                mShop=action.get(Keys.SHOP);
+                mShop = action.get(Keys.SHOP);
                 HybApp.setShop(mShop);
                 //保存当前登录用户所属店铺
                 HybApp.getInstance().getLocalSorageUtils().setShop(GsonHelper.toJson(mShop));

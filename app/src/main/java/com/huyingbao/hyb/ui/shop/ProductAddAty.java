@@ -27,7 +27,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ProductAddAty extends BaseActivity implements RxViewDispatch{
+public class ProductAddAty extends BaseActivity implements RxViewDispatch {
 
     @Inject
     ProdcutStore prodcutStore;
@@ -60,7 +60,7 @@ public class ProductAddAty extends BaseActivity implements RxViewDispatch{
             Snackbar.make(rootCoordinator, "请输入", Snackbar.LENGTH_INDEFINITE).show();
             return;
         }
-        Product product =new Product();
+        Product product = new Product();
         product.setProductName(productName);
         product.setBelongShop(HybApp.getShop().getShopId());
         hybActionCreator.addProduct(product);

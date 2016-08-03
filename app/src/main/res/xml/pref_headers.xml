@@ -5,16 +5,16 @@
     <header
         android:fragment="com.huyingbao.hyb.ui.setting.SettingAty$GeneralPreferenceFragment"
         android:icon="@drawable/ic_info_black_24dp"
-        android:title="@string/pref_header_general" />
+        android:title="@string/pref_header_general"/>
 
     <header
         android:fragment="com.huyingbao.hyb.ui.setting.SettingAty$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/pref_header_notifications" />
+        android:title="@string/pref_header_notifications"/>
 
     <header
         android:fragment="com.huyingbao.hyb.ui.setting.SettingAty$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_black_24dp"
-        android:title="@string/pref_header_data_sync" />
+        android:title="@string/pref_header_data_sync"/>
 
 </preference-headers>

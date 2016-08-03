@@ -196,9 +196,6 @@ public interface HybApi {
     Observable<ArrayList<Product>> getAllProductByShopId(@Field("belongShop") int belongShop, @Field("status") int status);
 
 
-
-
-
     /**
      * 顾客发送消息
      *

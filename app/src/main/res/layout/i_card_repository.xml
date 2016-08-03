@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    card_view:cardCornerRadius="5dp"
-    card_view:contentPadding="15dp"
-    style="@style/CardViewStyle">
+                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                    xmlns:tools="http://schemas.android.com/tools"
+                                    card_view:cardCornerRadius="5dp"
+                                    card_view:contentPadding="15dp"
+                                    style="@style/CardViewStyle">
 
     <LinearLayout style="@style/LinearCardStyle">
 
         <ImageView
             android:id="@+id/imageView"
             tools:src="@drawable/ic_menu_camera"
-            style="@style/ImageCardStyle" />
+            style="@style/ImageCardStyle"/>
 
         <LinearLayout style="@style/LinearCardContentStyle">
 
             <TextView
                 android:id="@+id/name"
                 tools:text="Title"
-                style="@style/TextCardNameStyle" />
+                style="@style/TextCardNameStyle"/>
 
 
             <TextView
                 android:id="@+id/description"
                 tools:text="Long description"
-                style="@style/TextCardDesStyle" />
+                style="@style/TextCardDesStyle"/>
 
             <TextView
                 android:id="@+id/id"
                 tools:text="Github id: 2"
-                style="@style/TextCardInfoStyle" />
+                style="@style/TextCardInfoStyle"/>
         </LinearLayout>
     </LinearLayout>
 

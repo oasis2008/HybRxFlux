@@ -65,21 +65,21 @@ public class HybApiModule {
         //云端响应头拦截器，用来配置缓存策略
         Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
             Request request = chain.request();
-            if(!NetUtils.hasNetwork()){
+            if (!NetUtils.hasNetwork()) {
                 request = request.newBuilder()
                         .cacheControl(CacheControl.FORCE_CACHE)
                         .build();
                 Logger.w("no network");
             }
             Response originalResponse = chain.proceed(request);
-            if(NetUtils.hasNetwork()){
+            if (NetUtils.hasNetwork()) {
                 //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
                 String cacheControl = request.cacheControl().toString();
                 return originalResponse.newBuilder()
                         .header("Cache-Control", cacheControl)
                         .removeHeader("Pragma")
                         .build();
-            }else{
+            } else {
                 return originalResponse.newBuilder()
                         .header("Cache-Control", "public, only-if-cached, max-stale=2419200")
                         .removeHeader("Pragma")
