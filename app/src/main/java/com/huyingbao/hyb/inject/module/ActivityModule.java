@@ -6,7 +6,6 @@ import android.content.Context;
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.hyb.inject.qualifier.ContextLife;
 import com.huyingbao.hyb.inject.scope.PerActivity;
-import com.huyingbao.hyb.inject.scope.PerFragment;
 import com.huyingbao.hyb.stores.FileStore;
 import com.huyingbao.hyb.stores.MsgStore;
 import com.huyingbao.hyb.stores.ProdcutStore;

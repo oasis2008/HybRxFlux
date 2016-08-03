@@ -13,15 +13,11 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
-import com.huyingbao.hyb.MainAty;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.stores.ProdcutStore;
-import com.huyingbao.hyb.stores.ProductStoreInterface;
-import com.huyingbao.hyb.stores.ShopStore;
-import com.huyingbao.hyb.stores.UsersStore;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +25,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ProductAddAty extends BaseActivity implements RxViewDispatch{

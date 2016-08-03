@@ -1,6 +1,5 @@
 package com.huyingbao.hyb.ui.user;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,31 +7,24 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.HybApp;
-import com.huyingbao.hyb.MainAty;
 import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
-import com.huyingbao.hyb.actions.HybActionCreator;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.inject.scope.PerActivity;
 import com.huyingbao.hyb.model.MsgFromUser;
 import com.huyingbao.hyb.stores.MsgStore;
-import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.widget.KeywordsFlow;
-import com.tbruyelle.rxpermissions.RxPermissions;
 
-import java.security.Key;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 

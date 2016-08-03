@@ -26,19 +26,14 @@ import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.hyb.actions.Actions;
-import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.base.BaseActivity;
-import com.huyingbao.hyb.model.Product;
-import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
 import com.huyingbao.hyb.ui.login.LoginAty;
 import com.huyingbao.hyb.ui.shop.ProductAddAty;
 import com.huyingbao.hyb.ui.shop.ProductListFrg;
-import com.huyingbao.hyb.ui.shop.ShopListBearbyFrg;
 import com.huyingbao.hyb.ui.user.UserInfoAty;
-import com.huyingbao.hyb.ui.user.UserSendMessageAty;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,7 +42,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.subjects.BehaviorSubject;
 
 public class MainShopAty extends BaseActivity
         implements RxViewDispatch, NavigationView.OnNavigationItemSelectedListener {

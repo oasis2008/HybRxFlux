@@ -1,6 +1,5 @@
 package com.huyingbao.hyb;
 
-import android.*;
 import android.app.Application;
 
 import com.baidu.location.BDLocation;
