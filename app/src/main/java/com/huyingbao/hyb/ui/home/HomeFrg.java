@@ -30,11 +30,6 @@ import butterknife.OnClick;
  * Created by Administrator on 2016/5/6.
  */
 public class HomeFrg extends BaseFragment implements RxViewDispatch {
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    private static final String ARG_SECTION_NUMBER = "section_number";
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.root)
@@ -49,11 +44,8 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static HomeFrg newInstance(int sectionNumber) {
+    public static HomeFrg newInstance() {
         HomeFrg fragment = new HomeFrg();
-        Bundle args = new Bundle();
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -132,7 +124,5 @@ public class HomeFrg extends BaseFragment implements RxViewDispatch {
 
 
     private void refresh() {
-        setLoadingFrame(true);
-        HybApp.getInstance().startLocation();
     }
 }
