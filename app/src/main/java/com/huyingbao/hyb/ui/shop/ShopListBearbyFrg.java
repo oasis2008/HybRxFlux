@@ -6,9 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -22,13 +24,17 @@ import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.adapter.ShopListAdapter;
+import com.huyingbao.hyb.adapter.ShopListAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
 import com.huyingbao.hyb.inject.scope.PerFragment;
 import com.huyingbao.hyb.model.Shop;
+import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
+import com.huyingbao.hyb.utils.CommonUtils;
 import com.huyingbao.hyb.utils.HttpCode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,20 +48,22 @@ import retrofit2.adapter.rxjava.HttpException;
  * Created by Administrator on 2016/5/6.
  */
 public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, ShopListAdapter.OnShopClicked {
-    @Inject
-    ShopStore shopStore;
-    @PerFragment
-    @Inject
-    UsersStore usersStore;
-    private ShopListAdapter adapter;
-
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.root)
-    RelativeLayout root;
+    @BindView(R.id.srl_content)
+    SwipeRefreshLayout srlContent;
     @BindView(R.id.root_coordinator)
     CoordinatorLayout rootCoordinator;
 
+    @Inject
+    ShopStore shopStore;
+    @Inject
+    UsersStore usersStore;
+    
+    private ShopListAdapter adapter;
+    private boolean isRefresh;
+    private List<Shop> shopList;
+    
 
     public static ShopListBearbyFrg newInstance() {
         ShopListBearbyFrg fragment = new ShopListBearbyFrg();
@@ -74,27 +82,47 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
-        adapter = new ShopListAdapter();
-        adapter.setOnShopClickCallBack(this);
-
+        //初始化list
+        shopList = new ArrayList<Shop>();
+        //获取数据
+        hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), 0);
+        //设置刷新view
+        srlContent.setRefreshing(true);
+        srlContent.setOnRefreshListener(() -> {
+            refresh();
+        });
+        //设置空数据view
+        View emptyView = CommonUtils.initEmptyView(mContext,
+                (ViewGroup) recyclerView.getParent(),
+                R.drawable.ic_menu_camera, "暂无发送数据");
+        //创建adapter
+        adapter = new ShopListAdapter(shopList);
+        adapter.setEmptyView(emptyView);
+        //设置recyclerview
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-
-        getNearbyShopList();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {//上拉
+                    int lastVisiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                    if (lastVisiblePosition + 1 == adapter.getItemCount()) {//当前显示的数据是最后一条
+                        srlContent.setRefreshing(true);
+                        hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), adapter.getItemCount());
+                    }
+                }
+            }
+        });
     }
 
-    @OnClick({R.id.recycler_view, R.id.root, R.id.root_coordinator})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.recycler_view:
-                break;
-            case R.id.root:
-                break;
-            case R.id.root_coordinator:
-                break;
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
+    
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
@@ -178,4 +206,12 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
         RxAction action = hybActionCreator.newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP, shop);
         hybActionCreator.postRxAction(action);
     }
+    /**
+     * 刷新
+     */
+    private void refresh() {
+        isRefresh = true;
+        hybActionCreator.getNearbyShopList();
+    }
+
 }

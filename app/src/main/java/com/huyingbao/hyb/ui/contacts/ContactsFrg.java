@@ -43,25 +43,18 @@ import butterknife.OnClick;
 public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.root)
-    RelativeLayout root;
-    @BindView(R.id.root_coordinator)
-    CoordinatorLayout rootCoordinator;
+    @BindView(R.id.srl_content)
+    SwipeRefreshLayout srlContent;
 
     @Inject
     UsersStore usersStore;
     @Inject
     MsgStore msgStore;
-    @BindView(R.id.srl_content)
-    SwipeRefreshLayout srlContent;
+
     private MsgFromUserListAdapter adapter;
     private boolean isRefresh;
     private List<MsgFromUser> msgFromUserList;
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
     public static ContactsFrg newInstance() {
         ContactsFrg fragment = new ContactsFrg();
         return fragment;

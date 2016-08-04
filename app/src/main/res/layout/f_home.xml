@@ -3,8 +3,7 @@
                                                  xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  android:id="@+id/root_coordinator"
-                                                 style="@style/CoordinatorStyle"
-                                                 tools:context=".ui.home.HomeFrg">
+                                                 style="@style/CoordinatorStyle">
 
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -21,8 +20,6 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 style="@style/RecyclerViewStyle"/>
-
-
         </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
