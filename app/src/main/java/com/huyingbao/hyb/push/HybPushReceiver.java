@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
 import com.huyingbao.hyb.HybApp;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class HybPushReceiver extends PushMessageReceiver {
 
     @Override
     public void onMessage(Context context, String s, String s1) {
-
+        Logger.e(s);
     }
 
     @Override

@@ -65,7 +65,7 @@
         <!-- 百度推送key -->
         <meta-data
             android:name="baidu_push_api_key"
-            android:value="3LBl1NYTW4o5Ilol0smZijVA"/>
+            android:value="qj06uzGwzhigefqCMXQyuIoWEa0QB6Fn"/>
         <!-- 百度地图定位服务 -->
         <service
             android:name="com.baidu.location.f"
