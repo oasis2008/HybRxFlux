@@ -169,7 +169,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
      * 获取附近的店铺
      */
     private void getNearbyShopList() {
-        setLoadingFrame(true);
+//        setLoadingFrame(true);
         HybApp.getInstance().startLocation();
     }
 

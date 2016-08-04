@@ -30,6 +30,7 @@ import com.huyingbao.hyb.base.BaseActivity;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.ui.contacts.ContactsFrg;
+import com.huyingbao.hyb.ui.home.HomeFrg;
 import com.huyingbao.hyb.ui.login.LoginAty;
 import com.huyingbao.hyb.ui.shop.ProductAddAty;
 import com.huyingbao.hyb.ui.shop.ProductListFrg;
@@ -265,19 +266,19 @@ public class MainShopAty extends BaseActivity
             }
             switch (position) {
                 case 0:
-                    mFragments[position] = ContactsFrg.newInstance();
+                    mFragments[position] = HomeFrg.newInstance();
                     break;
                 case 1:
                     mFragments[position] = ProductListFrg.newInstance();
                     break;
                 case 2:
-                    mFragments[position] = ContactsFrg.newInstance();
+                    mFragments[position] = HomeFrg.newInstance();
                     break;
                 case 3:
-                    mFragments[position] = ContactsFrg.newInstance();
+                    mFragments[position] = HomeFrg.newInstance();
                     break;
                 case 4:
-                    mFragments[position] = ContactsFrg.newInstance();
+                    mFragments[position] = HomeFrg.newInstance();
                     break;
             }
             return mFragments[position];
