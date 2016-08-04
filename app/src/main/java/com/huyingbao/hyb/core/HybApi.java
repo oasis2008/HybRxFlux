@@ -215,7 +215,7 @@ public interface HybApi {
      * @return
      */
     @FormUrlEncoded
-    @POST("/getUserMessage?sort=createdAt ASC&limit=10")
+    @POST("/getUserMessage?sort=createdAt DESC&limit=10")
     Observable<ArrayList<MsgFromUser>> getUserMessage(@Field("belongUser") int belongUser, @Query("skip") int skip);
 
 }

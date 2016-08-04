@@ -1,5 +1,7 @@
 package com.huyingbao.hyb.model;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2016/8/1.
  */
@@ -28,8 +30,8 @@ public class MsgFromUser {
     private String content;
     private int contenType;
     private int status;
-    private String createdAt;
-    private String updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
 
     public int getBelongUser() { return belongUser;}
 
@@ -67,12 +69,12 @@ public class MsgFromUser {
 
     public void setStatus(int status) { this.status = status;}
 
-    public String getCreatedAt() { return createdAt;}
+    public Date getCreatedAt() { return createdAt;}
 
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt;}
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt;}
 
-    public String getUpdatedAt() { return updatedAt;}
+    public Date getUpdatedAt() { return updatedAt;}
 
-    public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt;}
+    public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt;}
 }
 

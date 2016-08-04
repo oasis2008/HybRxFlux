@@ -21,10 +21,13 @@ import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.adapter.MsgFromUserListAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
+import com.huyingbao.hyb.model.MsgFromUser;
 import com.huyingbao.hyb.stores.MsgStore;
 import com.huyingbao.hyb.stores.UsersStore;
 import com.huyingbao.hyb.utils.CommonUtils;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,6 +56,7 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     SwipeRefreshLayout srlContent;
     private MsgFromUserListAdapter adapter;
     private boolean isRefresh;
+    private List<MsgFromUser> msgFromUserList;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -75,34 +79,33 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
 
     @Override
     protected void afterCreate(Bundle savedInstanceState) {
+        //初始化list
+        msgFromUserList = new ArrayList<MsgFromUser>();
+        //获取数据
         hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), 0);
-        srlContent.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                isRefresh = true;
-                hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), 0);
-            }
+        //设置刷新view
+        srlContent.setRefreshing(true);
+        srlContent.setOnRefreshListener(() -> {
+            refresh();
         });
-
-
+        //设置空数据view
         View emptyView = CommonUtils.initEmptyView(mContext,
                 (ViewGroup) recyclerView.getParent(),
-                R.drawable.ic_menu_camera, "您没有绑定学校!");
-
-        adapter = new MsgFromUserListAdapter(msgStore.getMsgFromUserList());
+                R.drawable.ic_menu_camera, "暂无发送数据");
+        //创建adapter
+        adapter = new MsgFromUserListAdapter(msgFromUserList);
         adapter.setEmptyView(emptyView);
-
-//        recyclerView.setHasFixedSize(true);
+        //设置recyclerview
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
+                if (dy > 0) {//上拉
                     int lastVisiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-                    if (lastVisiblePosition + 1 == adapter.getItemCount()) {
+                    if (lastVisiblePosition + 1 == adapter.getItemCount()) {//当前显示的数据是最后一条
                         srlContent.setRefreshing(true);
                         hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), adapter.getItemCount());
                     }
@@ -118,38 +121,21 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
         refresh();
     }
 
-
-    @OnClick({R.id.recycler_view, R.id.root, R.id.root_coordinator})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.recycler_view:
-                break;
-            case R.id.root:
-                break;
-            case R.id.root_coordinator:
-                break;
-        }
-    }
-
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getStoreId()) {
-            case UsersStore.STORE_ID:
-                switch (change.getRxAction().getType()) {
-                    case Actions.A_GET_LOCATION:
-                        break;
-                }
-                break;
             case MsgStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_USER_MESSAGE:
                         srlContent.setRefreshing(false);
-                        if (isRefresh) {
+                        if (isRefresh) {//刷新
                             isRefresh = false;
+                            msgFromUserList.clear();
+                            msgFromUserList.addAll(msgStore.getMsgFromUserList());
                             adapter.notifyDataSetChanged();
-                            adapter.notifyItemRangeChanged(0,adapter.getItemCount());
-                        } else {
-                            adapter.notifyDataChangedAfterLoadMore(msgStore.getMsgFromUserList(), true);
+                        } else {//添加数据
+                            msgFromUserList.addAll(msgStore.getMsgFromUserList());
+                            adapter.notifyDataSetChanged();
                         }
                         break;
                 }
@@ -159,8 +145,6 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
 
     @Override
     public void onRxError(@NonNull RxError error) {
-        setLoadingFrame(false);
-        Throwable throwable = error.getThrowable();
     }
 
     @Override
@@ -184,7 +168,12 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     }
 
 
+    /**
+     * 刷新
+     */
     private void refresh() {
+        isRefresh = true;
+        hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), 0);
     }
 
 }
