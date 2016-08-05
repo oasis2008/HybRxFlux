@@ -7,7 +7,9 @@ import com.huyingbao.hyb.model.MsgFromUser;
 import com.huyingbao.hyb.model.Product;
 import com.huyingbao.hyb.model.Shop;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface Actions {
 
@@ -66,7 +68,7 @@ public interface Actions {
 
     void getShopByCode(String code);
 
-    void getNearbyShopList(double longitude, double latitude, int radius, int shopType);
+    void getNearbyShopList(Shop shop,Map<String, String> options);
 
     void addProduct(Product product);
 

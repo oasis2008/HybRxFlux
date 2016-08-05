@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
@@ -36,7 +37,9 @@ import com.huyingbao.hyb.utils.HttpCode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -47,7 +50,7 @@ import retrofit2.adapter.rxjava.HttpException;
 /**
  * Created by Administrator on 2016/5/6.
  */
-public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, ShopListAdapter.OnShopClicked {
+public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, BaseQuickAdapter.OnRecyclerViewItemClickListener {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.srl_content)
@@ -59,11 +62,11 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
     ShopStore shopStore;
     @Inject
     UsersStore usersStore;
-    
+
     private ShopListAdapter adapter;
     private boolean isRefresh;
     private List<Shop> shopList;
-    
+
 
     public static ShopListBearbyFrg newInstance() {
         ShopListBearbyFrg fragment = new ShopListBearbyFrg();
@@ -98,6 +101,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
         //创建adapter
         adapter = new ShopListAdapter(shopList);
         adapter.setEmptyView(emptyView);
+        adapter.setOnRecyclerViewItemClickListener(this);
         //设置recyclerview
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -122,29 +126,24 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
         super.onResume();
         refresh();
     }
-    
+
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getStoreId()) {
-            case UsersStore.STORE_ID:
-                switch (change.getRxAction().getType()) {
-                    case Actions.A_GET_LOCATION:
-                        hybActionCreator.getNearbyShopList(
-                                usersStore.getBDLocation().getLongitude(),
-                                usersStore.getBDLocation().getLatitude(),
-                                10000,
-                                0
-                        );
-                        break;
-
-                }
-                break;
             case ShopStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_NEARBY_SHOP:
-                        setLoadingFrame(false);
-                        adapter.setShopList(shopStore.getShopList());
+                        srlContent.setRefreshing(false);
+                        if (isRefresh) {//刷新
+                            isRefresh = false;
+                            shopList.clear();
+                            shopList.addAll(shopStore.getShopList());
+                            adapter.notifyDataSetChanged();
+                        } else {//添加数据
+                            shopList.addAll(shopStore.getShopList());
+                            adapter.notifyDataSetChanged();
+                        }
                         break;
                     case Actions.A_TO_SHOP_INFO:
                         Intent intent = new Intent(getContext(), ShopDetailAty.class);
@@ -194,24 +193,28 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, S
 
 
     /**
-     * 获取附近的店铺
-     */
-    private void getNearbyShopList() {
-//        setLoadingFrame(true);
-        HybApp.getInstance().startLocation();
-    }
-
-    @Override
-    public void onClicked(Shop shop) {
-        RxAction action = hybActionCreator.newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP, shop);
-        hybActionCreator.postRxAction(action);
-    }
-    /**
      * 刷新
      */
     private void refresh() {
         isRefresh = true;
-        hybActionCreator.getNearbyShopList();
+
+        Shop shop = new Shop();
+        shop.setLongitude(usersStore.getBDLocation().getLongitude());
+        shop.setLatitude(usersStore.getBDLocation().getLatitude());
+        shop.setRadius(10000);
+        shop.setShopType(0);
+
+        Map<String, String> options = new HashMap<>();
+        options.put("skip", 0 + "");
+        options.put("sort", "createdAt DESC");
+        options.put("limit", 10 + "");
+
+        hybActionCreator.getNearbyShopList(shop, options);
     }
 
+    @Override
+    public void onItemClick(View view, int i) {
+        RxAction action = hybActionCreator.newRxAction(Actions.A_TO_SHOP_INFO, Keys.SHOP, shopList.get(i));
+        hybActionCreator.postRxAction(action);
+    }
 }

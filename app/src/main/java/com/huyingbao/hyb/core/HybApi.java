@@ -131,20 +131,13 @@ public interface HybApi {
     /**
      * 获取店铺-根据用户所在位置,半径以内的
      *
-     * @param longitude
-     * @param latitude
-     * @param radius
-     * @param shopType
+     * @param shop
+     * @param options
      * @return
      */
     @FormUrlEncoded
     @POST("/shop/getShopByLocation")
-    Observable<ArrayList<Shop>> getShopByLocation(
-            @Field("longitude") double longitude,
-            @Field("latitude") double latitude,
-            @Field("radius") int radius,
-            @Field("shopType") int shopType
-    );
+    Observable<ArrayList<Shop>> getShopByLocation(@Body Shop shop, @QueryMap Map<String, String> options);
 
     /**
      * 店长添加商品

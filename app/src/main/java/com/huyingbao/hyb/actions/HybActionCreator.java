@@ -225,10 +225,10 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
-    public void getNearbyShopList(double longitude, double latitude, int radius, int shopType) {
-        final RxAction action = newRxAction(GET_NEARBY_SHOP, Keys.LONGITUDE, longitude, Keys.LATITUDE, latitude, Keys.RADIUS, radius, Keys.SHOP_TYPE, shopType);
+    public void getNearbyShopList(Shop shop, Map<String, String> options) {
+        final RxAction action = newRxAction(GET_NEARBY_SHOP, Keys.SHOP, shop, Keys.OPTIONS, options);
         if (hasRxAction(action)) return;
-        addRxAction(action, hybApi.getShopByLocation(longitude, latitude, radius, shopType)
+        addRxAction(action, hybApi.getShopByLocation(shop, options)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(shopListResponse -> {
@@ -282,10 +282,10 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     }
 
     @Override
-    public void getUserMessage(int belongUser,int skip) {
-        final RxAction action = newRxAction(GET_USER_MESSAGE, Keys.ID, belongUser,Keys.SKIP,skip);
+    public void getUserMessage(int belongUser, int skip) {
+        final RxAction action = newRxAction(GET_USER_MESSAGE, Keys.ID, belongUser, Keys.SKIP, skip);
         if (hasRxAction(action)) return;
-        addRxAction(action, hybApi.getUserMessage(belongUser,skip)
+        addRxAction(action, hybApi.getUserMessage(belongUser, skip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(msgFromUserList -> {
@@ -404,12 +404,8 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 registerShop((Shop) action.getData().get(Keys.SHOP));
                 return true;
             case GET_NEARBY_SHOP:
-                getNearbyShopList(
-                        (double) action.getData().get(Keys.LONGITUDE),
-                        (double) action.getData().get(Keys.LATITUDE),
-                        (int) action.getData().get(Keys.RADIUS),
-                        (int) action.getData().get(Keys.SHOP_TYPE)
-                );
+                getNearbyShopList((Shop) action.getData().get(Keys.SHOP),
+                        (Map<String, String>) action.getData().get(Keys.OPTIONS));
                 return true;
         }
         return false;

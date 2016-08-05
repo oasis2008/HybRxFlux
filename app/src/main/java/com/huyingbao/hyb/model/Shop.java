@@ -35,6 +35,8 @@ public class Shop implements Serializable {
     private int shopId;
     private String headImg;
     private String shopDesc;
+    private int radius;
+
 
     public String getShopName() {
         return shopName;
@@ -130,5 +132,13 @@ public class Shop implements Serializable {
 
     public void setShopDesc(String shopDesc) {
         this.shopDesc = shopDesc;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 }
