@@ -114,7 +114,19 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
                     int lastVisiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
                     if (lastVisiblePosition + 1 == adapter.getItemCount()) {//当前显示的数据是最后一条
                         srlContent.setRefreshing(true);
-                        hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), adapter.getItemCount());
+
+                        Shop shop = new Shop();
+                        shop.setLongitude(usersStore.getLongitude());
+                        shop.setLatitude(usersStore.getLatitude());
+                        shop.setRadius(10000);
+                        shop.setShopType(0);
+
+                        Map<String, String> options = new HashMap<>();
+                        options.put("skip", adapter.getItemCount() + "");
+                        options.put("sort", "createdAt DESC");
+                        options.put("limit", 10 + "");
+
+                        hybActionCreator.getNearbyShopList(shop, options);
                     }
                 }
             }
