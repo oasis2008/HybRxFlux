@@ -135,7 +135,6 @@ public interface HybApi {
      * @param options
      * @return
      */
-    @FormUrlEncoded
     @POST("/shop/getShopByLocation")
     Observable<ArrayList<Shop>> getShopByLocation(@Body Shop shop, @QueryMap Map<String, String> options);
 

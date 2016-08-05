@@ -41,8 +41,6 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
     @PerActivity
     @Inject
     UsersStore usersStore;
-    private double mLatitude;
-    private double mLongitude;
     private StringBuffer content = new StringBuffer();
 
 
@@ -62,29 +60,20 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
         initFlowView();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setLoadingFrame(true);
-        HybApp.getInstance().startLocation();
-    }
-
     @OnClick(R.id.bt_send)
     public void onClick() {
-        if (mLatitude == 0 || mLongitude == 0) {
+        if (usersStore.getLongitude() == 0 || usersStore.getLatitude() == 0) {
             Snackbar.make(rootCoordinator, "请开启定位!", Snackbar.LENGTH_INDEFINITE)
                     .setAction("重试", v -> {
                         setLoadingFrame(true);
                         HybApp.getInstance().startLocation();
-                    })
-                    .show();
+                    }).show();
             return;
         }
-
         MsgFromUser msgFromUser = new MsgFromUser();
         msgFromUser.setContent(content.toString());
-        msgFromUser.setLongitude(mLongitude);
-        msgFromUser.setLatitude(mLatitude);
+        msgFromUser.setLongitude(usersStore.getLongitude());
+        msgFromUser.setLatitude(usersStore.getLatitude());
         msgFromUser.setRadius(1000);
         hybActionCreator.sendMessageByRadius(msgFromUser);
     }
@@ -113,12 +102,6 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
      * @param arr
      */
     private static void feedKeywordsFlow(KeywordsFlow keywordsFlow, String[] arr) {
-//        Random random = new Random();
-//        for (int i = 0; i < KeywordsFlow.MAX; i++) {
-//            int ran = random.nextInt(arr.length);
-//            String tmp = arr[ran];
-//            keywordsFlow.feedKeyword(tmp);
-//        }
         for (int i = 0; i < arr.length; i++) {
             String tmp = arr[i];
             keywordsFlow.feedKeyword(tmp);
@@ -139,15 +122,6 @@ public class UserSendMessageAty extends BaseActivity implements RxViewDispatch {
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getStoreId()) {
-            case UsersStore.STORE_ID:
-                switch (change.getRxAction().getType()) {
-                    case Actions.A_GET_LOCATION:
-                        setLoadingFrame(false);
-                        mLatitude = usersStore.getBDLocation().getLatitude();
-                        mLongitude = usersStore.getBDLocation().getLongitude();
-                        break;
-                }
-                break;
             case MsgStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.SEND_MESSAGE_BY_RADIUS:

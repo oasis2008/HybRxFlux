@@ -51,8 +51,6 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     ShopStore shopStore;
     @Inject
     UsersStore usersStore;
-    private double mLatitude;
-    private double mLongitude;
 
     @Override
     public void initInjector() {
@@ -73,7 +71,6 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
     protected void onResume() {
         super.onResume();
         setLoadingFrame(true);
-        HybApp.getInstance().startLocation();
     }
 
     @OnClick(R.id.btn_register_shop)
@@ -85,19 +82,18 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
             etShopName.requestFocus();
             return;
         }
-        if (mLatitude == 0 || mLongitude == 0) {
+        if (usersStore.getLatitude() == 0 || usersStore.getLongitude() == 0) {
             Snackbar.make(rootCoordinator, "请开启定位!", Snackbar.LENGTH_INDEFINITE)
                     .setAction("重试", v -> {
                         setLoadingFrame(true);
                         HybApp.getInstance().startLocation();
-                    })
-                    .show();
+                    }).show();
             return;
         }
         Shop shop = new Shop();
         shop.setShopName(shopName);
-        shop.setLongitude(mLatitude);
-        shop.setLatitude(mLongitude);
+        shop.setLongitude(usersStore.getLongitude());
+        shop.setLatitude(usersStore.getLatitude());
         shop.setShopType(mShopTyep);
         hybActionCreator.registerShop(shop);
 
@@ -120,16 +116,6 @@ public class RegisterShopAty extends BaseActivity implements RxViewDispatch {
                         finish();
                         startActivity(MainAty.class);
                         break;
-                }
-                break;
-            case UsersStore.STORE_ID:
-                switch (change.getRxAction().getType()) {
-                    case Actions.A_GET_LOCATION:
-                        setLoadingFrame(false);
-                        mLatitude = usersStore.getBDLocation().getLatitude();
-                        mLongitude = usersStore.getBDLocation().getLongitude();
-                        break;
-
                 }
                 break;
         }

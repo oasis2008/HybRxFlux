@@ -103,6 +103,7 @@ public class HybApp extends Application {
 //                getHybActionCreator().postLocation(bdLocation);
                 //接收到位置信息之后,LocationClient取消位置监听器
                 mLocationClient.unRegisterLocationListener(this);
+                mLocationClient.stop();
             }
         };
     }

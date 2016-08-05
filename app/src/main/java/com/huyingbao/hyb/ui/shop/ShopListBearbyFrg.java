@@ -199,8 +199,8 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
         isRefresh = true;
 
         Shop shop = new Shop();
-        shop.setLongitude(usersStore.getBDLocation().getLongitude());
-        shop.setLatitude(usersStore.getBDLocation().getLatitude());
+        shop.setLongitude(usersStore.getLongitude());
+        shop.setLatitude(usersStore.getLatitude());
         shop.setRadius(10000);
         shop.setShopType(0);
 

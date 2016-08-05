@@ -94,4 +94,18 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
     public BDLocation getBDLocation() {
         return bdLocation;
     }
+
+    public double getLongitude(){
+        if(bdLocation==null||bdLocation.getLongitude()==0){
+            return 0;
+        }
+        return bdLocation.getLongitude();
+    }
+
+    public double getLatitude(){
+        if(bdLocation==null||bdLocation.getLatitude()==0){
+            return 0;
+        }
+        return bdLocation.getLatitude();
+    }
 }
