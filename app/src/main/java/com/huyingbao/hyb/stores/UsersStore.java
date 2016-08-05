@@ -1,6 +1,7 @@
 package com.huyingbao.hyb.stores;
 
 import com.baidu.location.BDLocation;
+import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.store.RxStore;
@@ -56,6 +57,7 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
                 BaiduPushBase.start(HybApp.getInstance());
                 break;
             case Actions.LOGOUT:
+                RxFlux.shutdown();
                 mUser = null;
                 HybApp.setUser(null);
                 //清除登陆状态

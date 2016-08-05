@@ -23,7 +23,7 @@ public class ShopListAdapter extends BaseQuickAdapter<Shop> {
     protected void convert(BaseViewHolder baseViewHolder, Shop shop) {
         baseViewHolder
                 .setText(R.id.tv_shaop_name, shop.getShopName())
-                .setText(R.id.tv_shop_des, shop.getShopDesc())
+                .setText(R.id.tv_shop_des, shop.getShopId()+"")
                 .setText(R.id.tv_shop_info, shop.getCode() + "");
         Glide.with(HybApp.getInstance())
                 .load(shop.getHeadImg())

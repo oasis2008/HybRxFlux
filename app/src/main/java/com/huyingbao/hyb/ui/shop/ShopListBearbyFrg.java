@@ -123,8 +123,8 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
 
                         Map<String, String> options = new HashMap<>();
                         options.put("skip", adapter.getItemCount() + "");
-                        options.put("sort", "createdAt DESC");
-                        options.put("limit", 10 + "");
+                        options.put("sort", "distance ASC");
+                        options.put("limit", 1 + "");
 
                         hybActionCreator.getNearbyShopList(shop, options);
                     }
@@ -218,8 +218,8 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
 
         Map<String, String> options = new HashMap<>();
         options.put("skip", 0 + "");
-        options.put("sort", "createdAt DESC");
-        options.put("limit", 10 + "");
+        options.put("sort", "distance ASC");
+        options.put("limit", 1+ "");
 
         hybActionCreator.getNearbyShopList(shop, options);
     }
