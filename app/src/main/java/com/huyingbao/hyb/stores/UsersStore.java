@@ -57,7 +57,6 @@ public class UsersStore extends RxStore implements UsersStoreInterface {
                 BaiduPushBase.start(HybApp.getInstance());
                 break;
             case Actions.LOGOUT:
-                RxFlux.shutdown();
                 mUser = null;
                 HybApp.setUser(null);
                 //清除登陆状态

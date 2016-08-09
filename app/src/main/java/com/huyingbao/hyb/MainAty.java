@@ -94,8 +94,7 @@ public class MainAty extends BaseActivity
         //右侧导航视图
         navView.setNavigationItemSelectedListener(this);
 
-        //初始化右侧导航
-        initNavView();
+
 
         //初始化fragment数组
         mFragments = new Fragment[COUNT_FRAGMENT];
@@ -111,6 +110,12 @@ public class MainAty extends BaseActivity
         //底部tab跟随viewpager
         tabs.setupWithViewPager(mViewPager);
         recover(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initNavView();
     }
 
     /**
