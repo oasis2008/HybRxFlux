@@ -36,7 +36,7 @@ public class HybUser {
     private String channelId;
     private int channelType;
     private String headImg;
-    private int sex;
+    private transient int sex;
     private String address;
     private int status;
     private String createdAt;

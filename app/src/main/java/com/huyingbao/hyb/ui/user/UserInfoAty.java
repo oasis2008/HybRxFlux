@@ -27,7 +27,9 @@ import com.huyingbao.hyb.utils.CommonUtils;
 import com.huyingbao.hyb.utils.gsonhelper.GsonHelper;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -52,6 +54,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
     private String fileKey;
 
     private HybUser user;
+    private Map<String, String> userMap;
 
     @Override
     public void initInjector() {
@@ -70,6 +73,7 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
         Glide.with(HybApp.getInstance()).load(HybApp.getUser().getHeadImg())
                 .centerCrop().placeholder(R.mipmap.ic_launcher).crossFade()
                 .into(ivHead);
+        userMap = new HashMap<>();
     }
 
 
@@ -101,8 +105,10 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
 
     @OnClick(R.id.bt_ok)
     public void onClick() {
-        if (headImg != null) {
+        if (headImg != null && !headImg.isEmpty()) {
             hybActionCreator.uploadOneFile(new LocalFile(headImg, CommonUtils.getFileNameByTime(headImg)), Keys.PART_NAME_HEAD_IMAGE);
+        } else {
+            updateUser();
         }
     }
 
@@ -112,9 +118,8 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
             case FileStore.STORE_ID:
                 switch (change.getRxAction().getType()) {
                     case Actions.UPLOAD_ONE_FILE:
-                        HybUser user = new HybUser();
-                        user.setHeadImg(fileStore.getFileKey());
-                        hybActionCreator.updateUser(GsonHelper.toJson(user));
+                        userMap.put("headImg", fileStore.getFileKey());
+                        updateUser();
                         break;
                 }
                 break;
@@ -126,6 +131,14 @@ public class UserInfoAty extends BaseCameraAty implements RxViewDispatch {
                 }
                 break;
         }
+    }
+
+    private void updateUser() {
+        String userName = etUserName.getText().toString();
+        if (!userName.isEmpty() && !userName.equals(HybApp.getUser().getUserName())) {
+            userMap.put("userName", userName);
+        }
+        hybActionCreator.updateUser(GsonHelper.toJson(userMap));
     }
 
     @Override

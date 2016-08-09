@@ -59,8 +59,8 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 int httpCode = ((HttpException) throwable).code();
                 if (httpCode == 404) {
                     HybUser user = new HybUser();
-                    user.setUserName(HybApp.getUser().getUserName());
-                    user.setPassword(HybApp.getUser().getPassword());
+                    user.setPhone(localStorageUtils.getLoginName());
+                    user.setPassword(localStorageUtils.getPassword());
                     user.setChannelId(localStorageUtils.getChannelId());
                     user.setChannelType(3);
                     return hybApi.login(user);
@@ -128,6 +128,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(GET_USER_BY_UUID, Keys.UUID, uuid);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.getUserByUuid(uuid)
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(status -> {
@@ -143,6 +144,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(UPDATE_USER);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.updateUser(user)
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userRes -> {
@@ -181,6 +183,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(REGISTER_SHOP, Keys.SHOP, shop);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.registerShop(shop)
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(shopResponse -> {
@@ -242,6 +245,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
      */
     private void loadFromNetwork() {
         hybApi.getBelongShop()
+                .retryWhen(retryLogin)
                 .doOnNext(shop -> {
                     localStorageUtils.setShop(GsonHelper.toJson(shop));
                 })
@@ -266,6 +270,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(GET_NEARBY_SHOP, Keys.SHOP, shop, Keys.OPTIONS, options);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.getShopByLocation(shop, options)
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(shopListResponse -> {
@@ -279,6 +284,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(ADD_PRODUCT, Keys.PRODUCT, product);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.addProduct(product)
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(product1 -> {
@@ -292,6 +298,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(GET_PRODUCT_BY_SHOP, Keys.SHOP_ID, shopId, Keys.PRODUCT_STATUS, status);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.getEnableProductByShopCode(shopId, status)
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(products -> {
@@ -310,6 +317,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(SEND_MESSAGE_BY_RADIUS, Keys.MSG_FROM_USER, msgFromUser);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.sendMessageByRadius(msgFromUser)
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(sendStatus -> {
@@ -343,6 +351,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(GET_UP_TOKEN, Keys.PART_NAME, partName);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.getUpToken(partName)
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(products -> {
@@ -390,6 +399,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(UPLOAD_ONE_FILE);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.getUpToken(partName)// 返回 Observable<String>，在上传时时请求token，并在响应后发送 token
+                .retryWhen(retryLogin)
                 .flatMap(token -> getUploadObservable(localFile, token, partName))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -412,6 +422,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final String[] mToken = new String[1];
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.getUpToken(partName)// 返回 Observable<String>，在上传时时请求token，并在响应后发送 token
+                .retryWhen(retryLogin)
                 //转换token,并将文件list 发布出来
                 .flatMap(token -> {
                     mToken[0] = token;
