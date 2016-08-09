@@ -51,6 +51,27 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     LocalStorageUtils localStorageUtils;
 
     /**
+     * 重新登录
+     */
+    Func1<Observable<? extends Throwable>, Observable<?>> retryLogin = observable -> {
+        return observable.flatMap(throwable -> {
+            if (throwable instanceof HttpException) {
+                int httpCode = ((HttpException) throwable).code();
+                if (httpCode == 404) {
+                    HybUser user = new HybUser();
+                    user.setUserName(HybApp.getUser().getUserName());
+                    user.setPassword(HybApp.getUser().getPassword());
+                    user.setChannelId(localStorageUtils.getChannelId());
+                    user.setChannelType(3);
+                    return hybApi.login(user);
+                }
+                return Observable.error(throwable);
+            }
+            return Observable.error(throwable);
+        });
+    };
+
+    /**
      * If you want to give more things to the constructor like API or Preferences or any other
      * parameter you can buy make sure to call super(dispatcher, manager)
      */
@@ -93,29 +114,7 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(LOGOUT);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.logout()
-                .retryWhen(new Func1<Observable<? extends Throwable>, Observable<?>>() {
-                    @Override
-                    public Observable<?> call(Observable<? extends Throwable> observable) {
-                        return observable.flatMap(new Func1<Throwable, Observable<?>>() {
-                            @Override
-                            public Observable<?> call(Throwable throwable) {
-                                if (throwable instanceof HttpException) {
-                                    int httpCode = ((HttpException) throwable).code();
-                                    if (httpCode == 404) {
-                                        HybUser user = new HybUser();
-                                        user.setUserName(HybApp.getUser().getUserName());
-                                        user.setPassword(HybApp.getUser().getPassword());
-                                        user.setChannelId(localStorageUtils.getChannelId());
-                                        user.setChannelType(3);
-                                        return hybApi.login(user);
-                                    }
-                                    return Observable.error(throwable);
-                                }
-                                return Observable.error(throwable);
-                            }
-                        });
-                    }
-                })
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(status -> {
@@ -129,9 +128,6 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(GET_USER_BY_UUID, Keys.UUID, uuid);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.getUserByUuid(uuid)
-                .doOnNext(hybUser -> {
-
-                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(status -> {
@@ -195,6 +191,9 @@ public class HybActionCreator extends RxActionCreator implements Actions {
 
     BehaviorSubject<Shop> cache;
 
+    /**
+     * 获取所属的店铺,使用本地缓存
+     */
     @Override
     public void getBelongShop() {
         final RxAction action = newRxAction(GET_BELONG_SHOP);
@@ -207,6 +206,13 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 throwable -> postError(action, throwable)));
     }
 
+    /**
+     * 使用缓存获取数据
+     *
+     * @param onNext
+     * @param onError
+     * @return
+     */
     public Subscription subscribeData(Action1<? super Shop> onNext, Action1<Throwable> onError) {
         if (cache == null) {
             cache = BehaviorSubject.create();
@@ -231,6 +237,9 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         return cache.observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, onError);
     }
 
+    /**
+     * 从网络读取数据
+     */
     private void loadFromNetwork() {
         hybApi.getBelongShop()
                 .doOnNext(shop -> {
@@ -313,30 +322,9 @@ public class HybActionCreator extends RxActionCreator implements Actions {
     public void getUserMessage(int belongUser, int skip) {
         final RxAction action = newRxAction(GET_USER_MESSAGE, Keys.ID, belongUser, Keys.SKIP, skip);
         if (hasRxAction(action)) return;
+
         addRxAction(action, hybApi.getUserMessage(belongUser, skip)
-                .retryWhen(new Func1<Observable<? extends Throwable>, Observable<?>>() {
-                    @Override
-                    public Observable<?> call(Observable<? extends Throwable> observable) {
-                        return observable.flatMap(new Func1<Throwable, Observable<?>>() {
-                            @Override
-                            public Observable<?> call(Throwable throwable) {
-                                if (throwable instanceof HttpException) {
-                                    int httpCode = ((HttpException) throwable).code();
-                                    if (httpCode == 404) {
-                                        HybUser user = new HybUser();
-                                        user.setPhone(localStorageUtils.getLoginName());
-                                        user.setPassword(localStorageUtils.getPassword());
-                                        user.setChannelId(localStorageUtils.getChannelId());
-                                        user.setChannelType(3);
-                                        return hybApi.login(user);
-                                    }
-                                    return Observable.error(throwable);
-                                }
-                                return Observable.error(throwable);
-                            }
-                        });
-                    }
-                })
+                .retryWhen(retryLogin)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(msgFromUserList -> {
@@ -424,11 +412,17 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final String[] mToken = new String[1];
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.getUpToken(partName)// 返回 Observable<String>，在上传时时请求token，并在响应后发送 token
+                //转换token,并将文件list 发布出来
                 .flatMap(token -> {
                     mToken[0] = token;
                     return Observable.from(list);
                 })
+                //
                 .flatMap(localFile -> getUploadObservable(localFile, mToken[0], partName))
+                // Concat操作符将多个Observable结合成一个Observable并发射数据，
+                // 并且严格按照先后顺序发射数据，
+                // 前一个Observable的数据没有发射完，
+                // 是不能发射后面Observable的数据的。
                 .collect(() -> new ArrayList<String>(), (localFiles, fullPath) -> localFiles.add(fullPath))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
