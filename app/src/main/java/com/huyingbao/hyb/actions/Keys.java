@@ -46,4 +46,6 @@ public interface Keys {
 
 
     String OPTIONS = "options";
+    String LOGIN_NAME = "login_name";
+    String PASSWORD = "password";
 }

@@ -302,7 +302,7 @@ public class LocalStorageUtils {
         String device_uuid = mSharedPreferences.getString(DEVICE_UUID, DEVICE_UUID_DEFAULT);
         if (TextUtils.isEmpty(device_uuid)) {
             device_uuid = UUID.randomUUID().toString();
-            mSharedPreferences.edit().putString(DEVICE_UUID, device_uuid).commit();
+            mSharedPreferences.edit().putString(DEVICE_UUID, device_uuid).apply();
         }
         return device_uuid;
     }
@@ -312,7 +312,7 @@ public class LocalStorageUtils {
     }
 
     public void setUmengUid(String uid) {
-        mSharedPreferences.edit().putString(UMENG_UID, uid).commit();
+        mSharedPreferences.edit().putString(UMENG_UID, uid).apply();
     }
 
     public int getAlbumItemNumber() {
@@ -320,6 +320,22 @@ public class LocalStorageUtils {
     }
 
     public void setAlbumItemNumber(int number) {
-        mSharedPreferences.edit().putInt(ALBUM_ITEM_NUMBER, number).commit();
+        mSharedPreferences.edit().putInt(ALBUM_ITEM_NUMBER, number).apply();
+    }
+
+    public void setLoginName(String loginName) {
+        mSharedPreferences.edit().putString(Keys.LOGIN_NAME, loginName).apply();
+    }
+
+    public String getLoginName() {
+        return mSharedPreferences.getString(Keys.LOGIN_NAME, null);
+    }
+
+    public void setPassword(String password) {
+        mSharedPreferences.edit().putString(Keys.PASSWORD, password).apply();
+    }
+
+    public String getPassword() {
+        return mSharedPreferences.getString(Keys.PASSWORD, null);
     }
 }

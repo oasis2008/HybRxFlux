@@ -92,6 +92,8 @@ public class LoginAty extends BaseActivity implements RxViewDispatch {
                 return false;
             }
         });
+        mEmailView.setText(mLocalStorageUtils.getLoginName());
+        mPasswordView.setText(mLocalStorageUtils.getPassword());
     }
 
     @OnClick(R.id.btn_sign_in)

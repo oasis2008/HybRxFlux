@@ -5,6 +5,7 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
+import com.huyingbao.hyb.HybApp;
 import com.huyingbao.hyb.core.HybApi;
 import com.huyingbao.hyb.inject.component.ApplicationComponent;
 import com.huyingbao.hyb.model.HybUser;
@@ -35,6 +36,7 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 
@@ -78,6 +80,9 @@ public class HybActionCreator extends RxActionCreator implements Actions {
                 // 而是在它被订阅的时候，即当 subscribe() 方法执行的时候。
                 // 将传入的 Subscriber 作为 Subscription 返回。这是为了方便 unsubscribe().
                 .subscribe(userResponse -> {
+                    //保存密码
+                    localStorageUtils.setLoginName(user.getPhone());
+                    localStorageUtils.setPassword(user.getPassword());
                     action.getData().put(Keys.USER, userResponse);
                     postRxAction(action);
                 }, throwable -> postError(action, throwable)));
@@ -88,6 +93,29 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(LOGOUT);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.logout()
+                .retryWhen(new Func1<Observable<? extends Throwable>, Observable<?>>() {
+                    @Override
+                    public Observable<?> call(Observable<? extends Throwable> observable) {
+                        return observable.flatMap(new Func1<Throwable, Observable<?>>() {
+                            @Override
+                            public Observable<?> call(Throwable throwable) {
+                                if (throwable instanceof HttpException) {
+                                    int httpCode = ((HttpException) throwable).code();
+                                    if (httpCode == 404) {
+                                        HybUser user = new HybUser();
+                                        user.setUserName(HybApp.getUser().getUserName());
+                                        user.setPassword(HybApp.getUser().getPassword());
+                                        user.setChannelId(localStorageUtils.getChannelId());
+                                        user.setChannelType(3);
+                                        return hybApi.login(user);
+                                    }
+                                    return Observable.error(throwable);
+                                }
+                                return Observable.error(throwable);
+                            }
+                        });
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(status -> {
@@ -286,6 +314,29 @@ public class HybActionCreator extends RxActionCreator implements Actions {
         final RxAction action = newRxAction(GET_USER_MESSAGE, Keys.ID, belongUser, Keys.SKIP, skip);
         if (hasRxAction(action)) return;
         addRxAction(action, hybApi.getUserMessage(belongUser, skip)
+                .retryWhen(new Func1<Observable<? extends Throwable>, Observable<?>>() {
+                    @Override
+                    public Observable<?> call(Observable<? extends Throwable> observable) {
+                        return observable.flatMap(new Func1<Throwable, Observable<?>>() {
+                            @Override
+                            public Observable<?> call(Throwable throwable) {
+                                if (throwable instanceof HttpException) {
+                                    int httpCode = ((HttpException) throwable).code();
+                                    if (httpCode == 404) {
+                                        HybUser user = new HybUser();
+                                        user.setPhone(localStorageUtils.getLoginName());
+                                        user.setPassword(localStorageUtils.getPassword());
+                                        user.setChannelId(localStorageUtils.getChannelId());
+                                        user.setChannelType(3);
+                                        return hybApi.login(user);
+                                    }
+                                    return Observable.error(throwable);
+                                }
+                                return Observable.error(throwable);
+                            }
+                        });
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(msgFromUserList -> {
