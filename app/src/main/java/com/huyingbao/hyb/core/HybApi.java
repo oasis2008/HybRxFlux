@@ -135,7 +135,7 @@ public interface HybApi {
      * @param options
      * @return
      */
-    @POST("/shop/getShopByLocation")
+    @POST("/getShopByLocation")
     Observable<ArrayList<Shop>> getShopByLocation(@Body Shop shop, @QueryMap Map<String, String> options);
 
     /**
