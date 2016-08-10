@@ -95,7 +95,7 @@ public class HybApiModule {
         Interceptor LoggingInterceptor = chain -> {
             Request request = chain.request();
             long t1 = System.nanoTime();
-//            Logger.e(String.format("发送请求 %s on %s%n%s", request.url(), chain.connection(), request.headers()));
+            Logger.e(String.format("发送请求 %s", request.url()));
             Response response = chain.proceed(request);
             long t2 = System.nanoTime();
             okhttp3.MediaType mediaType = response.body().contentType();
@@ -109,7 +109,7 @@ public class HybApiModule {
                 .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
                 .cookieJar(cookieJar)
                 .cache(cache)
-                .connectTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .build();
         return client;
     }

@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,10 +24,7 @@ import com.huyingbao.hyb.R;
 import com.huyingbao.hyb.actions.Actions;
 import com.huyingbao.hyb.actions.Keys;
 import com.huyingbao.hyb.adapter.ShopListAdapter;
-import com.huyingbao.hyb.adapter.ShopListAdapter;
 import com.huyingbao.hyb.base.BaseFragment;
-import com.huyingbao.hyb.inject.scope.PerFragment;
-import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.model.Shop;
 import com.huyingbao.hyb.stores.ShopStore;
 import com.huyingbao.hyb.stores.UsersStore;
@@ -44,7 +40,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import retrofit2.adapter.rxjava.HttpException;
 
 /**
@@ -66,7 +61,6 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
     private ShopListAdapter adapter;
     private boolean isRefresh;
     private List<Shop> shopList;
-    private int index = 0;
 
 
     public static ShopListBearbyFrg newInstance() {
@@ -115,7 +109,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
                     int lastVisiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
                     if (lastVisiblePosition + 1 == adapter.getItemCount()) {//当前显示的数据是最后一条
                         srlContent.setRefreshing(true);
-                        getShopList();
+                        getShopList(adapter.getItemCount());
                     }
                 }
             }
@@ -136,7 +130,6 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_NEARBY_SHOP:
                         srlContent.setRefreshing(false);
-                        index++;//页面索引+1
                         if (isRefresh) {//刷新
                             isRefresh = false;
                             shopList.clear();
@@ -198,12 +191,11 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
      * 刷新
      */
     private void refresh() {
-        index = 0;
         isRefresh = true;
-        getShopList();
+        getShopList(0);
     }
 
-    private void getShopList() {
+    private void getShopList(int skip) {
         Shop shop = new Shop();
         shop.setLongitude(usersStore.getLongitude());
         shop.setLatitude(usersStore.getLatitude());
@@ -211,7 +203,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
         shop.setShopType(0);
 
         Map<String, String> options = new HashMap<>();
-        options.put("index", index + "");
+        options.put("skip", skip + "");
         options.put("sort", "distance ASC");
         options.put("limit", "5");
 

@@ -168,5 +168,4 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
         isRefresh = true;
         hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), 0);
     }
-
 }
