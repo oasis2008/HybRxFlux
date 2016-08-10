@@ -54,6 +54,7 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
     private MsgFromUserListAdapter adapter;
     private boolean isRefresh;
     private List<MsgFromUser> msgFromUserList;
+    private int lastVisiblePosition;
 
     public static ContactsFrg newInstance() {
         ContactsFrg fragment = new ContactsFrg();
@@ -97,11 +98,21 @@ public class ContactsFrg extends BaseFragment implements RxViewDispatch {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {//上拉
-                    int lastVisiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-                    if (lastVisiblePosition + 1 == adapter.getItemCount()) {//当前显示的数据是最后一条
-                        srlContent.setRefreshing(true);
-                        hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), adapter.getItemCount());
-                    }
+                    lastVisiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                //当前滑动停止
+                //当前显示的数据是最后一条
+                //当前显示的数据是最后一条
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisiblePosition + 1 == adapter.getItemCount()
+                        && adapter.getItemCount() % 10 == 0) {
+                    srlContent.setRefreshing(true);
+                    hybActionCreator.getUserMessage(HybApp.getUser().getUserId(), adapter.getItemCount());
                 }
             }
         });

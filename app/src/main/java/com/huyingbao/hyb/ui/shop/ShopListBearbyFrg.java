@@ -46,6 +46,7 @@ import retrofit2.adapter.rxjava.HttpException;
  * Created by Administrator on 2016/5/6.
  */
 public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, BaseQuickAdapter.OnRecyclerViewItemClickListener {
+    private static final int LIMIT = 5;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.srl_content)
@@ -61,6 +62,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
     private ShopListAdapter adapter;
     private boolean isRefresh;
     private List<Shop> shopList;
+    private int lastVisiblePosition;
 
 
     public static ShopListBearbyFrg newInstance() {
@@ -106,11 +108,21 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {//上拉
-                    int lastVisiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-                    if (lastVisiblePosition + 1 == adapter.getItemCount()) {//当前显示的数据是最后一条
-                        srlContent.setRefreshing(true);
-                        getShopList(adapter.getItemCount());
-                    }
+                    lastVisiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                //当前滑动停止
+                //当前显示的数据是最后一条
+                //当前显示的数据是最后一条
+                if (newState == RecyclerView.SCROLL_STATE_IDLE
+                        && lastVisiblePosition + 1 == adapter.getItemCount()
+                        && adapter.getItemCount() % LIMIT == 0) {
+                    srlContent.setRefreshing(true);
+                    getShopList(adapter.getItemCount());
                 }
             }
         });
@@ -205,7 +217,7 @@ public class ShopListBearbyFrg extends BaseFragment implements RxViewDispatch, B
         Map<String, String> options = new HashMap<>();
         options.put("skip", skip + "");
         options.put("sort", "distance ASC");
-        options.put("limit", "5");
+        options.put("limit", LIMIT + "");
 
         hybActionCreator.getNearbyShopList(shop, options);
     }
